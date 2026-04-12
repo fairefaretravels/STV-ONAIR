@@ -6,3 +6,48 @@
 .player-offline {
   color: #999;
 }
+#sticky-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background: rgba(0,0,0,0.95);
+  border-top: 2px solid #e81e4d;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 15px;
+  z-index: 9999;
+}
+
+/* sections */
+.player-left, .player-center, .player-right {
+  flex: 1;
+  text-align: center;
+}
+
+/* play button */
+#playBtn {
+  background: #e81e4d;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 10px 16px;
+  border-radius: 50%;
+}
+
+/* status */
+#live-indicator {
+  font-size: 12px;
+}
+
+.live {
+  color: #00ff9d;
+}
+
+.offline {
+  color: #999;
+}
