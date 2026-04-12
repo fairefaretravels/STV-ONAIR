@@ -1,53 +1,59 @@
-.player-live {
-  color: #00ff9d;
-  font-weight: bold;
-}
-
-.player-offline {
-  color: #999;
-}
 #sticky-player {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
 
-  background: rgba(0,0,0,0.95);
-  border-top: 2px solid #e81e4d;
+  background: #0a0a0a;
+  border-top: 1px solid #222;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 
-  padding: 10px 15px;
+  padding: 12px 16px;
   z-index: 9999;
 }
 
-/* sections */
-.player-left, .player-center, .player-right {
-  flex: 1;
+/* LEFT (status) */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #aaa;
+}
+
+/* LIVE DOT */
+#live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+}
+
+.live #live-dot {
+  background: #00ff9d;
+  box-shadow: 0 0 8px #00ff9d;
+}
+
+/* CENTER BUTTON */
+.center {
   text-align: center;
 }
 
-/* play button */
 #playBtn {
   background: #e81e4d;
   border: none;
-  color: white;
-  font-size: 18px;
-  padding: 10px 16px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
+  color: white;
+  font-size: 16px;
 }
 
-/* status */
-#live-indicator {
+/* RIGHT TEXT */
+.right {
   font-size: 12px;
-}
-
-.live {
-  color: #00ff9d;
-}
-
-.offline {
-  color: #999;
+  color: #888;
 }
