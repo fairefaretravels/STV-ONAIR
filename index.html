@@ -3,21 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>STV RADIO ONLINE | G4E MOVEMENT STUDIO</title>
-
+<title>STV RADIO ATLANTA | G4E MOVEMENT STUDIO</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap">
-  <script src="//cdn.cloud.caster.fm/widgets/embed.js"></script>
-
-</head>
-
-<body style="background:#000; color:#fff; font-family:'DM Sans', sans-serif;">
-
-  <!-- ALEXA BANNER -->
-  <div style="background:#000; color:#fff; padding:10px; text-align:center; border-bottom:2px solid #e8002d;">
-     Listen on Alexa: <strong>"Alexa, ask Radio Browser to play STV Radio Atlanta"</strong>
-  </div>
-
+  <script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap');
+
     :root {
       --black: #000000;
       --off-black: #0a0a0a;
@@ -31,18 +22,14 @@
       --off-white: #f0f0f0;
       --muted: rgba(255,255,255,0.5);
       --dim: rgba(255,255,255,0.25);
-
-      /* TV / Broadcast accent colors — used sparingly */
       --signal-red: #e8002d;
       --broadcast-amber: #f5a623;
       --ticker-green: #00d68f;
       --studio-amber: #f5a623;
-
       --accent: var(--broadcast-amber);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -53,23 +40,26 @@
       overflow-x: hidden;
     }
 
-    /* ===================== SCANLINE OVERLAY ===================== */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.08) 2px,
-        rgba(0,0,0,0.08) 4px
-      );
+      background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);
       pointer-events: none;
       z-index: 9999;
     }
 
-    /* ===================== TICKER ===================== */
+    /* ===== ALEXA BANNER ===== */
+    .alexa-banner {
+      background: #000;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 2px solid #e8002d;
+      font-size: 0.8rem;
+    }
+
+    /* ===== TICKER ===== */
     .ticker-bar {
       background: var(--white);
       color: var(--black);
@@ -82,7 +72,6 @@
       z-index: 900;
       border-bottom: 3px solid var(--signal-red);
     }
-
     .ticker-label {
       background: var(--signal-red);
       color: var(--white);
@@ -96,12 +85,7 @@
       flex-shrink: 0;
       white-space: nowrap;
     }
-
-    .ticker-track {
-      overflow: hidden;
-      flex: 1;
-    }
-
+    .ticker-track { overflow: hidden; flex: 1; }
     .ticker-inner {
       display: inline-block;
       white-space: nowrap;
@@ -112,22 +96,14 @@
       text-transform: uppercase;
       padding-left: 100%;
     }
-
-    .ticker-inner span {
-      margin: 0 2.5rem;
-    }
-
-    .ticker-sep {
-      color: var(--signal-red);
-      font-weight: 900;
-    }
-
+    .ticker-inner span { margin: 0 2.5rem; }
+    .ticker-sep { color: var(--signal-red); font-weight: 900; }
     @keyframes ticker {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
 
-    /* ===================== TOP UTILITY BAR ===================== */
+    /* ===== UTILITY BAR ===== */
     .utility-bar {
       background: var(--dark-2);
       border-bottom: 1px solid var(--border);
@@ -142,21 +118,10 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-
-    .utility-bar a {
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
+    .utility-bar a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
     .utility-bar a:hover { color: var(--white); }
+    .utility-contact { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
 
-    .utility-contact {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
-
-    /* WHAT'S ON NOW PILL */
     .whats-on-pill {
       display: inline-flex;
       align-items: center;
@@ -172,14 +137,9 @@
       transition: background 0.15s, transform 0.15s;
       white-space: nowrap;
     }
-    .whats-on-pill:hover {
-      background: #c20025;
-      transform: translateY(-1px);
-      color: var(--white);
-    }
+    .whats-on-pill:hover { background: #c20025; transform: translateY(-1px); color: var(--white); }
     .whats-on-dot {
-      width: 7px;
-      height: 7px;
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: var(--white);
       animation: blink 1.2s ease-in-out infinite;
@@ -189,14 +149,42 @@
       50% { opacity: 0.2; }
     }
 
-    /* ===================== PAGE WRAPPER ===================== */
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+    /* ===== PLAYER BAR ===== */
+    .player-bar {
+      background: #111111;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
+    .player-live-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #e8002d;
+      box-shadow: 0 0 8px rgba(232,0,45,0.8);
+      display: inline-block;
+      animation: blink 1.2s ease-in-out infinite;
+    }
+    .live-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: #ffffff;
+    }
+    .player-embed { flex: 1; min-width: 280px; }
 
-    /* ===================== MASTHEAD ===================== */
+    /* ===== PAGE WRAPPER ===== */
+    .page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* ===== MASTHEAD ===== */
     .masthead {
       border: 1px solid var(--border-strong);
       border-radius: 4px;
@@ -207,12 +195,7 @@
       margin-bottom: 2rem;
       background: var(--dark);
     }
-
-    .masthead-left {
-      padding: 2.5rem 2rem;
-      border-right: 1px solid var(--border);
-    }
-
+    .masthead-left { padding: 2.5rem 2rem; border-right: 1px solid var(--border); }
     .masthead-eyebrow {
       font-size: 0.68rem;
       letter-spacing: 0.35em;
@@ -221,7 +204,6 @@
       margin-bottom: 0.75rem;
       font-weight: 600;
     }
-
     .masthead-title {
       font-family: "Bebas Neue", sans-serif;
       font-size: clamp(3.5rem, 8vw, 6rem);
@@ -229,7 +211,6 @@
       line-height: 0.92;
       color: var(--white);
     }
-
     .masthead-title span {
       display: block;
       font-family: "DM Serif Display", serif;
@@ -239,22 +220,8 @@
       color: var(--muted);
       margin-top: 0.6rem;
     }
-
-    .masthead-desc {
-      margin-top: 1.25rem;
-      font-size: 0.88rem;
-      color: var(--muted);
-      max-width: 480px;
-      line-height: 1.65;
-    }
-
-    .masthead-pills {
-      margin-top: 1.25rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
+    .masthead-desc { margin-top: 1.25rem; font-size: 0.88rem; color: var(--muted); max-width: 480px; line-height: 1.65; }
+    .masthead-pills { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .pill-tag {
       border: 1px solid var(--border-strong);
       padding: 0.2rem 0.7rem;
@@ -264,7 +231,6 @@
       color: var(--dim);
       border-radius: 2px;
     }
-
     .masthead-right {
       padding: 2rem 1.75rem;
       display: flex;
@@ -275,7 +241,6 @@
       min-width: 220px;
       background: var(--dark-2);
     }
-
     .on-air-badge {
       display: flex;
       align-items: center;
@@ -285,43 +250,18 @@
       letter-spacing: 0.25em;
       color: var(--ticker-green);
     }
-
     .on-air-dot-g {
-      width: 9px;
-      height: 9px;
+      width: 9px; height: 9px;
       border-radius: 50%;
       background: var(--ticker-green);
       box-shadow: 0 0 10px rgba(0,214,143,0.8);
       animation: blink 1s ease-in-out infinite;
     }
+    .masthead-station { text-align: right; font-family: "Bebas Neue", sans-serif; font-size: 2.8rem; letter-spacing: 0.1em; line-height: 1; color: var(--white); }
+    .masthead-station small { display: block; font-family: "DM Sans", sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
 
-    .masthead-station {
-      text-align: right;
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 2.8rem;
-      letter-spacing: 0.1em;
-      line-height: 1;
-      color: var(--white);
-    }
-
-    .masthead-station small {
-      display: block;
-      font-family: "DM Sans", sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.3rem;
-    }
-
-    /* ===================== CTA ROW ===================== */
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
-
+    /* ===== CTA ROW ===== */
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
     .btn {
       display: inline-flex;
       align-items: center;
@@ -338,470 +278,141 @@
       cursor: pointer;
       border: none;
     }
+    .btn-primary { background: var(--white); color: var(--black); }
+    .btn-primary:hover { background: var(--broadcast-amber); color: var(--black); }
+    .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-strong); }
+    .btn-outline:hover { background: var(--white); color: var(--black); }
+    .btn-red { background: var(--signal-red); color: var(--white); }
+    .btn-red:hover { background: #c20025; color: var(--white); }
 
-    .btn-primary {
-      background: var(--white);
-      color: var(--black);
-    }
-    .btn-primary:hover {
-      background: var(--broadcast-amber);
-      color: var(--black);
-    }
+    /* ===== SECTION HEADERS ===== */
+    .section-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    .section-head h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); }
+    .section-head p { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .accent-bar { display: inline-block; width: 4px; height: 1.4rem; background: var(--broadcast-amber); border-radius: 1px; flex-shrink: 0; }
 
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      border: 1px solid var(--border-strong);
-    }
-    .btn-outline:hover {
-      background: var(--white);
-      color: var(--black);
-    }
+    /* ===== MONITOR ===== */
+    .monitor-wrap { position: relative; background: var(--dark); border: 1px solid var(--border-strong); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; }
+    .monitor-top-bar { background: var(--dark-2); border-bottom: 1px solid var(--border); padding: 0.5rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .monitor-channel { font-family: "Bebas Neue", sans-serif; font-size: 0.9rem; letter-spacing: 0.2em; color: var(--broadcast-amber); }
+    .monitor-status { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ticker-green); display: flex; align-items: center; gap: 0.4rem; }
+    .monitor-status::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ticker-green); box-shadow: 0 0 8px rgba(0,214,143,0.8); }
 
-    .btn-red {
-      background: var(--signal-red);
-      color: var(--white);
-    }
-    .btn-red:hover {
-      background: #c20025;
-      color: var(--white);
-    }
+    .responsive-iframe-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+    .responsive-iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* ===================== SECTION HEADERS ===================== */
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-head h2 {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--white);
-    }
-
-    .section-head p {
-      font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .accent-bar {
-      display: inline-block;
-      width: 4px;
-      height: 1.4rem;
-      background: var(--broadcast-amber);
-      border-radius: 1px;
-      flex-shrink: 0;
-    }
-
-    /* ===================== BROADCAST MONITOR ===================== */
-    .monitor-wrap {
-      position: relative;
-      background: var(--dark);
-      border: 1px solid var(--border-strong);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 2.5rem;
-    }
-
-    .monitor-top-bar {
-      background: var(--dark-2);
-      border-bottom: 1px solid var(--border);
-      padding: 0.5rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .monitor-channel {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.2em;
-      color: var(--broadcast-amber);
-    }
-
-    .monitor-status {
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ticker-green);
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .monitor-status::before {
-      content: "";
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--ticker-green);
-      box-shadow: 0 0 8px rgba(0,214,143,0.8);
-    }
-
-    .responsive-iframe-container {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-    }
-
-    .responsive-iframe-container iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: 0;
-    }
-
-    /* ===================== TWO-COL MEDIA ===================== */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .media-card {
-      background: var(--dark);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .media-card-head {
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .media-card-head .accent-sq {
-      width: 10px;
-      height: 10px;
-      flex-shrink: 0;
-    }
+    /* ===== TWO-COL ===== */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 2.5rem; }
+    .media-card { background: var(--dark); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .media-card-head { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+    .media-card-head .accent-sq { width: 10px; height: 10px; flex-shrink: 0; }
     .sq-amber { background: var(--broadcast-amber); }
-    .sq-blue  { background: var(--studio-blue); }
-    .sq-red   { background: var(--signal-red); }
+    .sq-red { background: var(--signal-red); }
+    .media-card-head h3 { font-family: "Bebas Neue", sans-serif; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    .media-card-head small { margin-left: auto; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .media-card-body { padding: 0.75rem; }
+    .media-card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; padding: 0.75rem 1.25rem 1rem; }
 
-    .media-card-head h3 {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
+    /* ===== FEATURE BLOCK ===== */
+    .feature-block { background: var(--dark); border: 1px solid var(--border-strong); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; }
+    .feature-copy { padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+    .feature-label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--broadcast-amber); font-weight: 600; margin-bottom: 0.75rem; }
+    .feature-title { font-family: "Bebas Neue", sans-serif; font-size: clamp(2.2rem, 4vw, 3.4rem); letter-spacing: 0.06em; line-height: 0.95; color: var(--white); margin-bottom: 1.25rem; }
+    .feature-title em { font-family: "DM Serif Display", serif; font-style: italic; font-size: 0.7em; color: var(--muted); display: block; }
+    .feature-body { font-size: 0.875rem; line-height: 1.75; color: rgba(255,255,255,0.72); }
+    .feature-body p + p { margin-top: 0.85rem; }
+    .feature-divider { width: 40px; height: 2px; background: var(--broadcast-amber); margin: 1.25rem 0; }
+    .feature-video { position: relative; min-height: 300px; }
+    .feature-video-wrapper { position: absolute; inset: 0; }
+    .feature-video-wrapper iframe { width: 100%; height: 100%; border: 0; }
 
-    .media-card-head small {
-      margin-left: auto;
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
+    /* ===== CHAT ===== */
+    .chat-panel { background: var(--dark); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; }
+    .chat-panel-head { background: var(--dark-2); border-bottom: 1px solid var(--border); padding: 0.9rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+    .chat-panel-head h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.1rem; letter-spacing: 0.2em; }
+    .chat-panel-head p { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .chat-panel iframe { width: 100%; height: 420px; border: 0; display: block; background: #000; }
 
-    .media-card-body {
-      padding: 0.75rem;
-    }
-
-    .media-card-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.6;
-      padding: 0.75rem 1.25rem 1rem;
-    }
-
-    /* ===================== LOVE & CO FEATURE ===================== */
-    .feature-block {
-      background: var(--dark);
-      border: 1px solid var(--border-strong);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .feature-copy {
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border-right: 1px solid var(--border);
-    }
-
-    .feature-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--broadcast-amber);
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-    }
-
-    .feature-title {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
-      letter-spacing: 0.06em;
-      line-height: 0.95;
-      color: var(--white);
-      margin-bottom: 1.25rem;
-    }
-
-    .feature-title em {
-      font-family: "DM Serif Display", serif;
-      font-style: italic;
-      font-size: 0.7em;
-      color: var(--muted);
-      display: block;
-    }
-
-    .feature-body {
-      font-size: 0.875rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.72);
-    }
-
-    .feature-body p + p {
-      margin-top: 0.85rem;
-    }
-
-    .feature-divider {
-      width: 40px;
-      height: 2px;
-      background: var(--broadcast-amber);
-      margin: 1.25rem 0;
-    }
-
-    .feature-video {
-      position: relative;
-    }
-
-    .feature-video .responsive-iframe-container {
-      height: 100%;
-      padding-bottom: 0;
-      position: absolute;
-      inset: 0;
-    }
-
-    .feature-video-wrapper {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%;
-      height: 0;
-    }
-
-    .feature-video-wrapper iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    /* ===================== CHAT ===================== */
-    .chat-panel {
-      background: var(--dark);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      margin-bottom: 2.5rem;
-    }
-
-    .chat-panel-head {
-      background: var(--dark-2);
-      border-bottom: 1px solid var(--border);
-      padding: 0.9rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .chat-panel-head h2 {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.2em;
-    }
-
-    .chat-panel-head p {
-      font-size: 0.7rem;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .chat-panel iframe {
-      width: 100%;
-      height: 420px;
-      border: 0;
-      display: block;
-      background: #000;
-    }
-
-    /* ===================== FOOTER ===================== */
-    footer {
-      border-top: 1px solid var(--border);
-      padding-top: 2rem;
-      margin-top: 1rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .footer-brand-name {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 2.5rem;
-      letter-spacing: 0.08em;
-      line-height: 1;
-      margin-bottom: 0.75rem;
-    }
-
-    .footer-brand-name span {
-      color: var(--broadcast-amber);
-    }
-
-    .footer-tagline {
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.65;
-      max-width: 300px;
-    }
-
-    .footer-col h4 {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 1rem;
-    }
-
-    .footer-col ul {
-      list-style: none;
-    }
-
-    .footer-col ul li {
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-col ul li a,
-    .footer-col address {
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-decoration: none;
-      font-style: normal;
-      line-height: 1.7;
-      transition: color 0.15s;
-    }
-
-    .footer-col ul li a:hover {
-      color: var(--white);
-    }
-
-    .footer-bottom {
-      padding-top: 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .footer-bottom p {
-      font-size: 0.7rem;
-      color: var(--dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .footer-bottom-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .footer-bottom-links a {
-      font-size: 0.7rem;
-      color: var(--dim);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.15s;
-    }
-
+    /* ===== FOOTER ===== */
+    footer { border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 1rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .footer-brand-name { font-family: "Bebas Neue", sans-serif; font-size: 2.5rem; letter-spacing: 0.08em; line-height: 1; margin-bottom: 0.75rem; }
+    .footer-brand-name span { color: var(--broadcast-amber); }
+    .footer-tagline { font-size: 0.8rem; color: var(--muted); line-height: 1.65; max-width: 300px; }
+    .footer-col h4 { font-family: "Bebas Neue", sans-serif; font-size: 0.9rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--white); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a, .footer-col address { font-size: 0.8rem; color: var(--muted); text-decoration: none; font-style: normal; line-height: 1.7; transition: color 0.15s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom p { font-size: 0.7rem; color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; }
+    .footer-bottom-links { display: flex; gap: 1.5rem; }
+    .footer-bottom-links a { font-size: 0.7rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .footer-bottom-links a:hover { color: var(--white); }
+    .rule { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
 
-    /* ===================== DIVIDER ===================== */
-    .rule {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 2.5rem 0;
-    }
+    /* ===== MAGAZINE ===== */
+    .mag-nameplate { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,7vw,5rem); font-weight:900; letter-spacing:-0.02em; line-height:0.9; color:#f9f6f0; }
+    .mag-cover-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3.5vw,2.5rem); font-weight:900; line-height:1.1; letter-spacing:-0.01em; color:#111; }
+    .mag-pull { font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; line-height:1.5; color:#111; }
+    .mag-also-title { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; line-height:1.3; color:#111; }
 
-    /* ===================== RESPONSIVE ===================== */
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
-      .masthead {
-        grid-template-columns: 1fr;
-      }
-      .masthead-right {
-        border-top: 1px solid var(--border);
-        align-items: flex-start;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 1.25rem 2rem;
-      }
-      .two-col {
-        grid-template-columns: 1fr;
-      }
-      .feature-block {
-        grid-template-columns: 1fr;
-      }
-      .feature-copy {
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-      }
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      .masthead { grid-template-columns: 1fr; }
+      .masthead-right { border-top: 1px solid var(--border); align-items: flex-start; flex-direction: row; justify-content: space-between; padding: 1.25rem 2rem; }
+      .two-col { grid-template-columns: 1fr; }
+      .feature-block { grid-template-columns: 1fr; }
+      .feature-copy { border-right: none; border-bottom: 1px solid var(--border); }
+      .feature-video { min-height: 0; padding-bottom: 56.25%; }
+      .feature-video-wrapper { position: absolute; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 600px) {
-      .utility-bar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
+      .utility-bar { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
       .masthead-left { padding: 1.5rem 1.25rem; }
       .footer-grid { grid-template-columns: 1fr; }
       .cta-row { flex-direction: column; }
+      .player-bar { flex-direction: column; align-items: flex-start; }
+      .player-embed { width: 100%; min-width: unset; }
+
+      /* Subscription box — stack on mobile */
+      .sub-grid { grid-template-columns: 1fr !important; }
+      .sub-left { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+      /* Featured story — stack on mobile */
+      .featured-grid { grid-template-columns: 1fr !important; }
+      .featured-left { border-right: none !important; border-bottom: 1px solid var(--border); }
+
+      /* Magazine quick hits */
+      .quick-hits-grid { grid-template-columns: 1fr !important; }
+      .also-grid { grid-template-columns: 1fr !important; }
+
+      .mag-pull { font-size: 0.9rem; }
+      .chat-panel iframe { height: 320px; }
+
+      .section-head { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== TICKER ===== -->
+  <!-- ALEXA BANNER -->
+  <div class="alexa-banner">
+    Listen on Alexa: <strong>"Alexa, ask Radio Browser to play STV Radio Atlanta"</strong>
+  </div>
+
+  <!-- TICKER -->
   <div class="ticker-bar">
-    <div class="ticker-label"> LIVE UPDATES</div>
+    <div class="ticker-label">LIVE UPDATES</div>
     <div class="ticker-track">
       <div class="ticker-inner">
-        <span>STV RADIO DET/NO/ATL • G4E MOVEMENT STUDIO</span>
+        <span>STV RADIO ATLANTA • G4E MOVEMENT STUDIO</span>
         <span class="ticker-sep">◆</span>
         <span>LIVE BROADCAST NOW STREAMING</span>
         <span class="ticker-sep">◆</span>
-        <span>Check out our newsletter "THE STATIC" — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f5c4e414a4c4e5b594f48424e4643214c4042">[email&#160;protected]</a></span>
+        <span>Check out our newsletter "THE STATIC" — thestaticnewsletter@stvradio.com</span>
         <span class="ticker-sep">◆</span>
         <span>INDIE MUSIC • INTERVIEWS • AI &amp; TECH TALK</span>
         <span class="ticker-sep">◆</span>
@@ -813,9 +424,7 @@
         <span class="ticker-sep">◆</span>
         <span>STV RADIO • G4E MOVEMENT STUDIO</span>
         <span class="ticker-sep">◆</span>
-        <span>LIVE BROADCAST NOW STREAMING</span>
-        <span class="ticker-sep">◆</span>
-        <span>INTRODUCING LOVE&CO — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="eebdafa0abadafbab8aea9a3afa7a2c0ada1a3">[email&#160;protected]</a></span>
+        <span>INTRODUCING LOVE&amp;CO — loveandco@stvradio.com</span>
         <span class="ticker-sep">◆</span>
         <span>INDIE MUSIC • INTERVIEWS • AI &amp; TECH TALK</span>
         <span class="ticker-sep">◆</span>
@@ -823,15 +432,14 @@
     </div>
   </div>
 
-  <!-- ===== UTILITY BAR ===== -->
+  <!-- UTILITY BAR -->
   <div class="utility-bar">
     <div class="utility-contact">
       <span>STV RADIO ATLANTA</span>
       <a href="tel:6784338772">678-433-8772</a>
-      <a href="mailto:houseofmedia.marketing@gmail.com">
-  Email Us
-</a> href="https://seneca.work" target="_blank" rel="noopener noreferrer" style="color: var(--broadcast-amber); font-weight: 600; text-transform: uppercase;">
-         Catch THE SOLUV RADIO SHOW with Soluv and Seneca Mack Live — Thursdays 7–9PM EST
+      <a href="mailto:houseofmedia.marketing@gmail.com">Email Us</a>
+      <a href="https://seneca.work" target="_blank" rel="noopener noreferrer" style="color: var(--broadcast-amber); font-weight: 600;">
+        Catch THE SOLUV RADIO SHOW — Thursdays 7–9PM EST
       </a>
     </div>
     <a href="https://imoffmymeds.radio12345.com/" target="_blank" rel="noopener noreferrer" class="whats-on-pill">
@@ -840,30 +448,38 @@
     </a>
   </div>
 
-  <!-- ===== CASTER.FM PLAYER ===== -->
-  <div style="background:#111111; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0.6rem 1.5rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-    <div style="display:flex; align-items:center; gap:0.5rem; flex-shrink:0;">
-      <span style="width:7px;height:7px;border-radius:50%;background:#e8002d;box-shadow:0 0 8px rgba(232,0,45,0.8);display:inline-block;animation:blink 1.2s ease-in-out infinite;"></span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:0.8rem;letter-spacing:0.2em;color:#ffffff;">STV RADIO — LIVE</span>
+  <!-- CASTER.FM PLAYER -->
+  <div class="player-bar">
+    <div class="player-live-badge">
+      <span class="live-dot"></span>
+      <span class="live-label">STV RADIO — LIVE</span>
     </div>
-    <div style="flex:1;min-width:280px;">
-      <div data-type="newStreamPlayer" data-publicToken="1727ea20-bbae-45cb-8c2e-b10ff6f14f08" data-theme="dark" data-color="e81e4d" data-channelId="a185d2e2-447f-4fc1-a552-5a8b75b8008c" data-rendered="false" class="cstrEmbed"></div>
+    <div class="player-embed">
+      <div
+        data-type="newStreamPlayer"
+        data-publicToken="1727ea20-bbae-45cb-8c2e-b10ff6f14f08"
+        data-theme="dark"
+        data-color="e81e4d"
+        data-channelId="a185d2e2-447f-4fc1-a552-5a8b75b8008c"
+        data-rendered="false"
+        class="cstrEmbed">
+      </div>
     </div>
   </div>
 
-  <!-- ===== PAGE ===== -->
+  <!-- PAGE -->
   <div class="page">
 
     <!-- MASTHEAD -->
     <header class="masthead">
       <div class="masthead-left">
-        <div class="masthead-eyebrow">G4E • SANECA TV • DECATUR, GA • EST. MOVEMENT</div>
+        <div class="masthead-eyebrow">SANECA TV • LITHONIA, GA</div>
         <div class="masthead-title">
           THE LIVE SHOW
           <span>Creating culture, conversation &amp; chaos in real time.</span>
         </div>
         <p class="masthead-desc">
-          Live shows, feature promos &amp; live chat for the G4E movement. 
+          Live shows, feature promos &amp; live chat and join the G4E movement.
           Broadcasting indie music, underground features, AI &amp; tech talk, and community culture from Decatur, GA.
         </p>
         <div class="masthead-pills">
@@ -888,15 +504,9 @@
 
     <!-- CTA ROW -->
     <div class="cta-row">
-      <a href="https://www.bonfire.com/store/fashun-luva/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-        MERCH
-      </a>
-      <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-        GROW WITH US
-      </a>
-      <a href="https://vdo.ninja/?room=STVlIv3&broadcast" target="_blank" rel="noopener noreferrer" class="btn btn-red">
-        🎙 Follow @SanecaTV on TikTok
-      </a>
+      <a href="https://www.bonfire.com/store/fashun-luva/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">MERCH</a>
+      <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GROW WITH US</a>
+      <a href="https://www.tiktok.com/@sanecatv" target="_blank" rel="noopener noreferrer" class="btn btn-red">🎙 Follow @SanecaTV on TikTok</a>
     </div>
 
     <!-- LIVE BROADCAST -->
@@ -905,10 +515,9 @@
       <h2>STV RADIO</h2>
       <p>Live on Air</p>
     </div>
-
     <div class="monitor-wrap">
       <div class="monitor-top-bar">
-        <span class="monitor-channel">CH 1 — G4E LIVE FEED</span>
+        <span class="monitor-channel">CH 1 — LIVE FEED</span>
         <span class="monitor-status">Signal Active</span>
       </div>
       <div class="responsive-iframe-container">
@@ -927,7 +536,6 @@
       <h2>Featured Segments</h2>
       <p>Promos &amp; Highlights</p>
     </div>
-
     <div class="two-col">
       <div class="media-card">
         <div class="media-card-head">
@@ -941,27 +549,24 @@
               src="https://www.youtube.com/embed/UFHOsQ_msNE?si=xubW8iTC1TmocLy6"
               title="Slept On Artist — G4E Souljah"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              referrerpolicy="strict-origin-when-cross-origin">
+              allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
             </iframe>
           </div>
         </div>
         <p class="media-card-desc">Underground spotlight segment — highlighting indie and slept-on artists pushing culture forward from the margins.</p>
       </div>
-
       <div class="media-card">
         <div class="media-card-head">
-          <span class="accent-sq sq-blue"></span>
+          <span class="accent-sq sq-red"></span>
           <h3>Product / Video Promo</h3>
-          <small>Sponsor Spot</small>
+          <small>Spotlight</small>
         </div>
         <div class="media-card-body">
           <div class="responsive-iframe-container">
             <iframe
               src="https://player.vimeo.com/video/579695432?badge=0&autopause=0&player_id=0&app_id=58479"
               allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-              allowfullscreen
-              title="Sponsor Promo">
+              allowfullscreen title="Sponsor Promo">
             </iframe>
           </div>
         </div>
@@ -975,7 +580,6 @@
       <h2>Artist Spotlight</h2>
       <p>Featured on STV</p>
     </div>
-
     <div class="feature-block">
       <div class="feature-copy">
         <div class="feature-label">G4E Presents</div>
@@ -985,36 +589,23 @@
         </div>
         <div class="feature-divider"></div>
         <div class="feature-body">
-          <p>
-            <strong>LOVE&amp;CO</strong> is one of those rare creative forces that doesn't chase a genre — they build a world. 
-            Equal parts soul, grit, and cinematic storytelling, their sound sits in the pocket between what you feel 
-            and what you can't quite name.
-          </p>
-          <p>
-            Rooted in real experience and refined by an artist who refuses to be boxed in, LOVE&amp;CO represents exactly 
-            what the G4E movement stands for: authenticity over algorithm, culture over content, and a sound that's 
-            built to last beyond the moment.
-          </p>
-          <p>
-            Watch the featured video and explore their growing catalog — this is what slept-on looks like before the world catches up.
-          </p>
+          <p><strong>LOVE&amp;CO</strong> is one of those rare creative forces that doesn't chase a genre — they build a world. Equal parts soul, grit, and cinematic storytelling, their sound sits in the pocket between what you feel and what you can't quite name.</p>
+          <p>Rooted in real experience and refined by an artist who refuses to be boxed in, LOVE&amp;CO represents exactly what the G4E movement stands for: authenticity over algorithm, culture over content, and a sound that's built to last beyond the moment.</p>
+          <p>Watch the featured video and explore their growing catalog — this is what slept-on looks like before the world catches up. Genres: Pop•House•Country•Punk•Rock•Metal•Hip Hop•Insparational•R&B•Contemporary•Jazz•Ghetto Tech</p>
         </div>
-        <div style="margin-top: 1.5rem;">
+        <div style="margin-top:1.5rem;">
           <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw&si=jAstYK6ZdeKEIc8T" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex;">
-            🎵 Full Playlist
+            LOVE&CO Full Playlist
           </a>
         </div>
       </div>
-
-      <div class="feature-video" style="min-height: 300px; position: relative;">
-        <div class="feature-video-wrapper" style="position: absolute; inset: 0; padding-bottom: 0; height: 100%;">
+      <div class="feature-video">
+        <div class="feature-video-wrapper">
           <iframe
             src="https://www.youtube.com/embed/ubpj6amPnPI?si=pXol0sDdNxdAY-7L"
             title="LOVE&CO — Featured on STV"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-            referrerpolicy="strict-origin-when-cross-origin"
-            style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0;">
+            allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
           </iframe>
         </div>
       </div>
@@ -1026,22 +617,18 @@
       <h2>STV Live Chat</h2>
       <p>Heartbeat of the movement</p>
     </div>
-
     <div class="chat-panel">
       <div class="chat-panel-head">
         <div>
           <h2>LIVE CHAT</h2>
           <p>Keep it respectful, keep it real. Your messages may be read on air.</p>
         </div>
-        <div class="on-air-badge" style="font-size: 0.7rem;">
+        <div class="on-air-badge" style="font-size:0.7rem;">
           <span class="on-air-dot-g"></span>
           OPEN
         </div>
       </div>
-      <iframe
-        src="https://tlk.io/sanecatv"
-        title="STV LIVE Chat">
-      </iframe>
+      <iframe src="https://tlk.io/sanecatv" title="STV LIVE Chat"></iframe>
     </div>
 
     <!-- NEWSLETTER -->
@@ -1051,23 +638,15 @@
       <p>STV Radio Newsletter — Vol. 1 · Issue 01</p>
     </div>
 
-    <!-- THE STATIC MAGAZINE LAYOUT -->
+    <!-- MAGAZINE LAYOUT -->
     <div style="background:#f9f6f0; border-radius:4px; overflow:hidden; margin-bottom:1.5rem; font-family:'DM Sans',sans-serif; color:#111;">
 
-      <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap');
-        .mag-nameplate{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7vw,5rem);font-weight:900;letter-spacing:-0.02em;line-height:0.9;color:#f9f6f0;}
-        .mag-cover-title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.5rem);font-weight:900;line-height:1.1;letter-spacing:-0.01em;color:#111;}
-        .mag-pull{font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;line-height:1.5;color:#111;}
-        .mag-also-title{font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;line-height:1.3;color:#111;}
-      </style>
-
-      <!-- MASTHEAD -->
+      <!-- MAG MASTHEAD -->
       <div style="background:#111; padding:1.25rem 1.75rem 1rem;">
-        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #333;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 &nbsp;·&nbsp; Issue 01 &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; STV Radio &nbsp;·&nbsp; Decatur, GA</div>
+        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #333;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 · Issue 01 · March 2026 · STV Radio · Decatur, GA</div>
         <div class="mag-nameplate">The Static</div>
         <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:#555;margin:0.4rem 0 0.8rem;">Where music meets the moment</div>
-        <div style="display:flex;gap:1.25rem;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;border-top:0.5px solid #333;padding-top:0.6rem;">
+        <div style="display:flex;gap:1.25rem;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;border-top:0.5px solid #333;padding-top:0.6rem;flex-wrap:wrap;">
           <span style="color:#e8002d;font-weight:500;">Features</span>
           <span style="color:#e8002d;font-weight:500;">Sounds</span>
           <span style="color:#e8002d;font-weight:500;">Culture</span>
@@ -1077,15 +656,14 @@
 
       <!-- COVER STORY -->
       <div style="padding:1.75rem 1.75rem 0;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.9rem;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.9rem;flex-wrap:wrap;">
           <span style="background:#e8002d;color:#fff;font-size:9px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;padding:3px 10px;">Cover Story</span>
           <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;">Music &amp; Technology</span>
         </div>
         <div style="border-top:2px solid #111;padding-top:1rem;margin-bottom:0.75rem;"></div>
         <div class="mag-cover-title">Same Song, Different Verse: AI Music and the Ghost of the Synthesizer Wars</div>
-        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0.6rem 0 1.25rem;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:20px;height:1px;background:#e8002d;"></span>By The Static &nbsp;&nbsp; 8 min read</div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin:0.6rem 0 1.25rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="display:inline-block;width:20px;height:1px;background:#e8002d;"></span>By The Static &nbsp;&nbsp; 8 min read</div>
 
-        <!-- COVER ILLUSTRATION -->
         <div style="background:#111;width:100%;padding:2.5rem 1rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;text-align:center;">
           <div>
             <div style="width:50px;height:1px;background:#e8002d;margin:0 auto 0.75rem;"></div>
@@ -1101,15 +679,13 @@
           <div class="mag-pull">"People didn't think it was real music — they thought machines did it."</div>
         </div>
 
-        <p style="font-size:14px;line-height:1.8;color:#222;margin-bottom:1rem;font-weight:300;">But this isn't the first time the industry has waged war on a machine. Scroll back to 1982, and the music world was having nearly the exact same fight — just with synthesizers instead of algorithms. The British Musicians' Union attempted to ban synths outright. Queen printed "No Synthesizers!" on four album sleeves. Gary Numan described open hostility from people who thought technology had replaced talent.</p>
-
+        <p style="font-size:14px;line-height:1.8;color:#222;margin-bottom:1rem;font-weight:300;">But this isn't the first time the industry has waged war on a machine. Scroll back to 1982, and the music world was having nearly the exact same fight — just with synthesizers instead of algorithms. The British Musicians' Union attempted to ban synths outright. Queen printed "No Synthesizers!" on four album sleeves.</p>
         <p style="font-size:14px;line-height:1.8;color:#222;margin-bottom:1.5rem;font-weight:300;">Sound familiar? The question now is whether AI is simply the next synth — or something categorically different.</p>
-
         <div style="border-top:0.5px solid #ccc;margin-bottom:1.5rem;"></div>
 
         <!-- ALSO IN THIS ISSUE -->
         <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:#e8002d;font-weight:500;margin-bottom:1rem;">Also in this issue</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;">
+        <div class="also-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;">
           <div style="border-top:2px solid #111;padding-top:0.75rem;">
             <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:0.3rem;">Industry</div>
             <div class="mag-also-title">The AI Acts Gaming the Billboard Charts</div>
@@ -1136,7 +712,7 @@
 
         <!-- QUICK HITS -->
         <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:#e8002d;font-weight:500;margin-bottom:1rem;">Quick hits</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:0;">
+        <div class="quick-hits-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-bottom:0;">
           <div style="padding:1rem;border:0.5px solid #ddd;display:flex;gap:0.75rem;align-items:flex-start;">
             <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#e0ddd6;line-height:1;flex-shrink:0;width:28px;">01</div>
             <div style="font-size:12px;line-height:1.6;color:#333;font-weight:300;"><strong style="font-weight:500;color:#111;">34%</strong> of all music uploaded to Deezer in late 2025 was fully AI-generated, up from 10% at the start of the year.</div>
@@ -1160,9 +736,9 @@
       <div style="margin-top:1.5rem;padding:1rem 1.75rem;background:#111;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
         <div>
           <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#f9f6f0;">The Static</div>
-          <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">Issue 01 &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Pop culture &amp; music</div>
+          <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">Issue 01 · March 2026 · Pop culture &amp; music</div>
         </div>
-        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">An STV Radio Publication &nbsp;·&nbsp; Decatur, GA</div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">An STV Radio Publication · Decatur, GA</div>
       </div>
     </div>
 
@@ -1173,18 +749,17 @@
       <p>From the STV Radio desk</p>
     </div>
 
-    <div style="background:var(--dark); border:1px solid var(--border-strong); border-radius:4px; overflow:hidden; margin-bottom:1.5rem; display:grid; grid-template-columns:1fr 1fr;">
-      <div style="padding:2.5rem 2rem; border-right:1px solid var(--border);">
+    <div class="featured-grid" style="background:var(--dark); border:1px solid var(--border-strong); border-radius:4px; overflow:hidden; margin-bottom:1.5rem; display:grid; grid-template-columns:1fr 1fr;">
+      <div class="featured-left" style="padding:2.5rem 2rem; border-right:1px solid var(--border);">
         <div style="font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--broadcast-amber); font-weight:600; margin-bottom:0.75rem;">STV Radio — Decatur, GA</div>
         <div style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,4vw,3rem); letter-spacing:0.06em; line-height:0.95; color:var(--white); margin-bottom:1.25rem;">THE STV<br>STORY</div>
         <div style="width:40px; height:2px; background:var(--signal-red); margin-bottom:1.25rem;"></div>
         <div style="font-size:0.875rem; line-height:1.75; color:rgba(255,255,255,0.72);">
-          <p>STV Radio is an independent broadcast station proudly rooted in Decatur, GA. We were built on one simple belief — that great music and real culture deserve a platform, no matter where they come from. From the underground to the mainstream, from the indie bedroom producer to the seasoned artist, we give every lane of sound an equal voice.</p>
-          <p style="margin-top:0.85rem;">We partner with indie artists, underground talent, and mainstream acts to bring listeners something they can't find anywhere else — a broadcast that reflects the full spectrum of what music is becoming. We don't just play what's popular. We play what's real, what's next, and what's been slept on for too long.</p>
-          <p style="margin-top:0.85rem;">At STV Radio, we are also proudly embracing AI music as the next frontier of sound. We believe artificial intelligence is not replacing creativity — it's expanding it. We platform AI-generated music alongside human-made art because the future of audio belongs to everyone willing to push boundaries and explore new territory.</p>
+          <p>STV Radio is an independent broadcast station proudly rooted in Decatur, GA. We were built on one simple belief — that great music and real culture deserve a platform, no matter where they come from.</p>
+          <p style="margin-top:0.85rem;">We partner with indie artists, underground talent, and mainstream acts to bring listeners something they can't find anywhere else — a broadcast that reflects the full spectrum of what music is becoming.</p>
+          <p style="margin-top:0.85rem;">At STV Radio, we are also proudly embracing AI music as the next frontier of sound. We believe artificial intelligence is not replacing creativity — it's expanding it.</p>
           <p style="margin-top:0.85rem;">We are more than a radio station. We are a community. Every broadcast is a conversation, every show is a movement, and every artist we feature is part of a growing culture that refuses to be ignored.</p>
           <p style="margin-top:0.85rem; font-style:italic; color:var(--white);">Culture-driven. Community-built. Always live.</p>
-          <p style="margin-top:0.85rem;">Tune in from anywhere, at any time. This is STV Radio — Decatur, GA.</p>
         </div>
       </div>
       <div style="padding:2.5rem 2rem; display:flex; flex-direction:column; justify-content:center; gap:1.5rem;">
@@ -1208,41 +783,26 @@
 
     <!-- SUBSCRIPTION BOX -->
     <div style="background:#111; border:1px solid rgba(232,0,45,0.3); border-radius:4px; overflow:hidden; margin-bottom:2.5rem;">
-      <div style="display:grid; grid-template-columns:1fr 1fr;">
-        <div style="padding:2.5rem 2rem; border-right:1px solid rgba(255,255,255,0.08);">
+      <div class="sub-grid" style="display:grid; grid-template-columns:1fr 1fr;">
+        <div class="sub-left" style="padding:2.5rem 2rem; border-right:1px solid rgba(255,255,255,0.08);">
           <div style="font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase; color:#e8002d; font-weight:600; margin-bottom:0.75rem;">Subscribe Free</div>
           <div style="font-family:'Bebas Neue',sans-serif; font-size:clamp(1.8rem,3.5vw,2.8rem); letter-spacing:0.06em; line-height:0.95; color:#fff; margin-bottom:1rem;">GET THE<br>INSIDE TRACK</div>
           <div style="width:40px; height:2px; background:#e8002d; margin-bottom:1.25rem;"></div>
           <p style="font-size:0.85rem; line-height:1.7; color:rgba(255,255,255,0.6); margin-bottom:1rem;">Join the STV Radio inner circle. Every issue of <em style="color:#fff;">The Static</em> delivered to your inbox — plus exclusive tips, tricks, and tools for independent artists, broadcasters, and music culture enthusiasts.</p>
           <div style="display:flex; flex-direction:column; gap:0.6rem;">
-            <div style="display:flex; align-items:center; gap:0.6rem;">
-              <div style="width:6px; height:6px; background:#e8002d; border-radius:50%; flex-shrink:0;"></div>
-              <span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">In-depth music industry tips &amp; tricks</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:0.6rem;">
-              <div style="width:6px; height:6px; background:#e8002d; border-radius:50%; flex-shrink:0;"></div>
-              <span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">AI music tools &amp; how to use them</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:0.6rem;">
-              <div style="width:6px; height:6px; background:#e8002d; border-radius:50%; flex-shrink:0;"></div>
-              <span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Artist spotlights before they blow up</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:0.6rem;">
-              <div style="width:6px; height:6px; background:#e8002d; border-radius:50%; flex-shrink:0;"></div>
-              <span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Broadcasting &amp; streaming how-tos</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:0.6rem;">
-              <div style="width:6px; height:6px; background:#e8002d; border-radius:50%; flex-shrink:0;"></div>
-              <span style="font-size:0.8rem; color:rgba(255,255,255,0.6);">Show announcements &amp; live events</span>
-            </div>
+            <div style="display:flex; align-items:center; gap:0.6rem;"><div style="width:6px;height:6px;background:#e8002d;border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">In-depth music industry tips &amp; tricks</span></div>
+            <div style="display:flex; align-items:center; gap:0.6rem;"><div style="width:6px;height:6px;background:#e8002d;border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">AI music tools &amp; how to use them</span></div>
+            <div style="display:flex; align-items:center; gap:0.6rem;"><div style="width:6px;height:6px;background:#e8002d;border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Artist spotlights before they blow up</span></div>
+            <div style="display:flex; align-items:center; gap:0.6rem;"><div style="width:6px;height:6px;background:#e8002d;border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Broadcasting &amp; streaming how-tos</span></div>
+            <div style="display:flex; align-items:center; gap:0.6rem;"><div style="width:6px;height:6px;background:#e8002d;border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Show announcements &amp; live events</span></div>
           </div>
         </div>
         <div style="padding:2.5rem 2rem; display:flex; flex-direction:column; justify-content:center;">
           <div style="font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:1rem;">Your info — we keep it private</div>
           <form action="https://formspree.io/f/mrbkljze" method="POST" style="display:flex; flex-direction:column; gap:0.75rem;">
-            <input type="text" name="name" placeholder="Your Name" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:#fff; padding:0.75rem 1rem; font-size:0.85rem; border-radius:2px; outline:none; font-family:'DM Sans',sans-serif;"/>
-            <input type="email" name="email" placeholder="Your Email" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:#fff; padding:0.75rem 1rem; font-size:0.85rem; border-radius:2px; outline:none; font-family:'DM Sans',sans-serif;"/>
-            <select name="role" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.5); padding:0.75rem 1rem; font-size:0.85rem; border-radius:2px; outline:none; font-family:'DM Sans',sans-serif;">
+            <input type="text" name="name" placeholder="Your Name" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:#fff; padding:0.75rem 1rem; font-size:0.85rem; border-radius:2px; outline:none; font-family:'DM Sans',sans-serif; width:100%;"/>
+            <input type="email" name="email" placeholder="Your Email" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:#fff; padding:0.75rem 1rem; font-size:0.85rem; border-radius:2px; outline:none; font-family:'DM Sans',sans-serif; width:100%;"/>
+            <select name="role" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.5); padding:0.75rem 1rem; font-size:0.85rem; border-radius:2px; outline:none; font-family:'DM Sans',sans-serif; width:100%;">
               <option value="" disabled selected>I am a...</option>
               <option value="listener">Music listener / fan</option>
               <option value="artist">Independent artist</option>
@@ -1250,7 +810,7 @@
               <option value="producer">Producer / beatmaker</option>
               <option value="industry">Music industry professional</option>
             </select>
-            <select name="interest" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.5); padding:0.75rem 1rem; font-size:0.85rem; border-radius:2px; outline:none; font-family:'DM Sans',sans-serif;">
+            <select name="interest" style="background:#1a1a1a; border:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.5); padding:0.75rem 1rem; font-size:0.85rem; border-radius:2px; outline:none; font-family:'DM Sans',sans-serif; width:100%;">
               <option value="" disabled selected>Most interested in...</option>
               <option value="tips">Industry tips &amp; tricks</option>
               <option value="ai">AI music tools</option>
@@ -1258,7 +818,7 @@
               <option value="broadcasting">Broadcasting how-tos</option>
               <option value="all">All of the above</option>
             </select>
-            <button type="submit" style="background:#e8002d; color:#fff; border:none; padding:0.85rem 1rem; font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; border-radius:2px; cursor:pointer;">
+            <button type="submit" style="background:#e8002d; color:#fff; border:none; padding:0.85rem 1rem; font-family:'DM Sans',sans-serif; font-size:0.72rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; border-radius:2px; cursor:pointer; width:100%;">
               SUBSCRIBE TO THE STATIC
             </button>
           </form>
@@ -1272,9 +832,7 @@
       <div class="footer-grid">
         <div>
           <div class="footer-brand-name">STV <span>&amp;</span> G4E</div>
-          <p class="footer-tagline">
-            Broadcasting the movement from Decatur, GA. Entertainment, education, and live culture — built for the community, by the community.
-          </p>
+          <p class="footer-tagline">Broadcasting the movement from Decatur, GA. Entertainment, education, and live culture — built for the community, by the community.</p>
         </div>
         <div class="footer-col">
           <h4>Tune In</h4>
@@ -1288,9 +846,25 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <address>
-            STV<br>
-            Decatur, GA<br><br>
+            STV Radio<br>
+            Lithonia, GA<br><br>
             <a href="tel:6784338772">678-433-8772</a><br>
-            <a href="mailto:houseofmedia.marketing@gmail.com">
-  Email Us
-</a>
+            <a href="mailto:houseofmedia.marketing@gmail.com">houseofmedia.marketing@gmail.com</a><br><br>
+            <a href="mailto:thestaticnewsletter@stvradio.com">Newsletter: thestaticnewsletter@stvradio.com</a><br>
+            <a href="mailto:loveandco@stvradio.com">Love&amp;Co: loveandco@stvradio.com</a>
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 STV Radio · G4E Movement Studio · Decatur, GA</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="mailto:houseofmedia.marketing@gmail.com">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div><!-- end .page -->
+
+</body>
+</html>
