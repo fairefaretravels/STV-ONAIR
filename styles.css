@@ -1,0 +1,8 @@
+.player-live {
+  color: #00ff9d;
+  font-weight: bold;
+}
+
+.player-offline {
+  color: #999;
+}
