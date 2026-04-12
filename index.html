@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>STV RADIO ATLANTA | G4E MOVEMENT STUDIO</title>
+<title>STV RADIO ONLINE | G4E MOVEMENT STUDIO</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap">
   <script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script>
   <style>
@@ -150,36 +150,173 @@
     }
 
     /* ===== PLAYER BAR ===== */
+    /* ===== CUSTOM PLAYER BAR ===== */
     .player-bar {
-      background: #111111;
+      background: #0d0d0d;
       border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 0.6rem 1.5rem;
+      border-top: 1px solid rgba(232,0,45,0.4);
+      padding: 0.75rem 1.5rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      gap: 1.25rem;
+      flex-wrap: nowrap;
+      position: relative;
+      overflow: hidden;
     }
-    .player-live-badge {
+    /* subtle red glow strip at top */
+    .player-bar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #e8002d 30%, #f5a623 70%, transparent);
+      opacity: 0.7;
+    }
+    .player-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    .player-status-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .player-status-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .live-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #e8002d;
+      box-shadow: 0 0 10px rgba(232,0,45,0.9);
+      display: inline-block;
+      animation: blink 1.2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    .live-dot.offline {
+      background: #555;
+      box-shadow: none;
+      animation: none;
+    }
+    .player-status-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: #e8002d;
+    }
+    .player-status-text.offline { color: #555; }
+    .player-station-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      color: #ffffff;
+      line-height: 1;
+    }
+    .player-station-sub {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+    .player-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.1);
+      flex-shrink: 0;
+    }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    .play-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: #e8002d;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.1s;
+      flex-shrink: 0;
+    }
+    .play-btn:hover { background: #c20025; transform: scale(1.05); }
+    .play-btn:active { transform: scale(0.97); }
+    .play-btn svg { width: 14px; height: 14px; fill: #fff; margin-left: 2px; }
+    .play-btn.playing svg { margin-left: 0; }
+    .volume-wrap {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      flex-shrink: 0;
     }
-    .live-dot {
-      width: 7px; height: 7px;
+    .vol-icon { color: rgba(255,255,255,0.4); font-size: 0.8rem; flex-shrink: 0; }
+    .volume-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 70px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.15);
+      outline: none;
+      cursor: pointer;
+    }
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px; height: 12px;
       border-radius: 50%;
-      background: #e8002d;
-      box-shadow: 0 0 8px rgba(232,0,45,0.8);
-      display: inline-block;
-      animation: blink 1.2s ease-in-out infinite;
+      background: #f5a623;
+      cursor: pointer;
     }
-    .live-label {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.8rem;
+    .player-embed {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+    }
+    .player-now-playing {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 0;
+    }
+    .now-playing-label {
+      font-size: 0.6rem;
       letter-spacing: 0.2em;
-      color: #ffffff;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
     }
-    .player-embed { flex: 1; min-width: 280px; }
+    .now-playing-track {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .player-caster-embed { display: none; }
+    .player-attribution {
+      font-size: 0.55rem;
+      color: rgba(255,255,255,0.12);
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .player-attribution a { color: rgba(255,255,255,0.12); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .player-bar { flex-wrap: wrap; gap: 0.75rem; padding: 0.75rem 1rem; }
+      .player-divider { display: none; }
+      .volume-wrap { display: none; }
+      .player-left { width: 100%; justify-content: space-between; }
+      .player-embed { width: 100%; }
+      .volume-slider { width: 50px; }
+    }
 
     /* ===== PAGE WRAPPER ===== */
     .page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
@@ -374,8 +511,7 @@
       .masthead-left { padding: 1.5rem 1.25rem; }
       .footer-grid { grid-template-columns: 1fr; }
       .cta-row { flex-direction: column; }
-      .player-bar { flex-direction: column; align-items: flex-start; }
-      .player-embed { width: 100%; min-width: unset; }
+      /* player mobile handled in player block above */
 
       /* Subscription box — stack on mobile */
       .sub-grid { grid-template-columns: 1fr !important; }
@@ -412,11 +548,11 @@
         <span class="ticker-sep">◆</span>
         <span>LIVE BROADCAST NOW STREAMING</span>
         <span class="ticker-sep">◆</span>
-        <span>Get your AI music featured in "THE STATIC" — houseofmedia.marketing@gmail.com</span>
+        <span>Check out our newsletter "THE STATIC" — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="14607c71676075607d777a716367787160607166546760626675707d7b3a777b79">[email&#160;protected]</a></span>
         <span class="ticker-sep">◆</span>
         <span>INDIE MUSIC • INTERVIEWS • AI &amp; TECH TALK</span>
         <span class="ticker-sep">◆</span>
-        <span>JOIN THE NETWORK — Text 678-433-8772</span>
+        <span>JOIN THE NETWORK — CALL 678-433-8772</span>
         <span class="ticker-sep">◆</span>
         <span>LOVE &amp; CO — FEATURED ARTIST SPOTLIGHT</span>
         <span class="ticker-sep">◆</span>
@@ -424,7 +560,7 @@
         <span class="ticker-sep">◆</span>
         <span>STV RADIO • G4E MOVEMENT STUDIO</span>
         <span class="ticker-sep">◆</span>
-        <span>INTRODUCING THE SOLUV RADIO SHOW</span>
+        <span>INTRODUCING LOVE&amp;CO — <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4a26253c2f2b242e29250a393e3c382b2e232564292527">[email&#160;protected]</a></span>
         <span class="ticker-sep">◆</span>
         <span>INDIE MUSIC • INTERVIEWS • AI &amp; TECH TALK</span>
         <span class="ticker-sep">◆</span>
@@ -437,35 +573,123 @@
     <div class="utility-contact">
       <span>STV RADIO ATLANTA</span>
       <a href="tel:6784338772">678-433-8772</a>
-      <a href="mailto:houseofmedia.marketing@gmail.com">EMAIL US</a>
+      <a href="/cdn-cgi/l/email-protection#c8a0a7bdbbada7aea5adaca1a9e6a5a9baa3adbca1a6af88afa5a9a1a4e6aba7a5">Email Us</a>
       <a href="https://seneca.work" target="_blank" rel="noopener noreferrer" style="color: var(--broadcast-amber); font-weight: 600;">
         Catch THE SOLUV RADIO SHOW — Thursdays 7–9PM EST
       </a>
     </div>
-    <a href="https://stvradio.ismyradio.com" target="_blank" rel="noopener noreferrer" class="whats-on-pill">
+    <a href="https://imoffmymeds.radio12345.com//" target="_blank" rel="noopener noreferrer" class="whats-on-pill">
       <span class="whats-on-dot"></span>
       WHAT'S ON NOW
     </a>
   </div>
 
-  <!-- CASTER.FM PLAYER -->
-  <div id="sticky-player">
-  <div class="player-left">
-    <div id="live-indicator">⚫ OFFLINE</div>
+  <!-- CUSTOM PLAYER BAR -->
+  <div class="player-bar">
+
+    <!-- LEFT: STATUS + NAME -->
+    <div class="player-left">
+      <div class="player-status-col">
+        <div class="player-status-row">
+          <span class="live-dot" id="statusDot"></span>
+          <span class="player-status-text" id="statusText">OFFLINE</span>
+        </div>
+        <div class="player-station-name">STV RADIO</div>
+        <div class="player-station-sub">G4E Movement Studio</div>
+      </div>
+    </div>
+
+    <div class="player-divider"></div>
+
+    <!-- CENTER: PLAY BUTTON + VOLUME -->
+    <div class="player-controls">
+      <button class="play-btn" id="playBtn" aria-label="Play/Pause">
+        <svg id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </button>
+      <div class="volume-wrap">
+        <span class="vol-icon">🔈</span>
+        <input type="range" class="volume-slider" id="volSlider" min="0" max="1" step="0.05" value="0.8">
+      </div>
+    </div>
+
+    <div class="player-divider"></div>
+
+    <!-- RIGHT: NOW PLAYING INFO -->
+    <div class="player-embed">
+      <div class="player-now-playing">
+        <span class="now-playing-label">Now Playing</span>
+        <span class="now-playing-track" id="trackName">Tune in to STV Radio</span>
+      </div>
+    </div>
+
+    <!-- HIDDEN CASTER EMBED (keeps attribution) -->
+    <div class="player-caster-embed">
+      <div
+        data-type="newStreamPlayer"
+        data-publicToken="1727ea20-bbae-45cb-8c2e-b10ff6f14f08"
+        data-theme="dark"
+        data-color="e81e4d"
+        data-channelId="a185d2e2-447f-4fc1-a552-5a8b75b8008c"
+        data-rendered="false"
+        class="cstrEmbed">
+      </div>
+    </div>
+
+    <!-- ATTRIBUTION (required by Caster.fm) -->
+    <div class="player-attribution">
+      <a href="https://www.caster.fm" target="_blank" rel="noopener">Powered by Caster.fm</a>
+    </div>
+
+    <!-- HIDDEN AUDIO -->
+    <audio id="radioAudio" preload="none">
+      <source src="https://stvradio.ismyradio.com" type="audio/mpeg">
+    </audio>
   </div>
 
-  <div class="player-center">
-    <button id="playBtn">▶</button>
-  </div>
+  <script>
+    (function() {
+      const audio = document.getElementById('radioAudio');
+      const btn = document.getElementById('playBtn');
+      const icon = document.getElementById('playIcon');
+      const dot = document.getElementById('statusDot');
+      const statusText = document.getElementById('statusText');
+      const trackName = document.getElementById('trackName');
+      const vol = document.getElementById('volSlider');
+      let playing = false;
 
-  <div class="player-right">
-    <span>STV RADIO</span>
-  </div>
+      const playIcon = '<polygon points="5,3 19,12 5,21"/>';
+      const pauseIcon = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 
-  <audio id="radioAudio" preload="none">
-    <source src="https://stvradio.ismyradio.com" type="audio/mpeg">
-  </audio>
-</div>
+      btn.addEventListener('click', function() {
+        if (!playing) {
+          audio.play().then(() => {
+            playing = true;
+            icon.innerHTML = pauseIcon;
+            dot.classList.remove('offline');
+            statusText.classList.remove('offline');
+            statusText.textContent = 'LIVE';
+            trackName.textContent = 'STV Radio — Live Stream';
+          }).catch(() => {
+            statusText.textContent = 'OFFLINE';
+            dot.classList.add('offline');
+            statusText.classList.add('offline');
+            trackName.textContent = 'Stream unavailable — check back soon';
+          });
+        } else {
+          audio.pause();
+          playing = false;
+          icon.innerHTML = playIcon;
+          statusText.textContent = 'PAUSED';
+          trackName.textContent = 'Tune in to STV Radio';
+        }
+      });
+
+      vol.addEventListener('input', function() {
+        audio.volume = this.value;
+      });
+      audio.volume = 0.8;
+    })();
+  </script>
 
   <!-- PAGE -->
   <div class="page">
@@ -473,14 +697,14 @@
     <!-- MASTHEAD -->
     <header class="masthead">
       <div class="masthead-left">
-        <div class="masthead-eyebrow">SANECA TV • LITHONIA, GA</div>
+        <div class="masthead-eyebrow">G4E • SANECA TV • Lithonia, GA • EST. MOVEMENT</div>
         <div class="masthead-title">
           THE LIVE SHOW
           <span>Creating culture, conversation &amp; chaos in real time.</span>
         </div>
         <p class="masthead-desc">
-          Live shows, feature promos &amp; live chat and join the G4E movement.
-          Broadcasting indie music, underground features, AI &amp; tech talk, and community culture from Decatur, GA.
+          Live shows, feature promos &amp; live chat for the G4E movement.
+          Broadcasting indie music, underground features, AI &amp; tech talk, and community culture from Lithonia, GA.
         </p>
         <div class="masthead-pills">
           <span class="pill-tag">AI &amp; Tech Talk</span>
@@ -506,18 +730,18 @@
     <div class="cta-row">
       <a href="https://www.bonfire.com/store/fashun-luva/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">MERCH</a>
       <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GROW WITH US</a>
-      <a href="https://www.tiktok.com/@sanecatv" target="_blank" rel="noopener noreferrer" class="btn btn-red">Follow @SanecaTV on TikTok</a>
+      <a href="https://www.tiktok.com/@sanecatv" target="_blank" rel="noopener noreferrer" class="btn btn-red"> Follow @SanecaTV on TikTok</a>
     </div>
 
     <!-- LIVE BROADCAST -->
     <div class="section-head">
       <span class="accent-bar"></span>
-      <h2>STV RADIO ATLANTA</h2>
+      <h2>STV RADIO</h2>
       <p>Live on Air</p>
     </div>
     <div class="monitor-wrap">
       <div class="monitor-top-bar">
-        <span class="monitor-channel">CH 1 — LIVE FEED</span>
+        <span class="monitor-channel">CH 1 — G4E LIVE FEED</span>
         <span class="monitor-status">Signal Active</span>
       </div>
       <div class="responsive-iframe-container">
@@ -559,7 +783,7 @@
         <div class="media-card-head">
           <span class="accent-sq sq-red"></span>
           <h3>Product / Video Promo</h3>
-          <small>Spotlight</small>
+          <small>Sponsor Spot</small>
         </div>
         <div class="media-card-body">
           <div class="responsive-iframe-container">
@@ -577,7 +801,7 @@
     <!-- LOVE & CO FEATURE -->
     <div class="section-head">
       <span class="accent-bar"></span>
-      <h2>AI Spotlight</h2>
+      <h2>Artist Spotlight</h2>
       <p>Featured on STV</p>
     </div>
     <div class="feature-block">
@@ -585,13 +809,13 @@
         <div class="feature-label">G4E Presents</div>
         <div class="feature-title">
           Love &amp; Co
-          <em>The Artistry. The Vision. The Sound.</em>
+          <em>The Artist. The Vision. The Sound.</em>
         </div>
         <div class="feature-divider"></div>
         <div class="feature-body">
           <p><strong>LOVE&amp;CO</strong> is one of those rare creative forces that doesn't chase a genre — they build a world. Equal parts soul, grit, and cinematic storytelling, their sound sits in the pocket between what you feel and what you can't quite name.</p>
           <p>Rooted in real experience and refined by an artist who refuses to be boxed in, LOVE&amp;CO represents exactly what the G4E movement stands for: authenticity over algorithm, culture over content, and a sound that's built to last beyond the moment.</p>
-          <p>Watch the featured video and explore their growing catalog — this is what slept-on looks like before the world catches up. Genres: Pop•House•Country•Punk•Rock•Metal•Hip Hop•Insparational•R&B•Contemporary•Jazz•Ghetto Tech</p>
+          <p>Watch the featured video and explore their growing catalog — this is what slept-on looks like before the world catches up.</p>
         </div>
         <div style="margin-top:1.5rem;">
           <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw&si=jAstYK6ZdeKEIc8T" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex;">
@@ -643,7 +867,7 @@
 
       <!-- MAG MASTHEAD -->
       <div style="background:#111; padding:1.25rem 1.75rem 1rem;">
-        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #333;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 · Issue 01 · May 2026 · STV Radio · Lithonia, GA</div>
+        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #333;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 · Issue 01 · March 2026 · STV Radio · Decatur, GA</div>
         <div class="mag-nameplate">The Static</div>
         <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:#555;margin:0.4rem 0 0.8rem;">Where music meets the moment</div>
         <div style="display:flex;gap:1.25rem;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;border-top:0.5px solid #333;padding-top:0.6rem;flex-wrap:wrap;">
@@ -736,7 +960,7 @@
       <div style="margin-top:1.5rem;padding:1rem 1.75rem;background:#111;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
         <div>
           <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#f9f6f0;">The Static</div>
-          <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">Issue 01 · May 2026 · Pop culture &amp; music</div>
+          <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">Issue 01 · March 2026 · Pop culture &amp; music</div>
         </div>
         <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">An STV Radio Publication · Lithonia, GA</div>
       </div>
@@ -832,7 +1056,7 @@
       <div class="footer-grid">
         <div>
           <div class="footer-brand-name">STV <span>&amp;</span> G4E</div>
-          <p class="footer-tagline">Broadcasting the movement from Lithonia, GA. Entertainment, education, and live culture — built for the community, by the community.</p>
+          <p class="footer-tagline">Broadcasting the movement from Decatur, GA. Entertainment, education, and live culture — built for the community, by the community.</p>
         </div>
         <div class="footer-col">
           <h4>Tune In</h4>
@@ -840,7 +1064,7 @@
             <li><a href="https://imoffmymeds.radio12345.com/" target="_blank" rel="noopener noreferrer">What's On Now →</a></li>
             <li><a href="https://vdo.ninja/?room=STVlIv3&broadcast" target="_blank" rel="noopener noreferrer">Live Studio Feed</a></li>
             <li><a href="https://www.bonfire.com/store/fashun-luva/" target="_blank" rel="noopener noreferrer">Shop STV Merch</a></li>
-            <li><a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Support The Arts</a></li>
+            <li><a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Become a Sponsor</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -849,21 +1073,5 @@
             STV Radio<br>
             Lithonia, GA<br><br>
             <a href="tel:6784338772">678-433-8772</a><br>
-            <a href="mailto:houseofmedia.marketing@gmail.com">houseofmedia.marketing@gmail.com</a><br><br>
-            <a href="mailto:thestaticnewsletter@stvradio.com">Newsletter: thestaticnewsletter@stvradio.com</a><br>
-          </address>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 STV Radio · G4E Movement Studio · Lithonia, GA</p>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="mailto:houseofmedia.marketing@gmail.com">Contact</a>
-        </div>
-      </div>
-    </footer>
-  </div><!-- end .page -->
-
-</body>
-</html>
+            <a href="/cdn-cgi/l/email-protection#650d0a1016000a030800010c044b0804170e00110c0b02250208040c094b060a08"><span class="__cf_email__" data-cfemail="1b73746e687e747d767e7f727a35767a69707e6f72757c5b7c767a727735787476">[email&#160;protected]</span></a><br><br>
+            <a href="/cdn-cgi/l/email-protection#0e7a666b7d7a6f7a676d606b797d626b7a7a6b7c4e7d7a787c6f6a6761206d6163">Newsletter: <span class="__cf_email__"
