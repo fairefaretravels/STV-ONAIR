@@ -152,3 +152,112 @@
     border-bottom: 1px solid var(--border);
   }
 }
+
+.community-spotlight {
+  margin: 3rem 0;
+}
+
+.spotlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  background: var(--dark);
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+
+.spotlight-left,
+.spotlight-right {
+  padding: 2.5rem 2rem;
+}
+
+.spotlight-left {
+  border-right: 1px solid var(--border);
+}
+
+.spotlight-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--broadcast-amber);
+  font-weight: 600;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--dark-2);
+  border: 2px solid var(--broadcast-amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  flex-shrink: 0;
+}
+
+.name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.1em;
+  color: var(--white);
+}
+
+.subtitle {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.story p {
+  line-height: 1.8;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 0.85rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.tags span {
+  border: 1px solid var(--border-strong);
+  padding: 0.2rem 0.65rem;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+.quote-box {
+  border-left: 3px solid var(--broadcast-amber);
+  padding: 1rem 1.25rem;
+  background: var(--dark-2);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.location-info {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  margin-top: 1.5rem;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .spotlight-left {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
