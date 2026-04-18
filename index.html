@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="STV Radio is an independent broadcast station out of Lithonia, GA. Indie artists, underground talent, mainstream acts and AI music. Culture-driven. Community-built. Always live.">
-  <meta name="keywords" content="STV Radio, STV Radio Atlanta, independent radio station, Lithonia GA radio, Atlanta radio station, indie music radio, underground music, AI music radio, internet radio, live radio stream, G4E movement, independent music culture">
-  <meta name="author" content="STV Radio">
-  <title>STV RADIO | G4E MOVEMENT STUDIO</title>
+  <meta name="description" content="STV Radiomeltdown is an independent broadcast station out of Lithonia, GA. Indie artists, underground talent, mainstream acts and AI music. Culture-driven. Community-built. Always live.">
+  <meta name="keywords" content="STV Radiomeltdown, Radiomeltdown, STV Radio Atlanta, independent radio station, Lithonia GA radio, Atlanta radio station, indie music radio, underground music, AI music radio, internet radio, live radio stream, G4E movement, House of Media, independent music culture">
+  <meta name="author" content="STV Radiomeltdown">
+  <title>STV RADIOMELTDOWN | G4E MOVEMENT STUDIO</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -204,7 +204,7 @@
 <body>
 
   <div class="alexa-banner">
-    Now on Alexa — say: <strong>"Alexa, ask Radio Browser to play STV Radio Atlanta"</strong>
+    <strong>STV Radiomeltdown</strong> — Coming soon to Alexa devices
   </div>
 
   <div class="ticker-bar">
@@ -213,6 +213,7 @@
       <div class="ticker-inner">
         <span>STV RADIOMELTDOWN · LITHONIA GA · G4E MOVEMENT STUDIO</span><span class="ticker-sep">◆</span>
         <span>LIVE BROADCAST NOW STREAMING</span><span class="ticker-sep">◆</span>
+        <span>COMING SOON TO ALEXA DEVICES — SAY "ALEXA, PLAY RADIOMELTDOWN"</span><span class="ticker-sep">◆</span>
         <span>EVENT ALERT — BE HER BOUTIQUE · SIP SEE SHOP · SAT APRIL 18 · 5–8PM · DETROIT MI</span><span class="ticker-sep">◆</span>
         <span>DETROIT VINYLFEST · TONY T MONEY GREEN · SUN MAY 3 · 10AM–6PM · DETROIT MI</span><span class="ticker-sep">◆</span>
         <span>THE STATIC ISSUE 02 — TONY T MONEY GREEN COVER STORY — OUT NOW</span><span class="ticker-sep">◆</span>
@@ -228,7 +229,7 @@
 
   <div class="utility-bar">
     <div class="utility-contact">
-      <span>STV Radio — Lithonia, GA</span>
+      <span>STV Radiomeltdown — Lithonia, GA</span>
       <a href="tel:6784338772">678-433-8772</a>
       <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Contact Us</a>
       <a href="https://www.hits923atlanta.com" target="_blank" rel="noopener noreferrer" style="color:var(--broadcast-amber);font-weight:600;text-transform:uppercase;">
@@ -248,7 +249,7 @@
           <span class="live-dot offline" id="statusDot"></span>
           <span class="player-status-text offline" id="statusText">OFFLINE</span>
         </div>
-        <div class="player-station-name">STV RADIO</div>
+        <div class="player-station-name">STV RADIOMELTDOWN</div>
         <div class="player-station-sub">G4E Movement Studio · Lithonia, GA</div>
       </div>
     </div>
@@ -266,7 +267,7 @@
     <div class="player-embed">
       <div class="player-now-playing">
         <span class="now-playing-label">Now Playing</span>
-        <span class="now-playing-track" id="trackName">Press play to tune in to STV Radio</span>
+        <span class="now-playing-track" id="trackName">Press play to tune in to STV Radiomeltdown</span>
       </div>
     </div>
     <audio id="radioAudio" preload="none">
@@ -292,7 +293,7 @@
           audio.play().then(() => {
             playing = true; icon.innerHTML = PAUSE;
             dot.classList.remove('offline'); stat.classList.remove('offline');
-            stat.textContent = 'LIVE'; track.textContent = 'STV Radio — Live Stream';
+            stat.textContent = 'LIVE'; track.textContent = 'STV Radiomeltdown — Live Stream';
           }).catch(() => {
             stat.textContent = 'OFFLINE'; dot.classList.add('offline');
             stat.classList.add('offline'); track.textContent = 'Stream unavailable — check back soon';
@@ -300,7 +301,7 @@
         } else {
           audio.pause(); playing = false; icon.innerHTML = PLAY;
           dot.classList.add('offline'); stat.classList.add('offline');
-          stat.textContent = 'PAUSED'; track.textContent = 'Press play to tune in to STV Radio';
+          stat.textContent = 'PAUSED'; track.textContent = 'Press play to tune in to STV Radiomeltdown';
         }
       });
       vol.addEventListener('input', function() { audio.volume = this.value; });
@@ -312,7 +313,7 @@
 
     <header class="masthead">
       <div class="masthead-left">
-        <div class="masthead-eyebrow">G4E • SANECA TV • Lithonia, GA • EST. MOVEMENT</div>
+        <div class="masthead-eyebrow">G4E • HOUSE OF MEDIA • Lithonia, GA • EST. MOVEMENT</div>
         <div class="masthead-title">THE LIVE SHOW<span>Celebrating culture, conversation &amp; chaos in real time.</span></div>
         <p class="masthead-desc">Live shows, feature promos &amp; live chat with people around the world. Broadcasting indie music, underground features, AI &amp; tech talk, and community culture from Lithonia, GA.</p>
         <div class="masthead-pills">
@@ -341,7 +342,7 @@
       <div class="sponsor-text"><strong>Give-a-Gift Non-Profit</strong> — Want free radio play? Need free promo? Support artists in tech. Give-a-Gift is a 501(c)3 Non-Profit supporting community growth in technology by empowering creatives. <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Learn more &amp; connect →</a></div>
     </div>
 
-    <div class="section-head"><span class="accent-bar"></span><h2>STV RADIO</h2><p>Live on Air</p></div>
+    <div class="section-head"><span class="accent-bar"></span><h2>STV RADIOMELTDOWN</h2><p>Live on Air</p></div>
     <div class="monitor-wrap">
       <div class="monitor-top-bar">
         <span class="monitor-channel">CH 1 — G4E LIVE FEED</span>
@@ -374,26 +375,67 @@
       </div>
     </div>
 
-    <div class="section-head"><span class="accent-bar"></span><h2>Artist Spotlight</h2><p>Featured on STV</p></div>
+    <div class="section-head"><span class="accent-bar"></span><h2>Artist Spotlight</h2><p>Featured on STV Radiomeltdown</p></div>
     <div class="feature-block">
       <div class="feature-copy">
-        <div class="feature-label">G4E Presents</div>
-        <div class="feature-title">Love &amp; Co<em>The Artist. The Vision. The Sound.</em></div>
+        <div class="feature-label">G4E Presents · LOVE&amp;CO</div>
+        <div class="feature-title">DJ Mackinthedark<em>ADHD on Wax. Sound Without Borders.</em></div>
         <div class="feature-divider"></div>
         <div class="feature-body">
-          <p><strong>LOVE&amp;CO</strong> is one of those rare creative forces that doesn't chase a genre — they build a world. Equal parts soul, grit, and cinematic storytelling, their sound sits in the pocket between what you feel and what you can't quite name.</p>
-          <p>Rooted in real experience and refined by an artist who refuses to be boxed in, LOVE&amp;CO represents exactly what the G4E movement stands for: authenticity over algorithm, culture over content, and a sound that's built to last beyond the moment.</p>
-          <p>Watch the featured video and explore their growing catalog — this is what slept-on looks like before the world catches up.</p>
+          <p><strong>DJ Mackinthedark</strong> is the creator of LOVE&amp;CO and the kind of artist who doesn't ask permission from a genre. A proud member of <strong>The Switchblades out of Detroit</strong>, she's built her sound the hard way — by feeling it out, blending the unexpected, and refusing to let any single box hold her.</p>
+          <p>She describes her approach as <em>ADHD on Wax</em> — and that's not a disclaimer, that's the whole point. Her sets move the way her mind does: instinctive, layered, surprising, and completely intentional once you're inside it. She's not learning to DJ. She's learning to bend sound into something only she could make.</p>
+          <p>LOVE&amp;CO is what happens when a Detroit-rooted creative takes genre into her own hands. Watch the featured video and explore the growing catalog — this is what the next wave sounds like before the world catches up.</p>
         </div>
-        <div style="margin-top:1.5rem;">
+        <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
           <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw&si=jAstYK6ZdeKEIc8T" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex;">🎵 LOVE&amp;CO Full Playlist</a>
         </div>
       </div>
       <div class="feature-video">
         <div class="feature-video-wrapper">
-          <iframe src="https://www.youtube.com/embed/ubpj6amPnPI?si=pXol0sDdNxdAY-7L" title="LOVE&CO — Featured on STV" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <iframe src="https://www.youtube.com/embed/ubpj6amPnPI?si=pXol0sDdNxdAY-7L" title="LOVE&CO — Featured on STV Radiomeltdown" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
       </div>
+    </div>
+
+    <!-- DJ ROSTER -->
+    <div class="section-head"><span class="accent-bar"></span><h2>On the Ones &amp; Twos</h2><p>STV Radiomeltdown · DJ Roster</p></div>
+    <div class="two-col" style="margin-bottom:2.5rem;">
+
+      <!-- DJ MACKINTHEDARK -->
+      <div style="background:var(--dark);border:1px solid var(--border-strong);border-radius:4px;overflow:hidden;">
+        <div style="background:#111;border-bottom:1px solid var(--border);padding:0.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--broadcast-amber);font-weight:600;">DJ Profile · Detroit</span>
+          <span style="display:flex;align-items:center;gap:0.4rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);">LOVE&amp;CO · The Switchblades</span>
+        </div>
+        <div style="padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--dark-2);border:2px solid var(--broadcast-amber);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;color:var(--broadcast-amber);flex-shrink:0;">DJ<br style="display:none">M</div>
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:var(--white);line-height:1;">DJ MACKINTHEDARK</div>
+              <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Creator of LOVE&amp;CO · Detroit, MI</div>
+            </div>
+          </div>
+          <div style="width:36px;height:2px;background:var(--broadcast-amber);"></div>
+          <p style="font-size:0.85rem;line-height:1.75;color:rgba(255,255,255,0.72);">ADHD on Wax. Member of <strong style="color:var(--white);">The Switchblades out of Detroit</strong>. Creator of LOVE&amp;CO. She's taking genre into her own hands — blending unique sounds that don't ask permission. The music moves the way her mind does: instinctive, layered, and completely her own.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+            <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">LOVE&amp;CO</span>
+            <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">The Switchblades</span>
+            <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">Detroit</span>
+            <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">Genre-bending</span>
+          </div>
+          <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex;width:fit-content;">Watch LOVE&amp;CO →</a>
+        </div>
+      </div>
+
+      <!-- PLACEHOLDER FOR NEXT DJ -->
+      <div style="background:var(--dark);border:1px dashed var(--border);border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:280px;">
+        <div style="text-align:center;padding:2rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);margin-bottom:0.5rem;">YOUR NAME HERE</div>
+          <div style="font-size:0.75rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.25rem;">DJ · Show Host · Live Set</div>
+          <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer" style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--signal-red);text-decoration:none;border:1px solid var(--signal-red);padding:0.5rem 1rem;border-radius:2px;">Join the Network →</a>
+        </div>
+      </div>
+
     </div>
 
     <div class="section-head"><span class="accent-bar"></span><h2>STV Live Chat</h2><p>Heartbeat of the movement</p></div>
@@ -498,7 +540,7 @@
     <!-- THE STATIC ISSUE 01 ARCHIVE -->
     <div style="background:#f9f6f0;border-radius:4px;overflow:hidden;margin-bottom:1.5rem;font-family:'DM Sans',sans-serif;color:#111;">
       <div style="background:#111;padding:1.25rem 1.75rem 1rem;">
-        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #333;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 · Issue 01 · March 2026 · STV Radiomeltdown · Lithonia, GA · Archive</div>
+        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #333;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 · Issue 01 · April 2026 · STV Radiomeltdown · Lithonia, GA · Archive</div>
         <div class="mag-nameplate">The Static</div>
         <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:#555;margin:0.4rem 0 0.8rem;">Where music meets the moment</div>
         <div style="display:flex;gap:1.25rem;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;border-top:0.5px solid #333;padding-top:0.6rem;flex-wrap:wrap;">
@@ -538,7 +580,7 @@
         </div>
       </div>
       <div style="margin-top:1.5rem;padding:1rem 1.75rem;background:#111;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
-        <div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#f9f6f0;">The Static</div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">Issue 01 · March 2026 · AI &amp; Music Culture</div></div>
+        <div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#f9f6f0;">The Static</div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">Issue 01 · April 2026 · AI &amp; Music Culture</div></div>
         <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">An STV Radiomeltdown Publication · Lithonia, GA</div>
       </div>
     </div>
@@ -549,7 +591,7 @@
 
       <!-- SEGMENT INTRO -->
       <div style="padding:2rem 1.75rem; border-bottom:1px solid rgba(255,255,255,0.06);">
-        <div style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:#e8002d;font-weight:600;margin-bottom:0.5rem;">STV Radio · The So Luv Radio Show</div>
+        <div style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:#e8002d;font-weight:600;margin-bottom:0.5rem;">STV Radiomeltdown · The So Luv Radio Show</div>
         <div style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:0.95;letter-spacing:-0.01em;color:#fff;margin-bottom:0.5rem;">Three Rick James Tracks<br>the World Walked Right Past</div>
         <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#555;margin-bottom:1.25rem;">Everybody knows Super Freak. But Rick James was a full catalog artist. These three tracks got buried. We're digging them up.</div>
         <div style="border-top:1px solid rgba(255,255,255,0.06);"></div>
@@ -652,7 +694,7 @@
       <div style="background:#111;border-top:1px solid rgba(255,255,255,0.06);padding:1.25rem 1.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
         <div>
           <div style="font-size:8px;letter-spacing:0.3em;text-transform:uppercase;color:#444;margin-bottom:0.4rem;">Tune In · The So Luv Radio Show</div>
-          <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;">Hear the full segment live on STV Radio</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff;">Hear the full segment live on STV Radiomeltdown</div>
           <div style="font-size:11px;color:#444;margin-top:0.25rem;">Deep catalog dives every week — the tracks that got left behind</div>
         </div>
         <a href="https://imoffmymeds.radio12345.com/" target="_blank" rel="noopener noreferrer" style="background:#e8002d;color:#fff;padding:0.6rem 1.25rem;font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;border-radius:2px;text-decoration:none;white-space:nowrap;">Listen Live →</a>
@@ -660,14 +702,14 @@
 
     </div>
 
-    <div class="section-head"><span class="accent-bar"></span><h2>Featured</h2><p>From the STV Radio desk</p></div>
+    <div class="section-head"><span class="accent-bar"></span><h2>Featured</h2><p>From the STV Radiomeltdown desk</p></div>
     <div class="featured-grid" style="background:var(--dark);border:1px solid var(--border-strong);border-radius:4px;overflow:hidden;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr;">
       <div class="featured-left" style="padding:2.5rem 2rem;border-right:1px solid var(--border);">
-        <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--broadcast-amber);font-weight:600;margin-bottom:0.75rem;">STV Radio — Lithonia, GA</div>
+        <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--broadcast-amber);font-weight:600;margin-bottom:0.75rem;">STV Radiomeltdown — Lithonia, GA</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3rem);letter-spacing:0.06em;line-height:0.95;color:var(--white);margin-bottom:1.25rem;">THE STV<br>STORY</div>
         <div style="width:40px;height:2px;background:var(--signal-red);margin-bottom:1.25rem;"></div>
         <div style="font-size:0.875rem;line-height:1.75;color:rgba(255,255,255,0.72);">
-          <p>STV Radio is an independent broadcast station proudly rooted in Lithonia, GA. We were built on one simple belief — that great music and real culture deserve a platform, no matter where they come from. From the underground to the mainstream, we give every lane of sound an equal voice.</p>
+          <p>STV Radiomeltdown is an independent broadcast station proudly rooted in Lithonia, GA. We were built on one simple belief — that great music and real culture deserve a platform, no matter where they come from. From the underground to the mainstream, we give every lane of sound an equal voice.</p>
           <p style="margin-top:0.85rem;">We partner with indie artists, underground talent, and mainstream acts to bring listeners something they can't find anywhere else. We don't just play what's popular. We play what's real, what's next, and what's been slept on for too long.</p>
           <p style="margin-top:0.85rem;">We proudly embrace AI music as the next frontier of sound — artificial intelligence is not replacing creativity, it's expanding it.</p>
           <p style="margin-top:0.85rem;font-style:italic;color:var(--white);">Culture-driven. Community-built. Always live.</p>
@@ -676,7 +718,7 @@
       <div style="padding:2.5rem 2rem;display:flex;flex-direction:column;justify-content:center;gap:1.5rem;">
         <div style="border-left:3px solid var(--signal-red);padding:1rem 1.25rem;background:var(--dark-2);">
           <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;line-height:1.6;color:var(--white);">"We don't just play what's popular. We play what's real, what's next, and what's been slept on for too long."</p>
-          <p style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;">— STV Radio</p>
+          <p style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;">— STV Radiomeltdown</p>
         </div>
         <div style="border-top:1px solid var(--border);padding-top:1.25rem;">
           <div style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">What we cover</div>
@@ -698,7 +740,7 @@
           <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#e8002d;font-weight:600;margin-bottom:0.75rem;">Subscribe Free</div>
           <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);letter-spacing:0.06em;line-height:0.95;color:#fff;margin-bottom:1rem;">GET THE<br>INSIDE TRACK</div>
           <div style="width:40px;height:2px;background:#e8002d;margin-bottom:1.25rem;"></div>
-          <p style="font-size:0.85rem;line-height:1.7;color:rgba(255,255,255,0.6);margin-bottom:1rem;">Join the STV Radio inner circle. Every issue of <em style="color:#fff;">The Static</em> delivered to your inbox — plus exclusive tips, tricks, and tools for independent artists, broadcasters, and music culture enthusiasts.</p>
+          <p style="font-size:0.85rem;line-height:1.7;color:rgba(255,255,255,0.6);margin-bottom:1rem;">Join the STV Radiomeltdown inner circle. Every issue of <em style="color:#fff;">The Static</em> delivered to your inbox — plus exclusive tips, tricks, and tools for independent artists, broadcasters, and music culture enthusiasts.</p>
           <div style="display:flex;flex-direction:column;gap:0.6rem;">
             <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:6px;height:6px;background:#e8002d;border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">In-depth music industry tips &amp; tricks</span></div>
             <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:6px;height:6px;background:#e8002d;border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.6);">AI music tools &amp; how to use them</span></div>
@@ -912,61 +954,14 @@
         </div>
       </div>
       <div style="padding:2rem 1.25rem;text-align:center;">
-        <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--muted);margin-bottom:1.25rem;">Promos uploading now — check back soon or subscribe to stay updated.</div>
-        <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;">
-          <a href="https://www.youtube.com/@sanecatv" target="_blank" rel="noopener noreferrer" class="btn btn-red">Subscribe on YouTube →</a>
+        <div class="responsive-iframe-container" style="margin-bottom:1rem;">
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H" title="STV Radiomeltdown — On the Air Promos" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:1rem;">
+          <a href="https://www.youtube.com/@saneca-tv" target="_blank" rel="noopener noreferrer" class="btn btn-red">Subscribe on YouTube →</a>
           <a href="https://www.tiktok.com/@sanecatv" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Follow on TikTok →</a>
         </div>
-        <p style="font-size:0.72rem;color:var(--dim);margin-top:1.25rem;letter-spacing:0.05em;">Want your business featured? Contact us at <a href="mailto:sanecatv@gmail.com" style="color:var(--broadcast-amber);text-decoration:none;">sanecatv@gmail.com</a></p>
-      </div>
-    </div>
-
-    <!-- PACKAGE PAGE -->
-    <div class="section-head"><span class="accent-bar"></span><h2>Start Your Station</h2><p>House of Media · Radio Station Packages</p></div>
-
-    <div style="background:#111;border:1px solid rgba(232,0,45,0.35);border-radius:4px;overflow:hidden;margin-bottom:2.5rem;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;" class="sub-grid">
-
-        <!-- DIY CARD -->
-        <div class="sub-left" style="padding:2.5rem 2rem;border-right:1px solid rgba(255,255,255,0.08);">
-          <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.5rem;">Option 01</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);letter-spacing:0.06em;line-height:1;color:#fff;margin-bottom:0.5rem;">The DIY Kit</div>
-          <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:1rem;padding-bottom:1rem;border-bottom:0.5px solid rgba(255,255,255,0.08);">
-            <span style="font-family:'Bebas Neue',sans-serif;font-size:3rem;color:#fff;line-height:1;">$97</span>
-            <span style="font-size:12px;color:rgba(255,255,255,0.4);">one-time download</span>
-          </div>
-          <p style="font-size:0.82rem;line-height:1.7;color:rgba(255,255,255,0.55);margin-bottom:1.25rem;">Everything you need to build your own station step by step. Written by someone who just did it — every setting, every fix, every pitfall included.</p>
-          <div style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.5rem;">
-            <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:5px;height:5px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.5);">Full setup guide PDF</span></div>
-            <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:5px;height:5px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.5);">StreamAudio / CentovaCast walkthrough</span></div>
-            <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:5px;height:5px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.5);">Mixxx install &amp; streaming setup</span></div>
-            <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:5px;height:5px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.5);">Custom audio player code</span></div>
-            <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:5px;height:5px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.5);">Full website template (the STV build)</span></div>
-            <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:5px;height:5px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.5);">TuneIn &amp; Alexa submission guide</span></div>
-            <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:5px;height:5px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.5);">The Static newsletter template</span></div>
-            <div style="display:flex;align-items:center;gap:0.6rem;"><div style="width:5px;height:5px;background:rgba(255,255,255,0.3);border-radius:50%;flex-shrink:0;"></div><span style="font-size:0.8rem;color:rgba(255,255,255,0.5);">30-day email support</span></div>
-          </div>
-          <a href="mailto:sanecatv@gmail.com?subject=DIY Kit Order" class="btn btn-outline" style="display:block;text-align:center;">Get the DIY Kit →</a>
-        </div>
-
-
-      <!-- BOTTOM INCLUDED BAR -->
-      <div style="background:rgba(255,255,255,0.03);border-top:0.5px solid rgba(255,255,255,0.08);padding:1.25rem 2rem;">
-        <div style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.75rem;">Every station includes</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.5rem;">
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Live streaming on StreamAudio</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>CentovaCast AutoDJ</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Custom audio player</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Mixxx DJ software setup</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>TuneIn directory listing</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Alexa voice command</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Live chat integration</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Newsletter foundation</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Mobile responsive design</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Licensing guidance</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Free music source list</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.4rem;"><span style="width:4px;height:4px;background:#e8002d;border-radius:50%;flex-shrink:0;"></span>Sponsor &amp; contact page</div>
-        </div>
+        <p style="font-size:0.72rem;color:rgba(255,255,255,0.5);letter-spacing:0.05em;text-align:center;">Want your business featured? Contact us at <a href="mailto:houseofmedia.marketing@gmail.com" style="color:var(--broadcast-amber);text-decoration:none;">houseofmedia.marketing@gmail.com</a></p>
       </div>
     </div>
 
@@ -984,15 +979,14 @@
             <li><a href="https://www.bonfire.com/store/fashun-luva/" target="_blank" rel="noopener noreferrer">Shop STV Merch</a></li>
             <li><a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Become a Sponsor</a></li>
             <li><a href="https://www.tiktok.com/@sanecatv" target="_blank" rel="noopener noreferrer">Follow @SanecaTV on TikTok</a></li>
-            <li><a href="mailto:sanecatv@gmail.com?subject=Radio Station Package" style="color:var(--broadcast-amber);">🎙 Start Your Own Station →</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Contact</h4>
           <address>
-            STV Radio<br>Lithonia, GA<br><br>
+            STV Radiomeltdown<br>Lithonia, GA<br><br>
             <a href="tel:6784338772">678-433-8772</a><br>
-            <a href="mailto:sanecatv@gmail.com">sanecatv@gmail.com</a><br><br>
-            <a href="mailto:houseofmedia.marketing@gmail.com">Newsletter: houseofmedia.marketing@gmail.com</a>
+            <a href="mailto:houseofmedia.marketing@gmail.com">houseofmedia.marketing@gmail.com</a><br><br>
+            <a href="mailto:houseofmedia.marketing@gmail.com">houseofmedia.marketing@gmail.com</a>
           </address>
 
