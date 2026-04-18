@@ -30,7 +30,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { font-family: "DM Sans", system-ui, sans-serif; background: var(--black); color: var(--white); min-height: 100vh; overflow-x: hidden; }
-    body::before { content: ""; position: fixed; inset: 0; background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px); pointer-events: none; z-index: 9999; }
 
     .alexa-banner { background: #000; color: rgba(255,255,255,0.6); padding: 8px 1.5rem; text-align: center; border-bottom: 2px solid var(--signal-red); font-size: 0.72rem; letter-spacing: 0.08em; }
     .alexa-banner strong { color: var(--white); }
@@ -104,7 +103,7 @@
 
     .section-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
     .section-head h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); }
-    .section-head p { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .section-head p { font-size: 0.75rem; color: rgba(255,255,255,0.65); letter-spacing: 0.1em; text-transform: uppercase; }
     .accent-bar { display: inline-block; width: 4px; height: 1.4rem; background: var(--broadcast-amber); border-radius: 1px; flex-shrink: 0; }
 
     .sponsor-banner { background: var(--dark); border: 1px solid rgba(245,166,35,0.3); border-radius: 4px; padding: 1.25rem 1.75rem; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
@@ -155,20 +154,20 @@
     .mag-pull { font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; line-height:1.5; color:#111; }
     .mag-also-title { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; line-height:1.3; color:#111; }
 
-    footer { border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 1rem; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    footer { border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 1rem; background: #0a0a0a; padding: 2rem 1.5rem 1.5rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.15); }
     .footer-brand-name { font-family: "Bebas Neue", sans-serif; font-size: 2.5rem; letter-spacing: 0.08em; line-height: 1; margin-bottom: 0.75rem; }
     .footer-brand-name span { color: var(--broadcast-amber); }
-    .footer-tagline { font-size: 0.8rem; color: var(--muted); line-height: 1.65; max-width: 300px; }
+    .footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.65; max-width: 300px; }
     .footer-col h4 { font-family: "Bebas Neue", sans-serif; font-size: 0.9rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--white); margin-bottom: 1rem; }
     .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 0.5rem; }
-    .footer-col ul li a, .footer-col address { font-size: 0.8rem; color: var(--muted); text-decoration: none; font-style: normal; line-height: 1.7; transition: color 0.15s; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a, .footer-col address { font-size: 0.85rem; color: rgba(255,255,255,0.75); text-decoration: none; font-style: normal; line-height: 1.8; transition: color 0.15s; }
     .footer-col ul li a:hover { color: var(--white); }
     .footer-bottom { padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
-    .footer-bottom p { font-size: 0.7rem; color: var(--dim); letter-spacing: 0.08em; text-transform: uppercase; }
+    .footer-bottom p { font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
     .footer-bottom-links { display: flex; gap: 1.5rem; }
-    .footer-bottom-links a { font-size: 0.7rem; color: var(--dim); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
+    .footer-bottom-links a { font-size: 0.72rem; color: rgba(255,255,255,0.5); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
     .footer-bottom-links a:hover { color: var(--white); }
 
     @media (max-width: 900px) {
@@ -205,14 +204,14 @@
 <body>
 
   <div class="alexa-banner">
-    Now on Alexa — say: <strong>"Alexa, play STV RADIO"</strong>
+    Now on Alexa — say: <strong>"Alexa, ask Radio Browser to play STV Radio Atlanta"</strong>
   </div>
 
   <div class="ticker-bar">
     <div class="ticker-label">📡 LIVE</div>
     <div class="ticker-track">
       <div class="ticker-inner">
-        <span>STV RADIO MELTDOWN · LITHONIA GA · G4E MOVEMENT STUDIO</span><span class="ticker-sep">◆</span>
+        <span>STV RADIOMELTDOWN · LITHONIA GA · G4E MOVEMENT STUDIO</span><span class="ticker-sep">◆</span>
         <span>LIVE BROADCAST NOW STREAMING</span><span class="ticker-sep">◆</span>
         <span>EVENT ALERT — BE HER BOUTIQUE · SIP SEE SHOP · SAT APRIL 18 · 5–8PM · DETROIT MI</span><span class="ticker-sep">◆</span>
         <span>DETROIT VINYLFEST · TONY T MONEY GREEN · SUN MAY 3 · 10AM–6PM · DETROIT MI</span><span class="ticker-sep">◆</span>
@@ -406,7 +405,7 @@
       <iframe src="https://tlk.io/sanecatv" title="STV LIVE Chat"></iframe>
     </div>
 
-    <div class="section-head"><span class="accent-bar"></span><h2>The Static</h2><p>STV Radio Meltdown Newsletter — Vol. 1 · Issue 02 · May 2026</p></div>
+    <div class="section-head"><span class="accent-bar"></span><h2>The Static</h2><p>STV Radiomeltdown Newsletter — Vol. 1 · Issue 02 · May 2026</p></div>
 
     <div style="background:#f9f6f0; border-radius:4px; overflow:hidden; margin-bottom:1.5rem; font-family:'DM Sans',sans-serif; color:#111;">
       <div style="background:#111; padding:1.25rem 1.75rem 1rem;">
@@ -466,7 +465,7 @@
           <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:0.3rem;">Community</div><div class="mag-also-title">Mr. Bernard &amp; D&amp;K Suit City</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">The man who dressed The Dramatics and saved prom in 48 hours.</div></div>
           <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:0.3rem;">Events</div><div class="mag-also-title">Detroit Vinylfest 2026</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">Where legends and crates meet. May 3, Detroit.</div></div>
           <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:0.3rem;">Deep Cuts</div><div class="mag-also-title">Lost in the Sauce: Rick James</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">Three tracks that got buried. Glow. Dance Wit' Me. Hard to Get.</div></div>
-          <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:0.3rem;">Station News</div><div class="mag-also-title">STV Radio Meltdown — We're Live</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">Independent. Broadcasting. Always on. Say "Alexa, play STV RADIO."</div></div>
+          <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#888;margin-bottom:0.3rem;">Station News</div><div class="mag-also-title">STV Radiomeltdown — We're Live</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">Independent. Broadcasting. Always on. Say "Alexa, play Radiomeltdown."</div></div>
         </div>
 
         <div style="border-top:0.5px solid #ccc;margin-bottom:1.5rem;"></div>
@@ -476,7 +475,7 @@
           <div style="padding:1rem;border:0.5px solid #ddd;display:flex;gap:0.75rem;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#e0ddd6;line-height:1;flex-shrink:0;width:28px;">01</div><div style="font-size:12px;line-height:1.6;color:#333;font-weight:300;"><strong style="font-weight:500;color:#111;">Tony Green's bass lines</strong> appear on records by DMX, EPMD, Erykah Badu, Ice Cube, Tupac, Gang Starr and more — many without his name in the credits.</div></div>
           <div style="padding:1rem;border:0.5px solid #ddd;display:flex;gap:0.75rem;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#e0ddd6;line-height:1;flex-shrink:0;width:28px;">02</div><div style="font-size:12px;line-height:1.6;color:#333;font-weight:300;">He was <strong style="font-weight:500;color:#111;">the person who introduced George Clinton to Dr. Dre</strong> at Death Row — a meeting that shaped West Coast hip-hop forever.</div></div>
           <div style="padding:1rem;border:0.5px solid #ddd;display:flex;gap:0.75rem;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#e0ddd6;line-height:1;flex-shrink:0;width:28px;">03</div><div style="font-size:12px;line-height:1.6;color:#333;font-weight:300;"><strong style="font-weight:500;color:#111;">D&amp;K Suit City</strong> has been dressing the Atlanta and Detroit community for over 40 years — including custom work for The Dramatics.</div></div>
-          <div style="padding:1rem;border:0.5px solid #ddd;display:flex;gap:0.75rem;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#e0ddd6;line-height:1;flex-shrink:0;width:28px;">04</div><div style="font-size:12px;line-height:1.6;color:#333;font-weight:300;"><strong style="font-weight:500;color:#111;">STV Radiomeltdown</strong> is now live on StreamAudio — say "Alexa, play STV RADIO" to tune in from anywhere.</div></div>
+          <div style="padding:1rem;border:0.5px solid #ddd;display:flex;gap:0.75rem;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#e0ddd6;line-height:1;flex-shrink:0;width:28px;">04</div><div style="font-size:12px;line-height:1.6;color:#333;font-weight:300;"><strong style="font-weight:500;color:#111;">STV Radiomeltdown</strong> is now live on StreamAudio — say "Alexa, play Radiomeltdown" to tune in from anywhere.</div></div>
         </div>
 
         <!-- THE STATIC YOUTUBE PLAYLIST -->
@@ -492,14 +491,14 @@
 
       <div style="margin-top:1.5rem;padding:1rem 1.75rem;background:#111;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
         <div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#f9f6f0;">The Static</div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">Issue 02 · May 2026 · Culture &amp; Community</div></div>
-        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">An STV Radio Meltdown Publication · Lithonia, GA</div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">An STV Radiomeltdown Publication · Lithonia, GA</div>
       </div>
     </div>
 
     <!-- THE STATIC ISSUE 01 ARCHIVE -->
     <div style="background:#f9f6f0;border-radius:4px;overflow:hidden;margin-bottom:1.5rem;font-family:'DM Sans',sans-serif;color:#111;">
       <div style="background:#111;padding:1.25rem 1.75rem 1rem;">
-        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #333;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 · Issue 01 · March 2026 · STV Radio Meltdown · Lithonia, GA · Archive</div>
+        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #333;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 · Issue 01 · March 2026 · STV Radiomeltdown · Lithonia, GA · Archive</div>
         <div class="mag-nameplate">The Static</div>
         <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:#555;margin:0.4rem 0 0.8rem;">Where music meets the moment</div>
         <div style="display:flex;gap:1.25rem;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;border-top:0.5px solid #333;padding-top:0.6rem;flex-wrap:wrap;">
@@ -725,7 +724,7 @@
               <option value="" disabled selected>Most interested in...</option>
               <option value="tips">Industry tips &amp; tricks</option>
               <option value="ai">AI music tools</option>
-              <option value="artists">Artist Spotlights</option>
+              <option value="artists">Artist spotlights</option>
               <option value="broadcasting">Broadcasting how-tos</option>
               <option value="all">All of the above</option>
             </select>
@@ -773,7 +772,7 @@
 
         <div style="padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
           <div>
-            <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.75rem;">Event Highlights</div>
+            <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.75rem;">Event highlights</div>
             <div style="display:flex;flex-direction:column;gap:0.75rem;">
               <div style="display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.06);border-radius:2px;">
                 <span style="font-size:16px;flex-shrink:0;line-height:1.3;">📸</span>
@@ -799,7 +798,7 @@
 
       <div style="background:#111;border-top:1px solid rgba(255,255,255,0.06);padding:0.75rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
         <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Be Her Boutique · 15715 East Warren · Detroit, MI 48224</span>
-        <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.15);">Featured on STV Radio Meltdown · Community Love</span>
+        <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.15);">Featured on STV Radiomeltdown · Community Love</span>
       </div>
     </div>
 
@@ -851,7 +850,7 @@
       </div>
       <div style="background:#111;border-top:1px solid rgba(255,255,255,0.06);padding:0.75rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
         <span style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Detroit Vinylfest · May 3, 2026 · Detroit, MI</span>
-        <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.15);">Featured on STV Radio Meltdown · Community Love</span>
+        <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.15);">Featured on STV Radiomeltdown · Community Love</span>
       </div>
     </div>
 
@@ -872,7 +871,7 @@
         <div style="font-size:0.875rem;line-height:1.8;color:rgba(255,255,255,0.72);">
           <p>Thursday afternoon, prom was Saturday, and the clock was ticking. Most places would have turned us away. Mr. Bernard didn't flinch.</p>
           <p style="margin-top:0.85rem;">He took care of Braylen from start to finish — found the right suit, got everything fitted on the spot, kept it super affordable, and made sure the only thing left was taking the pants up a little. What should have been a stressful scramble turned into one of the best shopping experiences our family has ever had.</p>
-          <p style="margin-top:0.85rem;">That's not just good service. That's somebody who genuinely cares about the people walking through the door. Mr. Bernard — STV Radio Meltdown sees you, and we appreciate you.</p>
+          <p style="margin-top:0.85rem;">That's not just good service. That's somebody who genuinely cares about the people walking through the door. Mr. Bernard — STV Radiomeltdown sees you, and we appreciate you.</p>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
           <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">Community Hero</span>
@@ -885,7 +884,7 @@
       <div style="padding:2.5rem 2rem;display:flex;flex-direction:column;justify-content:center;gap:1.5rem;">
         <div style="border-left:3px solid var(--broadcast-amber);padding:1rem 1.25rem;background:var(--dark-2);">
           <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;line-height:1.7;color:var(--white);">"Thursday afternoon. Prom on Saturday. Mr. Bernard made it happen — suit fitted perfect, super affordable, ready to go. That's what community looks like."</p>
-          <p style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;">— STV Radio Meltdown · Braylen's prom, 2026</p>
+          <p style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;">— STV Radiomeltdown · Braylen's prom, 2026</p>
         </div>
         <div style="border-top:1px solid var(--border);padding-top:1.25rem;display:flex;flex-direction:column;gap:0.6rem;">
           <div style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);margin-bottom:0.25rem;">Find D&amp;K Suit City</div>
@@ -899,7 +898,7 @@
     </div>
 
     <!-- YOUTUBE SHORTS / COMMERCIALS -->
-    <div class="section-head"><span class="accent-bar"></span><h2>On the Air</h2><p>Commercials &amp; Promos · STV RadioMeltdown</p></div>
+    <div class="section-head"><span class="accent-bar"></span><h2>On the Air</h2><p>Commercials &amp; Promos · STV Radiomeltdown</p></div>
 
     <div style="background:var(--dark);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:2.5rem;">
       <div style="background:var(--dark-2);border-bottom:1px solid var(--border);padding:0.9rem 1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
@@ -915,7 +914,7 @@
       <div style="padding:2rem 1.25rem;text-align:center;">
         <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--muted);margin-bottom:1.25rem;">Promos uploading now — check back soon or subscribe to stay updated.</div>
         <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;">
-          <a href="https://www.youtube.com/@saneca-tv" target="_blank" rel="noopener noreferrer" class="btn btn-red">Subscribe on YouTube →</a>
+          <a href="https://www.youtube.com/@sanecatv" target="_blank" rel="noopener noreferrer" class="btn btn-red">Subscribe on YouTube →</a>
           <a href="https://www.tiktok.com/@sanecatv" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Follow on TikTok →</a>
         </div>
         <p style="font-size:0.72rem;color:var(--dim);margin-top:1.25rem;letter-spacing:0.05em;">Want your business featured? Contact us at <a href="mailto:sanecatv@gmail.com" style="color:var(--broadcast-amber);text-decoration:none;">sanecatv@gmail.com</a></p>
@@ -995,326 +994,6 @@
         </div>
       </div>
     </div>
-
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>STV Radio Network — Radio Station Packages</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: "DM Sans", system-ui, sans-serif;
-      background: #f5f5f5;
-      color: #111;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-    }
-
-    .page { max-width: 900px; margin: 0 auto; }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-    .headline {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      letter-spacing: 0.04em;
-      color: #111;
-      text-align: center;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-    .sub {
-      font-size: 14px;
-      color: #666;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      line-height: 1.7;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 2rem;
-    }
-
-    .card {
-      background: #fff;
-      border: 0.5px solid rgba(0,0,0,0.12);
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .card.featured { border: 2px solid #e8002d; }
-
-    .card-badge {
-      background: #fde8ec;
-      color: #a3001f;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 8px;
-      display: inline-block;
-      width: fit-content;
-    }
-    .card-label {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #aaa;
-    }
-    .card-title {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.06em;
-      color: #111;
-      line-height: 1.1;
-    }
-    .card-price {
-      display: flex;
-      align-items: baseline;
-      gap: 4px;
-      border-top: 0.5px solid rgba(0,0,0,0.08);
-      padding-top: 12px;
-    }
-    .card-price-num {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 2.8rem;
-      letter-spacing: 0.02em;
-      color: #111;
-      line-height: 1;
-    }
-    .card-price-period { font-size: 13px; color: #aaa; }
-    .card-desc {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.7;
-      border-top: 0.5px solid rgba(0,0,0,0.08);
-      padding-top: 12px;
-    }
-    .card-features { display: flex; flex-direction: column; gap: 8px; }
-    .feat {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 13px;
-      color: #555;
-      line-height: 1.5;
-    }
-    .feat-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #ccc;
-      flex-shrink: 0;
-      margin-top: 5px;
-    }
-    .feat-dot.red { background: #e8002d; }
-    .card-cta { margin-top: auto; padding-top: 4px; }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 0.7rem 1rem;
-      font-family: "DM Sans", sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-align: center;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-      border: 0.5px solid rgba(0,0,0,0.2);
-      background: transparent;
-      color: #111;
-      transition: background 0.15s;
-    }
-    .btn:hover { background: #f0f0f0; }
-    .btn.primary { background: #e8002d; color: #fff; border-color: #e8002d; }
-    .btn.primary:hover { background: #c20025; }
-
-    .whats-included {
-      background: #fff;
-      border: 0.5px solid rgba(0,0,0,0.1);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .wi-title {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 0.1em;
-      color: #111;
-      margin-bottom: 1rem;
-    }
-    .wi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 8px;
-    }
-    .wi-item {
-      font-size: 12px;
-      color: #666;
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      line-height: 1.5;
-    }
-    .wi-dot { width: 5px; height: 5px; border-radius: 50%; background: #e8002d; flex-shrink: 0; margin-top: 5px; }
-
-    .note {
-      font-size: 12px;
-      color: #aaa;
-      text-align: center;
-      line-height: 1.7;
-      padding-bottom: 1rem;
-    }
-    .note a { color: #e8002d; text-decoration: none; }
-
-    /* Red accent bar top */
-    .top-bar {
-      height: 4px;
-      background: linear-gradient(90deg, #e8002d, #f5a623);
-      border-radius: 2px;
-      margin-bottom: 2.5rem;
-    }
-
-    .station-logo {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .station-logo-name {
-      font-family: "Bebas Neue", sans-serif;
-      font-size: 2rem;
-      letter-spacing: 0.15em;
-      color: #111;
-    }
-    .station-logo-sub {
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #aaa;
-    }
-
-    @media (max-width: 600px) {
-      .grid { grid-template-columns: 1fr; }
-      .wi-grid { grid-template-columns: 1fr 1fr; }
-    }
-  </style>
-</head>
-<body>
-  <div class="page">
-
-    <div class="top-bar"></div>
-
-    <div class="station-logo">
-      <div class="station-logo-name">STV RADIO MELTDOWN</div>
-      <div class="station-logo-sub">House of Media · Lithonia, GA</div>
-    </div>
-
-    <div class="eyebrow">Radio Station Packages</div>
-    <h1 class="headline">Your Own Radio Station<br>Done Right</h1>
-    <p class="sub">Two ways to get a fully operational internet radio station. DIY with everything you need, or let us build it for you from scratch — exactly like STV Radio Meltdown was built.</p>
-
-    <div class="grid">
-
-      <!-- DIY KIT -->
-      <div class="card">
-        <div class="card-label">Option 01</div>
-        <div class="card-title">The DIY Kit</div>
-        <div class="card-price">
-          <span class="card-price-num">$97</span>
-          <span class="card-price-period">one-time download</span>
-        </div>
-        <div class="card-desc">Everything you need to build your own station step by step. Written and recorded by someone who just did it — every setting, every fix, every pitfall included.</div>
-        <div class="card-features">
-          <div class="feat"><span class="feat-dot"></span>Full written setup guide (PDF)</div>
-          <div class="feat"><span class="feat-dot"></span>StreamAudio / CentovaCast walkthrough</div>
-          <div class="feat"><span class="feat-dot"></span>Mixxx install, config &amp; streaming setup</div>
-          <div class="feat"><span class="feat-dot"></span>Custom audio player code (ready to paste)</div>
-          <div class="feat"><span class="feat-dot"></span>Website template (the exact STV build)</div>
-          <div class="feat"><span class="feat-dot"></span>TuneIn &amp; Alexa submission walkthrough</div>
-          <div class="feat"><span class="feat-dot"></span>Licensing overview &amp; free music sources</div>
-          <div class="feat"><span class="feat-dot"></span>AutoDJ scheduling guide</div>
-          <div class="feat"><span class="feat-dot"></span>The Static newsletter template</div>
-          <div class="feat"><span class="feat-dot"></span>Email support for 30 days</div>
-        </div>
-        <div class="card-cta">
-          <a href="mailto:sanecatv@gmail.com?subject=DIY Kit Order" class="btn">Get the DIY Kit →</a>
-        </div>
-      </div>
-
-      <!-- DONE FOR YOU -->
-      <div class="card featured">
-        <div class="card-badge">Most Popular</div>
-        <div class="card-label">Option 02</div>
-        <div class="card-title">Done For You — Full Build</div>
-        <div class="card-price">
-          <span class="card-price-num">$497</span>
-          <span class="card-price-period">complete setup</span>
-        </div>
-        <div class="card-desc">We build your entire station from scratch — exactly like STV Radiomeltdown was built. You show up to a working, branded, live station with your name on it. Zero tech headaches.</div>
-        <div class="card-features">
-          <div class="feat"><span class="feat-dot red"></span>Everything in the DIY Kit included</div>
-          <div class="feat"><span class="feat-dot red"></span>StreamAudio account setup &amp; configuration</div>
-          <div class="feat"><span class="feat-dot red"></span>CentovaCast AutoDJ programmed &amp; live</div>
-          <div class="feat"><span class="feat-dot red"></span>Custom branded website built &amp; deployed</div>
-          <div class="feat"><span class="feat-dot red"></span>Audio player connected to your stream URL</div>
-          <div class="feat"><span class="feat-dot red"></span>Logo designed (black, white &amp; your color)</div>
-          <div class="feat"><span class="feat-dot red"></span>Newsletter template (Vol. 1 ready to send)</div>
-          <div class="feat"><span class="feat-dot red"></span>TuneIn &amp; Alexa submitted on your behalf</div>
-          <div class="feat"><span class="feat-dot red"></span>SEO meta, keywords &amp; station description</div>
-          <div class="feat"><span class="feat-dot red"></span>60-day support after launch</div>
-        </div>
-        <div class="card-cta">
-          <a href="mailto:sanecatv@gmail.com?subject=Full Build - Done For You" class="btn primary">Book the Full Build →</a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- WHAT'S INCLUDED -->
-    <div class="whats-included">
-      <div class="wi-title">Every Station Includes</div>
-      <div class="wi-grid">
-        <div class="wi-item"><span class="wi-dot"></span>Live streaming on StreamAudio</div>
-        <div class="wi-item"><span class="wi-dot"></span>CentovaCast AutoDJ panel</div>
-        <div class="wi-item"><span class="wi-dot"></span>Custom audio player for website</div>
-        <div class="wi-item"><span class="wi-dot"></span>Mixxx DJ software setup</div>
-        <div class="wi-item"><span class="wi-dot"></span>TuneIn directory listing</div>
-        <div class="wi-item"><span class="wi-dot"></span>Alexa voice command setup</div>
-        <div class="wi-item"><span class="wi-dot"></span>Live chat integration</div>
-        <div class="wi-item"><span class="wi-dot"></span>Newsletter foundation</div>
-        <div class="wi-item"><span class="wi-dot"></span>Sponsor &amp; contact page</div>
-        <div class="wi-item"><span class="wi-dot"></span>Mobile responsive design</div>
-        <div class="wi-item"><span class="wi-dot"></span>Licensing guidance</div>
-        <div class="wi-item"><span class="wi-dot"></span>Free music source list</div>
-      </div>
-    </div>
-
-    <div class="note">
-      Built by STV Radio Meltdown · Lithonia, GA<br>
-      Questions? <a href="mailto:sanecatv@gmail.com">sanecatv@gmail.com</a> · <a href="tel:6784338772">678-433-8772</a>
-    </div>
-
-  </div>
-</body>
-</html>
 
     <footer>
       <div class="footer-grid">
