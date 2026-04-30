@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Radiomeltdown — How I built an independent radio station from scratch, and how you can too. 7 modules. 30-60 days. Your voice. Your station. Your money."/>
+<title>Radiomeltdown Course — STV Radiomeltdown</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --red:    #E8002D;
+  --gold:   #F5A623;
+  --black:  #000000;
+  --dark:   #0a0a0a;
+  --dark2:  #111111;
+  --dark3:  #1a1a1a;
+  --white:  #FFFFFF;
+  --gray:   #888888;
+  --lgray:  #444444;
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--black);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--gold); }
+.nav-cta {
+  background: var(--red);
+  color: var(--white);
+  padding: 0.5rem 1.25rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: #c20025; }
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 2rem 80px;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.4) 100%);
+  z-index: 1;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 80% 50%, rgba(232,0,45,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(245,166,35,0.05) 0%, transparent 50%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+.hero-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--red);
+}
+.hero-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+.hero-h1 .line2 {
+  color: var(--red);
+  font-style: italic;
+  display: block;
+}
+.hero-h1 .line3 { display: block; }
+.hero-deck {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  color: rgba(255,255,255,0.65);
+  max-width: 560px;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+.hero-deck strong { color: var(--white); font-weight: 500; }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+.btn-primary {
+  background: var(--red);
+  color: var(--white);
+  padding: 1rem 2.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-primary:hover { background: #c20025; transform: translateY(-1px); }
+.btn-secondary {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.15s;
+}
+.btn-secondary:hover { color: var(--white); }
+.hero-proof {
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.hero-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+.hero-rule {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+  z-index: 2;
+}
+
+/* ── SECTIONS ── */
+section { position: relative; z-index: 1; }
+.container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+.section-pad { padding: 6rem 0; }
+
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.section-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+.section-h2 em { font-style: italic; color: var(--red); }
+.section-body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.6);
+  max-width: 600px;
+  font-weight: 300;
+}
+
+/* ── THE PROBLEM ── */
+.problem { background: var(--dark2); }
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-top: 3rem;
+}
+.problem-item {
+  background: var(--dark2);
+  padding: 2rem;
+}
+.problem-item-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.problem-item h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+.problem-item p {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── PULL QUOTE ── */
+.pullquote {
+  background: var(--dark);
+  border-left: 4px solid var(--red);
+  padding: 4rem 2rem;
+}
+.pullquote-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.pullquote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--white);
+  margin-bottom: 1.25rem;
+}
+.pullquote cite {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+}
+
+/* ── MODULES ── */
+.modules { background: var(--black); }
+.modules-grid {
+  display: grid;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-top: 3rem;
+}
+.module-item {
+  background: var(--black);
+  padding: 2rem 2rem 2rem 1.5rem;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  transition: background 0.15s;
+}
+.module-item:hover { background: var(--dark2); }
+.module-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  color: rgba(255,255,255,0.06);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  transition: color 0.15s;
+}
+.module-item:hover .module-num { color: rgba(232,0,45,0.2); }
+.module-tag {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+.module-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.module-desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.45);
+}
+.module-output {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+.module-output::before { content: 'Output: '; opacity: 0.5; }
+
+/* ── TRANSFORMATION ── */
+.transform { background: var(--dark2); }
+.transform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.transform-col h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.transform-col.after h3 { color: var(--gold); }
+.transform-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.transform-list li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.5);
+  padding-left: 1.25rem;
+  position: relative;
+}
+.transform-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: rgba(255,255,255,0.2);
+}
+.transform-col.after .transform-list li {
+  color: rgba(255,255,255,0.8);
+}
+.transform-col.after .transform-list li::before {
+  content: '✓';
+  color: var(--gold);
+}
+
+/* ── INSTRUCTOR ── */
+.instructor { background: var(--black); }
+.instructor-inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+.instructor-left {
+  position: sticky;
+  top: 80px;
+}
+.instructor-name-block {
+  border-left: 3px solid var(--red);
+  padding-left: 1.25rem;
+  margin-bottom: 2rem;
+}
+.instructor-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.instructor-title {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+.instructor-cred {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.cred-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+.cred-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 52px;
+}
+.cred-text {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.45);
+  padding-top: 0.2rem;
+}
+.instructor-bio p {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.instructor-bio p strong { color: var(--white); font-weight: 500; }
+
+/* ── PRICING ── */
+.pricing { background: var(--dark2); }
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-top: 3rem;
+}
+.price-card {
+  background: var(--dark2);
+  padding: 2.5rem;
+}
+.price-card.featured {
+  background: var(--dark3);
+  position: relative;
+}
+.price-badge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--red);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
+}
+.price-tier {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 0.5rem;
+}
+.price-amount {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4.5rem;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.price-amount span {
+  font-size: 1.5rem;
+  color: var(--gray);
+}
+.price-desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+.price-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 2rem;
+}
+.price-features li {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
+  padding-left: 1.25rem;
+  position: relative;
+  line-height: 1.4;
+}
+.price-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 0.75rem;
+}
+.price-cta {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.15s;
+  cursor: pointer;
+  border: none;
+}
+.price-cta-primary {
+  background: var(--red);
+  color: var(--white);
+}
+.price-cta-primary:hover { background: #c20025; }
+.price-cta-secondary {
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.price-cta-secondary:hover {
+  border-color: rgba(255,255,255,0.3);
+  color: var(--white);
+}
+
+/* ── FAQ ── */
+.faq { background: var(--black); }
+.faq-list {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.5rem 2rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--white);
+  transition: background 0.15s;
+}
+.faq-q:hover { background: var(--dark2); }
+.faq-q .icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  color: var(--gray);
+  transition: all 0.2s;
+}
+.faq-item.open .faq-q .icon {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+  transform: rotate(45deg);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a-inner {
+  padding: 0 2rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ── FINAL CTA ── */
+.final-cta {
+  background: var(--dark2);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  padding: 6rem 2rem;
+}
+.final-cta .section-h2 { margin: 0 auto 1rem; }
+.final-cta .section-body { margin: 0 auto 2.5rem; text-align: center; }
+.final-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.3);
+  margin-top: 2.5rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.footer-left {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 0.06em;
+}
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.footer-links a {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: var(--white); }
+.footer-bar {
+  height: 4px;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 680px) {
+  .problem-grid,
+  .transform-grid,
+  .pricing-grid { grid-template-columns: 1fr; }
+  .instructor-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .instructor-left { position: static; }
+  .module-item { grid-template-columns: 50px 1fr; gap: 1rem; }
+  .module-num { font-size: 2.5rem; }
+  .hero-proof { gap: 1.25rem; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-content > * {
+  animation: fadeUp 0.7s ease both;
+}
+.hero-label     { animation-delay: 0.1s; }
+.hero-h1        { animation-delay: 0.2s; }
+.hero-deck      { animation-delay: 0.35s; }
+.hero-actions   { animation-delay: 0.5s; }
+.hero-proof     { animation-delay: 0.65s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://radiomeltdown.com"><span>STV</span> Radiomeltdown</a>
+  <a class="nav-cta" href="#pricing">Enroll Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content container">
+    <div class="hero-label">STV Radiomeltdown Presents</div>
+    <h1 class="hero-h1">
+      How I Built It
+      <span class="line2">— And How</span>
+      <span class="line3">You Can Too.</span>
+    </h1>
+    <p class="hero-deck">
+      A complete system for building an independent radio station, becoming a broadcaster, and scaling your voice into a media brand. <strong>No corporate backing. No gatekeepers. No permission required.</strong>
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#pricing">Get Instant Access →</a>
+      <a class="btn-secondary" href="#modules">See the curriculum ↓</a>
+    </div>
+    <div class="hero-proof">
+      <div class="hero-stat">
+        <div class="hero-stat-num">13</div>
+        <div class="hero-stat-label">Years Broadcasting</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">7</div>
+        <div class="hero-stat-label">Core Modules</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">30</div>
+        <div class="hero-stat-label">Days to Launch</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">$0</div>
+        <div class="hero-stat-label">Permission Needed</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-rule"></div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="problem section-pad">
+  <div class="container">
+    <div class="section-label">The Problem</div>
+    <h2 class="section-h2">You Have a Voice.<br><em>Nobody Taught You What to Do With It.</em></h2>
+    <p class="section-body">Most people who want to broadcast get stuck in the same four places. This course removes all of them.</p>
+    <div class="problem-grid">
+      <div class="problem-item">
+        <div class="problem-item-icon">🔧</div>
+        <h3>The tech feels overwhelming</h3>
+        <p>OBS, streaming software, audio interfaces, stream keys — nobody explains what you actually need or how to set it up without a degree in broadcasting.</p>
+      </div>
+      <div class="problem-item">
+        <div class="problem-item-icon">👥</div>
+        <h3>No audience, no momentum</h3>
+        <p>You broadcast into the void. Nobody shows up. You don't know where your listeners are or how to bring them to your station.</p>
+      </div>
+      <div class="problem-item">
+        <div class="problem-item-icon">💰</div>
+        <h3>No idea how to make money</h3>
+        <p>You build the station. Then what? Ads, sponsorships, affiliates, premium content — nobody teaches you how to monetize a broadcast from day one.</p>
+      </div>
+      <div class="problem-item">
+        <div class="problem-item-icon">🧠</div>
+        <h3>Paralysis before the first broadcast</h3>
+        <p>Confidence and clarity. Most people know what they want to do but get stuck on how and where to start. The paralysis is real — and it costs months.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div class="pullquote">
+  <div class="pullquote-inner">
+    <blockquote>"The biggest mistake I made early was focusing on fancy tech and perfect content instead of connecting with my first real audience. Students won't waste months perfecting gear — they'll start broadcasting and learn by doing."</blockquote>
+    <cite>— Seneca Mack, Founder · STV Radiomeltdown · 13 Years Broadcasting</cite>
+  </div>
+</div>
+
+<!-- MODULES -->
+<section class="modules section-pad" id="modules">
+  <div class="container">
+    <div class="section-label">The Curriculum</div>
+    <h2 class="section-h2">7 Modules.<br><em>One Complete Media Company.</em></h2>
+    <p class="section-body">Every module builds directly on the last. Every module ends with something you have built — not just learned.</p>
+    <div class="modules-grid">
+      <div class="module-item">
+        <div class="module-num">01</div>
+        <div>
+          <div class="module-tag">Foundation</div>
+          <div class="module-title">Vision & Format</div>
+          <div class="module-desc">Define your station identity, format, niche, and the one-sentence positioning that makes people immediately want to tune in.</div>
+          <div class="module-output">Station name, positioning statement, listener profile</div>
+        </div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">02</div>
+        <div>
+          <div class="module-tag">Infrastructure</div>
+          <div class="module-title">Tech Setup</div>
+          <div class="module-desc">The exact gear, software, and platforms you need — configured and ready to go live. No overbuying. No wasted months on setup.</div>
+          <div class="module-output">Live streaming setup, website, email capture</div>
+        </div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">03</div>
+        <div>
+          <div class="module-tag">Growth</div>
+          <div class="module-title">Audience Mapping</div>
+          <div class="module-desc">Find exactly where your listeners are and build the bridges to bring them home. Distribution beats production — this is the shortcut.</div>
+          <div class="module-output">First 100 listeners strategy, social accounts optimized</div>
+        </div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">04</div>
+        <div>
+          <div class="module-tag">Content</div>
+          <div class="module-title">Content Production</div>
+          <div class="module-desc">Shows, segments, station IDs, and a 4-week content calendar. Consistency is king — this module makes consistency achievable.</div>
+          <div class="module-output">Content calendar, station IDs, show format</div>
+        </div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">05</div>
+        <div>
+          <div class="module-tag">Launch</div>
+          <div class="module-title">Launch & Broadcast</div>
+          <div class="module-desc">Your launch day plan, first episode framework, press strategy, and how to amplify every broadcast across all platforms within 24 hours.</div>
+          <div class="module-output">First live broadcast, press identity, launch content</div>
+        </div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">06</div>
+        <div>
+          <div class="module-tag">Community</div>
+          <div class="module-title">Community & Engagement</div>
+          <div class="module-desc">Turn listeners into a community that grows itself. Discord, newsletter, spotlights, and the engagement loops that keep people coming back.</div>
+          <div class="module-output">Community platform, newsletter, first spotlight</div>
+        </div>
+      </div>
+      <div class="module-item">
+        <div class="module-num">07</div>
+        <div>
+          <div class="module-tag">Revenue</div>
+          <div class="module-title">Monetization & Scaling</div>
+          <div class="module-desc">Ad sales, sponsorships, affiliates, premium content, merchandise, Done For You services, and how to scale from one person to a full media operation.</div>
+          <div class="module-output">First revenue stream live, sponsorship package, 90-day roadmap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFORMATION -->
+<section class="transform section-pad">
+  <div class="container">
+    <div class="section-label">The Transformation</div>
+    <h2 class="section-h2">Before.<br><em>And After.</em></h2>
+    <div class="transform-grid">
+      <div class="transform-col before">
+        <h3>Before Radiomeltdown</h3>
+        <ul class="transform-list">
+          <li>Broadcasting into the void with no listeners</li>
+          <li>Spending months on gear instead of going live</li>
+          <li>No idea how to find or build an audience</li>
+          <li>Zero revenue from your broadcasting</li>
+          <li>No brand identity — just a show without a home</li>
+          <li>Stuck waiting for someone to give you a platform</li>
+          <li>Paralyzed by the how and the where to start</li>
+        </ul>
+      </div>
+      <div class="transform-col after">
+        <h3>After Radiomeltdown</h3>
+        <ul class="transform-list">
+          <li>A live 24/7 stream with a real, growing audience</li>
+          <li>Live in a weekend — optimizing with real listeners</li>
+          <li>A clear platform stack and first 100 listener strategy</li>
+          <li>Ad sales, sponsorships, affiliates, and premium content</li>
+          <li>A full brand — name, visuals, voice, and positioning</li>
+          <li>Your own station — built by your hands, on your terms</li>
+          <li>Clarity on every step from day one to media company</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE 2 -->
+<div class="pullquote">
+  <div class="pullquote-inner">
+    <blockquote>"Distribution beats production. It doesn't matter how good your content is if no one can find it. Starting with platforms that already have an audience is the shortcut I wish I'd had on day one."</blockquote>
+    <cite>— Seneca Mack · STV Radiomeltdown · Lithonia, GA</cite>
+  </div>
+</div>
+
+<!-- INSTRUCTOR -->
+<section class="instructor section-pad">
+  <div class="container">
+    <div class="instructor-inner">
+      <div class="instructor-left">
+        <div class="instructor-name-block">
+          <div class="instructor-name">Seneca Mack</div>
+          <div class="instructor-title">Founder · Host · Broadcaster</div>
+        </div>
+        <div class="instructor-cred">
+          <div class="cred-item">
+            <div class="cred-num">13</div>
+            <div class="cred-text">Years of independent broadcasting across platforms and formats</div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-num">24/7</div>
+            <div class="cred-text">Live streaming on STV Radiomeltdown — always on, always independent</div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-num">$0</div>
+            <div class="cred-text">Corporate backing — built from nothing with the exact system in this course</div>
+          </div>
+        </div>
+      </div>
+      <div class="instructor-bio">
+        <div class="section-label">Your Instructor</div>
+        <h2 class="section-h2" style="font-size:2.2rem;margin-bottom:1.5rem;">Built From Nothing.<br><em>No Label. No Permission.</em></h2>
+        <p>Seneca Mack is the founder, host, and broadcaster behind STV Radiomeltdown — an independent radio station streaming 24/7 from Lithonia, Georgia. With 13 years of broadcasting experience across platforms and formats, Seneca built Radiomeltdown without a label, without corporate backing, and without permission from anyone.</p>
+        <p>STV Radiomeltdown features original programming, artist spotlights, live remote broadcasts from events across Atlanta, a published newsletter called The Static, and multiple active revenue streams — all built with the exact system taught in this course.</p>
+        <p><strong>This course is not theoretical.</strong> Every lesson, every template, every checklist is drawn directly from the real process of building a real independent station that is live right now at radiomeltdown.com.</p>
+        <p>Seneca has broadcast from East Atlanta Village, covered local community events, built a full media ecosystem including 24/7 streaming audio, live video on Kick and YouTube, newsletter publishing, UGC creation, and a personal brand at seneca.work — and now teaches others to do exactly the same.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing section-pad" id="pricing">
+  <div class="container">
+    <div class="section-label">Enroll Today</div>
+    <h2 class="section-h2">Choose Your Path.</h2>
+    <p class="section-body">Both tracks include full course access. The difference is how much support you want along the way.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Self-Directed</div>
+        <div class="price-amount"><span>$</span>97</div>
+        <div class="price-desc">Full course access. Move at your pace. Everything you need to build your station independently.</div>
+        <ul class="price-features">
+          <li>All 7 modules — 35+ lessons</li>
+          <li>All templates, scripts, and checklists</li>
+          <li>The STV Radiomeltdown tech stack reference</li>
+          <li>Station identity and show format worksheets</li>
+          <li>Launch day checklist and content calendar</li>
+          <li>Monetization templates and rate cards</li>
+          <li>Private Discord community access</li>
+          <li>Lifetime access including all future updates</li>
+          <li>Certificate of completion</li>
+        </ul>
+        <a class="price-cta price-cta-secondary" href="https://stv-network.kit.com/5f815210de">Enroll — DIY Track</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">Most Popular</div>
+        <div class="price-tier">Done With You</div>
+        <div class="price-amount"><span>$</span>497</div>
+        <div class="price-desc">Everything in DIY plus hands-on coaching and direct support from Seneca throughout your build.</div>
+        <ul class="price-features">
+          <li>Everything in the DIY track</li>
+          <li>Weekly group coaching calls with Seneca</li>
+          <li>Direct feedback on your setup, content, and brand</li>
+          <li>Done-With-You tech configuration sessions</li>
+          <li>Personalized monetization strategy review</li>
+          <li>Priority access for questions and reviews</li>
+          <li>90 days of community support post-completion</li>
+          <li>Lifetime access including all future updates</li>
+        </ul>
+        <a class="price-cta price-cta-primary" href="https://stv-network.kit.com/5f815210de">Enroll — Done With You</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq section-pad">
+  <div class="container">
+    <div class="section-label">Questions</div>
+    <h2 class="section-h2">Before You Enroll.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do I need experience to take this course?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No experience required. Radiomeltdown is designed for complete beginners — people who have never broadcast a single second — as well as creators who already make content and want to build a broadcast home base. The course starts from the foundation and builds up. If you have a voice and something to say, you have everything you need.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How quickly can I get a live stream running?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">You can have a live stream running this weekend. Modules 1 and 2 cover everything from naming your station to configuring your streaming software. The full brand-building and monetization journey takes 30 to 60 days — but going live for the first time is a weekend project.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What equipment do I need to start?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">A USB microphone ($30–$100), headphones you already own, a computer or phone, and an internet connection. That is the minimum viable setup. You do not need a studio. You do not need expensive gear. Module 2 covers exactly what to buy, what to skip, and how to upgrade your setup with your first ad revenue.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do I make money from my station?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Module 7 covers seven income streams: local ad sales, sponsorships and brand partnerships, affiliate income, premium content subscriptions, merchandise, Done For You services for other aspiring broadcasters, and scaling to a full media operation. Monetization is built into every step of the course — not bolted on at the end.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What is the difference between DIY and Done With You?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Both tracks include full access to all 7 modules, all templates, and the Discord community. The Done With You track adds weekly group coaching calls with Seneca, direct feedback on your station setup and content, hands-on help with tech configuration, a personalized monetization strategy review, and 90 days of post-completion support.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is there a refund policy?
+          <span class="icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. If you complete Module 1 and 2 and go through the action steps and still feel the course is not right for you, contact us within 14 days for a full refund. We ask that you actually attempt the work — because the system works when you execute it.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="section-label" style="text-align:center;justify-content:center;display:flex;">The Frequency Is Yours</div>
+    <h2 class="section-h2" style="text-align:center;max-width:700px;margin:0 auto 1.25rem;">Claim It.</h2>
+    <p class="section-body" style="text-align:center;margin:0 auto 2.5rem;">You have a voice. You have a story. You have a community that needs to hear from you. The only thing standing between where you are right now and a live, broadcasting, revenue-generating media company is the system. Radiomeltdown is that system.</p>
+    <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+      <a class="btn-primary" href="#pricing">Get Instant Access →</a>
+      <a class="btn-secondary" href="https://radiomeltdown.com">Visit radiomeltdown.com</a>
+    </div>
+    <p class="final-quote">"You can't fall off the floor. Get Up." — Seneca Mack</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer-bar"></div>
+<footer>
+  <div class="footer-left">© 2026 STV Radiomeltdown · Saneca TV LLC · Lithonia, GA · House of Media</div>
+  <div class="footer-links">
+    <a href="https://radiomeltdown.com">radiomeltdown.com</a>
+    <a href="mailto:houseofmedia.marketing@gmail.com">Contact</a>
+    <a href="https://course.radiomeltdown.com">Course Portal</a>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+
+</body>
+</html>
