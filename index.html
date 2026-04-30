@@ -6,7 +6,7 @@
   <meta name="description" content="STV Radiomeltdown is an independent broadcast station out of Lithonia, GA. Indie artists, underground talent, mainstream acts and AI music. Culture-driven. Community-built. Always live.">
   <meta name="keywords" content="STV Radiomeltdown, Radiomeltdown, STV Radio Atlanta, independent radio station, Lithonia GA radio, Atlanta radio station, indie music radio, underground music, AI music radio, internet radio, live radio stream, G4E movement, House of Media, independent music culture">
   <meta name="author" content="STV Radiomeltdown">
-  <title>STV NETWORK | G4E MOVEMENT STUDIO</title>
+  <title>STV RADIOMELTDOWN | G4E MOVEMENT STUDIO</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -204,7 +204,7 @@
 <body>
 
   <div class="alexa-banner">
-    <strong>STV NETWORK</strong> — Coming soon to Alexa devices
+    <strong>STV Radiomeltdown</strong> — Coming soon to Alexa devices
   </div>
 
   <div class="ticker-bar">
@@ -1082,6 +1082,276 @@ function loadKickEmbed(){
   wrap.innerHTML = '<iframe src="https://player.kick.com/STVNETWORK" title="STV Radiomeltdown Live on Kick" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>';
   placeholder.style.display = 'none';
   wrap.style.display = 'block';
+}
+</script>
+
+<!-- ── SIGNUP POPUP ────────────────────────────────────────────────────────── -->
+<div id="signupOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9998;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;">
+  <div id="signupPopup" style="background:#111;border:1px solid rgba(232,0,45,0.4);border-radius:4px;max-width:480px;width:100%;position:relative;overflow:hidden;transform:translateY(20px);opacity:0;transition:all 0.35s ease;">
+
+    <!-- Red top bar -->
+    <div style="height:4px;background:linear-gradient(90deg,#e8002d,#f5a623);"></div>
+
+    <!-- Close button -->
+    <button onclick="closePopup()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.2rem;cursor:pointer;line-height:1;padding:0.25rem;">✕</button>
+
+    <div style="padding:2rem 2rem 1.5rem;">
+      <!-- Label -->
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:0.65rem;letter-spacing:0.35em;color:#e8002d;margin-bottom:0.75rem;">STV Radiomeltdown · Free Newsletter</div>
+
+      <!-- Headline -->
+      <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;line-height:1.1;color:#fff;margin-bottom:0.75rem;">Get <em style="color:#e8002d;">The Static</em><br>Delivered to You.</div>
+
+      <!-- Body -->
+      <p style="font-size:0.85rem;line-height:1.7;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;font-weight:300;">Monthly music culture, artist spotlights, broadcasting tips, and community news — straight from Lithonia, GA. No spam. Just the culture.</p>
+
+      <!-- Kit Form -->
+      <form action="https://app.kit.com/forms/9345645/subscriptions" method="post" target="_blank" style="display:flex;flex-direction:column;gap:0.75rem;" onsubmit="closePopupAfterSubmit()">
+        <input type="hidden" name="form_uid" value="69b9b6a8c5"/>
+        <input
+          type="email"
+          name="email_address"
+          placeholder="Your email address"
+          required
+          style="background:#1a1a1a;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:0.85rem 1rem;font-size:0.88rem;border-radius:2px;outline:none;font-family:'DM Sans',sans-serif;width:100%;"
+        />
+        <button type="submit" style="background:#e8002d;color:#fff;border:none;padding:0.9rem;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:background 0.15s;" onmouseover="this.style.background='#c20025'" onmouseout="this.style.background='#e8002d'">
+          Subscribe to The Static →
+        </button>
+      </form>
+
+      <!-- Dismiss -->
+      <button onclick="closePopup()" style="width:100%;background:none;border:none;color:rgba(255,255,255,0.2);font-size:0.7rem;letter-spacing:0.1em;cursor:pointer;margin-top:0.75rem;padding:0.5rem;font-family:'DM Sans',sans-serif;">
+        No thanks, I'll pass for now
+      </button>
+    </div>
+
+    <!-- Gold bottom bar -->
+    <div style="height:3px;background:#f5a623;"></div>
+  </div>
+</div>
+
+<!-- ── STICKY BOTTOM BAR ───────────────────────────────────────────────────── -->
+<div id="stickyBar" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9997;background:#111;border-top:2px solid #e8002d;padding:0.75rem 1.5rem;transform:translateY(100%);transition:transform 0.4s ease;">
+  <div style="max-width:960px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;justify-content:space-between;">
+
+    <div style="display:flex;align-items:center;gap:0.75rem;flex-shrink:0;">
+      <span style="width:8px;height:8px;border-radius:50%;background:#e8002d;display:inline-block;animation:blink 1.2s ease-in-out infinite;"></span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.15em;color:#fff;">GET THE STATIC</span>
+      <span style="font-size:0.68rem;color:rgba(255,255,255,0.35);letter-spacing:0.08em;">Free newsletter from STV Radiomeltdown</span>
+    </div>
+
+    <form action="https://app.kit.com/forms/9345645/subscriptions" method="post" target="_blank" style="display:flex;gap:0.5rem;flex:1;max-width:380px;min-width:240px;" onsubmit="closeBar()">
+      <input type="hidden" name="form_uid" value="69b9b6a8c5"/>
+      <input
+        type="email"
+        name="email_address"
+        placeholder="Your email address"
+        required
+        style="flex:1;background:#1a1a1a;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:0.6rem 0.85rem;font-size:0.82rem;border-radius:2px;outline:none;font-family:'DM Sans',sans-serif;min-width:0;"
+      />
+      <button type="submit" style="background:#e8002d;color:#fff;border:none;padding:0.6rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:2px;cursor:pointer;white-space:nowrap;flex-shrink:0;">
+        Subscribe
+      </button>
+    </form>
+
+    <button onclick="closeBar()" style="background:none;border:none;color:rgba(255,255,255,0.25);font-size:1rem;cursor:pointer;padding:0.25rem;flex-shrink:0;">✕</button>
+  </div>
+</div>
+
+<script>
+// ── POPUP LOGIC ──────────────────────────────────────────────────────────────
+(function(){
+  // Don't show if already dismissed this session
+  if(sessionStorage.getItem('stv_popup_dismissed')) return;
+
+  var overlay = document.getElementById('signupOverlay');
+  var popup   = document.getElementById('signupPopup');
+  var bar     = document.getElementById('stickyBar');
+
+  // Show sticky bar after 4 seconds
+  setTimeout(function(){
+    if(sessionStorage.getItem('stv_bar_dismissed')) return;
+    bar.style.display = 'block';
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        bar.style.transform = 'translateY(0)';
+      });
+    });
+  }, 4000);
+
+  // Show popup after 12 seconds (or on exit intent on desktop)
+  setTimeout(function(){
+    if(sessionStorage.getItem('stv_popup_dismissed')) return;
+    showPopup();
+  }, 12000);
+
+  // Exit intent — desktop only
+  document.addEventListener('mouseleave', function(e){
+    if(e.clientY <= 0 && !sessionStorage.getItem('stv_popup_dismissed')){
+      showPopup();
+    }
+  });
+
+  function showPopup(){
+    // Hide bar when popup shows
+    bar.style.transform = 'translateY(100%)';
+    overlay.style.display = 'flex';
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        popup.style.transform = 'translateY(0)';
+        popup.style.opacity   = '1';
+      });
+    });
+  }
+
+  // Close on overlay click
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closePopup();
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closePopup();
+  });
+})();
+
+function closePopup(){
+  var overlay = document.getElementById('signupOverlay');
+  var popup   = document.getElementById('signupPopup');
+  popup.style.transform = 'translateY(20px)';
+  popup.style.opacity   = '0';
+  setTimeout(function(){ overlay.style.display = 'none'; }, 300);
+  sessionStorage.setItem('stv_popup_dismissed', '1');
+}
+
+function closeBar(){
+  var bar = document.getElementById('stickyBar');
+  bar.style.transform = 'translateY(100%)';
+  setTimeout(function(){ bar.style.display = 'none'; }, 400);
+  sessionStorage.setItem('stv_bar_dismissed', '1');
+}
+
+function closePopupAfterSubmit(){
+  setTimeout(closePopup, 800);
+}
+</script>
+
+<!-- ── COURSE POPUP ───────────────────────────────────────────────────────── -->
+<div id="courseOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;">
+  <div id="coursePopup" style="background:#0a0a0a;border:1px solid rgba(245,166,35,0.3);border-radius:4px;max-width:520px;width:100%;position:relative;overflow:hidden;transform:translateY(20px);opacity:0;transition:all 0.35s ease;">
+
+    <!-- Gold top bar -->
+    <div style="height:4px;background:linear-gradient(90deg,#e8002d,#f5a623);"></div>
+
+    <!-- Close -->
+    <button onclick="closeCoursePopup()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.2rem;cursor:pointer;line-height:1;padding:0.25rem;">✕</button>
+
+    <div style="padding:2rem 2rem 1.5rem;">
+
+      <!-- Label -->
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:0.62rem;letter-spacing:0.35em;color:#f5a623;margin-bottom:0.75rem;">New Course · STV Radiomeltdown</div>
+
+      <!-- Headline -->
+      <div style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:900;line-height:1.1;color:#fff;margin-bottom:0.5rem;">
+        Build Your Own<br><em style="color:#e8002d;">Radio Station.</em>
+      </div>
+
+      <!-- Sub -->
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;font-style:italic;color:rgba(255,255,255,0.45);margin-bottom:1rem;">How I built it — and how you can too.</div>
+
+      <!-- Divider -->
+      <div style="height:1px;background:rgba(255,255,255,0.08);margin-bottom:1.25rem;"></div>
+
+      <!-- 3 proof points -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:1.5rem;text-align:center;">
+        <div style="background:#111;border:1px solid rgba(255,255,255,0.06);border-radius:2px;padding:0.75rem 0.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#f5a623;line-height:1;">7</div>
+          <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.2rem;">Modules</div>
+        </div>
+        <div style="background:#111;border:1px solid rgba(255,255,255,0.06);border-radius:2px;padding:0.75rem 0.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#f5a623;line-height:1;">30</div>
+          <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.2rem;">Days to Launch</div>
+        </div>
+        <div style="background:#111;border:1px solid rgba(255,255,255,0.06);border-radius:2px;padding:0.75rem 0.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#f5a623;line-height:1;">$97</div>
+          <div style="font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:0.2rem;">to Start</div>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <p style="font-size:0.83rem;line-height:1.7;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;font-weight:300;">Independent radio station. Broadcast brand. Real audience. Real income. Built from scratch with 13 years of experience — no label, no gatekeepers, no permission required.</p>
+
+      <!-- CTA buttons -->
+      <div style="display:flex;flex-direction:column;gap:0.6rem;">
+        <a href="/course.html" style="display:block;width:100%;padding:0.9rem;text-align:center;background:#e8002d;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background 0.15s;" onmouseover="this.style.background='#c20025'" onmouseout="this.style.background='#e8002d'" onclick="closeCoursePopup()">
+          See the Full Course →
+        </a>
+        <button onclick="closeCoursePopup()" style="width:100%;background:none;border:none;color:rgba(255,255,255,0.2);font-size:0.7rem;letter-spacing:0.1em;cursor:pointer;padding:0.5rem;font-family:'DM Sans',sans-serif;">
+          Maybe later
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Red bottom bar -->
+    <div style="height:3px;background:#e8002d;"></div>
+  </div>
+</div>
+
+<script>
+// ── COURSE POPUP LOGIC ───────────────────────────────────────────────────────
+(function(){
+  if(sessionStorage.getItem('stv_course_popup_dismissed')) return;
+
+  var overlay = document.getElementById('courseOverlay');
+  var popup   = document.getElementById('coursePopup');
+
+  function showCoursePopup(){
+    overlay.style.display = 'flex';
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        popup.style.transform = 'translateY(0)';
+        popup.style.opacity   = '1';
+      });
+    });
+  }
+
+  // Show course popup after 25 seconds — after newsletter bar has had its moment
+  setTimeout(function(){
+    if(sessionStorage.getItem('stv_course_popup_dismissed')) return;
+    // Only show if newsletter popup has already been dismissed
+    if(sessionStorage.getItem('stv_popup_dismissed')){
+      showCoursePopup();
+    } else {
+      // Wait for newsletter popup to be dismissed then show 8 seconds later
+      var check = setInterval(function(){
+        if(sessionStorage.getItem('stv_popup_dismissed')){
+          clearInterval(check);
+          setTimeout(showCoursePopup, 8000);
+        }
+      }, 1000);
+    }
+  }, 25000);
+
+  // Close on overlay click
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay) closeCoursePopup();
+  });
+
+  // Close on ESC (only if course popup is showing)
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.style.display === 'flex') closeCoursePopup();
+  });
+})();
+
+function closeCoursePopup(){
+  var overlay = document.getElementById('courseOverlay');
+  var popup   = document.getElementById('coursePopup');
+  popup.style.transform = 'translateY(20px)';
+  popup.style.opacity   = '0';
+  setTimeout(function(){ overlay.style.display = 'none'; }, 300);
+  sessionStorage.setItem('stv_course_popup_dismissed', '1');
 }
 </script>
 </body>
