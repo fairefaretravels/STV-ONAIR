@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="STV Radiomeltdown is an independent broadcast station out of Lithonia, GA. Indie artists, underground talent, mainstream acts and AI music. Culture-driven. Community-built. Always live.">
+  <meta name="keywords" content="STV Radiomeltdown, Radiomeltdown, STV Radio Atlanta, independent radio station, Lithonia GA radio, Atlanta radio station, indie music radio, underground music, AI music radio, internet radio, live radio stream, G4E movement, House of Media, independent music culture">
+  <meta name="author" content="STV Radiomeltdown">
+  <title>STV RADIOMELTDOWN | G4E MOVEMENT STUDIO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #000000;
+      --off-black: #0a0a0a;
+      --dark: #111111;
+      --dark-2: #1a1a1a;
+      --dark-3: #222222;
+      --mid: #333333;
+      --border: rgba(255,255,255,0.1);
+      --border-strong: rgba(255,255,255,0.2);
+      --white: #ffffff;
+      --off-white: #f0f0f0;
+      --muted: rgba(255,255,255,0.5);
+      --dim: rgba(255,255,255,0.25);
+      /* Updated palette — forest green signal replacing orange */
+      --signal: #2e8b57;          /* forest green */
+      --signal-dark: #1f6b3f;     /* deeper forest */
+      --signal-glow: rgba(46,139,87,0.5);
+      --broadcast-amber: #F5C842;  /* cosmic gold — unchanged */
+      --ticker-green: #00d68f;
+      --purple: #7B2FFF;
+      --purple-dark: #5A1ECC;
+      --accent: var(--signal);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", system-ui, sans-serif; background: var(--black); color: var(--white); min-height: 100vh; overflow-x: hidden; }
+
+    /* ─── ALEXA BANNER ─── */
+    .alexa-banner { background: #000; color: rgba(255,255,255,0.6); padding: 8px 1.5rem; text-align: center; border-bottom: 2px solid var(--signal); font-size: 0.72rem; letter-spacing: 0.08em; }
+    .alexa-banner strong { color: var(--white); }
+
+    /* ─── TICKER ─── */
+    .ticker-bar { background: var(--white); color: var(--black); height: 34px; overflow: hidden; display: flex; align-items: center; position: sticky; top: 0; z-index: 900; border-bottom: 3px solid var(--signal); }
+    .ticker-label { background: var(--signal); color: var(--white); font-family: "Bebas Neue", sans-serif; letter-spacing: 0.12em; font-size: 0.85rem; padding: 0 1rem; height: 100%; display: flex; align-items: center; flex-shrink: 0; white-space: nowrap; }
+    .ticker-track { overflow: hidden; flex: 1; }
+    .ticker-inner { display: inline-block; white-space: nowrap; animation: ticker 35s linear infinite; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding-left: 100%; }
+    .ticker-inner span { margin: 0 2.5rem; }
+    .ticker-sep { color: var(--signal); font-weight: 900; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+    @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 var(--signal-glow); } 70% { box-shadow: 0 0 0 8px rgba(46,139,87,0); } 100% { box-shadow: 0 0 0 0 rgba(46,139,87,0); } }
+
+    /* ─── UTILITY BAR ─── */
+    .utility-bar { background: var(--dark-2); border-bottom: 1px solid var(--border); padding: 0.5rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .utility-bar a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .utility-bar a:hover { color: var(--white); }
+    .utility-contact { display: flex; gap: 1.25rem; flex-wrap: wrap; align-items: center; }
+    .whats-on-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--signal); color: var(--white); padding: 0.35rem 0.9rem; border-radius: 999px; font-family: "Bebas Neue", sans-serif; letter-spacing: 0.18em; font-size: 0.8rem; text-decoration: none; transition: background 0.15s, transform 0.15s; white-space: nowrap; }
+    .whats-on-pill:hover { background: var(--signal-dark); transform: translateY(-1px); color: var(--white); }
+    .whats-on-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--white); animation: blink 1.2s ease-in-out infinite; }
+
+    /* ─── PLAYER BAR ─── */
+    .player-bar { background: #0d0d0d; border-bottom: 1px solid rgba(255,255,255,0.08); border-top: 1px solid rgba(46,139,87,0.4); padding: 0.75rem 1.5rem; display: flex; align-items: center; gap: 1.25rem; position: relative; overflow: hidden; }
+    .player-bar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--signal) 30%, var(--broadcast-amber) 70%, transparent); opacity: 0.7; }
+    .player-left { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .player-status-col { display: flex; flex-direction: column; gap: 0.2rem; }
+    .player-status-row { display: flex; align-items: center; gap: 0.45rem; }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 10px rgba(46,139,87,0.9); display: inline-block; animation: blink 1.2s ease-in-out infinite; flex-shrink: 0; }
+    .live-dot.offline { background: #555; box-shadow: none; animation: none; }
+    .player-status-text { font-family: 'Bebas Neue', sans-serif; font-size: 0.75rem; letter-spacing: 0.25em; color: var(--signal); }
+    .player-status-text.offline { color: #555; }
+    .player-station-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; color: #fff; line-height: 1; }
+    .player-station-sub { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .player-divider { width: 1px; height: 36px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+    .player-controls { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .play-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--signal); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.15s, transform 0.1s; flex-shrink: 0; animation: pulse-ring 2s infinite; }
+    .play-btn:hover { background: var(--signal-dark); transform: scale(1.05); }
+    .play-btn svg { width: 14px; height: 14px; fill: #fff; margin-left: 2px; }
+    .volume-wrap { display: flex; align-items: center; gap: 0.5rem; }
+    .vol-icon { color: rgba(255,255,255,0.4); font-size: 0.8rem; }
+    .volume-slider { -webkit-appearance: none; appearance: none; width: 70px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.15); outline: none; cursor: pointer; }
+    .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--broadcast-amber); cursor: pointer; }
+    .player-embed { flex: 1; min-width: 0; display: flex; align-items: center; }
+    .player-now-playing { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+    .now-playing-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .now-playing-track { font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.85); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ─── PLAYER CARDS (HEADER) ─── */
+    .player-cards-section { background: var(--off-black); border-bottom: 1px solid var(--border); padding: 1.25rem 1.5rem; }
+    .player-cards-label { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--broadcast-amber); font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .player-cards-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .player-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .ptab { background: transparent; border: 1px solid var(--border-strong); color: var(--muted); font-family: "Bebas Neue", sans-serif; font-size: 0.8rem; letter-spacing: 0.2em; padding: 0.35rem 0.9rem; border-radius: 2px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .ptab:hover { border-color: var(--signal); color: var(--white); }
+    .ptab.active { background: var(--signal); border-color: var(--signal); color: var(--white); }
+    .player-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+    .pcard { background: var(--dark); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; transition: border-color 0.2s, transform 0.15s; display: flex; flex-direction: column; }
+    .pcard:hover { border-color: rgba(46,139,87,0.5); transform: translateY(-2px); }
+    .pcard.active-card { border-color: var(--signal); box-shadow: 0 0 0 1px var(--signal); }
+    .pcard-color { height: 4px; }
+    .pcard-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.35rem; }
+    .pcard-name { font-family: "Bebas Neue", sans-serif; font-size: 1.1rem; letter-spacing: 0.12em; color: var(--white); line-height: 1; }
+    .pcard-sub { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .pcard-desc { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.5; margin-top: auto; padding-top: 0.5rem; }
+    .pcard-foot { border-top: 1px solid var(--border); padding: 0.6rem 1rem; display: flex; gap: 0.5rem; }
+    .pcard-btn { flex: 1; padding: 0.45rem 0; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; text-align: center; text-decoration: none; border-radius: 2px; transition: all 0.15s; }
+    .pcard-open { background: var(--signal); color: var(--white); }
+    .pcard-open:hover { background: var(--signal-dark); color: var(--white); }
+    .pcard-qr { background: transparent; border: 1px solid var(--border-strong); color: var(--muted); display: flex; align-items: center; justify-content: center; max-width: 36px; }
+    .pcard-qr:hover { border-color: var(--signal); color: var(--white); }
+    .pcard-qr-wrap { position: relative; }
+    .qr-tip { display: none; position: absolute; top: calc(100% + 8px); right: 0; background: #1a1a1a; border: 1px solid var(--border-strong); border-radius: 4px; padding: 0.5rem; z-index: 10; white-space: nowrap; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; }
+    .pcard-qr-wrap:hover .qr-tip { display: block; }
+
+    /* ─── PAGE ─── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* ─── MASTHEAD — full black, broadcast-dashboard feel ─── */
+    .masthead { border: 1px solid rgba(46,139,87,0.35); border-radius: 4px; overflow: hidden; display: grid; grid-template-columns: 1fr auto; align-items: stretch; margin-bottom: 2rem; background: #000; }
+    .masthead-left { padding: 2.5rem 2rem; border-right: 1px solid rgba(46,139,87,0.2); }
+    .masthead-eyebrow { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--broadcast-amber); margin-bottom: 0.75rem; font-weight: 600; }
+    .masthead-title { font-family: "Bebas Neue", sans-serif; font-size: clamp(3.5rem, 8vw, 6rem); letter-spacing: 0.04em; line-height: 0.92; color: var(--white); }
+    /* Hero lines in green */
+    .masthead-title::before { content: ''; display: block; width: 48px; height: 3px; background: var(--signal); margin-bottom: 0.9rem; }
+    .masthead-title span { display: block; font-family: "DM Serif Display", serif; font-style: italic; font-size: clamp(1.2rem, 2.5vw, 1.7rem); letter-spacing: 0.06em; color: var(--signal); opacity: 0.85; margin-top: 0.6rem; }
+    .masthead-desc { margin-top: 1.25rem; font-size: 0.88rem; color: var(--muted); max-width: 480px; line-height: 1.65; }
+    .masthead-pills { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pill-tag { border: 1px solid rgba(46,139,87,0.3); padding: 0.2rem 0.7rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(46,139,87,0.7); border-radius: 2px; }
+    .masthead-right { padding: 2rem 1.75rem; display: flex; flex-direction: column; justify-content: center; align-items: flex-end; gap: 1rem; min-width: 220px; background: #0a0a0a; border-left: 1px solid rgba(46,139,87,0.15); }
+    .on-air-badge { display: flex; align-items: center; gap: 0.5rem; font-family: "Bebas Neue", sans-serif; font-size: 0.85rem; letter-spacing: 0.25em; color: var(--ticker-green); }
+    .on-air-dot-g { width: 9px; height: 9px; border-radius: 50%; background: var(--ticker-green); box-shadow: 0 0 10px rgba(0,214,143,0.8); animation: blink 1s ease-in-out infinite; }
+    /* Nav dots in green */
+    .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--signal); display: inline-block; animation: blink 1.8s ease-in-out infinite; margin: 0 2px; }
+    .nav-dot:nth-child(2) { animation-delay: 0.4s; }
+    .nav-dot:nth-child(3) { animation-delay: 0.8s; }
+    .masthead-station { text-align: right; font-family: "Bebas Neue", sans-serif; font-size: 2.8rem; letter-spacing: 0.1em; line-height: 1; color: var(--white); }
+    .masthead-station small { display: block; font-family: "DM Sans", sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(46,139,87,0.7); margin-top: 0.3rem; }
+
+    /* ─── BUTTONS ─── */
+    .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.7rem 1.5rem; font-family: "DM Sans", sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.15s ease; cursor: pointer; border: none; }
+    .btn-primary { background: var(--white); color: var(--black); }
+    .btn-primary:hover { background: var(--broadcast-amber); color: var(--black); }
+    .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-strong); }
+    .btn-outline:hover { background: var(--white); color: var(--black); }
+    .btn-signal { background: var(--signal); color: var(--white); }
+    .btn-signal:hover { background: var(--signal-dark); color: var(--white); }
+    .btn-purple { background: var(--purple); color: var(--white); }
+    .btn-purple:hover { background: var(--purple-dark); color: var(--white); }
+
+    /* ─── SECTION HEAD ─── */
+    .section-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    .section-head h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); }
+    .section-head p { font-size: 0.75rem; color: rgba(255,255,255,0.65); letter-spacing: 0.1em; text-transform: uppercase; }
+    .accent-bar { display: inline-block; width: 4px; height: 1.4rem; background: var(--signal); border-radius: 1px; flex-shrink: 0; }
+
+    /* ─── SPONSOR BANNER ─── */
+    .sponsor-banner { background: var(--dark); border: 1px solid rgba(245,200,66,0.3); border-radius: 4px; padding: 1.25rem 1.75rem; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+    .sponsor-badge { background: var(--broadcast-amber); color: #000; font-family: "Bebas Neue", sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; padding: 0.25rem 0.75rem; border-radius: 2px; flex-shrink: 0; }
+    .sponsor-text { font-size: 0.82rem; color: var(--muted); line-height: 1.6; flex: 1; }
+    .sponsor-text strong { color: var(--white); }
+    .sponsor-text a { color: var(--broadcast-amber); text-decoration: none; }
+
+    /* ─── RESPONSIVE IFRAME ─── */
+    .responsive-iframe-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+    .responsive-iframe-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    /* ─── GRIDS ─── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 2.5rem; }
+    .media-card { background: var(--dark); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .media-card-head { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem; }
+    .media-card-head .accent-sq { width: 10px; height: 10px; flex-shrink: 0; }
+    .sq-amber { background: var(--broadcast-amber); }
+    .sq-signal { background: var(--signal); }
+    .sq-purple { background: var(--purple); }
+    .media-card-head h3 { font-family: "Bebas Neue", sans-serif; font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    .media-card-head small { margin-left: auto; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .media-card-body { padding: 0.75rem; }
+    .media-card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; padding: 0.75rem 1.25rem 1rem; }
+
+    /* ─── FEATURE BLOCK ─── */
+    .feature-block { background: var(--dark); border: 1px solid var(--border-strong); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; }
+    .feature-copy { padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
+    .feature-label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--signal); font-weight: 600; margin-bottom: 0.75rem; }
+    .feature-title { font-family: "Bebas Neue", sans-serif; font-size: clamp(2.2rem, 4vw, 3.4rem); letter-spacing: 0.06em; line-height: 0.95; color: var(--white); margin-bottom: 1.25rem; }
+    .feature-title em { font-family: "DM Serif Display", serif; font-style: italic; font-size: 0.7em; color: var(--muted); display: block; }
+    .feature-body { font-size: 0.875rem; line-height: 1.75; color: rgba(255,255,255,0.72); }
+    .feature-body p + p { margin-top: 0.85rem; }
+    .feature-divider { width: 40px; height: 2px; background: var(--signal); margin: 1.25rem 0; }
+    .feature-video { position: relative; min-height: 300px; }
+    .feature-video-wrapper { position: absolute; inset: 0; }
+    .feature-video-wrapper iframe { width: 100%; height: 100%; border: 0; }
+
+    /* ─── CHAT PANEL ─── */
+    .chat-panel { background: var(--dark); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; }
+    .chat-panel-head { background: var(--dark-2); border-bottom: 1px solid var(--border); padding: 0.9rem 1.25rem; display: flex; justify-content: space-between; align-items: center; }
+    .chat-panel-head h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.1rem; letter-spacing: 0.2em; }
+    .chat-panel-head p { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+    .chat-panel iframe { width: 100%; height: 420px; border: 0; display: block; background: #000; }
+
+    /* ─── MAGAZINE — light section ─── */
+    .mag-nameplate { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,7vw,5rem); font-weight:900; letter-spacing:-0.02em; line-height:0.9; color:#f9f6f0; }
+    .mag-cover-title { font-family:'Playfair Display',serif; font-size:clamp(1.5rem,3.5vw,2.5rem); font-weight:900; line-height:1.1; letter-spacing:-0.01em; color:#111; }
+    .mag-pull { font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; line-height:1.5; color:#111; }
+    .mag-also-title { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; line-height:1.3; color:#111; }
+
+    /* ─── SWITCHBLADOKU GAME CARD ─── */
+    .game-card { background: linear-gradient(135deg, #0a0a14 0%, #14001f 60%, #1a0808 100%); border: 1px solid rgba(123,47,255,0.4); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; display: grid; grid-template-columns: 1fr 1fr; }
+    .game-card-copy { padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; border-right: 1px solid rgba(123,47,255,0.2); }
+    .game-card-eyebrow { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--purple); font-weight: 600; margin-bottom: 0.75rem; }
+    .game-card-title { font-family: "Bebas Neue", sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.08em; line-height: 0.9; color: var(--white); margin-bottom: 0.5rem; }
+    .game-card-title span { color: var(--signal); }
+    .game-card-sub { font-family: "DM Serif Display", serif; font-style: italic; font-size: 1rem; color: rgba(255,255,255,0.4); margin-bottom: 1.25rem; }
+    .game-card-divider { width: 40px; height: 2px; background: linear-gradient(90deg, var(--purple), var(--signal)); margin: 1rem 0; }
+    .game-card-desc { font-size: 0.875rem; line-height: 1.75; color: rgba(255,255,255,0.65); }
+    .game-card-right { position: relative; display: flex; align-items: center; justify-content: center; padding: 2rem; background: rgba(123,47,255,0.05); }
+    .sudoku-preview { display: grid; grid-template-columns: repeat(9,1fr); gap: 1px; background: rgba(123,47,255,0.3); border: 1px solid rgba(123,47,255,0.5); border-radius: 2px; max-width: 200px; width: 100%; aspect-ratio: 1; overflow: hidden; }
+    .sudoku-cell { background: #0f0015; display: flex; align-items: center; justify-content: center; font-family: "Bebas Neue", sans-serif; font-size: 0.7rem; color: rgba(255,255,255,0.7); }
+    .sudoku-cell.filled { color: var(--signal); }
+    .sudoku-cell.purple { color: var(--purple); }
+    .sudoku-cell.bold-border-r { border-right: 2px solid rgba(123,47,255,0.6); }
+    .sudoku-cell.bold-border-b { border-bottom: 2px solid rgba(123,47,255,0.6); }
+    .game-play-pill { position: absolute; top: 1rem; right: 1rem; background: var(--purple); color: var(--white); font-family: "Bebas Neue", sans-serif; font-size: 0.75rem; letter-spacing: 0.2em; padding: 0.3rem 0.7rem; border-radius: 999px; }
+
+    /* ─── FAIRE FARE CARD ─── */
+    .faire-card { background: var(--dark); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; display: grid; grid-template-columns: 320px 1fr; }
+    .faire-card-img { position: relative; overflow: hidden; }
+    .faire-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .faire-card-img-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 60%, var(--dark)); }
+    .faire-card-copy { padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center; gap: 0.75rem; }
+    .faire-card-eyebrow { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--broadcast-amber); font-weight: 600; }
+    .faire-card-title { font-family: "Bebas Neue", sans-serif; font-size: clamp(2.2rem, 4vw, 3.2rem); letter-spacing: 0.06em; line-height: 0.95; color: var(--white); }
+    .faire-card-sub { font-family: "DM Serif Display", serif; font-style: italic; color: var(--muted); font-size: 1rem; }
+    .faire-card-divider { width: 40px; height: 2px; background: var(--broadcast-amber); }
+    .faire-card-desc { font-size: 0.875rem; line-height: 1.75; color: rgba(255,255,255,0.65); max-width: 420px; }
+    .faire-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem; }
+    .faire-link { font-size: 0.7rem; color: var(--broadcast-amber); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid rgba(245,200,66,0.3); padding-bottom: 1px; transition: border-color 0.15s; }
+    .faire-link:hover { border-color: var(--broadcast-amber); }
+
+    /* ─── FOOTER ─── */
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem 1.5rem; background: #0a0a0a; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .footer-brand-name { font-family: "Bebas Neue", sans-serif; font-size: 2.5rem; letter-spacing: 0.08em; line-height: 1; margin-bottom: 0.75rem; }
+    .footer-brand-name span { color: var(--signal); }
+    .footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.65; max-width: 300px; }
+    .footer-col h4 { font-family: "Bebas Neue", sans-serif; font-size: 0.9rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--white); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a, .footer-col address { font-size: 0.85rem; color: rgba(255,255,255,0.75); text-decoration: none; font-style: normal; line-height: 1.8; transition: color 0.15s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    .footer-bottom p { font-size: 0.72rem; color: rgba(255,255,255,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
+    .footer-bottom-links { display: flex; gap: 1.5rem; }
+    .footer-bottom-links a { font-size: 0.72rem; color: rgba(255,255,255,0.5); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.15s; }
+    .footer-bottom-links a:hover { color: var(--white); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) { .player-cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 900px) {
+      .masthead { grid-template-columns: 1fr; }
+      .masthead-right { border-top: 1px solid rgba(46,139,87,0.2); align-items: flex-start; flex-direction: row; justify-content: space-between; padding: 1.25rem 2rem; }
+      .two-col { grid-template-columns: 1fr; }
+      .feature-block { grid-template-columns: 1fr; }
+      .feature-copy { border-right: none; border-bottom: 1px solid var(--border); }
+      .feature-video { min-height: 0; padding-bottom: 56.25%; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .game-card { grid-template-columns: 1fr; }
+      .game-card-copy { border-right: none; border-bottom: 1px solid rgba(123,47,255,0.2); }
+      .faire-card { grid-template-columns: 1fr; }
+      .faire-card-img { height: 240px; }
+    }
+    @media (max-width: 700px) { .player-cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) {
+      .utility-bar { flex-direction: column; align-items: flex-start; }
+      .masthead-left { padding: 1.5rem 1.25rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .cta-row { flex-direction: column; }
+      .chat-panel iframe { height: 320px; }
+      .player-bar { flex-wrap: wrap; }
+      .player-divider { display: none; }
+      .volume-wrap { display: none; }
+      .player-left { width: 100%; justify-content: space-between; }
+      .player-embed { width: 100%; }
+      .player-cards-grid { grid-template-columns: 1fr 1fr; }
+      .sub-grid { grid-template-columns: 1fr !important; }
+      .sub-left { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
+      .featured-grid { grid-template-columns: 1fr !important; }
+      .event-grid { grid-template-columns: 1fr !important; }
+      .community-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 420px) { .player-cards-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div class="alexa-banner">
+    <strong>STV Radiomeltdown.com</strong> — RADIO POOL
+  </div>
+
+  <div class="ticker-bar">
+    <div class="ticker-label">LIVE</div>
+    <div class="ticker-track">
+      <div class="ticker-inner">
+        <span>SANECA TV · LITHONIA GA · G4E MOVEMENT STUDIO</span><span class="ticker-sep">◆</span>
+        <span>LIVE BROADCAST NOW STREAMING</span><span class="ticker-sep">◆</span>
+        <span>NEW MUSIC FROM UNCLE BASS AND MS. CANDY</span><span class="ticker-sep">◆</span>
+        <span>MEET THE SWITCHBLADES · DETROIT GHETTO TECH</span><span class="ticker-sep">◆</span>
+        <span>DETROIT VINYLFEST · TONY T MONEY GREEN · SUN MAY 3 · 10AM–6PM · DETROIT MI</span><span class="ticker-sep">◆</span>
+        <span>THE STATIC ISSUE 02 — TONY T MONEY GREEN COVER STORY — OUT NOW</span><span class="ticker-sep">◆</span>
+        <span>INDIE MUSIC • INTERVIEWS • AI &amp; TECH TALK</span><span class="ticker-sep">◆</span>
+        <span>JOIN THE NETWORK — CALL 678-433-8772</span><span class="ticker-sep">◆</span>
+        <span>LOVE &amp; CO — FEATURED ARTIST SPOTLIGHT</span><span class="ticker-sep">◆</span>
+        <span>FOLLOW @SANECATV ON TIKTOK</span><span class="ticker-sep">◆</span>
+        <span>WANT FREE RADIO PLAY? CONTACT US TODAY</span><span class="ticker-sep">◆</span>
+        <span>ADD YOUR SHOW TO THE STV NETWORK</span><span class="ticker-sep">◆</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="utility-bar">
+    <div class="utility-contact">
+      <span>STV Radiomeltdown.com — Lithonia, GA</span>
+      <a href="tel:6784338772">678-433-8772</a>
+      <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Contact Us</a>
+      <a href="https://www.hits923atlanta.com" target="_blank" rel="noopener noreferrer" style="color:var(--broadcast-amber);font-weight:600;text-transform:uppercase;">
+        📻 Catch SO LUV &amp; Seneca Mack Live — Thursdays 7–9PM EST
+      </a>
+    </div>
+    <a href="https://hits923atlanta.com/" target="_blank" rel="noopener noreferrer" class="whats-on-pill">
+      <span class="whats-on-dot"></span>
+      LIVE THURSDAYS
+    </a>
+  </div>
+
+  <!-- PLAYER BAR -->
+  <div class="player-bar">
+    <div class="player-left">
+      <div class="player-status-col">
+        <div class="player-status-row">
+          <span class="live-dot offline" id="statusDot"></span>
+          <span class="player-status-text offline" id="statusText">OFFLINE</span>
+        </div>
+        <div class="player-station-name">STV RADIOMELTDOWN</div>
+        <div class="player-station-sub">G4E Movement Studio · Lithonia, GA</div>
+      </div>
+    </div>
+    <div class="player-divider"></div>
+    <div class="player-controls">
+      <button class="play-btn" id="playBtn" aria-label="Play/Pause">
+        <svg id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+      </button>
+      <div class="volume-wrap">
+        <span class="vol-icon">🔈</span>
+        <input type="range" class="volume-slider" id="volSlider" min="0" max="1" step="0.05" value="0.8">
+      </div>
+    </div>
+    <div class="player-divider"></div>
+    <div class="player-embed">
+      <div class="player-now-playing">
+        <span class="now-playing-label">Now Playing</span>
+        <span class="now-playing-track" id="trackName">CLICK TO LISTEN LIVE STV Radiomeltdown</span>
+      </div>
+    </div>
+    <audio id="radioAudio" preload="none">
+      <source src="https://fairefaretravels.github.io/radiomeltdownorg/">
+    </audio>
+  </div>
+
+  <!-- 4 PLAYER CARDS -->
+  <div class="player-cards-section">
+    <div class="player-cards-label">Choose Your Player — Four Stations · One Network</div>
+    <div class="player-tabs">
+      <button class="ptab active" data-tab="all" onclick="filterPlayers('all', this)">All Players</button>
+      <button class="ptab" data-tab="stv-red" onclick="filterPlayers('stv-red', this)">STV Red</button>
+      <button class="ptab" data-tab="stv-gold" onclick="filterPlayers('stv-gold', this)">STV Gold</button>
+      <button class="ptab" data-tab="stv-fit" onclick="filterPlayers('stv-fit', this)">STV Fit</button>
+      <button class="ptab" data-tab="love-co" onclick="filterPlayers('love-co', this)">Love &amp; Co.</button>
+    </div>
+    <div class="player-cards-grid" id="playerCardsGrid">
+
+      <!-- STV RED -->
+      <div class="pcard active-card" data-player="stv-red">
+        <div class="pcard-color" style="background:linear-gradient(90deg, var(--signal), var(--signal-dark));"></div>
+        <div class="pcard-body">
+          <div class="pcard-name">STV Red</div>
+          <div class="pcard-sub">Original Station</div>
+          <div class="pcard-desc">The flagship. Indie music, underground features, live culture from Lithonia, GA.</div>
+        </div>
+        <div class="pcard-foot">
+          <a href="https://fairefaretravels.github.io/stvradiomeltdown/" target="_blank" rel="noopener noreferrer" class="pcard-btn pcard-open">▶ Open</a>
+          <div class="pcard-qr-wrap">
+            <a href="https://fairefaretravels.github.io/stvradiomeltdown/" target="_blank" rel="noopener noreferrer" class="pcard-btn pcard-qr" title="QR">⊞</a>
+            <div class="qr-tip">Scan: stvradiomeltdown</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STV GOLD -->
+      <div class="pcard" data-player="stv-gold">
+        <div class="pcard-color" style="background:linear-gradient(90deg, var(--broadcast-amber), #ffb300);"></div>
+        <div class="pcard-body">
+          <div class="pcard-name">STV Gold</div>
+          <div class="pcard-sub">Premium Edition</div>
+          <div class="pcard-desc">Elevated programming. Curated sets, artist spotlights, and gold-tier culture.</div>
+        </div>
+        <div class="pcard-foot">
+          <a href="https://fairefaretravels.github.io/stvradiomeltdown-Gold/" target="_blank" rel="noopener noreferrer" class="pcard-btn pcard-open" style="background:var(--broadcast-amber);color:#000;">▶ Open</a>
+          <div class="pcard-qr-wrap">
+            <a href="https://fairefaretravels.github.io/stvradiomeltdown-Gold/" target="_blank" rel="noopener noreferrer" class="pcard-btn pcard-qr" title="QR">⊞</a>
+            <div class="qr-tip">Scan: stvradiomeltdown-Gold</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STV FIT -->
+      <div class="pcard" data-player="stv-fit">
+        <div class="pcard-color" style="background:linear-gradient(90deg, var(--ticker-green), #00b07a);"></div>
+        <div class="pcard-body">
+          <div class="pcard-name">STV Fit</div>
+          <div class="pcard-sub">Movement &amp; Energy</div>
+          <div class="pcard-desc">High-energy sets built for movement. Workout fuel, motivation, and nonstop rhythm.</div>
+        </div>
+        <div class="pcard-foot">
+          <a href="https://fairefaretravels.github.io/stvradiomeltdown-fit/" target="_blank" rel="noopener noreferrer" class="pcard-btn pcard-open" style="background:var(--ticker-green);color:#000;">▶ Open</a>
+          <div class="pcard-qr-wrap">
+            <a href="https://fairefaretravels.github.io/stvradiomeltdown-fit/" target="_blank" rel="noopener noreferrer" class="pcard-btn pcard-qr" title="QR">⊞</a>
+            <div class="qr-tip">Scan: stvradiomeltdown-fit</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOVE & CO -->
+      <div class="pcard" data-player="love-co">
+        <div class="pcard-color" style="background:linear-gradient(90deg, var(--purple), #b060ff);"></div>
+        <div class="pcard-body">
+          <div class="pcard-name">Love &amp; Co.</div>
+          <div class="pcard-sub">Night Cruise</div>
+          <div class="pcard-desc">Late night soul, slow jams, and the smooth side of Detroit. DJ Mackinthedark's world.</div>
+        </div>
+        <div class="pcard-foot">
+          <a href="https://fairefaretravels.github.io/stvradiomeltdown-loveandcompany/" target="_blank" rel="noopener noreferrer" class="pcard-btn pcard-open" style="background:var(--purple);">▶ Open</a>
+          <div class="pcard-qr-wrap">
+            <a href="https://fairefaretravels.github.io/stvradiomeltdown-loveandcompany/" target="_blank" rel="noopener noreferrer" class="pcard-btn pcard-qr" title="QR">⊞</a>
+            <div class="qr-tip">Scan: loveandcompany</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MAIN PAGE -->
+  <div class="page">
+
+    <!-- NEVERLAND CARD -->
+    <a href="https://fairefaretravels.github.io/neverland-the-underground/" target="_blank" rel="noopener noreferrer" style="display:block;text-decoration:none;margin-bottom:2rem;">
+      <div style="background:#0a0806;border:1px solid rgba(200,169,110,0.4);border-radius:4px;overflow:hidden;display:grid;grid-template-columns:140px 1fr;transition:border-color 0.2s;" onmouseover="this.style.borderColor='rgba(200,169,110,0.9)'" onmouseout="this.style.borderColor='rgba(200,169,110,0.4)'">
+        <div style="height:100%;min-height:160px;overflow:hidden;">
+          <img src="https://fairefaretravels.github.io/neverland-the-underground/images/IMG_8284.jpeg" alt="NEVERLAND" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
+        <div style="padding:1.25rem 1.5rem;display:flex;flex-direction:column;justify-content:center;gap:0.5rem;border-left:1px solid rgba(200,169,110,0.2);">
+          <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#c8a96e;font-family:'Bebas Neue',sans-serif;">Detroit · Original Graphic Novel</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:5px;color:#fff;line-height:1;text-shadow:2px 2px 0 #c8a96e;">NEVERLAND</div>
+          <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#666;">The Underground</div>
+          <div style="font-size:11px;font-style:italic;color:#555;font-family:'Playfair Display',serif;margin-top:2px;">"Every fairy tale has a Hook."</div>
+          <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#c8a96e;margin-top:4px;">Read Chapter One →</div>
+        </div>
+      </div>
+    </a>
+
+    <header class="masthead">
+      <div class="masthead-left">
+        <div class="masthead-eyebrow">G4E • HOUSE OF MEDIA • Lithonia, GA • EST. MOVEMENT</div>
+        <div class="masthead-title">THE LIVE SHOW<span>Celebrating culture, conversation &amp; chaos in real time.</span></div>
+        <p class="masthead-desc">Live shows, feature promos &amp; live chat with people around the world. Broadcasting indie music, underground features, AI &amp; tech talk, and community culture from Lithonia, GA.</p>
+        <div class="masthead-pills">
+          <span class="pill-tag">AI &amp; Tech Talk</span>
+          <span class="pill-tag">Entertainment</span>
+          <span class="pill-tag">Interviews</span>
+          <span class="pill-tag">Indie Music</span>
+          <span class="pill-tag">Join Our Network</span>
+        </div>
+      </div>
+      <div class="masthead-right">
+        <div style="display:flex;gap:5px;align-items:center;margin-bottom:0.25rem;">
+          <span class="nav-dot"></span><span class="nav-dot"></span><span class="nav-dot"></span>
+        </div>
+        <div class="on-air-badge"><span class="on-air-dot-g"></span>ON AIR</div>
+        <div class="masthead-station">STV RADIO<small>G4E Movement Studio</small></div>
+      </div>
+    </header>
+
+    <div class="cta-row">
+      <a href="https://www.bonfire.com/store/fashun-luva/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">🛍 Shop Merch</a>
+      <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer" class="btn btn-outline">📋 Grow With Us</a>
+      <a href="https://www.tiktok.com/@sanecatv" target="_blank" rel="noopener noreferrer" class="btn btn-signal">Follow @SanecaTV on TikTok</a>
+      <a href="https://invite.cam/U2FsdGVkX1+wX/XI83XXTkbUbWdIGuY1QGJG4XX6V654yhzDJqWcklibIPNIQzmO49R28xgPOMtp9w16Jtiv7GKqvLt2xhEpsNSoEzD54uJzehkqu5e2yri9wtxGMWqZ" target="_blank" rel="noopener noreferrer" class="btn" style="background:#00d68f;color:#000;border:none;">📞 CALL THE SHOW</a>
+    </div>
+
+    <div class="sponsor-banner">
+      <span class="sponsor-badge">Proud Sponsor</span>
+      <div class="sponsor-text"><strong>Give-a-Gift Non-Profit</strong> — Want free radio play? Need free promo? Support artists in tech. Give-a-Gift is a 501(c)3 Non-Profit supporting community growth in technology by empowering creatives. <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Learn more &amp; connect →</a></div>
+    </div>
+
+    <div class="section-head"><span class="accent-bar"></span><h2>STV RADIOMELTDOWN</h2><p>Live on Air — Watch on Kick or YouTube</p></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;" class="sub-grid">
+      <!-- KICK PLAYER -->
+      <div style="background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;">
+        <div style="background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,0.08);padding:0.7rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span id="kickDot" style="width:8px;height:8px;border-radius:50%;background:#53fc18;display:inline-block;animation:blink 1.2s ease-in-out infinite;flex-shrink:0;"></span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.15em;color:#fff;">KICK</span>
+            <span style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);">· STVNETWORK</span>
+          </div>
+          <a href="https://kick.com/STVNETWORK" target="_blank" rel="noopener noreferrer" style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:#53fc18;text-decoration:none;">Watch on Kick →</a>
+        </div>
+        <div id="kickPlaceholder" style="background:linear-gradient(160deg,#0a0a0a,#111);padding:2.5rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.25rem;">
+          <div style="width:64px;height:64px;border-radius:50%;background:rgba(83,252,24,0.08);border:2px solid rgba(83,252,24,0.2);display:flex;align-items:center;justify-content:center;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#53fc18"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.2em;color:#fff;line-height:1;">STV RADIOMELTDOWN</div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-top:0.4rem;">kick.com/STVNETWORK</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.6rem;width:100%;max-width:240px;">
+            <button onclick="loadKickEmbed()" style="background:#53fc18;color:#000;border:none;padding:0.8rem 1.5rem;font-size:0.75rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;border-radius:2px;cursor:pointer;width:100%;">▶ Watch Live Stream</button>
+            <a href="https://kick.com/STVNETWORK" target="_blank" rel="noopener noreferrer" style="background:transparent;color:#53fc18;border:1px solid rgba(83,252,24,0.3);padding:0.65rem 1.5rem;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;border-radius:2px;text-decoration:none;width:100%;text-align:center;">Open on Kick.com →</a>
+          </div>
+          <div style="font-size:0.65rem;color:rgba(255,255,255,0.2);letter-spacing:0.06em;">Stream loads when you go live · Powered by Kick</div>
+        </div>
+        <div id="kickEmbedWrap" style="display:none;" class="responsive-iframe-container"></div>
+        <div style="background:#0d0d0d;border-top:1px solid rgba(255,255,255,0.06);padding:0.6rem 1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+          <span style="font-size:0.7rem;color:rgba(255,255,255,0.3);letter-spacing:0.08em;">Live player · active during broadcasts</span>
+          <a href="https://kick.com/STVNETWORK" target="_blank" rel="noopener noreferrer" style="font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#53fc18;text-decoration:none;">Follow @STVNETWORK</a>
+        </div>
+      </div>
+
+      <!-- YOUTUBE LIVE PLAYER -->
+      <div style="background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;">
+        <div style="background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,0.08);padding:0.7rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span style="width:8px;height:8px;border-radius:50%;background:var(--signal);display:inline-block;animation:blink 1.2s ease-in-out infinite;flex-shrink:0;"></span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.15em;color:#fff;">YOUTUBE</span>
+            <span style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);">· STVRADIOMELTDOWN</span>
+          </div>
+          <a href="https://youtube.com/channel/lFvfBqhziE0/live" target="_blank" rel="noopener noreferrer" style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--signal);text-decoration:none;">Watch on YouTube →</a>
+        </div>
+        <div class="responsive-iframe-container">
+          <iframe src="https://www.youtube.com/channel/lFvfBqhziE0/live" title="STV Radiomeltdown — Live on YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <div style="padding:0.6rem 1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+          <span style="font-size:0.7rem;color:rgba(255,255,255,0.3);letter-spacing:0.08em;">Archives every broadcast automatically</span>
+          <a href="https://youtube.com/channel/lFvfBqhziE0/live" target="_blank" rel="noopener noreferrer" style="font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--signal);text-decoration:none;">Subscribe @STVRADIOMELTDOWN</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VDO NINJA -->
+    <div style="background:#111;border:1px solid rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;margin-bottom:2rem;">
+      <div style="background:#1a1a1a;border-bottom:1px solid rgba(255,255,255,0.08);padding:0.7rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;">
+        <div style="display:flex;align-items:center;gap:0.5rem;">
+          <span style="width:8px;height:8px;border-radius:50%;background:var(--broadcast-amber);display:inline-block;animation:blink 1.2s ease-in-out infinite;flex-shrink:0;"></span>
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:0.9rem;letter-spacing:0.15em;color:#fff;">LIVE STUDIO</span>
+          <span style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);">· Video Calls &amp; Guests</span>
+        </div>
+        <span style="font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);">CH 3 — Guest Feed</span>
+      </div>
+      <div class="responsive-iframe-container">
+        <iframe src="https://vdo.ninja/?scene&room=STVRADIOMELTDownAtl&sas&sl&showdirector" title="STV Radiomeltdown Live Studio — Guest Calls" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; camera; microphone" allowfullscreen></iframe>
+      </div>
+      <div style="background:#0d0d0d;border-top:1px solid rgba(255,255,255,0.06);padding:0.6rem 1rem;">
+        <span style="font-size:0.7rem;color:rgba(255,255,255,0.25);letter-spacing:0.08em;">Live guest and caller video feed — active during broadcasts</span>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="accent-bar"></span><h2>Featured Segments</h2><p>Promos &amp; Highlights</p></div>
+    <div class="two-col">
+      <div class="media-card">
+        <div class="media-card-head"><span class="accent-sq sq-amber"></span><h3>Slept On Artist: G4E Souljah</h3><small>Indie Feature</small></div>
+        <div class="media-card-body">
+          <div class="responsive-iframe-container">
+            <iframe src="https://www.youtube.com/embed/UFHOsQ_msNE?si=xubW8iTC1TmocLy6" title="Slept On Artist — G4E Souljah" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+        </div>
+        <p class="media-card-desc">Underground spotlight segment — highlighting indie and slept-on artists pushing culture forward from the margins.</p>
+      </div>
+      <div class="media-card">
+        <div class="media-card-head"><span class="accent-sq sq-signal"></span><h3>The Static — On YouTube</h3><small>Playlist</small></div>
+        <div class="media-card-body">
+          <div class="responsive-iframe-container">
+            <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H" title="The Static — STV Radiomeltdown YouTube Playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+        </div>
+        <p class="media-card-desc">Every episode of The Static — our culture and music newsletter brought to life on YouTube. Subscribe and never miss an issue.</p>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="accent-bar"></span><h2>Artist Spotlight</h2><p>Featured on STV Radiomeltdown</p></div>
+    <div class="feature-block">
+      <div class="feature-copy">
+        <div class="feature-label">G4E Presents · LOVE&amp;CO</div>
+        <div class="feature-title">DJ Mackinthedark<em>ADHD on Wax. Sound Without Borders.</em></div>
+        <div class="feature-divider"></div>
+        <div class="feature-body">
+          <p><strong>DJ Mackinthedark</strong> is the creator of LOVE&amp;CO and the kind of artist who doesn't ask permission from a genre. A proud member of <strong>The Switchblades out of Detroit</strong>, she's built her sound the hard way — by feeling it out, blending the unexpected, and refusing to let any single box hold her.</p>
+          <p>She describes her approach as <em>ADHD on Wax</em> — and that's not a disclaimer, that's the whole point. Her sets move the way her mind does: instinctive, layered, surprising, and completely intentional once you're inside it.</p>
+          <p>LOVE&amp;CO is what happens when a Detroit-rooted creative takes genre into her own hands. Watch the featured video and explore the growing catalog — this is what the next wave sounds like before the world catches up.</p>
+        </div>
+        <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw&si=jAstYK6ZdeKEIc8T" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex;">🎵 LOVE&amp;CO Full Playlist</a>
+        </div>
+      </div>
+      <div class="feature-video">
+        <div class="feature-video-wrapper">
+          <iframe src="https://www.youtube.com/embed/ubpj6amPnPI?si=pXol0sDdNxdAY-7L" title="LOVE&CO — Featured on STV Radiomeltdown" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- DJ ROSTER -->
+    <div class="section-head"><span class="accent-bar"></span><h2>On the Ones &amp; Twos</h2><p>STV Radiomeltdown · DJ Roster</p></div>
+    <div class="two-col" style="margin-bottom:2.5rem;">
+      <div style="background:var(--dark);border:1px solid var(--border-strong);border-radius:4px;overflow:hidden;">
+        <div style="background:#111;border-bottom:1px solid var(--border);padding:0.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--broadcast-amber);font-weight:600;">DJ Profile · Detroit</span>
+          <span style="display:flex;align-items:center;gap:0.4rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);">LOVE&amp;CO · The Switchblades</span>
+        </div>
+        <div style="padding:1.75rem;display:flex;flex-direction:column;gap:1rem;">
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <div style="width:56px;height:56px;border-radius:50%;background:var(--dark-2);border:2px solid var(--broadcast-amber);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.1em;color:var(--broadcast-amber);flex-shrink:0;">DJM</div>
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.1em;color:var(--white);line-height:1;">DJ MACKINTHEDARK</div>
+              <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);">Creator of LOVE&amp;CO · Detroit, MI</div>
+            </div>
+          </div>
+          <div style="width:36px;height:2px;background:var(--broadcast-amber);"></div>
+          <p style="font-size:0.85rem;line-height:1.75;color:rgba(255,255,255,0.72);">ADHD on Wax. Member of <strong style="color:var(--white);">The Switchblades out of Detroit</strong>. Creator of LOVE&amp;CO. She's taking genre into her own hands — blending unique sounds that don't ask permission. The music moves the way her mind does: instinctive, layered, and completely her own.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+            <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">LOVE&amp;CO</span>
+            <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">The Switchblades</span>
+            <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">Detroit</span>
+            <span style="border:1px solid var(--border-strong);padding:0.2rem 0.65rem;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--dim);border-radius:2px;">Genre-bending</span>
+          </div>
+          <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex;width:fit-content;">Watch LOVE&amp;CO →</a>
+        </div>
+      </div>
+      <div style="background:var(--dark);border:1px dashed var(--border);border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:280px;">
+        <div style="text-align:center;padding:2rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);margin-bottom:0.5rem;">YOUR NAME HERE</div>
+          <div style="font-size:0.75rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.25rem;">DJ · Show Host · Live Set</div>
+          <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer" style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--signal);text-decoration:none;border:1px solid var(--signal);padding:0.5rem 1rem;border-radius:2px;">Join the Network →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE CHAT -->
+    <div class="section-head"><span class="accent-bar"></span><h2>STV Live Chat</h2><p>Heartbeat of the movement</p></div>
+    <div class="chat-panel">
+      <div class="chat-panel-head">
+        <div><h2>LIVE CHAT</h2><p>Keep it respectful, keep it real. Your messages may be read on air.</p></div>
+        <div class="on-air-badge" style="font-size:0.7rem;"><span class="on-air-dot-g"></span>OPEN</div>
+      </div>
+      <iframe src="https://tlk.io/sanecatv" title="STV LIVE Chat"></iframe>
+    </div>
+
+    <!-- THE STATIC -->
+    <div class="section-head"><span class="accent-bar"></span><h2>The Static</h2><p>STV Radiomeltdown Newsletter — Vol. 1 · Issue 02 · May 2026</p></div>
+
+    <div style="background:#f9f6f0; border-radius:4px; overflow:hidden; margin-bottom:1.5rem; font-family:'DM Sans',sans-serif; color:#111;">
+      <div style="background:#000; padding:1.25rem 1.75rem 1rem;">
+        <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#666;border-bottom:0.5px solid #2e8b57;padding-bottom:0.6rem;margin-bottom:0.6rem;">Vol. 1 · Issue 02 · May 2026 · STV Radiomeltdown · Lithonia, GA</div>
+        <div class="mag-nameplate">The Static</div>
+        <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:#2e8b57;margin:0.4rem 0 0.8rem;">Where music meets the moment</div>
+        <div style="display:flex;gap:1.25rem;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;border-top:0.5px solid #2e8b57;padding-top:0.6rem;flex-wrap:wrap;">
+          <span style="color:#2e8b57;font-weight:500;">Features</span><span style="color:#2e8b57;font-weight:500;">Sounds</span><span style="color:#2e8b57;font-weight:500;">Culture</span><span style="color:#2e8b57;font-weight:500;">Deep Cuts</span>
+        </div>
+      </div>
+      <div style="padding:1.75rem 1.75rem 0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:0.9rem;flex-wrap:wrap;">
+          <span style="background:#2e8b57;color:#fff;font-size:9px;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;padding:3px 10px;">Cover Story</span>
+          <span style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#555;">Detroit · Bass · Legacy</span>
+        </div>
+        <div style="border-top:2px solid #111;padding-top:1rem;margin-bottom:0.75rem;"></div>
+        <div class="mag-cover-title">The Bass Line That Built G-Funk: Tony T Money Green and the Detroit Sound That Changed Everything</div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#555;margin:0.6rem 0 1.25rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span style="display:inline-block;width:20px;height:1px;background:#2e8b57;"></span>By The Static &nbsp; 10 min read</div>
+        <div style="background:#0a0a0a;width:100%;padding:2.5rem 1rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;text-align:center;">
+          <div>
+            <div style="width:50px;height:1px;background:#2e8b57;margin:0 auto 0.75rem;"></div>
+            <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.1rem,2.5vw,1.6rem);color:#f9f6f0;letter-spacing:0.04em;">Tony T Money Green</div>
+            <div style="font-size:8px;letter-spacing:0.3em;text-transform:uppercase;color:#444;margin-top:0.4rem;">Detroit Bass Legend · Issue 02 Cover</div>
+            <div style="width:50px;height:1px;background:#2e8b57;margin:0.75rem auto 0;"></div>
+          </div>
+        </div>
+        <p style="font-size:14px;line-height:1.8;color:#222;margin-bottom:1rem;font-weight:300;">Before Snoop Dogg laid his first verse. Before Tupac recorded <em>All Eyez on Me</em>. Before Dr. Dre built the sound that defined a decade — there was a bass player from Detroit named Tony "T Money" Green, and without him, none of it sounds the way it does.</p>
+        <!-- PULLQUOTE — green border, near-black background so quote pops against cream body -->
+        <div style="border-left:3px solid #2e8b57;padding:0.75rem 1.25rem;margin:1.25rem 0;background:#0a0a0a;">
+          <div class="mag-pull" style="color:#f9f6f0;">"He gave me drumlines and I put basslines on top. My bass was the groundwork. That was a song. Everybody added things on top of that."</div>
+          <div style="font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:#2e8b57;margin-top:0.5rem;">— Tony T Money Green on working with Dr. Dre</div>
+        </div>
+        <p style="font-size:14px;line-height:1.8;color:#222;margin-bottom:1.5rem;font-weight:300;"><strong>The story starts in Detroit, 1975.</strong> L.J. Reynolds of The Dramatics spotted a young Tony Green playing at a local club. After one audition, Tony had the bass chair for over 20 years — co-writing their last top 10 hit and in 1978 co-writing "One of Those Funky Things" for Parliament, one of the most sampled songs in hip-hop history. Then in 1993, he became band director at Death Row Records — powering <em>Doggystyle</em>, <em>All Eyez on Me</em>, and the Grammy-winning "Let Me Ride" remix. He was the man who walked George Clinton down the hallway and introduced him to Dr. Dre.</p>
+        <!-- VIEW ALL ISSUES LINK -->
+        <div style="background:#0a0a0a;padding:1.25rem;border-radius:2px;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <div style="font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:#2e8b57;font-weight:600;margin-bottom:0.3rem;">Full Publication</div>
+            <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#f9f6f0;">Browse All Issues of The Static</div>
+            <div style="font-size:11px;color:#555;margin-top:0.2rem;">Every story, every interview, every issue.</div>
+          </div>
+          <a href="https://fairefaretravels.github.io/TheStatic-Publication/" target="_blank" rel="noopener noreferrer" style="background:#2e8b57;color:#fff;padding:0.6rem 1.25rem;font-size:9px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;border-radius:2px;text-decoration:none;white-space:nowrap;">Read The Static →</a>
+        </div>
+        <div style="border-top:0.5px solid #ccc;margin-bottom:1.5rem;"></div>
+        <div style="font-size:9px;letter-spacing:0.35em;text-transform:uppercase;color:#2e8b57;font-weight:500;margin-bottom:1rem;">Also in this issue</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;">
+          <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#555;margin-bottom:0.3rem;">Community</div><div class="mag-also-title">Mr. Bernard &amp; D&amp;K Suit City</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">The man who dressed The Dramatics and saved prom in 48 hours.</div></div>
+          <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#555;margin-bottom:0.3rem;">Events</div><div class="mag-also-title">Detroit Vinylfest 2026</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">Where legends and crates meet. May 3, Detroit.</div></div>
+          <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#555;margin-bottom:0.3rem;">Deep Cuts</div><div class="mag-also-title">Lost in the Sauce: Rick James</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">Three tracks that got buried. Glow. Dance Wit' Me. Hard to Get.</div></div>
+          <div style="border-top:2px solid #111;padding-top:0.75rem;"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#555;margin-bottom:0.3rem;">Station News</div><div class="mag-also-title">STV Radiomeltdown — We're Live</div><div style="font-size:11px;line-height:1.6;color:#555;margin-top:0.3rem;font-weight:300;">Independent. Broadcasting. Always on. Say "Alexa, play Radiomeltdown."</div></div>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem;padding:1rem 1.75rem;background:#0a0a0a;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+        <div><div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#f9f6f0;">The Static</div><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">Issue 02 · May 2026 · Culture &amp; Community</div></div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#444;">An STV Radiomeltdown Publication · Lithonia, GA</div>
+      </div>
+    </div>
+
+    <!-- LOST IN THE SAUCE -->
+    <div class="section-head"><span class="accent-bar"></span><h2>Lost in the Sauce</h2><p>The So Luv Radio Show · Deep Cuts</p></div>
+    <div style="background:#0a0a0a; border-radius:4px; overflow:hidden; margin-bottom:2.5rem;">
+      <div style="padding:2rem 1.75rem; border-bottom:1px solid rgba(255,255,255,0.06);">
+        <div style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:var(--signal);font-weight:600;margin-bottom:0.5rem;">STV Radiomeltdown · The So Luv Radio Show</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:0.95;letter-spacing:-0.01em;color:#fff;margin-bottom:0.5rem;">Three Rick James Tracks<br>the World Walked Right Past</div>
+        <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:#555;margin-bottom:1.25rem;">Everybody knows Super Freak. But Rick James was a full catalog artist. These three tracks got buried. We're digging them up.</div>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:0.5rem;">
+          <a href="https://fairefaretravels.github.io/radiomeltdownorg/" target="_blank" rel="noopener noreferrer" class="btn btn-signal" style="font-size:0.7rem;">▶ Listen on STV Radio</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SWITCHBLADOKU GAME CARD -->
+    <div class="section-head"><span class="accent-bar"></span><h2>Play While You Listen</h2><p>The Switchblades · Game Series</p></div>
+
+    <div class="game-card">
+      <div class="game-card-copy">
+        <div class="game-card-eyebrow">The Switchblades · Detroit · Game Series</div>
+        <div class="game-card-title">SWITCH<span>BLADOKU</span></div>
+        <div class="game-card-sub">Sudoku with a soundtrack</div>
+        <div class="game-card-divider"></div>
+        <div class="game-card-desc">
+          <p>Load your own MP3s and solve puzzles with STV in your ears. Easy, Medium, Hard — three difficulty levels, infinite grooves. Built for the culture. Sharpen your mind between sets.</p>
+          <p style="margin-top:0.75rem;">Part of the growing STV game series by The Switchblades out of Detroit.</p>
+        </div>
+        <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="https://fairefaretravels.github.io/Stv-Switchbladoku-/" target="_blank" rel="noopener noreferrer" class="btn btn-purple">⚡ Play Switchbladoku</a>
+        </div>
+      </div>
+      <div class="game-card-right">
+        <span class="game-play-pill">FREE · PLAY NOW</span>
+        <div>
+          <div class="sudoku-preview" id="sudokuPreview"></div>
+          <div style="text-align:center;margin-top:0.75rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);">Live preview · updating</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAIRE FARE TRAVELS -->
+    <div class="section-head"><span class="accent-bar"></span><h2>Travel With Us</h2><p>Faire Fare Travels · Curated Escapes</p></div>
+
+    <div class="faire-card">
+      <div class="faire-card-img">
+        <img src="https://fairefaretravels.github.io/agent-sanecamack/fairefaretravels1.jpeg" alt="Positano, Italy — Faire Fare Travels">
+        <div class="faire-card-img-overlay"></div>
+      </div>
+      <div class="faire-card-copy">
+        <div class="faire-card-eyebrow">Faire Fare Travels · Curated by STV</div>
+        <div class="faire-card-title">Go Further.<br>Spend Smarter.</div>
+        <div class="faire-card-sub">Luxury travel. Honest prices.</div>
+        <div class="faire-card-divider"></div>
+        <div class="faire-card-desc">Curated flights, hotels, and all-inclusive escapes — without the markup. Boutique stays to five-star properties, built for people who move with intention.</div>
+        <div class="faire-links">
+          <a href="https://expedia.com/affiliates/fair_fare_travels" target="_blank" rel="noopener noreferrer" class="faire-link">Flights via Expedia →</a>
+          <a href="https://www.hotels.com/affiliates/fair_fare_travels" target="_blank" rel="noopener noreferrer" class="faire-link">Hotels via Hotels.com →</a>
+          <a href="https://vrbo.com/affiliates/fair_fare_travels" target="_blank" rel="noopener noreferrer" class="faire-link">All-Inclusive via Vrbo →</a>
+        </div>
+        <div style="margin-top:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <a href="https://fairefaretravels.github.io/agent-sanecamack/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">✈ Start Planning</a>
+          <a href="https://fairefaretravels.github.io/group-planner/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">👥 Group Planner</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+  <footer>
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">STV <span>RADIO</span></div>
+          <p class="footer-tagline">Independent broadcast. Community-built. Always live. G4E Movement Studio — Lithonia, GA.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Network</h4>
+          <ul>
+            <li><a href="https://radiomeltdown.com" target="_blank" rel="noopener noreferrer">Radiomeltdown.com</a></li>
+            <li><a href="https://fairefaretravels.github.io/stvradiomeltdown-players/" target="_blank" rel="noopener noreferrer">All Four Players</a></li>
+            <li><a href="https://fairefaretravels.github.io/TheStatic-Publication/" target="_blank" rel="noopener noreferrer">The Static</a></li>
+            <li><a href="https://fairefaretravels.github.io/Stv-Switchbladoku-/" target="_blank" rel="noopener noreferrer">Switchbladoku</a></li>
+            <li><a href="https://kick.com/STVNETWORK" target="_blank" rel="noopener noreferrer">Kick.com/STVNETWORK</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <address>
+            <a href="tel:6784338772">678-433-8772</a><br>
+            Lithonia, GA<br>
+            <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Contact Form</a><br>
+            <a href="https://www.tiktok.com/@sanecatv" target="_blank" rel="noopener noreferrer">@SanecaTV TikTok</a>
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 STV Radiomeltdown · G4E Movement Studio · Lithonia, GA</p>
+        <div class="footer-bottom-links">
+          <a href="https://fairefaretravels.github.io/agent-sanecamack/" target="_blank" rel="noopener noreferrer">Faire Fare Travels</a>
+          <a href="https://formspree.io/f/mrbkljze" target="_blank" rel="noopener noreferrer">Privacy</a>
+          <a href="https://radiomeltdown.com" target="_blank" rel="noopener noreferrer">radiomeltdown.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── AUDIO PLAYER ───
+    (function() {
+      const audio = document.getElementById('radioAudio');
+      const btn = document.getElementById('playBtn');
+      const icon = document.getElementById('playIcon');
+      const dot = document.getElementById('statusDot');
+      const stat = document.getElementById('statusText');
+      const track = document.getElementById('trackName');
+      const vol = document.getElementById('volSlider');
+      let playing = false;
+      const PLAY = '<polygon points="5,3 19,12 5,21"/>';
+      const PAUSE = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+      btn.addEventListener('click', function() {
+        if (!playing) {
+          audio.load();
+          audio.play().then(() => {
+            playing = true; icon.innerHTML = PAUSE;
+            dot.classList.remove('offline'); stat.classList.remove('offline');
+            stat.textContent = 'LIVE'; track.textContent = 'STV Radiomeltdown — Live Stream';
+            btn.style.animation = 'none';
+          }).catch(() => {
+            stat.textContent = 'OFFLINE'; dot.classList.add('offline');
+            stat.classList.add('offline'); track.textContent = 'Stream unavailable — check back soon';
+          });
+        } else {
+          audio.pause(); playing = false; icon.innerHTML = PLAY;
+          dot.classList.add('offline'); stat.classList.add('offline');
+          stat.textContent = 'PAUSED'; track.textContent = 'Press play to tune in to STV Radiomeltdown';
+          btn.style.animation = 'pulse-ring 2s infinite';
+        }
+      });
+      vol.addEventListener('input', function() { audio.volume = this.value; });
+      audio.volume = 0.8;
+    })();
+
+    // ─── KICK EMBED ───
+    function loadKickEmbed() {
+      const placeholder = document.getElementById('kickPlaceholder');
+      const embedWrap = document.getElementById('kickEmbedWrap');
+      placeholder.style.display = 'none';
+      embedWrap.style.display = 'block';
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://player.kick.com/stvnetwork';
+      iframe.title = 'STV Radiomeltdown — Live on Kick';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      iframe.style.position = 'absolute';
+      iframe.style.top = '0'; iframe.style.left = '0';
+      iframe.style.width = '100%'; iframe.style.height = '100%';
+      iframe.style.border = '0';
+      embedWrap.appendChild(iframe);
+    }
+
+    // ─── PLAYER CARD TABS ───
+    function filterPlayers(tab, btn) {
+      document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cards = document.querySelectorAll('.pcard');
+      cards.forEach(card => {
+        if (tab === 'all' || card.dataset.player === tab) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // ─── SUDOKU PREVIEW ───
+    (function() {
+      const grid = document.getElementById('sudokuPreview');
+      if (!grid) return;
+      const sample = [
+        [5,3,0,0,7,0,0,0,0],
+        [6,0,0,1,9,5,0,0,0],
+        [0,9,8,0,0,0,0,6,0],
+        [8,0,0,0,6,0,0,0,3],
+        [4,0,0,8,0,3,0,0,1],
+        [7,0,0,0,2,0,0,0,6],
+        [0,6,0,0,0,0,2,8,0],
+        [0,0,0,4,1,9,0,0,5],
+        [0,0,0,0,8,0,0,7,9]
+      ];
+      const purpleCells = [[0,0],[0,4],[1,0],[3,0],[4,3],[8,4],[8,7]];
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'sudoku-cell';
+          const val = sample[r][c];
+          if (val) {
+            cell.textContent = val;
+            const isPurple = purpleCells.some(([pr,pc]) => pr === r && pc === c);
+            if (isPurple) cell.classList.add('purple');
+            else cell.classList.add('filled');
+          }
+          grid.appendChild(cell);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>
