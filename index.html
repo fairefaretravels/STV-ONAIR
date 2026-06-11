@@ -317,20 +317,15 @@
       </div>
     </div>
   </div>
-<!-- STV DANCER VIDEO BANNER -->
-<div style="width:100%;background:#000;overflow:hidden;line-height:0;max-height:320px;border-bottom:2px solid var(--signal);position:relative;">
-  <video
-    src="stvdancer-1.mp4"
-    autoplay
-    muted
-    loop
-    playsinline
-    style="width:100%;max-height:320px;object-fit:cover;display:block;opacity:0.85;">
-  </video>
-  <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.7));pointer-events:none;"></div>
-  <div style="position:absolute;bottom:1rem;left:1.5rem;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,2rem);letter-spacing:0.25em;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.8);">STV RADIOMELTDOWN</div>
-    <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--signal);">LIVE FROM LITHONIA, GA</div>
+<!-- HERO BANNER -->
+<div style="width:100%;background:#000;border-bottom:2px solid var(--signal);padding:2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+  <div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:0.25em;color:#fff;">STV RADIOMELTDOWN</div>
+    <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--signal);margin-top:0.25rem;">LIVE FROM LITHONIA, GA · HOUSE OF MEDIA</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:0.5rem;">
+    <span style="width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(46,139,87,0.9);animation:blink 1.2s ease-in-out infinite;display:inline-block;"></span>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.25em;color:var(--signal);">ON AIR</span>
   </div>
 </div>
   
@@ -350,35 +345,40 @@
   </div>
 
   <!-- PLAYER BAR -->
-  <div class="player-bar">
-    <div class="player-left">
-      <div class="player-status-col">
-        <div class="player-status-row">
-          <span class="live-dot offline" id="statusDot"></span>
-          <span class="player-status-text offline" id="statusText">OFFLINE</span>
-        </div>
-        <div class="player-station-name">STV RADIOMELTDOWN</div>
-        <div class="player-station-sub">STV NETWORK · Lithonia, GA</div>
+<div class="player-bar">
+  <div class="player-left">
+    <div class="player-status-col">
+      <div class="player-status-row">
+        <span class="live-dot offline" id="statusDot"></span>
+        <span class="player-status-text offline" id="statusText">OFFLINE</span>
       </div>
+      <div class="player-station-name">STV RADIOMELTDOWN</div>
+      <div class="player-station-sub">STV NETWORK · Lithonia, GA</div>
     </div>
-    <div class="player-divider"></div>
-    <div class="player-controls">
-      <button class="play-btn" id="playBtn" aria-label="Play/Pause">
-        <svg id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-      </button>
-      <div class="volume-wrap">
-        <span class="vol-icon">🔈</span>
-        <input type="range" class="volume-slider" id="volSlider" min="0" max="1" step="0.05" value="0.8">
-      </div>
-    </div>
-    <div class="player-embed">
-  <div class="player-now-playing">
-    <span class="now-playing-label">IM OFF MY MEDS PODCAST</span>
-    <span class="now-playing-track">SANECA MACK · TUNE IN</span>
   </div>
-  <iframe style="border-radius:12px; margin-top:10px;"
+  <div class="player-divider"></div>
+  <div class="player-controls">
+    <button class="play-btn" id="playBtn" aria-label="Play/Pause">
+      <svg id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+    </button>
+    <div class="volume-wrap">
+      <span class="vol-icon">🔈</span>
+      <input type="range" class="volume-slider" id="volSlider" min="0" max="1" step="0.05" value="0.8">
+    </div>
+  </div>
+  <div class="player-embed">
+    <div class="player-now-playing">
+      <span class="now-playing-label">IM OFF MY MEDS PODCAST</span>
+      <span class="now-playing-track" id="trackName">SANECA MACK · TUNE IN</span>
+    </div>
+  </div>
+</div>
+
+<!-- SPOTIFY STRIP -->
+<div style="background:#0d0d0d;border-bottom:1px solid rgba(255,255,255,0.06);padding:0.5rem 1.5rem;">
+  <iframe style="border-radius:8px;display:block;"
     src="https://open.spotify.com/embed/show/3lxIO679bCt15UJ3jUUYXV?utm_source=generator&theme=0"
-    width="100%" height="152" frameBorder="0"
+    width="100%" height="80" frameBorder="0"
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
     loading="lazy">
   </iframe>
