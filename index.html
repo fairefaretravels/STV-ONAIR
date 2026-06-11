@@ -318,16 +318,99 @@
     </div>
   </div>
 <!-- HERO BANNER -->
-<div style="width:100%;background:#000;border-bottom:2px solid var(--signal);padding:2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-  <div>
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:0.25em;color:#fff;">STV RADIOMELTDOWN</div>
-    <div style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--signal);margin-top:0.25rem;">LIVE FROM LITHONIA, GA · HOUSE OF MEDIA</div>
+<!-- HERO VIDEO -->
+<section style="position:relative;width:100%;height:80vh;overflow:hidden;background:#000;">
+
+  <!-- Video Background -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    style="
+      position:absolute;
+      top:50%;
+      left:50%;
+      min-width:100%;
+      min-height:100%;
+      width:auto;
+      height:auto;
+      transform:translate(-50%,-50%);
+      object-fit:cover;
+      z-index:1;
+    "
+  >
+    <source src="stvdancer-2.mp4" type="video/mp4">
+  </video>
+
+  <!-- Dark Overlay -->
+  <div style="
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    z-index:2;
+  "></div>
+
+  <!-- Hero Content -->
+  <div style="
+    position:relative;
+    z-index:3;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:2rem;
+  ">
+
+    <div style="
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(3rem,8vw,7rem);
+      letter-spacing:.15em;
+      color:#fff;
+      text-shadow:0 0 30px rgba(0,0,0,.7);
+    ">
+      STV RADIOMELTDOWN
+    </div>
+
+    <div style="
+      margin-top:1rem;
+      font-size:clamp(.8rem,2vw,1rem);
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color:var(--signal);
+    ">
+      Live From Lithonia, Georgia
+    </div>
+
+    <div style="
+      margin-top:2rem;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+    ">
+      <span style="
+        width:10px;
+        height:10px;
+        border-radius:50%;
+        background:var(--signal);
+        box-shadow:0 0 20px var(--signal);
+        animation:blink 1.2s infinite;
+      "></span>
+
+      <span style="
+        color:#fff;
+        font-family:'Bebas Neue',sans-serif;
+        letter-spacing:.3em;
+      ">
+        ON AIR
+      </span>
+    </div>
+
   </div>
-  <div style="display:flex;align-items:center;gap:0.5rem;">
-    <span style="width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 10px rgba(46,139,87,0.9);animation:blink 1.2s ease-in-out infinite;display:inline-block;"></span>
-    <span style="font-family:'Bebas Neue',sans-serif;font-size:0.85rem;letter-spacing:0.25em;color:var(--signal);">ON AIR</span>
-  </div>
-</div>
+
+</section>
   
   <div class="utility-bar">
     <div class="utility-contact">
