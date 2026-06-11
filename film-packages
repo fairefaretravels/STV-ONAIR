@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Film Packages — STV Digital / House of Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0D0D0D;
+    color: #F0EDE6;
+    min-height: 100vh;
+    padding: 3rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 3.5rem; }
+  .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .brand-pill {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 0.5px solid #3A3A3A;
+    border-radius: 20px;
+    padding: 4px 12px;
+    color: #6A6A6A;
+  }
+  .brand-divider {
+    width: 1px;
+    height: 14px;
+    background: #3A3A3A;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #C8963E;
+    margin-bottom: 12px;
+  }
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 500;
+    color: #F0EDE6;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #6A6A6A;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .header-divider {
+    width: 48px; height: 2px;
+    background: #C8963E;
+    margin: 16px auto 0;
+    border-radius: 1px;
+  }
+
+  /* Tier grid */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 3rem;
+  }
+
+  .tier-card {
+    background: #2A2A2A;
+    border: 0.5px solid #3A3A3A;
+    border-radius: 12px;
+    padding: 24px 20px 22px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Film grain */
+  .tier-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: 12px;
+  }
+
+  .tier-card.featured {
+    border-color: #C8963E;
+  }
+  /* Glowing amber underline on featured */
+  .tier-card.featured::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: #C8963E;
+    box-shadow: 0 0 8px rgba(200,150,62,0.5);
+  }
+
+  .tier-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(200,150,62,0.15);
+    color: #C8963E;
+    padding: 3px 9px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    width: fit-content;
+  }
+
+  .tier-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #F0EDE6;
+    margin-bottom: 4px;
+  }
+  .tier-tagline {
+    font-size: 11px;
+    color: #6A6A6A;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .tier-price {
+    font-size: 36px;
+    font-weight: 500;
+    color: #C8963E;
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .tier-price-note {
+    font-size: 11px;
+    color: #5A5A5A;
+    margin-bottom: 20px;
+  }
+
+  .tier-features {
+    list-style: none;
+    margin-bottom: 22px;
+    flex: 1;
+  }
+  .tier-features li {
+    font-size: 12px;
+    color: #9A9A9A;
+    padding: 5px 0;
+    border-bottom: 0.5px solid #1E1E1E;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .tier-features li:last-child { border-bottom: none; }
+  .tier-features li::before {
+    content: '—';
+    color: #C8963E;
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Pay method picker */
+  .pay-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #5A5A5A;
+    margin-bottom: 8px;
+  }
+  .pay-methods {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .pay-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: #1A1A1A;
+    border: 0.5px solid #3A3A3A;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #9A9A9A;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.12s, color 0.12s;
+    letter-spacing: 0.04em;
+  }
+  .pay-btn:hover {
+    border-color: #C8963E;
+    color: #F0EDE6;
+  }
+  .pay-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* Cashapp full width */
+  .pay-btn.cashapp {
+    grid-column: 1 / -1;
+    background: rgba(0,212,90,0.06);
+    border-color: rgba(0,212,90,0.2);
+    color: #00D45A;
+  }
+  .pay-btn.cashapp:hover {
+    border-color: #00D45A;
+    color: #00D45A;
+  }
+
+  /* What's included section */
+  .included-section {
+    margin-bottom: 3rem;
+  }
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #C8963E;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid #2A2A2A;
+  }
+  .included-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .included-item {
+    background: #2A2A2A;
+    border: 0.5px solid #3A3A3A;
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .included-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .included-text h4 {
+    font-size: 12px;
+    font-weight: 500;
+    color: #F0EDE6;
+    margin-bottom: 3px;
+  }
+  .included-text p {
+    font-size: 11px;
+    color: #6A6A6A;
+    line-height: 1.5;
+  }
+
+  /* Process steps */
+  .process {
+    display: flex;
+    gap: 0;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+  .process::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: calc(16.66% + 8px);
+    right: calc(16.66% + 8px);
+    height: 0.5px;
+    background: #3A3A3A;
+  }
+  .step {
+    flex: 1;
+    text-align: center;
+    padding: 0 8px;
+  }
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #2A2A2A;
+    border: 0.5px solid #3A3A3A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #C8963E;
+    margin: 0 auto 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num.active {
+    background: rgba(200,150,62,0.12);
+    border-color: #C8963E;
+  }
+  .step-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: #F0EDE6;
+    margin-bottom: 3px;
+  }
+  .step-sub { font-size: 10px; color: #5A5A5A; line-height: 1.5; }
+
+  /* Footer note */
+  .footer-note {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 0.5px solid #1E1E1E;
+  }
+  .footer-note p {
+    font-size: 12px;
+    color: #4A4A4A;
+    line-height: 1.8;
+  }
+  .footer-note a { color: #C8963E; text-decoration: none; }
+  .footer-brands {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: #6A6A6A;
+  }
+
+  @media (max-width: 580px) {
+    .tier-grid { grid-template-columns: 1fr; }
+    .included-grid { grid-template-columns: 1fr; }
+    .process { flex-direction: column; gap: 16px; }
+    .process::before { display: none; }
+    .step { display: flex; align-items: flex-start; gap: 14px; text-align: left; }
+    .step-num { margin: 0; flex-shrink: 0; }
+    .title { font-size: 26px; }
+    .brand-row { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="brand-row">
+      <span class="brand-pill">STV Digital</span>
+      <div class="brand-divider"></div>
+      <span class="brand-pill">House of Media</span>
+    </div>
+    <p class="eyebrow">Film &amp; Investor Web Builds</p>
+    <h1 class="title">Choose Your Package</h1>
+    <p class="subtitle">Investor-ready websites for films, trailers, and production decks. Built for Vercel. Delivered fast.</p>
+    <div class="header-divider"></div>
+  </div>
+
+  <!-- Process steps -->
+  <div class="section-label" style="margin-bottom:20px;">How it works</div>
+  <div class="process" style="margin-bottom:2.5rem;">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <p class="step-title">Intake</p>
+        <p class="step-sub">Submit your project details</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num active">2</div>
+      <div>
+        <p class="step-title">Package</p>
+        <p class="step-sub">Review scope &amp; select tier</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <p class="step-title">Pay</p>
+        <p class="step-sub">Secure your build slot</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tier cards -->
+  <div class="section-label" style="margin-bottom:20px;">Select a tier</div>
+  <div class="tier-grid">
+
+    <!-- Slate -->
+    <div class="tier-card">
+      <p class="tier-name">Slate</p>
+      <p class="tier-tagline">The Essential</p>
+      <p class="tier-price">$350</p>
+      <p class="tier-price-note">One-time · Delivered in 48 hrs</p>
+      <ul class="tier-features">
+        <li>Single-page investor site</li>
+        <li>Trailer or sizzle reel embed</li>
+        <li>Logline + CTA button</li>
+        <li>Your paylink wired in</li>
+        <li>Mobile responsive</li>
+        <li>Deployed to Vercel</li>
+      </ul>
+      <p class="pay-label">Pay with</p>
+      <div class="pay-methods">
+        <a href="https://cash.app/$Morefire" target="_blank" class="pay-btn cashapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.5 14.5h-3v-1.5c-1.66 0-3-1.34-3-3h1.5c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-3c-1.66 0-3-1.34-3-3s1.34-3 3-3V7.5h3V9c1.66 0 3 1.34 3 3h-1.5c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5h3c1.66 0 3 1.34 3 3s-1.34 3-3 3z"/></svg>
+          $Morefire — $350
+        </a>
+        <a href="#" class="pay-btn" onclick="alert('Stripe link coming soon. Email Houseofmedia.marketing@gmail.com to pay via card.'); return false;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          Stripe
+        </a>
+        <a href="#" class="pay-btn" onclick="alert('Square link coming soon. Email Houseofmedia.marketing@gmail.com to pay via Square.'); return false;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          Square
+        </a>
+        <a href="https://paypal.me/houseofmedia" target="_blank" class="pay-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.217a.641.641 0 0 1 .634-.544h7.261c2.636 0 4.542.616 5.664 1.832.52.565.856 1.158 1.025 1.808.177.682.17 1.496-.02 2.487l-.006.04v.557l.344.194a2.41 2.41 0 0 1 .689.589c.292.38.479.858.553 1.42.08.587.053 1.287-.083 2.083-.158.938-.414 1.754-.762 2.425a4.86 4.86 0 0 1-1.218 1.556 5.016 5.016 0 0 1-1.669.906 7.28 7.28 0 0 1-2.127.295H15.4a1.09 1.09 0 0 0-1.077.919l-.696 4.408z" opacity=".4"/><path d="M19.671 8.84c-.023.143-.05.29-.08.44-.985 5.054-4.358 6.8-8.667 6.8H8.757a1.09 1.09 0 0 0-1.078.92l-1.15 7.295a.573.573 0 0 0 .565.664h3.966a.956.956 0 0 0 .944-.807l.039-.2.748-4.746.048-.261a.956.956 0 0 1 .944-.808h.595c3.851 0 6.866-1.564 7.748-6.088.368-1.893.178-3.474-.797-4.583a3.804 3.804 0 0 0-1.658-1.426z"/></svg>
+          PayPal
+        </a>
+      </div>
+    </div>
+
+    <!-- Reel (featured) -->
+    <div class="tier-card featured">
+      <span class="tier-badge">Most Popular</span>
+      <p class="tier-name">Reel</p>
+      <p class="tier-tagline">The Full Pitch</p>
+      <p class="tier-price">$600</p>
+      <p class="tier-price-note">One-time · Delivered in 5 days</p>
+      <ul class="tier-features">
+        <li>Multi-section investor site</li>
+        <li>Trailer embed + photo gallery</li>
+        <li>Cast, crew, director bio</li>
+        <li>Press quotes section</li>
+        <li>Multiple paylinks / tiers</li>
+        <li>Contact/inquiry form</li>
+        <li>Mobile responsive</li>
+        <li>Deployed to Vercel</li>
+      </ul>
+      <p class="pay-label">Pay with</p>
+      <div class="pay-methods">
+        <a href="https://cash.app/$Morefire" target="_blank" class="pay-btn cashapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.5 14.5h-3v-1.5c-1.66 0-3-1.34-3-3h1.5c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-3c-1.66 0-3-1.34-3-3s1.34-3 3-3V7.5h3V9c1.66 0 3 1.34 3 3h-1.5c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5h3c1.66 0 3 1.34 3 3s-1.34 3-3 3z"/></svg>
+          $Morefire — $600
+        </a>
+        <a href="#" class="pay-btn" onclick="alert('Stripe link coming soon. Email Houseofmedia.marketing@gmail.com to pay via card.'); return false;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          Stripe
+        </a>
+        <a href="#" class="pay-btn" onclick="alert('Square link coming soon. Email Houseofmedia.marketing@gmail.com to pay via Square.'); return false;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          Square
+        </a>
+        <a href="https://paypal.me/houseofmedia" target="_blank" class="pay-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.217a.641.641 0 0 1 .634-.544h7.261c2.636 0 4.542.616 5.664 1.832.52.565.856 1.158 1.025 1.808.177.682.17 1.496-.02 2.487l-.006.04v.557l.344.194a2.41 2.41 0 0 1 .689.589c.292.38.479.858.553 1.42.08.587.053 1.287-.083 2.083-.158.938-.414 1.754-.762 2.425a4.86 4.86 0 0 1-1.218 1.556 5.016 5.016 0 0 1-1.669.906 7.28 7.28 0 0 1-2.127.295H15.4a1.09 1.09 0 0 0-1.077.919l-.696 4.408z" opacity=".4"/><path d="M19.671 8.84c-.023.143-.05.29-.08.44-.985 5.054-4.358 6.8-8.667 6.8H8.757a1.09 1.09 0 0 0-1.078.92l-1.15 7.295a.573.573 0 0 0 .565.664h3.966a.956.956 0 0 0 .944-.807l.039-.2.748-4.746.048-.261a.956.956 0 0 1 .944-.808h.595c3.851 0 6.866-1.564 7.748-6.088.368-1.893.178-3.474-.797-4.583a3.804 3.804 0 0 0-1.658-1.426z"/></svg>
+          PayPal
+        </a>
+      </div>
+    </div>
+
+    <!-- Première -->
+    <div class="tier-card">
+      <p class="tier-name">Première</p>
+      <p class="tier-tagline">The Investor Portal</p>
+      <p class="tier-price">$950</p>
+      <p class="tier-price-note">One-time · Delivered in 7–10 days</p>
+      <ul class="tier-features">
+        <li>Everything in Reel</li>
+        <li>Password-protected portal</li>
+        <li>Pitch deck embed / data room</li>
+        <li>Analytics integration</li>
+        <li>Custom domain setup</li>
+        <li>EPK download section</li>
+        <li>Revision round included</li>
+        <li>Priority delivery</li>
+      </ul>
+      <p class="pay-label">Pay with</p>
+      <div class="pay-methods">
+        <a href="https://cash.app/$Morefire" target="_blank" class="pay-btn cashapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.5 14.5h-3v-1.5c-1.66 0-3-1.34-3-3h1.5c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-3c-1.66 0-3-1.34-3-3s1.34-3 3-3V7.5h3V9c1.66 0 3 1.34 3 3h-1.5c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5h3c1.66 0 3 1.34 3 3s-1.34 3-3 3z"/></svg>
+          $Morefire — $950
+        </a>
+        <a href="#" class="pay-btn" onclick="alert('Stripe link coming soon. Email Houseofmedia.marketing@gmail.com to pay via card.'); return false;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          Stripe
+        </a>
+        <a href="#" class="pay-btn" onclick="alert('Square link coming soon. Email Houseofmedia.marketing@gmail.com to pay via Square.'); return false;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          Square
+        </a>
+        <a href="https://paypal.me/houseofmedia" target="_blank" class="pay-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.217a.641.641 0 0 1 .634-.544h7.261c2.636 0 4.542.616 5.664 1.832.52.565.856 1.158 1.025 1.808.177.682.17 1.496-.02 2.487l-.006.04v.557l.344.194a2.41 2.41 0 0 1 .689.589c.292.38.479.858.553 1.42.08.587.053 1.287-.083 2.083-.158.938-.414 1.754-.762 2.425a4.86 4.86 0 0 1-1.218 1.556 5.016 5.016 0 0 1-1.669.906 7.28 7.28 0 0 1-2.127.295H15.4a1.09 1.09 0 0 0-1.077.919l-.696 4.408z" opacity=".4"/><path d="M19.671 8.84c-.023.143-.05.29-.08.44-.985 5.054-4.358 6.8-8.667 6.8H8.757a1.09 1.09 0 0 0-1.078.92l-1.15 7.295a.573.573 0 0 0 .565.664h3.966a.956.956 0 0 0 .944-.807l.039-.2.748-4.746.048-.261a.956.956 0 0 1 .944-.808h.595c3.851 0 6.866-1.564 7.748-6.088.368-1.893.178-3.474-.797-4.583a3.804 3.804 0 0 0-1.658-1.426z"/></svg>
+          PayPal
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- What's always included -->
+  <div class="included-section">
+    <p class="section-label">Always included</p>
+    <div class="included-grid">
+      <div class="included-item">
+        <span class="included-icon">⚡</span>
+        <div class="included-text">
+          <h4>Fast turnaround</h4>
+          <p>48 hrs to 10 days depending on tier. No waiting months.</p>
+        </div>
+      </div>
+      <div class="included-item">
+        <span class="included-icon">📱</span>
+        <div class="included-text">
+          <h4>Mobile responsive</h4>
+          <p>Looks right on every screen — phone, tablet, desktop.</p>
+        </div>
+      </div>
+      <div class="included-item">
+        <span class="included-icon">🚀</span>
+        <div class="included-text">
+          <h4>Vercel deployment</h4>
+          <p>Live on the web the day it's done. Custom domain ready.</p>
+        </div>
+      </div>
+      <div class="included-item">
+        <span class="included-icon">🎬</span>
+        <div class="included-text">
+          <h4>Film-forward design</h4>
+          <p>Built to impress investors, not just check boxes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-note">
+    <div class="footer-brands">
+      <span class="footer-brand">STV Digital</span>
+      <span style="color:#3A3A3A;">·</span>
+      <span class="footer-brand">House of Media</span>
+    </div>
+    <p>Questions before paying? <a href="mailto:Houseofmedia.marketing@gmail.com">Houseofmedia.marketing@gmail.com</a></p>
+    <p style="margin-top:4px;">Payment confirms your build slot. Scope confirmed via email before work begins.</p>
+  </div>
+
+</div>
+</body>
+</html>
