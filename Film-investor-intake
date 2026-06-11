@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Film Investor Website Intake — STV Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0D0D0D;
+    color: #F0EDE6;
+    min-height: 100vh;
+    padding: 3rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 3rem; }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #C8963E;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #F0EDE6;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .subtitle { font-size: 13px; color: #6A6A6A; }
+  .divider {
+    width: 48px; height: 2px;
+    background: #C8963E;
+    margin: 14px auto 0;
+    border-radius: 1px;
+  }
+
+  /* Sections */
+  .section { margin-bottom: 2.5rem; }
+  .section-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #C8963E;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid #2A2A2A;
+  }
+
+  /* Grid rows */
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .row.full { grid-template-columns: 1fr; }
+
+  /* Fields */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6A6A6A;
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    background: #2A2A2A;
+    border: 0.5px solid #3A3A3A;
+    border-radius: 6px;
+    color: #F0EDE6;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: #444; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: #C8963E;
+    box-shadow: 0 0 0 2px rgba(200,150,62,0.12);
+  }
+  .field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236A6A6A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    cursor: pointer;
+  }
+  .field select option { background: #2A2A2A; color: #F0EDE6; }
+  .field textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+  /* Asset chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1A1A1A;
+    border: 0.5px solid #3A3A3A;
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #6A6A6A;
+    transition: all 0.12s;
+    user-select: none;
+  }
+  .chip:hover { border-color: #C8963E; color: #C8963E; }
+  .chip.active {
+    border-color: #C8963E;
+    color: #C8963E;
+    background: rgba(200,150,62,0.08);
+  }
+  .chip input { display: none; }
+
+  /* Tier cards */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .tier-card {
+    background: #2A2A2A;
+    border: 0.5px solid #3A3A3A;
+    border-radius: 10px;
+    padding: 16px 14px 18px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .tier-card:hover { border-color: rgba(200,150,62,0.5); }
+  .tier-card.selected { border-color: #C8963E; }
+  .tier-card.selected::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: #C8963E;
+  }
+  /* Film grain texture overlay */
+  .tier-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: 10px;
+  }
+  .tier-badge {
+    position: absolute;
+    top: 8px; right: 8px;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(200,150,62,0.15);
+    color: #C8963E;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .tier-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #F0EDE6;
+    margin-bottom: 4px;
+  }
+  .tier-price {
+    font-size: 20px;
+    font-weight: 500;
+    color: #C8963E;
+    margin-bottom: 8px;
+  }
+  .tier-desc { font-size: 11px; color: #6A6A6A; line-height: 1.55; }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: #C8963E;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0D0D0D;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    margin-top: 8px;
+    transition: opacity 0.15s;
+  }
+  .submit-btn:hover { opacity: 0.87; }
+  .submit-btn:active { opacity: 0.7; }
+
+  .form-note {
+    font-size: 11px;
+    color: #444;
+    text-align: center;
+    margin-top: 12px;
+    line-height: 1.7;
+  }
+  .form-note a { color: #C8963E; text-decoration: none; }
+
+  /* Success state */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .success-icon {
+    font-size: 40px;
+    margin-bottom: 1rem;
+  }
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #F0EDE6;
+    margin-bottom: 10px;
+  }
+  .success-sub { font-size: 14px; color: #6A6A6A; line-height: 1.7; }
+
+  @media (max-width: 520px) {
+    .row { grid-template-columns: 1fr; }
+    .tier-grid { grid-template-columns: 1fr; }
+    .title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="formWrap">
+    <div class="header">
+      <p class="eyebrow">STV Digital / G4E Movement Studio</p>
+      <h1 class="title">Investor Website Intake</h1>
+      <p class="subtitle">Film &amp; trailer presentation builds</p>
+      <div class="divider"></div>
+    </div>
+
+    <!-- SECTION 1: Contact -->
+    <div class="section">
+      <p class="section-label">Project contact</p>
+      <div class="row">
+        <div class="field">
+          <label for="fname">First name</label>
+          <input id="fname" type="text" placeholder="Jordan" />
+        </div>
+        <div class="field">
+          <label for="lname">Last name</label>
+          <input id="lname" type="text" placeholder="Price" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@production.com" />
+        </div>
+        <div class="field">
+          <label for="phone">Phone (optional)</label>
+          <input id="phone" type="tel" placeholder="+1 (___) ___-____" />
+        </div>
+      </div>
+      <div class="row full">
+        <div class="field">
+          <label for="company">Production company / studio name</label>
+          <input id="company" type="text" placeholder="e.g. Meridian Pictures LLC" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: Project -->
+    <div class="section">
+      <p class="section-label">The project</p>
+      <div class="row">
+        <div class="field">
+          <label for="filmtitle">Film title</label>
+          <input id="filmtitle" type="text" placeholder="Working or final title" />
+        </div>
+        <div class="field">
+          <label for="genre">Genre</label>
+          <select id="genre">
+            <option value="" disabled selected>Select genre</option>
+            <option>Drama</option>
+            <option>Documentary</option>
+            <option>Thriller</option>
+            <option>Horror</option>
+            <option>Sci-Fi</option>
+            <option>Action</option>
+            <option>Comedy</option>
+            <option>Romance</option>
+            <option>Animated</option>
+            <option>Short film</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="stage">Production stage</label>
+          <select id="stage">
+            <option value="" disabled selected>Current stage</option>
+            <option>Pre-production</option>
+            <option>In production</option>
+            <option>Post-production</option>
+            <option>Festival circuit</option>
+            <option>Distribution ready</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="budget">Budget range</label>
+          <select id="budget">
+            <option value="" disabled selected>Select range</option>
+            <option>Under $50K</option>
+            <option>$50K – $250K</option>
+            <option>$250K – $1M</option>
+            <option>$1M – $5M</option>
+            <option>$5M+</option>
+          </select>
+        </div>
+      </div>
+      <div class="row full">
+        <div class="field">
+          <label for="logline">Logline / one-paragraph pitch</label>
+          <textarea id="logline" placeholder="Tell the story in 2–3 sentences. This may appear on the investor landing page."></textarea>
+        </div>
+      </div>
+      <div class="row full">
+        <div class="field">
+          <label for="trailer">Trailer or sizzle reel URL (YouTube, Vimeo, Drive, etc.)</label>
+          <input id="trailer" type="url" placeholder="https://vimeo.com/..." />
+        </div>
+      </div>
+      <div class="row full">
+        <div class="field">
+          <label>Additional assets to include on site</label>
+          <div class="chips" id="chipGroup">
+            <label class="chip"><input type="checkbox" value="Director bio" />Director bio</label>
+            <label class="chip"><input type="checkbox" value="Cast list" />Cast list</label>
+            <label class="chip"><input type="checkbox" value="Press kit / EPK" />Press kit / EPK</label>
+            <label class="chip"><input type="checkbox" value="Photo gallery" />Photo gallery</label>
+            <label class="chip"><input type="checkbox" value="Pitch deck embed" />Pitch deck embed</label>
+            <label class="chip"><input type="checkbox" value="Distribution plan" />Distribution plan</label>
+            <label class="chip"><input type="checkbox" value="Press quotes" />Press quotes</label>
+            <label class="chip"><input type="checkbox" value="Contact / inquiry form" />Contact / inquiry form</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: CTA & Payments -->
+    <div class="section">
+      <p class="section-label">Investor CTA &amp; payments</p>
+      <div class="row">
+        <div class="field">
+          <label for="ctaText">Primary CTA button text</label>
+          <input id="ctaText" type="text" placeholder='"Invest Now" or "Schedule a Call"' />
+        </div>
+        <div class="field">
+          <label for="ctaType">CTA destination</label>
+          <select id="ctaType">
+            <option value="" disabled selected>Select type</option>
+            <option>Paylink (I'll provide URL)</option>
+            <option>Calendly / booking link</option>
+            <option>Email inquiry form</option>
+            <option>External deck or data room</option>
+            <option>Custom URL</option>
+          </select>
+        </div>
+      </div>
+      <div class="row full">
+        <div class="field">
+          <label for="paylinks">Paylink(s) or CTA URL(s) — paste all here</label>
+          <textarea id="paylinks" style="min-height:72px;" placeholder="One per line. Include the tier or label if there are multiple.&#10;e.g. Executive Producer – $25,000: https://pay.link/..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Tier -->
+    <div class="section">
+      <p class="section-label">Choose your build tier</p>
+      <div class="tier-grid">
+        <div class="tier-card" id="tier-slate" onclick="selectTier('slate')">
+          <p class="tier-name">Slate</p>
+          <p class="tier-price">$350</p>
+          <p class="tier-desc">One-page investor site. Trailer embed, logline, CTA. Delivered in 48 hrs.</p>
+        </div>
+        <div class="tier-card selected" id="tier-reel" onclick="selectTier('reel')">
+          <span class="tier-badge">Popular</span>
+          <p class="tier-name">Reel</p>
+          <p class="tier-price">$600</p>
+          <p class="tier-desc">Multi-section site. Trailer, cast/crew, gallery, press quotes, paylinks.</p>
+        </div>
+        <div class="tier-card" id="tier-premiere" onclick="selectTier('premiere')">
+          <p class="tier-name">Première</p>
+          <p class="tier-price">$950</p>
+          <p class="tier-desc">Full investor portal. Password-protect, analytics, custom domain setup.</p>
+        </div>
+      </div>
+      <div class="row full">
+        <div class="field">
+          <label for="notes">Anything else — deadlines, references, special requests</label>
+          <textarea id="notes" placeholder="Screening dates, investor meeting deadlines, aesthetic references, sites you love..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="handleSubmit()">Submit intake — I'll follow up within 24 hrs</button>
+    <p class="form-note">
+      Payment collected separately via your selected paylink after scope is confirmed.<br />
+      Questions? <a href="mailto:Houseofmedia.marketing@gmail.com">Houseofmedia.marketing@gmail.com</a>
+    </p>
+  </div>
+
+  <!-- Success screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🎬</div>
+    <h2 class="success-title">Intake received.</h2>
+    <p class="success-sub">You'll hear from us within 24 hours to confirm scope and next steps.<br />Check your email for a copy of your submission.</p>
+  </div>
+
+</div>
+
+<script>
+  let selectedTier = 'reel';
+
+  function selectTier(name) {
+    selectedTier = name;
+    document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('tier-' + name).classList.add('selected');
+  }
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      this.classList.toggle('active');
+    });
+  });
+
+  async function handleSubmit() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const filmtitle = document.getElementById('filmtitle').value.trim();
+    if (!fname || !email || !filmtitle) {
+      alert('Please fill in at least your name, email, and film title before submitting.');
+      return;
+    }
+    const assets = [...document.querySelectorAll('#chipGroup .chip.active input')].map(i => i.value).join(', ');
+    const payload = {
+      name: fname + ' ' + document.getElementById('lname').value.trim(),
+      email,
+      phone: document.getElementById('phone').value.trim(),
+      company: document.getElementById('company').value.trim(),
+      film_title: filmtitle,
+      genre: document.getElementById('genre').value,
+      stage: document.getElementById('stage').value,
+      budget: document.getElementById('budget').value,
+      logline: document.getElementById('logline').value.trim(),
+      trailer_url: document.getElementById('trailer').value.trim(),
+      assets_requested: assets,
+      cta_text: document.getElementById('ctaText').value.trim(),
+      cta_type: document.getElementById('ctaType').value,
+      paylinks: document.getElementById('paylinks').value.trim(),
+      build_tier: selectedTier,
+      notes: document.getElementById('notes').value.trim(),
+    };
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/xbdeagyp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        btn.textContent = 'Submit intake — I\'ll follow up within 24 hrs';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again or email Houseofmedia.marketing@gmail.com directly.');
+      }
+    } catch(e) {
+      btn.textContent = 'Submit intake — I\'ll follow up within 24 hrs';
+      btn.disabled = false;
+      alert('Network error. Please try again.');
+    }
+  }
+</script>
+</body>
+</html>
