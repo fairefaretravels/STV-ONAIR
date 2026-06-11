@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE WISEMEN — Watch Now</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+--red: #e50914;
+--red-dark: #b0060f;
+--gold: #c8a96e;
+--bg: #141414;
+--surface: #1f1f1f;
+--surface2: #2a2a2a;
+--text: #ffffff;
+--text-muted: #a3a3a3;
+--text-dim: #666;
+}
+
+html, body {
+background: var(--bg);
+color: var(--text);
+font-family: 'Barlow', sans-serif;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0 5%;
+height: 68px;
+background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+}
+
+.nav-logo {
+font-family: 'Bebas Neue', sans-serif;
+font-size: 1.5rem;
+letter-spacing: 0.15em;
+color: var(--red);
+text-decoration: none;
+}
+
+.nav-logo span {
+color: var(--text-muted);
+font-size: 0.75rem;
+font-family: 'Barlow Condensed', sans-serif;
+letter-spacing: 0.3em;
+display: block;
+line-height: 1;
+margin-top: -2px;
+}
+
+/* HERO / PLAYER */
+.hero {
+position: relative;
+width: 100%;
+background: #000;
+padding-top: 68px;
+}
+
+.player-wrap {
+position: relative;
+width: 100%;
+padding-top: 56.25%;
+background: #000;
+}
+
+.player-wrap iframe {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+border: none;
+}
+
+.player-placeholder {
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+background: #000;
+gap: 16px;
+}
+
+.play-icon {
+width: 72px; height: 72px;
+border-radius: 50%;
+background: rgba(229, 9, 20, 0.15);
+border: 2px solid var(--red);
+display: flex; align-items: center; justify-content: center;
+cursor: pointer;
+transition: background 0.2s;
+}
+
+.play-icon:hover { background: rgba(229,9,20,0.3); }
+
+.play-icon svg { margin-left: 4px; }
+
+.placeholder-label {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 0.85rem;
+letter-spacing: 0.2em;
+color: var(--text-dim);
+text-transform: uppercase;
+}
+
+/* FILM DETAILS */
+.film-section {
+max-width: 980px;
+margin: 0 auto;
+padding: 48px 5% 80px;
+}
+
+.film-eyebrow {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 0.75rem;
+letter-spacing: 0.35em;
+color: var(--red);
+text-transform: uppercase;
+margin-bottom: 12px;
+}
+
+.film-title {
+font-family: 'Bebas Neue', sans-serif;
+font-size: clamp(3rem, 8vw, 5.5rem);
+letter-spacing: 0.06em;
+line-height: 0.92;
+color: #fff;
+margin-bottom: 20px;
+}
+
+.film-meta {
+display: flex;
+align-items: center;
+gap: 16px;
+margin-bottom: 28px;
+flex-wrap: wrap;
+}
+
+.meta-tag {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 0.8rem;
+letter-spacing: 0.12em;
+color: var(--text-muted);
+text-transform: uppercase;
+}
+
+.meta-dot {
+width: 3px; height: 3px;
+border-radius: 50%;
+background: var(--text-dim);
+}
+
+.meta-rating {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 0.75rem;
+letter-spacing: 0.1em;
+color: var(--text-dim);
+border: 1px solid var(--text-dim);
+padding: 2px 7px;
+border-radius: 2px;
+}
+
+.film-desc {
+font-size: 1rem;
+font-weight: 300;
+line-height: 1.7;
+color: #d4d4d4;
+max-width: 640px;
+margin-bottom: 36px;
+}
+
+.cta-row {
+display: flex;
+gap: 14px;
+flex-wrap: wrap;
+align-items: center;
+margin-bottom: 48px;
+}
+
+.btn-watch {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+background: var(--red);
+color: #fff;
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 1rem;
+font-weight: 600;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+padding: 13px 32px;
+border: none;
+cursor: pointer;
+transition: background 0.2s;
+text-decoration: none;
+}
+
+.btn-watch:hover { background: var(--red-dark); }
+
+.btn-secondary {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+background: rgba(255,255,255,0.08);
+color: #fff;
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 1rem;
+font-weight: 600;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+padding: 13px 28px;
+border: 1px solid rgba(255,255,255,0.18);
+cursor: pointer;
+transition: background 0.2s;
+text-decoration: none;
+}
+
+.btn-secondary:hover { background: rgba(255,255,255,0.16); }
+
+/* DIVIDER */
+.divider {
+width: 100%;
+height: 1px;
+background: rgba(255,255,255,0.07);
+margin-bottom: 40px;
+}
+
+/* CREDITS STRIP */
+.credits-strip {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+gap: 24px 32px;
+}
+
+.credit-item {}
+
+.credit-label {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 0.7rem;
+letter-spacing: 0.25em;
+color: var(--text-dim);
+text-transform: uppercase;
+margin-bottom: 4px;
+}
+
+.credit-value {
+font-family: 'Barlow Condensed', sans-serif;
+font-size: 0.95rem;
+font-weight: 600;
+letter-spacing: 0.05em;
+color: var(--text-muted);
+}
+
+/* FOOTER */
+footer {
+border-top: 1px solid rgba(255,255,255,0.06);
+padding: 32px 5%;
+text-align: center;
+}
+
+.footer-logo {
+font-family: 'Bebas Neue', sans-serif;
+font-size: 1.1rem;
+letter-spacing: 0.2em;
+color: var(--red);
+margin-bottom: 8px;
+}
+
+.footer-copy {
+font-size: 0.75rem;
+color: var(--text-dim);
+letter-spacing: 0.08em;
+}
+
+/* SCROLL FADE on nav */
+.nav-scrolled {
+background: rgba(20,20,20,0.98) !important;
+}
+
+@media (max-width: 600px) {
+.film-title { font-size: 3.2rem; }
+.cta-row { flex-direction: column; align-items: flex-start; }
+.btn-watch, .btn-secondary { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+<a class="nav-logo" href="#">
+STV
+<span>Broadcast Network</span>
+</a>
+</nav>
+
+<div class="hero">
+<div class="player-wrap" id="playerWrap">
+<!-- SWAP: Replace data-vimeo-url with your Vimeo user URL or video URL -->
+<div class="player-placeholder" id="placeholder">
+<div class="play-icon" onclick="loadPlayer()">
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+<polygon points="8,4 24,14 8,24" fill="#fff"/>
+</svg>
+</div>
+<div class="placeholder-label">Press play to watch</div>
+</div>
+<!-- Vimeo iframe loads on click; set your URL below -->
+<iframe id="vimeoFrame" style="display:none;"
+data-src="https://player.vimeo.com/video/YOUR_VIDEO_ID?autoplay=1&color=e50914&title=0&byline=0&portrait=0"
+allow="autoplay; fullscreen; picture-in-picture"
+allowfullscreen>
+</iframe>
+</div>
+</div>
+
+<section class="film-section">
+<div class="film-eyebrow">Now Streaming</div>
+<h1 class="film-title">The<br>Wisemen</h1>
+
+<div class="film-meta">
+<span class="meta-tag">Drama</span>
+<span class="meta-dot"></span>
+<span class="meta-tag">Indie Film</span>
+<span class="meta-dot"></span>
+<span class="meta-tag">2024</span>
+<span class="meta-rating">NR</span>
+</div>
+
+<p class="film-desc">
+A story about wisdom, sacrifice, and what it costs to know the truth.
+Update this description with your film's synopsis — keep it under
+three sentences so viewers stay curious enough to press play.
+</p>
+
+<div class="cta-row">
+<a class="btn-watch" href="#" onclick="loadPlayer(); return false;">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+<polygon points="4,2 14,8 4,14" fill="#fff"/>
+</svg>
+Watch Film
+</a>
+<a class="btn-secondary" href="https://vimeo.com" target="_blank">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.5">
+<circle cx="8" cy="8" r="6"/>
+<line x1="8" y1="5" x2="8" y2="8"/>
+<circle cx="8" cy="10.5" r="0.75" fill="#fff" stroke="none"/>
+</svg>
+More Info
+</a>
+</div>
+
+<div class="divider"></div>
+
+<div class="credits-strip">
+<div class="credit-item">
+<div class="credit-label">Director</div>
+<div class="credit-value">Your Name Here</div>
+</div>
+<div class="credit-item">
+<div class="credit-label">Written By</div>
+<div class="credit-value">Your Name Here</div>
+</div>
+<div class="credit-item">
+<div class="credit-label">Produced By</div>
+<div class="credit-value">STV Digital</div>
+</div>
+<div class="credit-item">
+<div class="credit-label">Distributed By</div>
+<div class="credit-value">STV Broadcast</div>
+</div>
+<div class="credit-item">
+<div class="credit-label">Genre</div>
+<div class="credit-value">Drama / Indie</div>
+</div>
+<div class="credit-item">
+<div class="credit-label">Language</div>
+<div class="credit-value">English</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="footer-logo">STV Broadcast Network</div>
+<div class="footer-copy">&copy; 2024 STV Digital / Saneca TV LLC &mdash; All rights reserved.</div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+nav.classList.toggle('nav-scrolled', window.scrollY > 10);
+});
+
+function loadPlayer() {
+const frame = document.getElementById('vimeoFrame');
+const placeholder = document.getElementById('placeholder');
+const src = frame.getAttribute('data-src');
+frame.src = src;
+frame.style.display = 'block';
+placeholder.style.display = 'none';
+document.getElementById('playerWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
