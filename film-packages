@@ -502,15 +502,7 @@
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.5 14.5h-3v-1.5c-1.66 0-3-1.34-3-3h1.5c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-3c-1.66 0-3-1.34-3-3s1.34-3 3-3V7.5h3V9c1.66 0 3 1.34 3 3h-1.5c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5h3c1.66 0 3 1.34 3 3s-1.34 3-3 3z"/></svg>
           $Morefire — $950
         </a>
-        <a href="#" class="pay-btn" onclick="alert('Stripe link coming soon. Email Houseofmedia.marketing@gmail.com to pay via card.'); return false;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-          Stripe
-        </a>
-        <a href="#" class="pay-btn" onclick="alert('Square link coming soon. Email Houseofmedia.marketing@gmail.com to pay via Square.'); return false;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-          Square
-        </a>
-        <a href="https://paypal.me/houseofmedia" target="_blank" class="pay-btn">
+        <a href="https://www.paypal.com/ncp/payment/38S9RTFN4DF72" target="_blank" class="pay-btn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.217a.641.641 0 0 1 .634-.544h7.261c2.636 0 4.542.616 5.664 1.832.52.565.856 1.158 1.025 1.808.177.682.17 1.496-.02 2.487l-.006.04v.557l.344.194a2.41 2.41 0 0 1 .689.589c.292.38.479.858.553 1.42.08.587.053 1.287-.083 2.083-.158.938-.414 1.754-.762 2.425a4.86 4.86 0 0 1-1.218 1.556 5.016 5.016 0 0 1-1.669.906 7.28 7.28 0 0 1-2.127.295H15.4a1.09 1.09 0 0 0-1.077.919l-.696 4.408z" opacity=".4"/><path d="M19.671 8.84c-.023.143-.05.29-.08.44-.985 5.054-4.358 6.8-8.667 6.8H8.757a1.09 1.09 0 0 0-1.078.92l-1.15 7.295a.573.573 0 0 0 .565.664h3.966a.956.956 0 0 0 .944-.807l.039-.2.748-4.746.048-.261a.956.956 0 0 1 .944-.808h.595c3.851 0 6.866-1.564 7.748-6.088.368-1.893.178-3.474-.797-4.583a3.804 3.804 0 0 0-1.658-1.426z"/></svg>
           PayPal
         </a>
