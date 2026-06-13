@@ -94,7 +94,6 @@
     opacity: 0.55;
   }
 
-  /* static noise overlay */
   .hero-noise {
     position: absolute;
     inset: 0;
@@ -104,7 +103,6 @@
     mix-blend-mode: overlay;
   }
 
-  /* scanlines */
   .hero-scan {
     position: absolute;
     inset: 0;
@@ -236,8 +234,6 @@
     gap: 1rem;
     margin-bottom: 3rem;
   }
-
-  .static-header-left {}
 
   .static-desc {
     font-size: 0.9rem;
@@ -377,6 +373,115 @@
 
   .issue-card.featured .card-title { font-size: 2rem; }
 
+  /* ── YOUTUBE EMBED BLOCKS ── */
+  .yt-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .yt-block.featured-yt {
+    grid-column: span 2;
+  }
+
+  .yt-header {
+    padding: 1.25rem 1.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .yt-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+    flex-shrink: 0;
+  }
+
+  .yt-dot.gold { background: var(--gold); }
+
+  .yt-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .yt-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-left: auto;
+  }
+
+  .yt-embed {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: #000;
+  }
+
+  .yt-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  /* ── THE STATIC VIDEO SECTION (mid-page) ── */
+  #static-video {
+    background: #0C0C0C;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 2.5rem;
+  }
+
+  .static-video-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  .static-video-copy {}
+
+  .static-video-copy .section-label { margin-bottom: 0.4rem; }
+
+  .static-video-copy .section-title { margin-bottom: 0.75rem; }
+
+  .static-video-copy p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  .static-video-embed {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    background: #000;
+    border: 1px solid var(--border);
+  }
+
+  .static-video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
   /* ── ADD ISSUE INSTRUCTION ── */
   .add-issue-note {
     margin-top: 2rem;
@@ -481,8 +586,6 @@
     gap: 5rem;
     align-items: center;
   }
-
-  .b2b-left {}
 
   .b2b-pitch {
     font-size: 1rem;
@@ -633,7 +736,10 @@
     .faire-fare-card { grid-template-columns: 1fr; }
     .b2b-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .issue-card.featured { grid-column: span 1; aspect-ratio: 3/4; }
+    .yt-block.featured-yt { grid-column: span 1; }
     .cards-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    .static-video-inner { grid-template-columns: 1fr; gap: 2rem; }
+    #static-video { padding: 3rem 1.5rem; }
   }
 </style>
 </head>
@@ -644,6 +750,7 @@
   <a href="#" class="nav-logo">STV <span>RADIO</span>MELTDOWN</a>
   <ul class="nav-links">
     <li><a href="#the-static">The Static</a></li>
+    <li><a href="#static-video">Watch</a></li>
     <li><a href="#dedicated-player">For Organizations</a></li>
     <li><a href="https://radiomeltdown.com" target="_blank">Listen Live</a></li>
     <li><a href="https://formspree.io/f/mrbkljze" target="_blank">Contact</a></li>
@@ -654,7 +761,6 @@
 <section class="hero">
   <video class="hero-video" autoplay muted loop playsinline>
     <source src="stvlogo.mpeg" type="video/mpeg">
-    <!-- fallback -->
     <source src="mov-1.mp4" type="video/mp4">
   </video>
   <div class="hero-noise"></div>
@@ -685,7 +791,6 @@
       <button class="tab-btn active" data-month="all">All</button>
       <button class="tab-btn" data-month="may-2026">May 2026</button>
       <button class="tab-btn" data-month="jun-2026">Jun 2026</button>
-      <!-- Add new month tabs here as needed -->
     </div>
 
     <div class="cards-grid" id="cardsGrid">
@@ -704,43 +809,98 @@
         <a href="https://radiomeltdown.com" target="_blank" class="card-read">Read Issue →</a>
       </article>
 
-      <!-- CARD: Issue 02 Deep Cuts -->
-      <article class="issue-card visible" data-month="may-2026">
-        <video autoplay muted loop playsinline>
-          <source src="stv-dancer1.mp4" type="video/mp4">
-        </video>
-        <div class="card-overlay">
-          <span class="card-tag">Deep Cuts · May 2026</span>
-          <h3 class="card-title">Lost in the Sauce: Rick James</h3>
-          <p class="card-highlight">Three tracks that got buried. Glow. Dance Wit' Me. Hard to Get. The side of Rick James the mainstream never touched.</p>
-          <p class="card-meta">The Static Vol.1 Issue 02</p>
+      <!-- CARD: Rick James Deep Cuts + YouTube playlist -->
+      <article class="issue-card visible" data-month="may-2026" style="aspect-ratio: unset; display: flex; flex-direction: column;">
+        <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+          <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
+            <source src="stv-dancer1.mp4" type="video/mp4">
+          </video>
+          <div class="card-overlay">
+            <span class="card-tag">Deep Cuts · May 2026</span>
+            <h3 class="card-title">Lost in the Sauce: Rick James</h3>
+            <p class="card-highlight">Three tracks that got buried. Glow. Dance Wit' Me. Hard to Get. The side of Rick James the mainstream never touched.</p>
+            <p class="card-meta">The Static Vol.1 Issue 02</p>
+          </div>
+          <a href="https://radiomeltdown.com" target="_blank" class="card-read">Read →</a>
         </div>
-        <a href="https://radiomeltdown.com" target="_blank" class="card-read">Read →</a>
+        <!-- Rick James YouTube Playlist -->
+        <div class="yt-block" style="border-top: 2px solid var(--red); border-left: none; border-right: none; border-bottom: none;">
+          <div class="yt-header">
+            <div class="yt-dot"></div>
+            <span class="yt-label">Rick James · Deep Cuts Playlist</span>
+          </div>
+          <div class="yt-embed">
+            <iframe
+              src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fD6uTCIuUC17ZQA7KN_wkm4&rel=0&modestbranding=1"
+              title="Rick James Deep Cuts Playlist"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
       </article>
 
-      <!-- CARD: DJ Mackinthedark -->
-      <article class="issue-card visible" data-month="may-2026">
-        <video autoplay muted loop playsinline controls>
-  <source src="mov-2.mp4" type="video/mp4">
-</video>
-        <div class="card-overlay">
-          <span class="card-tag">Artist Spotlight · LOVE&CO</span>
-          <h3 class="card-title">DJ Mackinthedark</h3>
-          <p class="card-highlight">ADHD on Wax. The Switchblades. Detroit. She's building a sound that doesn't ask permission from any genre.</p>
-          <p class="card-meta">Detroit, MI · Exclusive Feature</p>
+      <!-- CARD: DJ Mackinthedark + YouTube playlist -->
+      <article class="issue-card visible" data-month="may-2026" style="aspect-ratio: unset; display: flex; flex-direction: column;">
+        <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
+          <video autoplay muted loop playsinline controls style="width:100%;height:100%;object-fit:cover;">
+            <source src="mov-2.mp4" type="video/mp4">
+          </video>
+          <div class="card-overlay">
+            <span class="card-tag">Artist Spotlight · LOVE&CO</span>
+            <h3 class="card-title">DJ Mackinthedark</h3>
+            <p class="card-highlight">ADHD on Wax. The Switchblades. Detroit. She's building a sound that doesn't ask permission from any genre.</p>
+            <p class="card-meta">Detroit, MI · Exclusive Feature</p>
+          </div>
+          <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fDOm7LUB_cHacebHMEog_a4&si=2pluj-DriIH-Ck2x" target="_blank" class="card-read">Watch →</a>
         </div>
-        <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fDOm7LUB_cHacebHMEog_a4&si=2pluj-DriIH-Ck2x" target="_blank" class="card-read">Watch →</a>
+        <!-- DJ Mackinthedark YouTube Playlist -->
+        <div class="yt-block" style="border-top: 2px solid var(--red); border-left: none; border-right: none; border-bottom: none;">
+          <div class="yt-header">
+            <div class="yt-dot"></div>
+            <span class="yt-label">DJ Mackinthedark · Full Playlist</span>
+          </div>
+          <div class="yt-embed">
+            <iframe
+              src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H&rel=0&modestbranding=1"
+              title="DJ Mackinthedark Playlist"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
       </article>
-      <!-- PLACEHOLDER: Add more cards below this line -->
-<article class="issue-card featured visible" data-month="jun-2026">
-  <div class="card-overlay">
-    <span class="card-tag">Jun 2026 · Exclusive Interview</span>
-    <h3 class="card-title">Professor Griff</h3>
-    <p class="card-highlight">Public Enemy's Minister of Information. Rock &amp; Roll Hall of Famer. Author. Educator. The man who's been speaking truth to power for four decades — and isn't stopping.</p>
-    <p class="card-meta">Lithonia, GA · The Static · STV Radiomeltdown</p>
-  </div>
-  <a href="/professor-griff" class="card-read">Read Teaser →</a>
-</article>
+
+      <!-- CARD: Professor Griff — FEATURED + YouTube -->
+      <article class="issue-card featured visible" data-month="jun-2026" style="aspect-ratio: unset; display: flex; flex-direction: column;">
+        <div style="position: relative; flex: 1; min-height: 260px; overflow: hidden; aspect-ratio: 16/7;">
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0a 0%,#1a0a0a 100%);"></div>
+          <div class="card-overlay" style="background: linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.5) 60%, transparent 100%);">
+            <span class="card-tag">Jun 2026 · Exclusive Interview</span>
+            <h3 class="card-title" style="font-size:2rem;">Professor Griff</h3>
+            <p class="card-highlight">Public Enemy's Minister of Information. Rock &amp; Roll Hall of Famer. Author. Educator. The man who's been speaking truth to power for four decades — and isn't stopping.</p>
+            <p class="card-meta">Lithonia, GA · The Static · STV Radiomeltdown</p>
+          </div>
+          <a href="/professor-griff" class="card-read">Read Teaser →</a>
+        </div>
+        <!-- Professor Griff YouTube -->
+        <div class="yt-block" style="border-top: 2px solid var(--gold); border-left: none; border-right: none; border-bottom: none;">
+          <div class="yt-header">
+            <div class="yt-dot gold"></div>
+            <span class="yt-label" style="color: var(--gold);">Professor Griff · Exclusive Interview</span>
+          </div>
+          <div class="yt-embed">
+            <iframe
+              src="https://www.youtube.com/embed/PZvK-o7g5mY?rel=0&modestbranding=1"
+              title="Professor Griff Exclusive Interview"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </article>
+
+      <!-- PLACEHOLDER: Add more cards below -->
     </div>
 
     <!-- ADD ISSUE NOTE -->
@@ -766,6 +926,50 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- ── THE STATIC VIDEO SECTION (mid-page) ── -->
+<section id="static-video">
+  <div class="static-video-inner">
+    <div class="static-video-copy">
+      <p class="section-label">On Air</p>
+      <h2 class="section-title">The Static<br>Live &amp; On Demand</h2>
+      <div class="section-rule"></div>
+      <p>Every interview. Every session. Every deep cut — streaming from the G4E Movement Studio in Lithonia, GA. No algorithm. No middleman. Just the real thing.</p>
+      <a href="https://radiomeltdown.com" target="_blank" style="
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: transparent;
+        border: 1px solid var(--red);
+        color: var(--red);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        transition: all 0.2s;
+      " onmouseover="this.style.background='var(--red)';this.style.color='var(--white)'" onmouseout="this.style.background='transparent';this.style.color='var(--red)'">
+        ▶ Listen Live
+      </a>
+    </div>
+    <div>
+      <!-- The Static featured video — swap src for any STV/Static video -->
+      <div class="static-video-embed">
+        <iframe
+          src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H&rel=0&modestbranding=1"
+          title="The Static — STV Radiomeltdown"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.75rem;">
+        STV Radiomeltdown · G4E Movement Studio · Lithonia, GA
+      </p>
+    </div>
   </div>
 </section>
 
@@ -818,6 +1022,7 @@
   <ul class="footer-links">
     <li><a href="https://radiomeltdown.com" target="_blank">Listen Live</a></li>
     <li><a href="#the-static">The Static</a></li>
+    <li><a href="#static-video">Watch</a></li>
     <li><a href="https://fairefaretravels.github.io/stvradiomeltdown-players/" target="_blank">Dedicated Players</a></li>
     <li><a href="https://fairefaretravels.github.io/agent-sanecamack/" target="_blank">Faire Fare Travels</a></li>
     <li><a href="https://formspree.io/f/mrbkljze" target="_blank">Contact</a></li>
@@ -832,7 +1037,6 @@
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      // Update active tab
       tabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
