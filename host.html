@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>TIMEOUT SPORTS TALK — Trivia Command Center</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;background:#0a0f0a;color:#f0ede8;min-height:100dvh;overscroll-behavior:none;}
+input,textarea,button,select{font-family:inherit;}
+#app{display:flex;flex-direction:column;height:100dvh;overflow:hidden;}
+#header{background:#0f1a0f;border-bottom:0.5px solid #1a3a1a;padding:14px 16px 0;flex-shrink:0;}
+#content{flex:1;overflow-y:auto;padding:16px 16px 150px;-webkit-overflow-scrolling:touch;}
+#bottombar{position:fixed;bottom:0;left:0;right:0;z-index:200;}
+
+/* Header */
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.show-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#4a8a4a;margin-bottom:2px;}
+.show-name{font-size:18px;font-weight:800;color:#f0ede8;letter-spacing:-.3px;}
+.show-name span{color:#FFD700;}
+.score-cluster{display:flex;gap:10px;align-items:center;}
+.score-pill{background:#1a2a1a;border:0.5px solid #2a4a2a;border-radius:10px;padding:6px 12px;text-align:center;}
+.score-num{font-size:18px;font-weight:800;}
+.score-lbl{font-size:9px;color:#4a6a4a;text-transform:uppercase;letter-spacing:.08em;}
+.progress-bar{height:3px;background:#1a2a1a;border-radius:2px;overflow:hidden;margin-bottom:12px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#FFD700,#FF6B00);border-radius:2px;transition:width .4s ease;}
+.tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{flex:1;min-width:52px;background:none;border:none;border-bottom:2px solid transparent;padding:10px 3px;font-size:11px;font-weight:400;color:#4a6a4a;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab-btn.active{color:#FFD700;border-bottom-color:#FFD700;font-weight:700;}
+
+/* Sport filter */
+.sport-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.sport-chip{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:600;background:#111a11;color:#5a7a5a;border:0.5px solid #2a3a2a;cursor:pointer;transition:all .2s;}
+.sport-chip.active{color:#0a0f0a;border:none;}
+
+/* Difficulty filter */
+.diff-row{display:flex;gap:7px;margin-bottom:16px;}
+.diff-chip{flex:1;padding:6px 4px;border-radius:8px;font-size:11px;font-weight:700;text-align:center;cursor:pointer;border:0.5px solid #2a3a2a;background:#111a11;color:#4a6a4a;transition:all .2s;text-transform:uppercase;letter-spacing:.04em;}
+.diff-chip.active-easy{background:#1a3a1a;color:#4db897;border-color:#2a6a4a;}
+.diff-chip.active-medium{background:#3a2a0a;color:#FFD700;border-color:#6a5a0a;}
+.diff-chip.active-hard{background:#3a0a0a;color:#FF6B6B;border-color:#6a2a2a;}
+.diff-chip.active-all{background:#1a1a3a;color:#9b94e8;border-color:#3a3a6a;}
+
+/* Trivia cards */
+.section-gap{margin-bottom:22px;}
+.section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.section-sport-badge{font-size:16px;}
+.section-sport-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+.section-count{font-size:10px;color:#4a5a4a;margin-left:auto;}
+
+.q-card{border-radius:14px;padding:14px 14px 14px 16px;margin-bottom:10px;cursor:pointer;transition:all .2s;position:relative;border-left-width:3px;border-left-style:solid;}
+.q-card.done{opacity:.3;cursor:default;}
+.q-card.revealed{padding-bottom:0;}
+
+.q-top{display:flex;align-items:flex-start;gap:10px;}
+.q-meta{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1;}
+.q-format-badge{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;}
+.q-text{font-size:14px;line-height:1.65;color:#f0ede8;font-weight:500;}
+.q-card.done .q-text{text-decoration:line-through;color:#3a5a3a;}
+.check-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid #2a3a2a;background:transparent;color:#3a5a3a;font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.check-btn.done{background:#4db897;border-color:#4db897;color:#0a0f0a;}
+
+.diff-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:6px;}
+.diff-easy{background:#0d2420;color:#4db897;border:0.5px solid #1a4a3a;}
+.diff-medium{background:#2a1f00;color:#FFD700;border:0.5px solid #4a3a00;}
+.diff-hard{background:#2a0d0d;color:#FF6B6B;border:0.5px solid #4a1a1a;}
+
+/* Multiple choice */
+.mc-options{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px;}
+.mc-btn{padding:9px 10px;border-radius:10px;border:1px solid #2a3a2a;background:#111a11;color:#a0b8a0;font-size:12px;font-weight:500;cursor:pointer;text-align:left;transition:all .2s;line-height:1.4;}
+.mc-btn:active{transform:scale(.97);}
+.mc-btn.selected-correct{background:#0d3a1a;border-color:#4db897;color:#4db897;}
+.mc-btn.selected-wrong{background:#3a0d0d;border-color:#FF6B6B;color:#FF6B6B;}
+.mc-btn.reveal-correct{background:#0d3a1a;border-color:#4db897;color:#4db897;}
+
+/* Answer reveal */
+.answer-reveal{margin-top:12px;padding:12px 14px;border-radius:10px;background:#0d1f0d;border:0.5px solid #1a4a1a;}
+.answer-label{font-size:10px;color:#2a6a2a;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;font-weight:700;}
+.answer-text{font-size:15px;color:#4db897;font-weight:700;line-height:1.5;}
+.bonus-text{font-size:12px;color:#5a8a5a;margin-top:6px;line-height:1.55;font-style:italic;}
+
+/* Expand controls */
+.card-actions{display:flex;gap:8px;margin-top:12px;padding-bottom:14px;}
+.action-btn{flex:1;padding:9px;border-radius:9px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
+.reveal-btn{background:#1a3a1a;color:#4db897;}
+.asked-btn{background:#FFD700;color:#0a0f0a;}
+.trash-btn{background:#2a1010;color:#FF6B6B;flex:0;padding:9px 14px;}
+
+/* Score tab */
+.scoreboard{background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:16px;padding:16px;margin-bottom:16px;}
+.scoreboard-title{font-size:11px;color:#4a7a4a;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;font-weight:700;}
+.player-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:0.5px solid #1a2a1a;}
+.player-row:last-child{border-bottom:none;}
+.player-rank{font-size:20px;font-weight:900;color:#FFD700;min-width:28px;}
+.player-rank.rank-2{color:#C0C0C0;}
+.player-rank.rank-3{color:#CD7F32;}
+.player-name-input{flex:1;background:transparent;border:none;color:#f0ede8;font-size:15px;font-weight:600;outline:none;min-width:0;}
+.player-name-input::placeholder{color:#3a4a3a;}
+.score-controls{display:flex;align-items:center;gap:8px;}
+.score-adj{width:30px;height:30px;border-radius:50%;border:1.5px solid #2a4a2a;background:#111a11;color:#4db897;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;line-height:1;}
+.score-display{font-size:22px;font-weight:900;color:#FFD700;min-width:40px;text-align:center;}
+.add-player-btn{width:100%;padding:12px;background:#1a3a1a;color:#4db897;border:1px dashed #2a5a2a;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;}
+
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;}
+.stat-box{background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:12px;padding:12px;text-align:center;}
+.stat-n{font-size:24px;font-weight:900;}
+.stat-l{font-size:9px;color:#4a6a4a;text-transform:uppercase;letter-spacing:.08em;margin-top:3px;}
+
+/* Notes */
+.notes-area{width:100%;min-height:160px;background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:12px;padding:14px;color:#f0ede8;font-size:14px;line-height:1.7;resize:vertical;outline:none;}
+.notes-area:focus{border-color:#FFD700;}
+.stamp-btn-ui{background:#2a1f00;color:#FFD700;border:0.5px solid #4a3a00;border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:700;}
+.stamp-row{display:flex;gap:10px;align-items:center;margin-bottom:8px;}
+.stamp-time{background:#2a1f00;color:#FFD700;border-radius:6px;padding:6px 10px;font-size:12px;font-weight:700;flex-shrink:0;font-variant-numeric:tabular-nums;}
+.stamp-input{flex:1;background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:8px;padding:7px 12px;color:#f0ede8;font-size:13px;outline:none;}
+.stamp-input:focus{border-color:#FFD700;}
+.stamps-header{display:flex;align-items:center;justify-content:space-between;margin:20px 0 12px;}
+.stamps-label{font-size:11px;color:#4a6a4a;text-transform:uppercase;letter-spacing:.08em;}
+.empty-stamps{font-size:13px;color:#2a4a2a;text-align:center;padding:24px 0;}
+
+/* Tweet */
+.tweet-note{font-size:12px;color:#3a5a3a;line-height:1.6;background:#0f1a0f;border-radius:8px;padding:10px 12px;margin-bottom:16px;border:0.5px solid #1a3a1a;}
+.quick-label{font-size:11px;color:#4a6a4a;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:700;}
+.quick-card{background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:all .2s;}
+.quick-card:active{border-color:#FFD700;background:#1a2a0a;}
+.quick-text{font-size:13px;color:#c8c5bf;line-height:1.55;}
+.quick-meta{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+.quick-chars{font-size:11px;color:#4a5a4a;}
+.quick-use{font-size:11px;color:#FFD700;font-weight:700;}
+.tweet-box{background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:12px;padding:16px;margin-bottom:16px;}
+.tweet-box-label{font-size:11px;color:#4a6a4a;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:700;}
+.tweet-textarea{width:100%;background:#111a11;border:0.5px solid #2a3a2a;border-radius:8px;padding:12px;color:#f0ede8;font-size:14px;line-height:1.6;resize:none;outline:none;min-height:100px;}
+.tweet-textarea:focus{border-color:#FFD700;}
+.tweet-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+.tweet-open-btn{padding:9px 20px;background:#000;color:#fff;border:1.5px solid #333;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;}
+.tweet-open-btn:disabled{opacity:.35;cursor:default;}
+.sent-item{background:#0d1a0d;border:0.5px solid #1a3a1a;border-radius:10px;padding:12px 14px;margin-bottom:8px;}
+.sent-text{font-size:13px;color:#4db897;line-height:1.55;}
+.sent-time{font-size:10px;color:#2a5a2a;margin-top:6px;}
+
+/* Music */
+.music-hero{background:linear-gradient(135deg,#0f1a0f,#1a2a08);border:0.5px solid #2a4a0a;border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;}
+.music-hero-title{font-size:12px;color:#7ab83a;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;}
+.now-playing-name{font-size:17px;font-weight:700;color:#f0ede8;margin:10px 0 4px;min-height:24px;}
+.now-playing-sub{font-size:12px;color:#4a6a4a;margin-bottom:16px;}
+.player-controls{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:16px;}
+.ctrl-btn{background:none;border:none;color:#7ab83a;font-size:28px;cursor:pointer;padding:4px;line-height:1;}
+.ctrl-btn.play-pause{font-size:44px;color:#FFD700;}
+.ctrl-btn.disabled{color:#2a3a2a;cursor:default;}
+.vol-row{display:flex;align-items:center;gap:10px;}
+.vol-icon{font-size:14px;color:#4a6a4a;}
+.vol-slider{flex:1;accent-color:#FFD700;cursor:pointer;}
+.loop-btn{font-size:11px;padding:4px 10px;border-radius:20px;border:0.5px solid #2a3a2a;background:transparent;color:#4a6a4a;cursor:pointer;}
+.loop-btn.on{background:#2a1f00;color:#FFD700;border-color:#4a3a00;}
+.track-card{background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s;}
+.track-card.playing{background:#1a2a08;border-color:#FFD700;}
+.track-icon{width:36px;height:36px;border-radius:8px;background:#1a2a0a;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.track-info{flex:1;min-width:0;}
+.track-name{font-size:14px;font-weight:600;color:#f0ede8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.track-src{font-size:11px;color:#4a6a4a;margin-top:2px;}
+.track-remove{background:none;border:none;color:#2a3a2a;cursor:pointer;font-size:20px;padding:4px;line-height:1;}
+.add-track-box{background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:12px;padding:16px;margin-top:16px;}
+.add-track-label{font-size:11px;color:#4a6a4a;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;font-weight:700;}
+.source-toggle{display:flex;gap:8px;margin-bottom:12px;}
+.src-btn{flex:1;padding:8px;border-radius:8px;border:0.5px solid #2a3a2a;background:transparent;color:#4a6a4a;font-size:12px;cursor:pointer;transition:all .2s;}
+.src-btn.active{background:#2a1f00;color:#FFD700;border-color:#4a3a00;}
+.field{width:100%;background:#111a11;border:0.5px solid #2a3a2a;border-radius:8px;padding:10px 12px;color:#f0ede8;font-size:13px;margin-bottom:8px;outline:none;}
+.field:focus{border-color:#FFD700;}
+.upload-btn{width:100%;padding:11px;background:#FFD700;color:#0a0f0a;border:none;border-radius:8px;font-size:13px;font-weight:800;cursor:pointer;margin-top:4px;}
+.file-upload-area{border:1.5px dashed #2a3a2a;border-radius:10px;padding:20px;text-align:center;margin-bottom:8px;cursor:pointer;}
+.file-upload-label{font-size:13px;color:#4a6a4a;display:block;}
+.file-upload-sub{font-size:11px;color:#2a3a2a;margin-top:4px;}
+.preset-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.preset-card{background:#0f1a0f;border:0.5px solid #1a3a1a;border-radius:10px;padding:10px;cursor:pointer;text-align:center;transition:all .2s;}
+.preset-card:active{border-color:#FFD700;}
+.preset-emoji{font-size:22px;display:block;margin-bottom:4px;}
+.preset-name{font-size:11px;color:#7ab83a;font-weight:600;}
+.preset-sub{font-size:10px;color:#3a5a3a;margin-top:2px;}
+
+/* Bottom bar */
+#music-mini{background:#0a120a;border-top:0.5px solid #1a3a1a;padding:10px 16px;display:none;}
+#music-mini.visible{display:block;}
+.mini-player{display:flex;align-items:center;gap:12px;}
+.mini-track-name{font-size:12px;font-weight:700;color:#FFD700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mini-track-status{font-size:10px;color:#3a5a3a;margin-top:2px;}
+.mini-controls{display:flex;align-items:center;gap:8px;}
+.mini-btn{background:none;border:none;color:#FFD700;font-size:18px;cursor:pointer;padding:4px;line-height:1;}
+.mini-vol{width:65px;accent-color:#FFD700;cursor:pointer;}
+#nav-bar{background:#0f1a0f;border-top:0.5px solid #1a3a1a;padding:12px 16px max(16px,env(safe-area-inset-bottom));}
+.next-label{font-size:10px;color:#4a6a4a;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;font-weight:700;}
+.next-text{font-size:13px;color:#7a9a7a;line-height:1.5;margin-bottom:9px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.jump-btn{width:100%;padding:12px;background:#FFD700;color:#0a0f0a;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;}
+.complete-msg{text-align:center;padding:4px 0;}
+.complete-title{font-size:16px;color:#FFD700;font-weight:800;}
+.complete-sub{font-size:12px;color:#4a6a4a;margin-top:4px;}
+.section-lbl{font-size:11px;color:#4a6a4a;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:700;}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <div class="header-top">
+      <div>
+        <div class="show-label">🏆 Sports Trivia</div>
+        <div class="show-name">TIMEOUT <span>SPORTS TALK</span></div>
+      </div>
+      <div class="score-cluster">
+        <div class="score-pill">
+          <div class="score-num" id="asked-count" style="color:#FFD700">0<span style="font-size:11px;color:#3a5a3a;font-weight:400">/50</span></div>
+          <div class="score-lbl">Asked</div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('trivia')">🎯 Trivia</button>
+      <button class="tab-btn" onclick="switchTab('score')">🏆 Score</button>
+      <button class="tab-btn" onclick="switchTab('music')">🎵 Music</button>
+      <button class="tab-btn" onclick="switchTab('notes')">📝 Notes</button>
+      <button class="tab-btn" onclick="switchTab('tweet')">𝕏 Tweet</button>
+    </div>
+  </div>
+  <div id="content"></div>
+  <div id="bottombar">
+    <div id="music-mini">
+      <div class="mini-player">
+        <div style="font-size:20px">🎵</div>
+        <div style="flex:1;min-width:0;">
+          <div class="mini-track-name" id="mini-name">No track playing</div>
+          <div class="mini-track-status" id="mini-status">Tap Music tab</div>
+        </div>
+        <div class="mini-controls">
+          <input type="range" class="mini-vol" min="0" max="1" step="0.05" value="0.7" oninput="setVol(this.value)"/>
+          <button class="mini-btn" onclick="togglePlay()" id="mini-play-btn">▶</button>
+        </div>
+      </div>
+    </div>
+    <div id="nav-bar"></div>
+  </div>
+</div>
+<audio id="audio-player" loop></audio>
+<script>
+// ── TRIVIA DATA ───────────────────────────────────────────────────────────────
+const SPORTS = [
+  {id:'nfl',label:'NFL Football',emoji:'🏈',color:'#1a4a8a',textColor:'#4d9fd4',borderColor:'#2a6aaa'},
+  {id:'nba',label:'NBA Basketball',emoji:'🏀',color:'#8a3a1a',textColor:'#e87a3a',borderColor:'#aa5a2a'},
+  {id:'mlb',label:'MLB Baseball',emoji:'⚾',color:'#8a1a1a',textColor:'#e84a4a',borderColor:'#aa2a2a'},
+  {id:'nhl',label:'NHL Hockey',emoji:'🏒',color:'#1a3a6a',textColor:'#4a7ac8',borderColor:'#2a4a8a'},
+  {id:'soccer',label:'Soccer / MLS',emoji:'⚽',color:'#1a5a1a',textColor:'#4db86a',borderColor:'#2a7a2a'},
+  {id:'college',label:'College Sports',emoji:'🎓',color:'#5a1a6a',textColor:'#b86adc',borderColor:'#7a2a8a'},
+  {id:'combat',label:'Combat Sports',emoji:'🥊',color:'#6a3a0a',textColor:'#dc8a3a',borderColor:'#8a5a1a'},
+];
+
+const TRIVIA = [
+  // NFL
+  {id:1,sport:'nfl',diff:'easy',format:'open',q:"Who holds the NFL record for most career touchdown passes?",a:"Tom Brady (649 TDs)",bonus:"Brady broke Brett Favre's record in 2021. Favre had 508."},
+  {id:2,sport:'nfl',diff:'medium',format:'mc',q:"Which team has won the most Super Bowls?",options:["New England Patriots","Pittsburgh Steelers","San Francisco 49ers","Dallas Cowboys"],correct:1,a:"Pittsburgh Steelers (6 rings)",bonus:"Patriots and 49ers are tied for second with 6 each — wait, trick question, Steelers have 6, Patriots have 6 too. The Steelers were FIRST to 6!"},
+  {id:3,sport:'nfl',diff:'hard',format:'open',q:"In what year did the NFL merge with the AFL, and what was the first season they played together?",a:"Merger agreed 1966, first combined season 1970",bonus:"The AFL-NFL merger is why we have the AFC and NFC conferences today."},
+  {id:4,sport:'nfl',diff:'easy',format:'mc',q:"What does QB stand for in football?",options:["Quarter Back","Quick Block","Quarterback Blitz","Quarter Bound"],correct:0,a:"Quarterback",bonus:"This one's a freebie — if your guest gets this wrong, the trash talk writes itself."},
+  {id:5,sport:'nfl',diff:'medium',format:'open',q:"Which running back was nicknamed 'The Bus'?",a:"Jerome Bettis",bonus:"Bettis played 13 seasons, mostly for Pittsburgh. Retired after winning Super Bowl XL in his home city of Detroit."},
+  {id:6,sport:'nfl',diff:'hard',format:'open',q:"Who scored the first touchdown in Super Bowl history?",a:"Max McGee, Green Bay Packers, Super Bowl I (1967)",bonus:"McGee was a backup who stayed out all night before the game and still caught 7 passes for 138 yards and 2 TDs."},
+  {id:7,sport:'nfl',diff:'medium',format:'debate',q:"DEBATE: Is Tom Brady the greatest QB of all time, or is the GOAT conversation more complicated than that?",a:"Open debate — Brady has 7 rings but many argue system, era, and teammates matter.",bonus:"Bring up Mahomes' trajectory, Montana's perfection, and Elway doing it with less. Let it cook."},
+  {id:8,sport:'nfl',diff:'easy',format:'open',q:"How many players are on the field for each team during a play?",a:"11 players per team",bonus:"If someone says 12 — flag them for having 12 men on the field. Penalty on the play! 😂"},
+
+  // NBA
+  {id:9,sport:'nba',diff:'easy',format:'mc',q:"How high is an NBA basketball hoop from the floor?",options:["8 feet","9 feet","10 feet","11 feet"],correct:2,a:"10 feet (3.05 meters)",bonus:"It's been 10 feet since Dr. James Naismith nailed a peach basket in 1891. Never changed."},
+  {id:10,sport:'nba',diff:'medium',format:'open',q:"Which player has won the most NBA MVP awards?",a:"Kareem Abdul-Jabbar (6 MVPs)",bonus:"LeBron and Jordan each have 4. Kareem's 6 is the record and it's not particularly close."},
+  {id:11,sport:'nba',diff:'hard',format:'open',q:"What team drafted Kobe Bryant, and who did they trade to get him?",a:"Charlotte Hornets drafted him 13th overall, traded him to the Lakers for Vlade Divac",bonus:"Kobe was 17 at the time of the draft. Jerry West called Phil Jackson and said 'I just saw the best workout of my life.'"},
+  {id:12,sport:'nba',diff:'medium',format:'debate',q:"DEBATE: LeBron or Jordan — who's the actual GOAT and WHY?",a:"Open debate. Jordan: 6-0 in Finals, 6 Finals MVPs. LeBron: longevity, versatility, 4 rings with 3 teams.",bonus:"This one should never end quickly. If it does, you're not doing your job. 😂"},
+  {id:13,sport:'nba',diff:'easy',format:'mc',q:"What city do the Lakers represent?",options:["Las Vegas","Los Angeles","Long Beach","Louisville"],correct:1,a:"Los Angeles",bonus:"Fun fact: they were originally the Minneapolis Lakers — hence the name, Minnesota has 10,000 lakes."},
+  {id:14,sport:'nba',diff:'hard',format:'open',q:"Who holds the single-game NBA scoring record and how many points?",a:"Wilt Chamberlain — 100 points (March 2, 1962)",bonus:"No TV footage exists. No home fans attended. The game was in Hershey, Pennsylvania of all places."},
+  {id:15,sport:'nba',diff:'medium',format:'open',q:"Which team has the most NBA championships?",a:"Boston Celtics (18 championships)",bonus:"Lakers are second with 17. The Celtics-Lakers rivalry is the defining rivalry in NBA history."},
+  {id:16,sport:'nba',diff:'easy',format:'open',q:"What does MVP stand for?",a:"Most Valuable Player",bonus:"Layup question — use it to warm up a nervous guest or recover after a tough stretch."},
+
+  // MLB
+  {id:17,sport:'mlb',diff:'easy',format:'mc',q:"How many strikes does it take to strike out in baseball?",options:["2","3","4","5"],correct:1,a:"3 strikes",bonus:"Three strikes and you're out — so universal it became a law. California's Three Strikes Law was named after it."},
+  {id:18,sport:'mlb',diff:'medium',format:'open',q:"Who holds the all-time MLB home run record?",a:"Barry Bonds (762 home runs)",bonus:"Bonds broke Hank Aaron's record of 755 in 2007. The asterisk conversation never goes away."},
+  {id:19,sport:'mlb',diff:'hard',format:'open',q:"What was the 'Shot Heard Round the World' and who hit it?",a:"Bobby Thomson's walk-off home run for the Giants off Ralph Branca, October 3, 1951 — won the pennant over the Dodgers",bonus:"Russ Hodges' call — 'The Giants win the pennant! The Giants win the pennant!' — is one of the most iconic moments in sports broadcasting history."},
+  {id:20,sport:'mlb',diff:'medium',format:'debate',q:"DEBATE: Is the designated hitter rule good or bad for baseball?",a:"Open debate. DH keeps power hitters healthy and in lineups. Purists say pitchers hitting is part of the strategy.",bonus:"National League resisted the DH for 40+ years before universally adopting it in 2022. Opinions are STRONG."},
+  {id:21,sport:'mlb',diff:'easy',format:'open',q:"How many innings are in a standard baseball game?",a:"9 innings",bonus:"Extra innings if tied. Longest MLB game: 26 innings, Brooklyn Robins vs Boston Braves, 1920. Ended in a tie."},
+  {id:22,sport:'mlb',diff:'hard',format:'open',q:"Who was the last player to bat .400 in a full MLB season and what year?",a:"Ted Williams, .406 in 1941",bonus:"Williams went 6-for-8 in a doubleheader on the final day of the season to stay above .400 when he could've sat out."},
+
+  // NHL
+  {id:23,sport:'nhl',diff:'easy',format:'mc',q:"What is the name of the NHL championship trophy?",options:["The Cup","Stanley Cup","Lord Stanley","The Puck Trophy"],correct:1,a:"The Stanley Cup",bonus:"Named after Lord Stanley of Preston, Governor General of Canada, who donated it in 1892. It's the oldest professional sports trophy in North America."},
+  {id:24,sport:'nhl',diff:'medium',format:'open',q:"Which player is known as 'The Great One' in hockey?",a:"Wayne Gretzky",bonus:"Gretzky has more assists alone than any other player has total points. Let that sink in."},
+  {id:25,sport:'nhl',diff:'hard',format:'open',q:"What is a 'Gordie Howe Hat Trick'?",a:"A goal, an assist, AND a fight in the same game",bonus:"Gordie Howe only did it 2 times in his career despite it being named after him. The irony is real."},
+  {id:26,sport:'nhl',diff:'medium',format:'debate',q:"DEBATE: Is hockey underrated in American sports culture, and why doesn't it get the same respect as the NBA and NFL?",a:"Open debate. Market size, TV deals, regional popularity, and the pace of the game all factor in.",bonus:"Good one if you have a hockey fan vs a non-hockey person on the panel."},
+
+  // Soccer
+  {id:27,sport:'soccer',diff:'easy',format:'mc',q:"How long is a standard soccer match?",options:["80 minutes","90 minutes","100 minutes","120 minutes"],correct:1,a:"90 minutes (plus stoppage time)",bonus:"Stoppage time can be wildly inconsistent. Five minutes or fifteen — refs do what they want out there."},
+  {id:28,sport:'soccer',diff:'medium',format:'open',q:"Which country has won the most FIFA World Cups?",a:"Brazil (5 World Cups: 1958, 1962, 1970, 1994, 2002)",bonus:"Brazil is the only nation to have played in every single World Cup. Germany and Italy each have 4."},
+  {id:29,sport:'soccer',diff:'hard',format:'open',q:"What is the record for most goals scored in a single FIFA World Cup tournament, and who scored them?",a:"Just Fontaine (France) — 13 goals in 1958 World Cup",bonus:"The record has stood for 65+ years. Fontaine played only 6 games. The man was DIFFERENT."},
+  {id:30,sport:'soccer',diff:'medium',format:'debate',q:"DEBATE: Will soccer (football) ever truly rival the NFL in American popularity?",a:"Open debate. MLS is growing, USMNT is improving, but NFL dominance is cultural, not just athletic.",bonus:"The generational shift argument is real — kids are playing more soccer than ever. Give it 20 years."},
+
+  // College
+  {id:31,sport:'college',diff:'easy',format:'mc',q:"What conference is Alabama football in?",options:["Big Ten","ACC","SEC","Big 12"],correct:2,a:"SEC (Southeastern Conference)",bonus:"The SEC has dominated college football for two decades. 'It just means more' — and the trophy cases agree."},
+  {id:32,sport:'college',diff:'medium',format:'open',q:"Which school has won the most NCAA Men's Basketball Championships?",a:"UCLA (11 championships)",bonus:"10 of those 11 came under coach John Wooden, including 7 in a row from 1967-1973. Arguably the greatest dynasty in American sports history."},
+  {id:33,sport:'college',diff:'hard',format:'open',q:"What was 'The Play' in the 1982 Cal vs Stanford game?",a:"Cal returned a kickoff for a TD on the final play with 5 laterals while the Stanford band was on the field — Cal won 25-20",bonus:"The trombone player who got leveled by the final blocker became more famous than anyone who played that day."},
+  {id:34,sport:'college',diff:'medium',format:'debate',q:"DEBATE: Should college athletes be paid beyond NIL deals, and is the current NIL system fair?",a:"Open debate. NIL has changed college sports dramatically — top players making millions, smaller schools can't compete.",bonus:"This one will get LOUD. Let it go."},
+  {id:35,sport:'college',diff:'easy',format:'open',q:"What do the letters NCAA stand for?",a:"National Collegiate Athletic Association",bonus:"Founded in 1906 after President Teddy Roosevelt threatened to ban football over player deaths. 19 players died in 1905 alone."},
+
+  // Combat Sports
+  {id:36,sport:'combat',diff:'easy',format:'mc',q:"In boxing, how many rounds are in a standard world championship fight?",options:["10 rounds","12 rounds","15 rounds","8 rounds"],correct:1,a:"12 rounds",bonus:"It used to be 15 rounds until 1982, when a fighter named Duk Koo Kim died after a 14th-round TKO. Changed boxing forever."},
+  {id:37,sport:'combat',diff:'medium',format:'open',q:"Who did Muhammad Ali beat to win his first heavyweight title?",a:"Sonny Liston (February 25, 1964)",bonus:"Ali was a 7-1 underdog. After the fight he screamed 'I shook up the world!' He was 22 years old."},
+  {id:38,sport:'combat',diff:'hard',format:'open',q:"Who holds the record for most UFC title defenses in a single weight class?",a:"Demetrious 'Mighty Mouse' Johnson — 11 consecutive flyweight title defenses",bonus:"DJ's record is widely considered the most dominant championship run in UFC history. Broke Anderson Silva's record of 10."},
+  {id:39,sport:'combat',diff:'medium',format:'debate',q:"DEBATE: Is MMA or boxing the superior combat sport, and has MMA made boxing irrelevant?",a:"Open debate. Boxing has history, prestige, and megafights. MMA has youth, variety, and growing global reach.",bonus:"The Mayweather vs McGregor crossover fight proved both fandoms are massive. Neither sport is going anywhere."},
+  {id:40,sport:'combat',diff:'easy',format:'open',q:"What does TKO stand for in boxing and MMA?",a:"Technical Knockout",bonus:"The difference between a KO and TKO: KO the fighter is completely unconscious, TKO the ref stops it before that."},
+
+  // Cross-Sport / Wild Cards
+  {id:41,sport:'nfl',diff:'hard',format:'open',q:"What quarterback threw the most interceptions in a single NFL season?",a:"Vinny Testaverde — 35 interceptions in 1988",bonus:"Testaverde had one of the longest careers in NFL history despite this start. Played until he was 44."},
+  {id:42,sport:'nba',diff:'hard',format:'debate',q:"DEBATE: Is load management ruining the NBA, or is protecting player health the smart move?",a:"Open debate. Fans pay to see stars. But careers lasting longer benefits everyone long-term.",bonus:"Pop the question right when someone mentions a star sitting out a nationally televised game."},
+  {id:43,sport:'mlb',diff:'hard',format:'open',q:"What pitcher threw the most strikeouts in a single MLB game?",a:"Roger Clemens and Kerry Wood both struck out 20 batters (1986 and 1998 respectively)",bonus:"Two guys did it. In a 9-inning game. That's someone striking out every single at-bat and then some."},
+  {id:44,sport:'nhl',diff:'hard',format:'open',q:"Who scored the 'Miracle on Ice' winning goal in the 1980 Olympics?",a:"Mike Eruzione (Captain), but the game-winning goal was scored by Mark Johnson — Eruzione scored the go-ahead goal",bonus:"The US was made up of amateur and college players. The Soviet team had been dominant for decades. Still called the greatest sports upset ever."},
+  {id:45,sport:'soccer',diff:'hard',format:'open',q:"What is the 'Hand of God' goal and who scored it?",a:"Diego Maradona, 1986 World Cup quarterfinal vs England — punched the ball into the net with his fist, ref didn't see it",bonus:"Maradona then scored the 'Goal of the Century' four minutes later in the same game — dribbled past 5 England players. Same guy, same game."},
+  {id:46,sport:'combat',diff:'hard',format:'open',q:"Who was the first boxer to defeat Muhammad Ali as a professional?",a:"Joe Frazier — 'Fight of the Century' March 8, 1971 at Madison Square Garden",bonus:"Both men were undefeated going in. 20,000 people in MSG, millions watching worldwide. Frazier knocked Ali down in the 15th round."},
+  {id:47,sport:'college',diff:'hard',format:'open',q:"What is the longest winning streak in college football history?",a:"Washington Huskies — 63 games (1907-1917)",bonus:"Modern era: Oklahoma won 47 straight in the 1950s. Nobody does it like that anymore."},
+  {id:48,sport:'nfl',diff:'medium',format:'open',q:"Which wide receiver holds the NFL record for most career receiving yards?",a:"Jerry Rice (22,895 yards)",bonus:"Jerry Rice also has the most receiving touchdowns (197) and most receptions (1,549). Some records aren't meant to be broken."},
+  {id:49,sport:'nba',diff:'medium',format:'open',q:"Who coached the Chicago Bulls to all 6 of their NBA championships?",a:"Phil Jackson",bonus:"Jackson also coached the LA Lakers to 5 championships. 11 total as a coach. Also won 2 as a player with the Knicks."},
+  {id:50,sport:'combat',diff:'medium',format:'debate',q:"FINAL DEBATE: Who is the greatest combat sports athlete of all time — Ali, Tyson, Bruce Lee, or someone else entirely?",a:"Open — use this as your closer.",bonus:"This is your show-stopper. Let everyone make their case. Nobody agrees. Perfect TV."},
+];
+
+const QUICK_TWEETS = [
+  "🏆 TIMEOUT SPORTS TALK is LIVE and we're getting into it right now — tune in! 🎙🔥",
+  "😭 Our guest just got that question WRONG and the chat is going crazy 💀 #TimeoutSportsTalk",
+  "🔥 The debate just got HEATED up in here — this is exactly why we do this show! #SportsTalk",
+  "👀 The sports trivia is NO JOKE today. Our guest is sweating and I am HERE for it 😂 #Timeout",
+  "💪 CORRECT ANSWER! This one knows their stuff — respect the knowledge! #TimeoutSportsTalk 🏆",
+  "🥊 We just got into the GOAT debate and nobody is agreeing on anything. Come watch the chaos 😂",
+  "📺 You missed it if you weren't watching just now — that answer was WILD. #TimeoutSportsTalk 🔥",
+];
+
+const PRESET_VIBES = [
+  {id:'hype',name:'Hype Intro',emoji:'🔥',sub:'High energy'},
+  {id:'lofi',name:'Lo-Fi Chill',emoji:'🌙',sub:'Background focus'},
+  {id:'hiphop',name:'Hip-Hop Beats',emoji:'🎤',sub:'Sports talk energy'},
+  {id:'jazz',name:'Classic Jazz',emoji:'🎷',sub:'Smooth & sharp'},
+  {id:'drums',name:'Drum & Bass',emoji:'🥁',sub:'Fast-paced'},
+  {id:'soul',name:'Soul Vibes',emoji:'✨',sub:'Feel-good'},
+];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+const S = {
+  tab:'trivia', asked:new Set(), revealed:new Set(), selected:{},
+  sportFilter:'all', diffFilter:'all', active:null,
+  players:[
+    {id:1,name:'Player 1',score:0},
+    {id:2,name:'Player 2',score:0},
+  ],
+  notes:'', stamps:[], startTime:Date.now(),
+  tweetDraft:'', sentTweets:[],
+  tracks:[], currentTrackIdx:-1, playing:false, volume:0.7, loop:true,
+  musicSource:'file', addTrackName:'', addTrackUrl:'',
+};
+
+const TOTAL = TRIVIA.length;
+
+// ── AUDIO ─────────────────────────────────────────────────────────────────────
+const audio = document.getElementById('audio-player');
+audio.volume = S.volume;
+audio.loop = S.loop;
+audio.addEventListener('play',()=>{ S.playing=true; updateMiniPlayer(); });
+audio.addEventListener('pause',()=>{ S.playing=false; updateMiniPlayer(); });
+
+function loadTrack(idx){
+  if(idx<0||idx>=S.tracks.length)return;
+  S.currentTrackIdx=idx;
+  const t=S.tracks[idx];
+  audio.src=t.blobUrl||t.url||'';
+  audio.play().catch(()=>{});
+  updateMiniPlayer();
+  if(S.tab==='music') render();
+}
+function togglePlay(){
+  if(S.currentTrackIdx<0&&S.tracks.length>0){ loadTrack(0); return; }
+  audio.paused?audio.play().catch(()=>{}):audio.pause();
+}
+function nextTrack(){ if(S.tracks.length) loadTrack((S.currentTrackIdx+1)%S.tracks.length); }
+function prevTrack(){ if(S.tracks.length) loadTrack((S.currentTrackIdx-1+S.tracks.length)%S.tracks.length); }
+function setVol(v){ S.volume=parseFloat(v); audio.volume=S.volume; }
+function toggleLoop(){ S.loop=!S.loop; audio.loop=S.loop; render(); }
+function updateMiniPlayer(){
+  const mini=document.getElementById('music-mini');
+  const nameEl=document.getElementById('mini-name');
+  const statusEl=document.getElementById('mini-status');
+  const pb=document.getElementById('mini-play-btn');
+  if(S.tracks.length){
+    mini.classList.add('visible');
+    const t=S.currentTrackIdx>=0?S.tracks[S.currentTrackIdx]:null;
+    nameEl.textContent=t?t.name:'No track selected';
+    statusEl.textContent=S.playing?'▶ Playing':'⏸ Paused';
+    if(pb) pb.textContent=S.playing?'⏸':'▶';
+  } else { mini.classList.remove('visible'); }
+}
+function addFileTrack(file){
+  S.tracks.push({id:Date.now(),name:file.name.replace(/\.[^.]+$/,''),blobUrl:URL.createObjectURL(file),url:'',source:'file'});
+  updateMiniPlayer(); if(S.tab==='music') render();
+}
+function addUrlTrack(){
+  if(!S.addTrackUrl) return;
+  S.tracks.push({id:Date.now()+1,name:S.addTrackName||'Track '+(S.tracks.length+1),url:S.addTrackUrl,blobUrl:null,source:'url'});
+  S.addTrackName=''; S.addTrackUrl=''; updateMiniPlayer(); render();
+}
+function addPreset(p){
+  S.tracks.push({id:Date.now()+2,name:p.name+' '+p.emoji,url:'',blobUrl:null,source:'preset'});
+  updateMiniPlayer(); render();
+}
+function removeTrack(id){
+  const idx=S.tracks.findIndex(t=>t.id===id);
+  if(idx===S.currentTrackIdx){ audio.pause(); audio.src=''; S.currentTrackIdx=-1; S.playing=false; }
+  else if(idx<S.currentTrackIdx){ S.currentTrackIdx--; }
+  S.tracks=S.tracks.filter(t=>t.id!==id);
+  updateMiniPlayer(); render();
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function elapsed(){ const s=Math.floor((Date.now()-S.startTime)/1000); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+function switchTab(t){ S.tab=t; document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['trivia','score','music','notes','tweet'][i]===t)); render(); }
+function markAsked(id){ S.asked.add(id); if(S.active===id) S.active=null; updateHeader(); render(); }
+function toggleReveal(id){ S.revealed.has(id)?S.revealed.delete(id):S.revealed.add(id); render(); }
+function selectMC(qid,idx){
+  if(S.revealed.has(qid)) return;
+  S.selected[qid]=idx;
+  S.revealed.add(qid);
+  render();
+}
+function updateHeader(){
+  document.getElementById('asked-count').innerHTML=S.asked.size+`<span style="font-size:11px;color:#3a5a3a;font-weight:400">/${TOTAL}</span>`;
+  document.getElementById('progress-fill').style.width=Math.round(S.asked.size/TOTAL*100)+'%';
+}
+function adjustScore(pid,delta){
+  S.players=S.players.map(p=>p.id===pid?{...p,score:Math.max(0,p.score+delta)}:p);
+  render();
+}
+function addPlayer(){ S.players.push({id:Date.now(),name:'Player '+(S.players.length+1),score:0}); render(); }
+function removePlayer(id){ if(S.players.length>1) S.players=S.players.filter(p=>p.id!==id); render(); }
+function openTweetURL(text){ window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(text),'_blank'); S.sentTweets.unshift({text,time:new Date().toLocaleTimeString()}); S.tweetDraft=''; render(); }
+
+function getSport(id){ return SPORTS.find(s=>s.id===id); }
+function formatLabel(f){ return f==='mc'?'📋 Multiple Choice':f==='debate'?'🔥 DEBATE':f==='open'?'🎙 Open Answer':'🎯 Trivia'; }
+function diffLabel(d){ return d==='easy'?'🟢 Easy':d==='medium'?'🟡 Medium':'🔴 Hard'; }
+function diffClass(d){ return d==='easy'?'diff-easy':d==='medium'?'diff-medium':'diff-hard'; }
+
+// swipe
+let _tx=null,_sd=null;
+function _ts(e,id){_tx=e.touches[0].clientX;}
+function _tm(e){if(_tx===null)return;const d=e.touches[0].clientX-_tx;if(Math.abs(d)>28)_sd=d>0?'r':'l';}
+function _te(id){if(_sd==='l')markAsked(id);else if(_sd==='r'){S.asked.delete(id);updateHeader();render();}_tx=null;_sd=null;}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function render(){
+  const c=document.getElementById('content');
+  const nb=document.getElementById('nav-bar');
+
+  // ── TRIVIA ──
+  if(S.tab==='trivia'){
+    // Sport filter row
+    let h=`<div class="sport-filters">
+      <button class="sport-chip${S.sportFilter==='all'?' active':''}" style="${S.sportFilter==='all'?'background:#FFD700;color:#0a0f0a;':''}" onclick="S.sportFilter='all';render()">🏆 All</button>`;
+    SPORTS.forEach(sp=>{
+      const a=S.sportFilter===sp.id;
+      h+=`<button class="sport-chip${a?' active':''}" style="${a?`background:${sp.textColor};color:#0a0f0a;`:''}" onclick="S.sportFilter='${sp.id}';render()">${sp.emoji} ${sp.label.split('/')[0].trim()}</button>`;
+    });
+    h+=`</div><div class="diff-row">
+      ${[['all','All','active-all'],['easy','🟢 Easy','active-easy'],['medium','🟡 Med','active-medium'],['hard','🔴 Hard','active-hard']]
+        .map(([v,l,ac])=>`<button class="diff-chip${S.diffFilter===v?' '+ac:''}" onclick="S.diffFilter='${v}';render()">${l}</button>`).join('')}
+    </div><div style="font-size:11px;color:#2a4a2a;text-align:center;margin-bottom:14px;">Tap to expand · Swipe left = asked · Swipe right = undo</div>`;
+
+    const filtered=TRIVIA.filter(q=>{
+      if(S.sportFilter!=='all'&&q.sport!==S.sportFilter) return false;
+      if(S.diffFilter!=='all'&&q.diff!==S.diffFilter) return false;
+      return true;
+    });
+
+    const bySport={};
+    filtered.forEach(q=>{ if(!bySport[q.sport]) bySport[q.sport]=[]; bySport[q.sport].push(q); });
+
+    Object.entries(bySport).forEach(([sportId,qs])=>{
+      const sp=getSport(sportId);
+      if(!sp) return;
+      h+=`<div class="section-gap">
+        <div class="section-header">
+          <span class="section-sport-badge">${sp.emoji}</span>
+          <span class="section-sport-label" style="color:${sp.textColor}">${sp.label}</span>
+          <span class="section-count">${qs.filter(q=>!S.asked.has(q.id)).length} left</span>
+        </div>`;
+      qs.forEach(q=>{
+        const done=S.asked.has(q.id);
+        const rev=S.revealed.has(q.id);
+        const act=S.active===q.id&&!done;
+        const sel=S.selected[q.id];
+        h+=`<div class="q-card${done?' done':''}${act?' active':''}"
+          style="background:${done?'#0a120a':act?sp.color+'22':'#0f1a0f'};border-color:${act?sp.textColor:'#1a3a1a'};border-left-color:${sp.textColor};"
+          ontouchstart="_ts(event,${q.id})" ontouchmove="_tm(event)" ontouchend="_te(${q.id})"
+          onclick="${done?'':`S.active=${act?'null':q.id};render()`}">
+          <div class="q-top">
+            <div class="q-meta">
+              <div class="q-format-badge" style="color:${sp.textColor}">${formatLabel(q.format)}</div>
+              <div class="q-text">${q.q}</div>
+              <div class="diff-tag ${diffClass(q.diff)}">${diffLabel(q.diff)}</div>
+            </div>
+            <button class="check-btn${done?' done':''}" onclick="event.stopPropagation();${done?`S.asked.delete(${q.id});updateHeader();render()`:`markAsked(${q.id})`}">${done?'✓':'○'}</button>
+          </div>`;
+
+        if(act){
+          // MC options
+          if(q.format==='mc'&&q.options){
+            h+=`<div class="mc-options">`;
+            q.options.forEach((opt,i)=>{
+              let cls='mc-btn';
+              if(rev){ cls+=i===q.correct?' reveal-correct':sel===i?' selected-wrong':''; }
+              h+=`<button class="${cls}" onclick="event.stopPropagation();selectMC(${q.id},${i})">${String.fromCharCode(65+i)}. ${opt}</button>`;
+            });
+            h+=`</div>`;
+          }
+          // Reveal area
+          if(rev||q.format==='debate'){
+            h+=`<div class="answer-reveal">
+              <div class="answer-label">${q.format==='debate'?'💬 Debate Fuel':'✅ Answer'}</div>
+              <div class="answer-text">${q.a}</div>
+              ${q.bonus?`<div class="bonus-text">💡 ${q.bonus}</div>`:''}
+            </div>`;
+          }
+          h+=`<div class="card-actions">
+            ${q.format!=='mc'&&q.format!=='debate'?`<button class="action-btn reveal-btn" onclick="event.stopPropagation();toggleReveal(${q.id})">${rev?'🙈 Hide Answer':'👀 Reveal Answer'}</button>`:''}
+            ${q.format==='debate'?`<button class="action-btn reveal-btn" style="background:#2a1a00;color:#FFD700" onclick="event.stopPropagation();toggleReveal(${q.id})">${rev?'Hide':'🔥 Debate Points'}</button>`:''}
+            <button class="action-btn asked-btn" onclick="event.stopPropagation();markAsked(${q.id})">✓ Mark Asked</button>
+          </div>`;
+        }
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+    });
+    if(!filtered.length) h+=`<div style="text-align:center;padding:40px 20px;color:#2a5a2a;font-size:14px;">No questions match this filter 🏆</div>`;
+    c.innerHTML=h;
+
+    const next=TRIVIA.find(q=>{
+      if(S.sportFilter!=='all'&&q.sport!==S.sportFilter) return false;
+      if(S.diffFilter!=='all'&&q.diff!==S.diffFilter) return false;
+      return !S.asked.has(q.id);
+    });
+    nb.innerHTML=next
+      ?`<div class="next-label">Up Next${next.format==='debate'?' 🔥 DEBATE':''} — Q${next.id}</div>
+         <div class="next-text">${next.q}</div>
+         <button class="jump-btn" onclick="S.sportFilter='all';S.diffFilter='all';S.active=${next.id};render()">Jump to This Question →</button>`
+      :`<div class="complete-msg"><div class="complete-title">🏆 That's a Wrap!</div><div class="complete-sub">All questions asked. That's how you do it!</div></div>`;
+  }
+
+  // ── SCOREBOARD ──
+  else if(S.tab==='score'){
+    const sorted=[...S.players].sort((a,b)=>b.score-a.score);
+    let h=`<div class="stat-grid">
+      <div class="stat-box"><div class="stat-n" style="color:#FFD700">${S.asked.size}</div><div class="stat-l">Asked</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:#4db897">${TOTAL-S.asked.size}</div><div class="stat-l">Remaining</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:#e87a3a">${S.players.reduce((a,p)=>a+p.score,0)}</div><div class="stat-l">Total Pts</div></div>
+    </div>
+    <div class="scoreboard">
+      <div class="scoreboard-title">🏆 Live Scoreboard</div>`;
+    sorted.forEach((p,i)=>{
+      const rankClass=i===0?'':'rank-'+(i+1);
+      const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
+      h+=`<div class="player-row">
+        <div class="player-rank ${rankClass}">${medal||'#'+(i+1)}</div>
+        <input class="player-name-input" value="${p.name}" placeholder="Player name" oninput="S.players.find(x=>x.id===${p.id}).name=this.value"/>
+        <div class="score-controls">
+          <button class="score-adj" onclick="adjustScore(${p.id},-1)">−</button>
+          <div class="score-display">${p.score}</div>
+          <button class="score-adj" onclick="adjustScore(${p.id},1)">+</button>
+        </div>
+        ${S.players.length>1?`<button onclick="removePlayer(${p.id})" style="background:none;border:none;color:#3a1a1a;cursor:pointer;font-size:18px;padding:4px;margin-left:4px">×</button>`:''}
+      </div>`;
+    });
+    h+=`<button class="add-player-btn" onclick="addPlayer()">+ Add Player / Team</button></div>
+    <div style="margin-top:20px;">
+      <div class="section-lbl">Sport Breakdown</div>`;
+    SPORTS.forEach(sp=>{
+      const total=TRIVIA.filter(q=>q.sport===sp.id).length;
+      const done=TRIVIA.filter(q=>q.sport===sp.id&&S.asked.has(q.id)).length;
+      const pct=Math.round(done/total*100);
+      h+=`<div style="margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span style="font-size:12px;color:#7a9a7a">${sp.emoji} ${sp.label}</span>
+          <span style="font-size:11px;color:#4a6a4a">${done}/${total}</span>
+        </div>
+        <div style="height:4px;background:#1a2a1a;border-radius:2px;overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:${sp.textColor};border-radius:2px;transition:width .4s;"></div>
+        </div>
+      </div>`;
+    });
+    h+='</div>';
+    c.innerHTML=h; nb.innerHTML='';
+  }
+
+  // ── MUSIC ──
+  else if(S.tab==='music'){
+    const ct=S.currentTrackIdx>=0?S.tracks[S.currentTrackIdx]:null;
+    let h=`<div class="music-hero">
+      <div class="music-hero-title">🎵 Show Music</div>
+      <div class="now-playing-name">${ct?ct.name:'Nothing playing yet'}</div>
+      <div class="now-playing-sub">${ct?(S.playing?'▶ Now Playing':'⏸ Paused'):'Add tracks below'}</div>
+      <div class="player-controls">
+        <button class="ctrl-btn${S.tracks.length<2?' disabled':''}" onclick="prevTrack()">⏮</button>
+        <button class="ctrl-btn play-pause" onclick="togglePlay()">${S.playing?'⏸':'▶'}</button>
+        <button class="ctrl-btn${S.tracks.length<2?' disabled':''}" onclick="nextTrack()">⏭</button>
+      </div>
+      <div class="vol-row">
+        <span class="vol-icon">🔈</span>
+        <input type="range" class="vol-slider" min="0" max="1" step="0.05" value="${S.volume}" oninput="setVol(this.value)"/>
+        <span class="vol-icon">🔊</span>
+        <button class="loop-btn${S.loop?' on':''}" onclick="toggleLoop()">${S.loop?'🔁 Loop':'↩ No Loop'}</button>
+      </div>
+    </div>`;
+    if(S.tracks.length){
+      h+=`<div class="section-lbl">Playlist (${S.tracks.length})</div>`;
+      S.tracks.forEach((t,i)=>{
+        h+=`<div class="track-card${i===S.currentTrackIdx?' playing':''}" onclick="loadTrack(${i})">
+          <div class="track-icon">${i===S.currentTrackIdx&&S.playing?'🔊':'🎵'}</div>
+          <div class="track-info"><div class="track-name">${t.name}</div><div class="track-src">${t.source==='file'?'📂 Local':'🔗 URL'}</div></div>
+          ${i===S.currentTrackIdx?'<span style="color:#FFD700;font-size:14px">▶</span>':''}
+          <button class="track-remove" onclick="event.stopPropagation();removeTrack(${t.id})">×</button>
+        </div>`;
+      });
+    }
+    h+=`<div class="add-track-box">
+      <div class="add-track-label">Add Music</div>
+      <div class="source-toggle">
+        <button class="src-btn${S.musicSource==='file'?' active':''}" onclick="S.musicSource='file';render()">📂 Files</button>
+        <button class="src-btn${S.musicSource==='url'?' active':''}" onclick="S.musicSource='url';render()">🔗 URL</button>
+        <button class="src-btn${S.musicSource==='preset'?' active':''}" onclick="S.musicSource='preset';render()">⭐ Vibes</button>
+      </div>`;
+    if(S.musicSource==='file'){
+      h+=`<div class="file-upload-area" onclick="document.getElementById('fi').click()">
+        <span class="file-upload-label">Tap to upload audio</span>
+        <span class="file-upload-sub">MP3 · WAV · M4A · AAC</span>
+      </div>
+      <input type="file" id="fi" accept="audio/*" multiple style="display:none" onchange="Array.from(this.files).forEach(f=>addFileTrack(f))"/>
+      <button class="upload-btn" onclick="document.getElementById('fi').click()">Choose Audio Files</button>`;
+    } else if(S.musicSource==='url'){
+      h+=`<input class="field" placeholder="Track name" value="${S.addTrackName}" oninput="S.addTrackName=this.value"/>
+      <input class="field" placeholder="Direct audio URL" value="${S.addTrackUrl}" oninput="S.addTrackUrl=this.value"/>
+      <button class="upload-btn" onclick="addUrlTrack()">Add to Playlist</button>`;
+    } else {
+      h+=`<div style="font-size:12px;color:#3a5a3a;margin-bottom:12px;line-height:1.6;">Upload your own MP3s for in-app playback. These preset names are placeholders for your own tracks.</div>
+      <div class="preset-grid">${PRESET_VIBES.map(p=>`<div class="preset-card" onclick="addPreset(${JSON.stringify(p).replace(/"/g,'&quot;')})">
+        <span class="preset-emoji">${p.emoji}</span><div class="preset-name">${p.name}</div><div class="preset-sub">${p.sub}</div>
+      </div>`).join('')}</div>`;
+    }
+    h+=`</div>`;
+    c.innerHTML=h; nb.innerHTML='';
+  }
+
+  // ── NOTES ──
+  else if(S.tab==='notes'){
+    let h=`<div class="stat-grid">
+      <div class="stat-box"><div class="stat-n" style="color:#FFD700">${S.asked.size}</div><div class="stat-l">Asked</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:#4db897">${TOTAL-S.asked.size}</div><div class="stat-l">Left</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:#e87a3a">${S.stamps.length}</div><div class="stat-l">Stamps</div></div>
+    </div>
+    <div class="section-lbl">Live Notes</div>
+    <textarea class="notes-area" placeholder="Reactions, hot takes, moments to remember..." oninput="S.notes=this.value">${S.notes}</textarea>
+    <div class="stamps-header">
+      <div class="stamps-label">🔥 Hot Moments</div>
+      <button class="stamp-btn-ui" onclick="S.stamps.push({time:elapsed(),note:''});render()">+ Stamp Now</button>
+    </div>`;
+    if(!S.stamps.length) h+=`<div class="empty-stamps">Hit Stamp Now when something wild happens</div>`;
+    else S.stamps.forEach((s,i)=>{ h+=`<div class="stamp-row"><div class="stamp-time">${s.time}</div><input class="stamp-input" value="${s.note}" placeholder="What just went down?" oninput="S.stamps[${i}].note=this.value"/></div>`; });
+    c.innerHTML=h; nb.innerHTML='';
+  }
+
+  // ── TWEET ──
+  else if(S.tab==='tweet'){
+    const d=S.tweetDraft, len=d.length;
+    const cc=len>280?'char-over':len>260?'char-warn':'char-ok';
+    let h=`<div class="tweet-note">💡 Tap a tweet, edit it if you want, then hit <strong>Open in X</strong> to post. Keep the hype rolling!</div>
+    <div class="quick-label">Quick Hype Tweets</div>`;
+    QUICK_TWEETS.forEach(t=>{
+      h+=`<div class="quick-card" onclick="S.tweetDraft=${JSON.stringify(t)};render()">
+        <div class="quick-text">${t}</div>
+        <div class="quick-meta"><span class="quick-chars">${t.length} chars</span><span class="quick-use">Use this →</span></div>
+      </div>`;
+    });
+    h+=`<div class="tweet-box" style="margin-top:20px">
+      <div class="tweet-box-label">Your Tweet</div>
+      <textarea class="tweet-textarea" placeholder="What's the hot take right now..." oninput="S.tweetDraft=this.value;render()">${d}</textarea>
+      <div class="tweet-footer">
+        <span class="${cc}" style="font-size:12px">${len}/280</span>
+        <button class="tweet-open-btn" ${len===0||len>280?'disabled':''} onclick="openTweetURL(S.tweetDraft)">𝕏 Open in X</button>
+      </div>
+    </div>`;
+    if(S.sentTweets.length){
+      h+=`<div class="section-lbl" style="margin-top:20px">Sent This Session</div>`;
+      S.sentTweets.forEach(t=>{ h+=`<div class="sent-item"><div class="sent-text">${t.text}</div><div class="sent-time">Opened at ${t.time}</div></div>`; });
+    }
+    c.innerHTML=h; nb.innerHTML='';
+  }
+}
+
+render();
+</script>
+</body>
+</html>
