@@ -2,7 +2,7 @@
 
 **The underground record. Culture-driven. Community-built.**
 
-The Static is the official publication of Saneca TV Radiomeltdown, broadcasting out of G4E Movement Studio in Lithonia, GA. Every issue covers the artists, stories, and moments the mainstream skips over — indie talent, exclusive interviews, deep cuts, and real culture from Detroit to Atlanta and everywhere in between.
+The Static is the official publication of Saneca TV, broadcasting out of G4E Movement Studio in Lithonia, GA. Every issue covers the artists, stories, and moments the mainstream skips over — indie talent, exclusive interviews, deep cuts, and real culture from Detroit to Atlanta and everywhere in between.
 
 ---
 
