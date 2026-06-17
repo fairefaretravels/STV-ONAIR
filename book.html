@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="refresh" content="3;url=https://koalendar.com/e/meet-with-saneca-mack" />
+<title>Book a Strategy Call — Saneca TV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0D0D0D;
+    color: #F0EDE6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .card {
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+  }
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #C8963E;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #F0EDE6;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .divider {
+    width: 44px;
+    height: 2px;
+    background: #C8963E;
+    margin: 14px auto 20px;
+    border-radius: 1px;
+  }
+  .sub {
+    font-size: 13px;
+    color: #5A5A5A;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: #C8963E;
+    border-radius: 7px;
+    color: #0D0D0D;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: opacity 0.15s;
+    margin-bottom: 1.5rem;
+  }
+  .btn:hover { opacity: 0.87; }
+  .redirect-note {
+    font-size: 11px;
+    color: #3A3A3A;
+    line-height: 1.7;
+  }
+  .redirect-note a {
+    color: #C8963E;
+    text-decoration: none;
+  }
+  .redirect-note a:hover { text-decoration: underline; }
+
+  /* Countdown ring */
+  .ring-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.8rem;
+  }
+  .ring {
+    position: relative;
+    width: 64px;
+    height: 64px;
+  }
+  .ring svg {
+    transform: rotate(-90deg);
+    width: 64px;
+    height: 64px;
+  }
+  .ring circle {
+    fill: none;
+    stroke-width: 3;
+  }
+  .ring .track { stroke: #1A1A1A; }
+  .ring .progress {
+    stroke: #C8963E;
+    stroke-dasharray: 163.36;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+  }
+  .ring-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 500;
+    color: #C8963E;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <p class="eyebrow">Saneca TV / G4E Movement Studio</p>
+  <h1 class="title">Book your strategy call</h1>
+  <div class="divider"></div>
+
+  <div class="ring-wrap">
+    <div class="ring">
+      <svg viewBox="0 0 56 56">
+        <circle class="track" cx="28" cy="28" r="26" />
+        <circle class="progress" id="ring" cx="28" cy="28" r="26" />
+      </svg>
+      <div class="ring-num" id="countdown">3</div>
+    </div>
+  </div>
+
+  <p class="sub">
+    You're being redirected to the booking calendar.<br />
+    Strategy calls are $97–$250 and confirmed after intake review.
+  </p>
+
+  <a href="https://koalendar.com/e/meet-with-saneca-mack" class="btn">
+    Open booking calendar →
+  </a>
+
+  <p class="redirect-note">
+    Not redirecting? <a href="https://koalendar.com/e/meet-with-saneca-mack">Click here</a><br />
+    Haven't submitted your intake yet? <a href="./producer-intake.html">Start there first →</a>
+  </p>
+</div>
+
+<script>
+  const circumference = 2 * Math.PI * 26;
+  const ring = document.getElementById('ring');
+  const countEl = document.getElementById('countdown');
+  let seconds = 3;
+
+  ring.style.strokeDasharray = circumference;
+  ring.style.strokeDashoffset = 0;
+
+  const tick = setInterval(() => {
+    seconds--;
+    countEl.textContent = seconds;
+    ring.style.strokeDashoffset = circumference * (1 - seconds / 3);
+
+    if (seconds <= 0) {
+      clearInterval(tick);
+      window.location.href = 'https://koalendar.com/e/meet-with-saneca-mack';
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
