@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Producer for Hire — Saneca TV / G4E Movement Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0D0D0D;
+    color: #F0EDE6;
+    min-height: 100vh;
+    padding: 3rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 2.5rem; }
+  .eyebrow { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #C8963E; margin-bottom: 8px; }
+  .title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 500; color: #F0EDE6; line-height: 1.2; margin-bottom: 6px; }
+  .subtitle { font-size: 12px; color: #5A5A5A; }
+  .divider { width: 44px; height: 2px; background: #C8963E; margin: 12px auto 1.8rem; border-radius: 1px; }
+
+  /* Funnel steps */
+  .funnel { display: flex; align-items: center; justify-content: center; gap: 0; margin-bottom: 2.5rem; }
+  .f-step { text-align: center; }
+  .f-num { width: 26px; height: 26px; border-radius: 50%; background: #1A1A1A; border: 0.5px solid #C8963E; color: #C8963E; font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; }
+  .f-label { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #5A5A5A; }
+  .f-arrow { color: #2E2E2E; font-size: 14px; padding: 0 8px; margin-bottom: 14px; }
+
+  /* Sections */
+  .section { margin-bottom: 2rem; }
+  .slabel { font-family: 'Playfair Display', serif; font-size: 11px; font-weight: 500; color: #C8963E; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 0.5px solid #222; }
+
+  /* Grid */
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .row.full { grid-template-columns: 1fr; }
+
+  /* Fields */
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #5A5A5A; }
+  .field input,
+  .field select,
+  .field textarea {
+    background: #1A1A1A;
+    border: 0.5px solid #2E2E2E;
+    border-radius: 6px;
+    color: #F0EDE6;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 9px 11px;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: #3A3A3A; }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus { border-color: #C8963E; box-shadow: 0 0 0 2px rgba(200,150,62,0.1); }
+  .field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235A5A5A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 11px center;
+    cursor: pointer;
+  }
+  .field select option { background: #1A1A1A; color: #F0EDE6; }
+  .field textarea { resize: vertical; min-height: 74px; line-height: 1.6; }
+
+  /* Chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 6px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: #141414; border: 0.5px solid #2E2E2E; border-radius: 20px;
+    padding: 5px 11px; cursor: pointer; font-size: 11px; color: #5A5A5A;
+    transition: all 0.1s; user-select: none;
+  }
+  .chip input { display: none; }
+  .chip:hover { border-color: #C8963E; color: #C8963E; }
+  .chip.active { border-color: #C8963E; color: #C8963E; background: rgba(200,150,62,0.07); }
+
+  /* Path cards */
+  .path-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+  .path-card {
+    background: #1A1A1A; border: 0.5px solid #2E2E2E; border-radius: 10px;
+    padding: 14px 12px 16px; cursor: pointer; position: relative;
+    transition: border-color 0.15s;
+  }
+  .path-card:hover { border-color: rgba(200,150,62,0.4); }
+  .path-card.selected { border-color: #C8963E; }
+  .path-card.selected::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: #C8963E; border-radius: 0 0 10px 10px; }
+  .path-badge { position: absolute; top: 7px; right: 7px; font-size: 8px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; background: rgba(200,150,62,0.12); color: #C8963E; padding: 2px 6px; border-radius: 3px; }
+  .path-name { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 500; color: #F0EDE6; margin-bottom: 3px; }
+  .path-sublabel { font-size: 10px; color: #C8963E; margin-bottom: 6px; font-weight: 500; letter-spacing: 0.05em; }
+  .path-desc { font-size: 10px; color: #5A5A5A; line-height: 1.55; }
+
+  /* Gatekeeper questions */
+  .gate-box { background: #141414; border: 0.5px solid #2E2E2E; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
+  .gate-q { font-size: 12px; color: #F0EDE6; margin-bottom: 8px; line-height: 1.5; }
+  .gate-opts { display: flex; flex-wrap: wrap; gap: 7px; }
+  .gate-opt {
+    background: #1A1A1A; border: 0.5px solid #2E2E2E; border-radius: 5px;
+    padding: 6px 12px; font-size: 11px; color: #5A5A5A;
+    cursor: pointer; transition: all 0.1s; user-select: none;
+  }
+  .gate-opt:hover { border-color: #C8963E; color: #C8963E; }
+  .gate-opt.selected { border-color: #C8963E; color: #C8963E; background: rgba(200,150,62,0.07); }
+
+  /* Hidden inputs for gate selections */
+  .hidden-input { display: none; }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%; padding: 15px; background: #C8963E; border: none; border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: #0D0D0D;
+    cursor: pointer; letter-spacing: 0.04em; margin-top: 8px; transition: opacity 0.15s;
+  }
+  .submit-btn:hover { opacity: 0.87; }
+  .submit-btn:active { opacity: 0.7; }
+
+  .form-note { font-size: 11px; color: #3A3A3A; text-align: center; margin-top: 12px; line-height: 1.8; }
+  .form-note a { color: #C8963E; text-decoration: none; }
+  .form-note a:hover { text-decoration: underline; }
+
+  /* Success */
+  .success-screen { display: none; text-align: center; padding: 4rem 1rem; }
+  .success-icon { font-size: 40px; margin-bottom: 1rem; }
+  .success-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 500; color: #F0EDE6; margin-bottom: 10px; }
+  .success-sub { font-size: 14px; color: #5A5A5A; line-height: 1.8; margin-bottom: 1.5rem; }
+  .book-btn {
+    display: inline-block; padding: 13px 28px; background: transparent;
+    border: 0.5px solid #C8963E; border-radius: 7px; color: #C8963E;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.04em; transition: background 0.15s;
+  }
+  .book-btn:hover { background: rgba(200,150,62,0.1); }
+
+  @media (max-width: 520px) {
+    .row { grid-template-columns: 1fr; }
+    .path-grid { grid-template-columns: 1fr; }
+    .title { font-size: 24px; }
+    .funnel { flex-wrap: wrap; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="formWrap">
+    <div class="header">
+      <p class="eyebrow">Saneca TV / G4E Movement Studio</p>
+      <h1 class="title">Producer for Hire</h1>
+      <p class="subtitle">Consultation intake — animation, film, web, AI systems &amp; more</p>
+      <div class="divider"></div>
+      <div class="funnel">
+        <div class="f-step"><div class="f-num">1</div><div class="f-label">Intake</div></div>
+        <div class="f-arrow">→</div>
+        <div class="f-step"><div class="f-num">2</div><div class="f-label">Strategy call</div></div>
+        <div class="f-arrow">→</div>
+        <div class="f-step"><div class="f-num">3</div><div class="f-label">Agreement</div></div>
+        <div class="f-arrow">→</div>
+        <div class="f-step"><div class="f-num">4</div><div class="f-label">Work begins</div></div>
+      </div>
+    </div>
+
+    <form id="intakeForm" action="https://formspree.io/f/xbdeagyp" method="POST">
+
+      <!-- SECTION 1: Contact -->
+      <div class="section">
+        <p class="slabel">Your contact info</p>
+        <div class="row">
+          <div class="field">
+            <label for="fname">First name</label>
+            <input id="fname" name="first_name" type="text" placeholder="Jordan" required />
+          </div>
+          <div class="field">
+            <label for="lname">Last name</label>
+            <input id="lname" name="last_name" type="text" placeholder="Price" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@studio.com" required />
+          </div>
+          <div class="field">
+            <label for="company">Company / studio (optional)</label>
+            <input id="company" name="company" type="text" placeholder="Meridian Pictures LLC" />
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Project -->
+      <div class="section">
+        <p class="slabel">The project</p>
+        <div class="row">
+          <div class="field">
+            <label for="projname">Project name</label>
+            <input id="projname" name="project_name" type="text" placeholder="Working or final title" required />
+          </div>
+          <div class="field">
+            <label for="projtype">Project type</label>
+            <select id="projtype" name="project_type">
+              <option value="" disabled selected>Select type</option>
+              <option>Animation / motion content</option>
+              <option>Film / narrative video</option>
+              <option>Website / web app</option>
+              <option>AI system / workflow</option>
+              <option>Podcast / broadcast</option>
+              <option>Educational content</option>
+              <option>Brand / identity</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="budget">Budget range</label>
+            <select id="budget" name="budget_range">
+              <option value="" disabled selected>Select range</option>
+              <option>Under $1K</option>
+              <option>$1K – $5K</option>
+              <option>$5K – $15K</option>
+              <option>$15K – $50K</option>
+              <option>$50K+</option>
+              <option>Exploring / unknown</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="timeline">Timeline</label>
+            <select id="timeline" name="timeline">
+              <option value="" disabled selected>Select timeline</option>
+              <option>ASAP / under 2 weeks</option>
+              <option>1 month</option>
+              <option>1–3 months</option>
+              <option>3–6 months</option>
+              <option>Ongoing / long-term</option>
+            </select>
+          </div>
+        </div>
+        <div class="row full">
+          <div class="field">
+            <label for="overview">What do you need help with?</label>
+            <textarea id="overview" name="project_overview" placeholder="Describe the project, the problem you're solving, and where you're stuck or what you need."></textarea>
+          </div>
+        </div>
+        <div class="row full">
+          <div class="field">
+            <label>Current assets (check all that apply)</label>
+            <div class="chips" id="assetChips">
+              <label class="chip"><input type="checkbox" name="assets" value="Script / screenplay" />Script / screenplay</label>
+              <label class="chip"><input type="checkbox" name="assets" value="Existing footage" />Existing footage</label>
+              <label class="chip"><input type="checkbox" name="assets" value="Brand assets / logo" />Brand assets / logo</label>
+              <label class="chip"><input type="checkbox" name="assets" value="Domain / hosting" />Domain / hosting</label>
+              <label class="chip"><input type="checkbox" name="assets" value="Existing website" />Existing website</label>
+              <label class="chip"><input type="checkbox" name="assets" value="Storyboards / visuals" />Storyboards / visuals</label>
+              <label class="chip"><input type="checkbox" name="assets" value="Budget doc" />Budget doc</label>
+              <label class="chip"><input type="checkbox" name="assets" value="Team assembled" />Team assembled</label>
+              <label class="chip"><input type="checkbox" name="assets" value="None yet" />None yet</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="teamsize">Team size</label>
+            <select id="teamsize" name="team_size">
+              <option value="" disabled selected>Select</option>
+              <option>Just me</option>
+              <option>2–3 people</option>
+              <option>4–10 people</option>
+              <option>10+ people</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="tools">Tools you're already paying for</label>
+            <input id="tools" name="existing_tools" type="text" placeholder="e.g. Adobe, Notion, CapCut..." />
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Path -->
+      <div class="section">
+        <p class="slabel">What you're seeking</p>
+        <div class="path-grid">
+          <div class="path-card" id="path-consult" onclick="selectPath('consult', 'Consulting — you do the work')">
+            <p class="path-name">Consulting</p>
+            <p class="path-sublabel">You do the work</p>
+            <p class="path-desc">Strategy, direction &amp; workflow design. You execute with our guidance.</p>
+          </div>
+          <div class="path-card selected" id="path-production" onclick="selectPath('production', 'Production — we do the work')">
+            <span class="path-badge">Most common</span>
+            <p class="path-name">Production</p>
+            <p class="path-sublabel">We do the work</p>
+            <p class="path-desc">Full build. Website, animation, systems, or content. You pay, we deliver.</p>
+          </div>
+          <div class="path-card" id="path-partner" onclick="selectPath('partner', 'Partnership — ownership + rev share')">
+            <p class="path-name">Partnership</p>
+            <p class="path-sublabel">Ownership + rev share</p>
+            <p class="path-desc">No upfront fee. We co-own and share in the outcome. Selective.</p>
+          </div>
+        </div>
+        <input type="hidden" id="selectedPath" name="engagement_type" value="Production — we do the work" />
+      </div>
+
+      <!-- SECTION 4: Gatekeeper -->
+      <div class="section">
+        <p class="slabel">Gatekeeper questions</p>
+
+        <div class="gate-box">
+          <p class="gate-q">Are you prepared to sign an agreement before work begins?</p>
+          <div class="gate-opts">
+            <span class="gate-opt" onclick="selectGate(this, 'gate_agreement')">Yes, absolutely</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_agreement')">I'd need to review it first</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_agreement')">Not sure yet</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_agreement')">No</span>
+          </div>
+          <input type="hidden" id="gate_agreement" name="prepared_to_sign" value="" />
+        </div>
+
+        <div class="gate-box">
+          <p class="gate-q">Have you worked with a producer or creative director before?</p>
+          <div class="gate-opts">
+            <span class="gate-opt" onclick="selectGate(this, 'gate_experience')">Yes, paid engagements</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_experience')">Yes, informally</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_experience')">No, this is new</span>
+          </div>
+          <input type="hidden" id="gate_experience" name="prior_producer_experience" value="" />
+        </div>
+
+        <div class="gate-box">
+          <p class="gate-q">Where did you hear about us?</p>
+          <div class="gate-opts">
+            <span class="gate-opt" onclick="selectGate(this, 'gate_referral')">Referral</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_referral')">STV Radiomeltdown</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_referral')">Social media</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_referral')">Search</span>
+            <span class="gate-opt" onclick="selectGate(this, 'gate_referral')">We've worked together</span>
+          </div>
+          <input type="hidden" id="gate_referral" name="referral_source" value="" />
+        </div>
+
+        <div class="row full" style="margin-top: 12px;">
+          <div class="field">
+            <label for="notes">Anything else — deadlines, references, what you've already tried</label>
+            <textarea id="notes" name="additional_notes" placeholder="Screening dates, investor meetings, aesthetic references, tools you've tested..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Submit application — we'll follow up within 24 hrs</button>
+      <p class="form-note">
+        Strategy call confirmed after intake is reviewed. No work begins before agreement is signed.<br />
+        Questions? <a href="https://formspree.io/f/xbdeagyp" target="_blank" rel="noopener">Send us a message</a> &nbsp;·&nbsp;
+        <a href="https://koalendar.com/e/meet-with-saneca-mack" target="_blank" rel="noopener">Book a call directly →</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Success screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🎬</div>
+    <h2 class="success-title">Application received.</h2>
+    <p class="success-sub">
+      We'll review and follow up within 24 hours.<br />
+      No work begins before your agreement is signed.<br /><br />
+      Want to get ahead of it? Book your strategy call now.
+    </p>
+    <a href="https://koalendar.com/e/meet-with-saneca-mack" target="_blank" rel="noopener" class="book-btn">
+      Book your strategy call →
+    </a>
+  </div>
+
+</div>
+
+<script>
+  let selectedPathId = 'production';
+
+  function selectPath(id, label) {
+    selectedPathId = id;
+    document.querySelectorAll('.path-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('path-' + id).classList.add('selected');
+    document.getElementById('selectedPath').value = label;
+  }
+
+  function selectGate(el, inputId) {
+    const group = el.closest('.gate-opts');
+    group.querySelectorAll('.gate-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById(inputId).value = el.textContent.trim();
+  }
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', function () {
+      this.classList.toggle('active');
+    });
+  });
+
+  document.getElementById('intakeForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        document.getElementById('formWrap').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        alert('Something went wrong. Please try again or email hello@stvdigital.co directly.');
+      }
+    } catch (err) {
+      alert('Network error. Please check your connection and try again.');
+    }
+  });
+</script>
+</body>
+</html>
