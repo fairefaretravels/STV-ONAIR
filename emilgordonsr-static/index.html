@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Emil Gordon Sr feat. Risk — 'Cruizn' — New music on STV Radiomeltdown, The Static. Listen now on all platforms.">
+  <title>Emil Gordon Sr — Cruizn | STV Radiomeltdown</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #07150e;
+      --dark: #07150e;
+      --dark-2: #0f2a1c;
+      --border: rgba(244, 211, 94, 0.15);
+      --border-strong: rgba(244, 211, 94, 0.3);
+      --white: #f5f6f1;
+      --muted: rgba(245, 246, 241, 0.5);
+      --dim: rgba(245, 246, 241, 0.25);
+      --signal: #2ee07a;
+      --signal-dark: #1f8a4d;
+      --signal-glow: rgba(46, 224, 122, 0.5);
+      --broadcast-amber: #f4d35e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "DM Sans", system-ui, sans-serif; background: var(--black); color: var(--white); min-height: 100vh; overflow-x: hidden; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+    .top-bar { background: var(--dark-2); border-bottom: 1px solid var(--border); padding: 0.7rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+    .top-bar a { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .top-bar a:hover { color: var(--white); }
+    .live-badge { display: flex; align-items: center; gap: 0.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--signal); }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 8px rgba(46,224,122,0.8); animation: blink 1.2s ease-in-out infinite; }
+
+    .page { max-width: 980px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+    .eyebrow { font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--broadcast-amber); font-weight: 600; margin-bottom: 0.75rem; }
+    .eyebrow span { color: var(--signal); }
+
+    .hero {
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      background: var(--dark-2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .hero-img { position: relative; min-height: 320px; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-copy { padding: 2.5rem 2.25rem; display: flex; flex-direction: column; justify-content: center; }
+    .hero-title { font-family: "Bebas Neue", sans-serif; font-size: clamp(2.6rem, 6vw, 4rem); letter-spacing: 0.06em; line-height: 0.95; color: var(--white); }
+    .hero-title::before { content: ''; display: block; width: 44px; height: 3px; background: var(--signal); margin-bottom: 1rem; }
+    .hero-sub { margin-top: 0.6rem; font-family: "DM Serif Display", serif; font-style: italic; font-size: 1.1rem; color: var(--signal); opacity: 0.9; }
+    .hero-feat { margin-top: 1.1rem; font-size: 0.85rem; color: var(--muted); line-height: 1.7; max-width: 380px; }
+    .hero-cta-row { margin-top: 1.5rem; display: flex; gap: 0.7rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.7rem 1.4rem; font-family: "DM Sans", sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.15s ease; border: none; cursor: pointer; }
+    .btn-primary { background: var(--signal); color: var(--dark); }
+    .btn-primary:hover { background: var(--signal-dark); color: var(--white); }
+    .btn-outline { background: transparent; color: var(--white); border: 1px solid var(--border-strong); }
+    .btn-outline:hover { background: var(--white); color: var(--dark); }
+
+    .section-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); }
+    .section-head h2 { font-family: "Bebas Neue", sans-serif; font-size: 1.4rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white); }
+    .section-head p { font-size: 0.72rem; color: rgba(245,246,241,0.6); letter-spacing: 0.1em; text-transform: uppercase; }
+    .accent-bar { display: inline-block; width: 4px; height: 1.3rem; background: var(--signal); border-radius: 1px; flex-shrink: 0; }
+
+    .video-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; }
+    .video-head { padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+    .video-head .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); animation: blink 1.2s ease-in-out infinite; }
+    .video-head span.label { font-family: "Bebas Neue", sans-serif; font-size: 0.9rem; letter-spacing: 0.15em; }
+    .video-head span.sub { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-left: auto; }
+    .responsive-iframe { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; }
+    .responsive-iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+    .links-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+    .link-card { background: var(--dark-2); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; transition: border-color 0.2s, transform 0.15s; text-decoration: none; }
+    .link-card:hover { border-color: rgba(46,224,122,0.5); transform: translateY(-2px); }
+    .link-card .tag { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--broadcast-amber); font-weight: 600; }
+    .link-card .name { font-family: "Bebas Neue", sans-serif; font-size: 1.3rem; letter-spacing: 0.1em; color: var(--white); }
+    .link-card .desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+    .link-card .go { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--signal); margin-top: 0.25rem; }
+
+    .bio-block { background: var(--dark-2); border: 1px solid var(--border); border-radius: 4px; padding: 2rem; margin-bottom: 2.5rem; }
+    .bio-block p { font-size: 0.88rem; line-height: 1.75; color: rgba(245,246,241,0.75); }
+    .bio-block p + p { margin-top: 0.85rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 1.5rem 1.5rem; text-align: center; }
+    footer p { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    footer a { color: var(--signal); text-decoration: none; }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-img { min-height: 240px; }
+      .links-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="https://radiomeltdown.com">← Back to STV Radiomeltdown</a>
+    <div class="live-badge"><span class="live-dot"></span>ON AIR</div>
+  </div>
+
+  <div class="page">
+
+    <div class="eyebrow">The Static <span>·</span> New Artist Spotlight</div>
+
+    <div class="hero">
+      <div class="hero-img">
+        <img src="Cruizn-promo.png" alt="Emil Gordon Sr feat. Risk — Cruizn">
+      </div>
+      <div class="hero-copy">
+        <div class="hero-title">CRUIZN</div>
+        <div class="hero-sub">Emil Gordon Sr feat. Risk</div>
+        <p class="hero-feat">New music from jazz musician Emil Gordon Sr, featuring Risk on "Cruizn" — now streaming everywhere and featured on STV Radiomeltdown.</p>
+        <div class="hero-cta-row">
+          <a href="https://distrokid.com/hyperfollow/emildgordonsr/hear-my-music" target="_blank" rel="noopener noreferrer" class="btn btn-primary">🎧 Hear the Music</a>
+          <a href="https://music.youtube.com/watch?v=R8B3-SPlP18&si=FlUsQ-9hy0zyRCEa" target="_blank" rel="noopener noreferrer" class="btn btn-outline">▶ Watch on YouTube</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="accent-bar"></span><h2>Watch — Cruizn</h2><p>Official Music Video</p></div>
+    <div class="video-card">
+      <div class="video-head">
+        <span class="dot"></span>
+        <span class="label">CRUIZN</span>
+        <span class="sub">Emil Gordon Sr feat. Risk</span>
+      </div>
+      <div class="responsive-iframe">
+        <iframe src="https://www.youtube.com/embed/R8B3-SPlP18" title="Emil Gordon Sr feat. Risk — Cruizn" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+
+    <div class="section-head"><span class="accent-bar"></span><h2>About the Artist</h2><p>Emil Gordon Sr</p></div>
+    <div class="bio-block">
+      <p>Emil Gordon Sr brings a jazz musician's ear to "Cruizn," a new single featuring Risk that's now part of the STV Radiomeltdown rotation. Smooth, groove-driven, and built for the ride — this is the kind of track that fits right into the network's mix of indie music, underground talent, and culture-first programming.</p>
+      <p>Featured this issue in The Static, STV Radiomeltdown's culture and music newsletter, spotlighting new and slept-on artists pushing the sound forward.</p>
+    </div>
+
+    <div class="section-head"><span class="accent-bar"></span><h2>Listen &amp; Connect</h2><p>All Platforms</p></div>
+    <div class="links-grid">
+      <a href="https://distrokid.com/hyperfollow/emildgordonsr/hear-my-music" target="_blank" rel="noopener noreferrer" class="link-card">
+        <span class="tag">Stream Everywhere</span>
+        <span class="name">Hear My Music</span>
+        <span class="desc">Spotify, Apple Music, and every platform — one link via DistroKid Hyperfollow.</span>
+        <span class="go">Listen Now →</span>
+      </a>
+      <a href="https://music.youtube.com/watch?v=R8B3-SPlP18&si=FlUsQ-9hy0zyRCEa" target="_blank" rel="noopener noreferrer" class="link-card">
+        <span class="tag">YouTube Music</span>
+        <span class="name">Cruizn</span>
+        <span class="desc">Watch and listen to the official "Cruizn" track on YouTube Music.</span>
+        <span class="go">Watch Now →</span>
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>An STV Radiomeltdown / The Static Feature · <a href="https://radiomeltdown.com" target="_blank" rel="noopener noreferrer">radiomeltdown.com</a> · Lithonia, GA</p>
+  </footer>
+
+</body>
+</html>
