@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Emil D. Gordon Sr — Approve Your Questions</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;background:#080a10;color:#f0ede8;overscroll-behavior:none;}
+input,button{font-family:inherit;}
+#app{display:flex;flex-direction:column;min-height:100dvh;}
+#header{background:#0d1020;border-bottom:0.5px solid #1a2040;padding:14px 16px 12px;position:sticky;top:0;z-index:100;}
+#content{flex:1;padding:16px 16px 160px;}
+#bottombar{position:fixed;bottom:0;left:0;right:0;background:#08090f;border-top:0.5px solid #1a2040;padding:14px 16px max(16px,env(safe-area-inset-bottom));z-index:200;}
+
+.header-top{display:flex;align-items:center;justify-content:space-between;}
+.show-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6a7aaa;margin-bottom:2px;}
+.show-name{font-size:18px;font-weight:800;color:#f0ede8;letter-spacing:-.3px;}
+.show-name span{color:#C9A84C;}
+.counter-pill{background:#0d1020;border:0.5px solid #1a2a4a;border-radius:10px;padding:6px 12px;text-align:center;}
+.counter-num{font-size:18px;font-weight:800;color:#C9A84C;}
+.counter-lbl{font-size:9px;color:#3a4a7a;text-transform:uppercase;letter-spacing:.08em;}
+
+.instruction-bar{background:#0d1020;border:0.5px solid #1a2a4a;border-radius:10px;padding:10px 14px;margin:16px 0;font-size:13px;color:#6a7a9a;line-height:1.6;}
+.instruction-bar strong{color:#f0ede8;}
+
+.section-gap{margin-bottom:20px;}
+.section-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.section-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#6a7aaa;}
+.section-count{font-size:10px;color:#3a4a6a;margin-left:auto;}
+
+.q-card{border-radius:12px;padding:13px 14px;margin-bottom:8px;cursor:pointer;transition:all .2s;border:1px solid #1a2040;background:#0d1020;border-left:3px solid #1a2a5a;}
+.q-card.checked{background:#0a1228;border-color:#C9A84C;border-left-color:#C9A84C;}
+.q-card-inner{display:flex;align-items:flex-start;gap:12px;}
+.check-circle{width:26px;height:26px;min-width:26px;border-radius:50%;border:1.5px solid #2a3a6a;background:transparent;display:flex;align-items:center;justify-content:center;font-size:13px;color:#2a3a6a;transition:all .2s;margin-top:1px;}
+.q-card.checked .check-circle{background:#C9A84C;border-color:#C9A84C;color:#08090f;}
+.q-num{font-size:10px;font-weight:700;color:#3a4a6a;min-width:22px;margin-top:3px;}
+.q-text{font-size:14px;line-height:1.65;color:#c0bdb8;font-weight:500;}
+.q-card.checked .q-text{color:#f0ede8;}
+
+.bottom-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.submit-status{font-size:12px;color:#4a5a7a;}
+.submit-status strong{color:#f0ede8;}
+.submit-btn{padding:12px 24px;background:#C9A84C;color:#08090f;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.submit-btn:disabled{background:#1a2040;color:#3a4a6a;cursor:not-allowed;}
+.submit-btn.sending{background:#1a2a4a;color:#C9A84C;cursor:not-allowed;}
+.submit-btn:active:not(:disabled):not(.sending){transform:scale(.97);}
+
+.error-bar{display:none;background:#200a0a;border:0.5px solid #5a1a1a;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:12px;color:#c07070;line-height:1.5;}
+.error-bar.visible{display:block;}
+
+#success{display:none;flex-direction:column;align-items:center;padding:48px 24px 160px;text-align:center;}
+#success.visible{display:flex;}
+.success-icon{width:64px;height:64px;border-radius:50%;background:#C9A84C;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;}
+#success h2{font-size:26px;font-weight:800;margin-bottom:8px;}
+#success p{font-size:14px;color:#4a5a7a;max-width:320px;line-height:1.6;}
+.approved-box{margin-top:28px;background:#0d1020;border:0.5px solid #1a2040;border-radius:12px;padding:16px 20px;text-align:left;width:100%;max-width:500px;}
+.approved-box-label{font-size:10px;color:#C9A84C;text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:12px;}
+.approved-box ol{padding-left:18px;color:#8a9aaa;font-size:13px;line-height:1.9;}
+#main-content.hidden{display:none;}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="header">
+    <div class="header-top">
+      <div>
+        <div class="show-label">🎷 Pre-Interview Review</div>
+        <div class="show-name">EMIL D. <span>GORDON SR</span></div>
+      </div>
+      <div class="counter-pill">
+        <div class="counter-num" id="count-num">0<span style="font-size:11px;color:#3a4a6a;font-weight:400">/40</span></div>
+        <div class="counter-lbl">Approved</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-content">
+    <div id="content">
+      <div class="instruction-bar">
+        <strong>Thank you for your time!</strong> — check every question you're comfortable answering on air. Hit <strong>Submit</strong> when you're done and Mindy will see your picks instantly.
+      </div>
+      <div id="sections"></div>
+    </div>
+  </div>
+
+  <div id="success">
+    <div class="success-icon">✓</div>
+    <h2>Submitted. ✊</h2>
+    <p>Mack can see your approved questions now. See you on set.</p>
+    <div class="approved-box">
+      <div class="approved-box-label">Questions You Approved</div>
+      <ol id="approved-list"></ol>
+    </div>
+  </div>
+
+  <div id="bottombar">
+    <div class="bottom-row">
+      <div class="submit-status"><strong id="status-count">0 questions</strong> approved</div>
+      <button class="submit-btn" id="submit-btn" disabled onclick="handleSubmit()">Submit Approved Questions →</button>
+    </div>
+    <div class="error-bar" id="error-bar"></div>
+  </div>
+</div>
+
+<script>
+const FORMSPREE_ID = 'YOUR_FORMSPREE_ID'; // ← replace with your Formspree form ID
+
+const SECTIONS = [
+  { label: "The Jazz Life & Origins", questions: [
+    "When did you first realize jazz was going to be your life's work — was there a single moment?",
+    "Who were the musicians that shaped your sound the most, and what did each of them teach you?",
+    "How did growing up in your particular environment shape the music you make?",
+    "What does jazz mean to you beyond just a genre label?",
+    "Was there ever a period when you doubted whether you were going to make it as a jazz artist?",
+    "What instrument or voice speaks to you most in an ensemble, and why?",
+    "How do you describe your sound to someone who's never heard you before?"
+  ]},
+  { label: "Craft & Creativity", questions: [
+    "Walk us through your process — how does a new composition start for you?",
+    "Do you write from emotion first, or structure first?",
+    "How do you know when a piece is finished versus when it just needs more time?",
+    "What's the hardest musical problem you've ever had to solve in the studio?",
+    "How do you approach improvisation — is it something you can teach, or is it deeper than that?",
+    "Is there a track on 'Hear My Music' that surprised you once it was recorded?",
+    "What does a perfect rehearsal look like to you?"
+  ]},
+  { label: "Jazz, Culture & Legacy", questions: [
+    "Do you think jazz has the cultural visibility it deserves in 2026?",
+    "What do you want younger musicians to understand about jazz that they often miss?",
+    "Has jazz lost something important in the move toward fusion and genre-blending, or gained something?",
+    "Who is an active jazz artist right now that people should be paying closer attention to?",
+    "How do you feel when you hear jazz used as background music in commercials or films?",
+    "What does jazz have to say about the world right now that other genres can't?"
+  ]},
+  { label: "The Independent Artist Path", questions: [
+    "What made you choose to release 'Hear My Music' independently rather than through a label?",
+    "What's the biggest misconception people have about what it takes to sustain a jazz career?",
+    "How has streaming changed the relationship between a jazz musician and their audience?",
+    "What does success look like for you at this point in your career — is it different from what it looked like earlier?",
+    "Do you think the internet has been more of a gift or a challenge for jazz artists?",
+    "What's one thing the music business still gets wrong about jazz and the people who make it?"
+  ]},
+  { label: "Performance & Connection", questions: [
+    "Describe your ideal performance setting — venue, audience, atmosphere.",
+    "What happens in the room when a performance truly locks in for you?",
+    "How do you handle a night when the music isn't flowing the way you want it to?",
+    "What's something an audience does that lets you know they're really listening?",
+    "How important is silence in your music?",
+    "Is there a performance that still lives with you — one that changed something?"
+  ]},
+  { label: "Questions That Could Make Headlines", questions: [
+    "What's a truth about jazz that the industry doesn't want to say out loud?",
+    "If you could sit down with any jazz legend for one conversation, who would it be and what would you ask?",
+    "What album — not your own — do you think is criminally underrated?",
+    "Is there a chapter of your life or career that music helped you survive?",
+    "What do you want people to feel after they listen to your music alone, in the dark?",
+    "Looking back, is there a decision you made as an artist you would change — and one you'd make again in a heartbeat?",
+    "What's the most misunderstood thing about who you are as a musician?",
+    "What would you say to a young Black jazz musician trying to break through right now?"
+  ]}
+];
+
+const ALL_Q = [];
+SECTIONS.forEach(s => s.questions.forEach(q => ALL_Q.push({ section: s.label, text: q })));
+const checked = new Set();
+
+function buildSections() {
+  const container = document.getElementById('sections');
+  let globalIdx = 0;
+  SECTIONS.forEach(sec => {
+    const wrap = document.createElement('div');
+    wrap.className = 'section-gap';
+    wrap.innerHTML = `<div class="section-header">
+      <span class="section-label">${sec.label}</span>
+      <span class="section-count">${sec.questions.length} questions</span>
+    </div>`;
+    sec.questions.forEach((qText) => {
+      const idx = globalIdx++;
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.innerHTML = `<div class="q-card-inner">
+        <div class="check-circle" id="chk-${idx}">○</div>
+        <div class="q-num">${String(idx + 1).padStart(2,'0')}</div>
+        <div class="q-text">${qText}</div>
+      </div>`;
+      card.addEventListener('click', () => toggle(idx, card));
+      wrap.appendChild(card);
+    });
+    container.appendChild(wrap);
+  });
+}
+
+function toggle(idx, el) {
+  checked.has(idx) ? checked.delete(idx) : checked.add(idx);
+  el.classList.toggle('checked');
+  document.getElementById('chk-'+idx).textContent = checked.has(idx) ? '✓' : '○';
+  updateUI();
+}
+
+function updateUI() {
+  const n = checked.size;
+  document.getElementById('count-num').innerHTML = n + '<span style="font-size:11px;color:#3a4a6a;font-weight:400">/40</span>';
+  document.getElementById('status-count').textContent = n === 1 ? '1 question' : n + ' questions';
+  document.getElementById('submit-btn').disabled = n === 0;
+}
+
+async function handleSubmit() {
+  if (FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
+    document.getElementById('error-bar').textContent = '⚠️ Please replace YOUR_FORMSPREE_ID in the code first.';
+    document.getElementById('error-bar').classList.add('visible');
+    return;
+  }
+
+  const approved = [...checked].sort((a,b) => a-b).map(i => ALL_Q[i]);
+  const btn = document.getElementById('submit-btn');
+  const errBar = document.getElementById('error-bar');
+
+  btn.disabled = true;
+  btn.classList.add('sending');
+  btn.textContent = 'Sending…';
+  errBar.classList.remove('visible');
+
+  const body = approved.map((q, i) => `${i+1}. [${q.section}]\n${q.text}`).join('\n\n');
+
+  try {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject: `Emil D. Gordon Sr approved ${approved.length} questions`,
+        approved_count: approved.length,
+        approved_questions: body,
+        submitted_at: new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Submit failed');
+
+    document.getElementById('main-content').classList.add('hidden');
+    document.getElementById('bottombar').style.display = 'none';
+    document.getElementById('approved-list').innerHTML = approved.map(q => `<li>${q.text}</li>`).join('');
+    document.getElementById('success').classList.add('visible');
+
+  } catch(err) {
+    console.error(err);
+    btn.disabled = false;
+    btn.classList.remove('sending');
+    btn.textContent = 'Submit Approved Questions →';
+    errBar.textContent = 'Could not send. Check your Formspree ID or try again.';
+    errBar.classList.add('visible');
+  }
+}
+
+buildSections();
+</script>
+</body>
+</html>
