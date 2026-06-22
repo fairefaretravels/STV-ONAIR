@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emil D. Gordon, Sr. — Official Artist Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,600;0,700;1,400&family=Barlow+Condensed:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── THEME TOKENS ── */
+    :root,
+    [data-theme="dark"] {
+      --orange:       #F7720A;
+      --gold:         #FFBD2E;
+      --red:          #C0161A;
+      --bg:           #0A0608;
+      --bg2:          #110D14;
+      --bg3:          #1A0E2A;
+      --surface:      rgba(255,255,255,0.04);
+      --surface-hover:rgba(247,114,10,0.12);
+      --border:       rgba(255,255,255,0.10);
+      --border-accent:rgba(247,114,10,0.25);
+      --text:         #F5F0EA;
+      --text-muted:   #8A7F90;
+      --text-dim:     #5A5060;
+      --divider:      rgba(255,255,255,0.08);
+      --toggle-bg:    #2A1E3A;
+      --toggle-knob:  #F7720A;
+      --input-bg:     rgba(255,255,255,0.05);
+      --input-border: rgba(255,255,255,0.15);
+      --input-focus:  rgba(247,114,10,0.5);
+      --hero-glow1:   rgba(192,22,26,0.30);
+      --hero-glow2:   rgba(247,114,10,0.18);
+    }
+
+    [data-theme="light"] {
+      --bg:           #F5F0EA;
+      --bg2:          #EDE7DF;
+      --bg3:          #E2D9CE;
+      --surface:      rgba(0,0,0,0.04);
+      --surface-hover:rgba(247,114,10,0.10);
+      --border:       rgba(0,0,0,0.12);
+      --border-accent:rgba(247,114,10,0.35);
+      --text:         #1A1015;
+      --text-muted:   #5A4F60;
+      --text-dim:     #9A8FA0;
+      --divider:      rgba(0,0,0,0.08);
+      --toggle-bg:    #D9D0C8;
+      --toggle-knob:  #F7720A;
+      --input-bg:     rgba(0,0,0,0.04);
+      --input-border: rgba(0,0,0,0.18);
+      --input-focus:  rgba(247,114,10,0.45);
+      --hero-glow1:   rgba(192,22,26,0.18);
+      --hero-glow2:   rgba(247,114,10,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background 0.35s, color 0.35s;
+    }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      position: fixed;
+      top: 1.1rem;
+      right: 1.2rem;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.35rem 0.7rem;
+      cursor: pointer;
+      transition: background 0.3s, border-color 0.3s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .theme-toggle:hover { border-color: var(--orange); }
+
+    .toggle-track {
+      width: 36px; height: 20px;
+      background: var(--toggle-bg);
+      border-radius: 999px;
+      position: relative;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+    .toggle-knob {
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 14px; height: 14px;
+      background: var(--toggle-knob);
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    [data-theme="light"] .toggle-knob { transform: translateX(16px); }
+
+    .toggle-icon {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      user-select: none;
+      line-height: 1;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 80%, var(--hero-glow1) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 70% 30%, var(--hero-glow2) 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg3) 40%, var(--bg) 100%);
+      z-index: 0;
+      transition: background 0.35s;
+    }
+
+    .hero-city {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 260px;
+      z-index: 1;
+      opacity: 0.35;
+    }
+
+    .hero-art {
+      position: relative;
+      z-index: 2;
+      width: min(520px, 90vw);
+      border-radius: 12px;
+      box-shadow: 0 0 80px rgba(247,114,10,0.4), 0 0 20px rgba(0,0,0,0.8);
+      display: block;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-content { position: relative; z-index: 3; }
+
+    .eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.35em;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 10vw, 7rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+    .hero h1 span { color: var(--orange); }
+
+    .hero-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-top: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    .hero-cta {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 3px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--orange);
+      color: #000;
+      box-shadow: 0 4px 24px rgba(247,114,10,0.5);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 32px rgba(247,114,10,0.7); }
+
+    .btn-outline {
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+    }
+    .btn-outline:hover { background: rgba(255,189,46,0.08); }
+
+    .btn-submit {
+      background: var(--orange);
+      color: #000;
+      box-shadow: 0 4px 24px rgba(247,114,10,0.4);
+      width: 100%;
+      font-size: 1.05rem;
+      padding: 0.9rem 2rem;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover { box-shadow: 0 6px 32px rgba(247,114,10,0.65); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* ── SECTIONS ── */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.2rem;
+    }
+
+    .section h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    hr.divider {
+      border: none;
+      border-top: 1px solid var(--divider);
+      margin: 0;
+    }
+
+    /* ── RELEASE ── */
+    .release-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .release-block img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 60px rgba(192,22,26,0.25);
+    }
+    .release-info p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── PLATFORM GRID ── */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .platform-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+    }
+    .platform-link:hover {
+      background: var(--surface-hover);
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+    .platform-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* ── VIDEO ── */
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(0,0,0,0.4);
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* ── BIO ── */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .bio-avatar {
+      width: 100%;
+      border-radius: 50%;
+      border: 3px solid var(--orange);
+      box-shadow: 0 0 30px rgba(247,114,10,0.3);
+    }
+    .bio-text p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    /* ── CONTACT BLOCK ── */
+    .contact-block {
+      background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: 12px;
+      padding: 3.5rem 2.5rem;
+    }
+    .contact-block > p.section-label { text-align: center; }
+    .contact-block > h2 { text-align: center; font-size: clamp(2rem,5vw,3.2rem); }
+    .contact-intro {
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0.5rem auto 2.5rem;
+      text-align: center;
+    }
+
+    /* ── FORM ── */
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 4px;
+      padding: 0.7rem 0.9rem;
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.97rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238A7F90' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.9rem center;
+      padding-right: 2.2rem;
+      cursor: pointer;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px var(--input-focus);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-status {
+      text-align: center;
+      margin-top: 1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      min-height: 1.5rem;
+    }
+    .form-status.success { color: #4CAF50; }
+    .form-status.error   { color: #FF5252; }
+
+    .contact-footer-note {
+      margin-top: 2rem;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      text-align: center;
+    }
+    .contact-footer-note a { color: var(--orange); text-decoration: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--divider);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 0.08em;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .release-block { grid-template-columns: 1fr; }
+      .bio-grid { grid-template-columns: 1fr; }
+      .bio-avatar { width: 120px; }
+      .contact-form { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DARK/LIGHT TOGGLE -->
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode">
+    <span class="toggle-icon" id="toggle-moon">🌙</span>
+    <div class="toggle-track"><div class="toggle-knob"></div></div>
+    <span class="toggle-icon" id="toggle-sun">☀️</span>
+  </button>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <svg class="hero-city" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#C0161A" opacity="0.7" d="M0,260 L0,180 L30,180 L30,140 L50,140 L50,100 L70,100 L70,80 L90,80 L90,100 L110,100 L110,120 L140,120 L140,90 L160,90 L160,60 L170,60 L170,40 L180,40 L180,60 L190,60 L190,90 L220,90 L220,110 L250,110 L250,80 L270,80 L270,50 L285,50 L285,30 L300,30 L300,50 L315,50 L315,80 L340,80 L340,110 L370,110 L370,70 L390,70 L390,40 L410,40 L410,20 L430,20 L430,40 L450,40 L450,70 L480,70 L480,90 L510,90 L510,60 L530,60 L530,130 L560,130 L560,100 L590,100 L590,70 L620,70 L620,50 L640,50 L640,30 L660,30 L660,50 L680,50 L680,70 L700,70 L700,100 L730,100 L730,120 L760,120 L760,90 L790,90 L790,60 L810,60 L810,40 L830,40 L830,60 L850,60 L850,90 L880,90 L880,110 L910,110 L910,80 L940,80 L940,60 L960,60 L960,45 L975,45 L975,60 L990,60 L990,80 L1020,80 L1020,110 L1050,110 L1050,90 L1080,90 L1080,120 L1110,120 L1110,100 L1140,100 L1140,80 L1170,80 L1170,110 L1200,110 L1200,130 L1240,130 L1240,100 L1270,100 L1270,70 L1300,70 L1300,100 L1330,100 L1330,140 L1360,140 L1360,170 L1410,170 L1410,200 L1440,200 L1440,260 Z"/>
+    </svg>
+
+    <img class="hero-art" src="Cruizn-promo.png" alt="Emil D. Gordon Sr — Cruzin' single artwork" />
+    <div class="hero-content">
+      <p class="eyebrow">Detroit's Own</p>
+      <h1>Emil D.<br><span>Gordon, Sr.</span></h1>
+      <p class="hero-sub">R&amp;B · Soul · Hip-Hop</p>
+      <div class="hero-cta">
+        <a href="https://music.youtube.com/watch?v=R8B3-SPlP18" target="_blank" class="btn btn-primary">▶ Stream "Cruzin'"</a>
+        <a href="https://distrokid.com/hyperfollow/emildgordonsr/hear-my-music" target="_blank" class="btn btn-outline">Hear My Music EP</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- LATEST RELEASE -->
+  <div class="section reveal">
+    <p class="section-label">Latest Release</p>
+    <div class="release-block">
+      <img src="Cruizn-promo.png" alt="Cruzin' single cover — Emil D. Gordon Sr." />
+      <div class="release-info">
+        <h2>Cruzin'</h2>
+        <p>A smooth, sun-soaked ride through Detroit's iconic Woodward Ave. <em>Cruzin'</em> blends old-school lowrider energy with modern production — the kind of record that sounds like summer windows-down and good company.</p>
+        <p>Available now on all major platforms.</p>
+        <div class="platform-grid">
+          <a class="platform-link" href="https://music.youtube.com/watch?v=R8B3-SPlP18" target="_blank">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+            YouTube Music
+          </a>
+          <a class="platform-link" href="https://open.spotify.com/album/3ZD5XwjRknDphQfWvMudtK" target="_blank">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.5 17.3c-.2.4-.7.5-1.1.2-3-1.8-6.7-2.2-11.1-1.2-.4.1-.8-.1-.9-.5-.1-.4.1-.8.5-.9C9.7 14 13.8 14.4 17.2 16.4c.4.2.5.7.3 1.1v-.2zm1.5-3.3c-.3.5-.9.6-1.3.3-3.4-2.1-8.6-2.7-12.7-1.5-.5.1-1-.1-1.2-.6-.1-.5.1-1 .6-1.2 4.6-1.4 10.3-.7 14.2 1.7.5.3.7.9.4 1.3zm.1-3.4c-4-2.4-10.7-2.6-14.5-1.4-.6.2-1.2-.1-1.4-.7-.2-.6.1-1.2.7-1.4C8 5.8 15.4 6 20 8.7c.5.3.7 1 .4 1.5-.3.5-1 .7-1.4.4h.1z"/></svg>
+            Spotify
+          </a>
+          <a class="platform-link" href="https://music.apple.com/us/album/hear-my-music-ep/1500153483" target="_blank">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="#FA2D48"><path d="M23.994 6.124a9.23 9.23 0 0 0-.22-2.228 7.324 7.324 0 0 0-1.142-2.366 7.358 7.358 0 0 0-2.074-1.87 7.197 7.197 0 0 0-2.35-.881 14.44 14.44 0 0 0-2.26-.203c-.418-.014-1.273-.018-1.702-.018H9.754c-.43 0-1.285.004-1.703.018a14.44 14.44 0 0 0-2.26.203 7.197 7.197 0 0 0-2.35.881A7.358 7.358 0 0 0 1.367 1.53 7.324 7.324 0 0 0 .225 3.896 9.23 9.23 0 0 0 .006 6.124C-.008 6.542 0 7.397 0 7.826v8.348c0 .43.004 1.285.018 1.703a9.23 9.23 0 0 0 .22 2.228 7.324 7.324 0 0 0 1.142 2.366 7.358 7.358 0 0 0 2.074 1.87 7.197 7.197 0 0 0 2.35.881 14.44 14.44 0 0 0 2.26.203c.418.014 1.273.018 1.703.018h4.494c.43 0 1.285-.004 1.703-.018a14.44 14.44 0 0 0 2.26-.203 7.197 7.197 0 0 0 2.35-.881 7.358 7.358 0 0 0 2.074-1.87 7.324 7.324 0 0 0 1.142-2.366 9.23 9.23 0 0 0 .22-2.228c.014-.418.018-1.273.018-1.703V7.826c0-.43-.004-1.284-.018-1.702zM12 18.57a6.57 6.57 0 1 1 0-13.14 6.57 6.57 0 0 1 0 13.14zm6.83-11.85a1.536 1.536 0 1 1 0-3.073 1.536 1.536 0 0 1 0 3.073zM12 7.17a4.83 4.83 0 1 0 0 9.66 4.83 4.83 0 0 0 0-9.66z"/></svg>
+            Apple Music
+          </a>
+          <a class="platform-link" href="http://www.amazon.com/gp/product/B0852BBD26" target="_blank">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="#FF9900"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654a18.12 18.12 0 0 1-7.07 2.496 17.64 17.64 0 0 1-8.91-1.017 17.71 17.71 0 0 1-5.32-3.26c-.166-.14-.188-.286-.07-.43zm2.99-2.72c.166-.29.375-.338.668-.162 1.19.735 2.475 1.34 3.83 1.804a13.65 13.65 0 0 0 4.348.724 13.7 13.7 0 0 0 5.98-1.43c.27-.127.48-.064.59.2.118.25.037.47-.23.618A14.7 14.7 0 0 1 12 18.02a14.66 14.66 0 0 1-9.004-2.936c-.248-.16-.28-.36-.116-.62zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12S24 18.627 24 12 18.627 0 12 0zm-.5 5.5c1.61 0 2.5.895 2.5 2.5S13.11 10.5 11.5 10.5 9 9.605 9 8s.895-2.5 2.5-2.5zm4 6.5c0 .276-.224.5-.5.5h-7c-.276 0-.5-.224-.5-.5V11c0-.276.224-.5.5-.5h7c.276 0 .5.224.5.5v1zm0 3c0 .276-.224.5-.5.5h-7c-.276 0-.5-.224-.5-.5v-1c0-.276.224-.5.5-.5h7c.276 0 .5.224.5.5v1z"/></svg>
+            Amazon
+          </a>
+          <a class="platform-link" href="https://www.deezer.com/album/133096852" target="_blank">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="#EF5466"><path d="M18.81 11.38H24v2.35h-5.19zm0-3.96H24v2.35h-5.19zm0 7.92H24v2.35h-5.19zm-6.41 0h5.19v2.35h-5.19zm0-7.92h5.19v2.35h-5.19zm0 3.96h5.19v2.35h-5.19zM0 15.34h5.19v2.35H0zm6.2 0h5.19v2.35H6.2zm0-3.96h5.19v2.35H6.2z"/></svg>
+            Deezer
+          </a>
+          <a class="platform-link" href="https://distrokid.com/hyperfollow/emildgordonsr/hear-my-music" target="_blank">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="#F7720A"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="#000"/></svg>
+            All Platforms
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- VIDEO -->
+  <div class="section reveal">
+    <p class="section-label">Watch</p>
+    <h2>Cruzin' — Official Video</h2>
+    <div class="video-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/R8B3-SPlP18"
+        title="Emil D. Gordon Sr — Cruzin'"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- BIO -->
+  <div class="section reveal">
+    <p class="section-label">The Artist</p>
+    <div class="bio-grid">
+      <img class="bio-avatar" src="mmlogo-card.PNG" alt="Emil D. Gordon Sr. artist avatar" />
+      <div class="bio-text">
+        <h2>Emil D. Gordon, Sr.</h2>
+        <p>Emil D. Gordon, Sr. is a Detroit-rooted artist whose music moves between R&amp;B warmth, soul depth, and hip-hop swagger. Raised on the sounds of a city that built the beat of America, Emil brings an authentic voice that blends old-school sensibility with contemporary edge.</p>
+        <p>His <em>Hear My Music</em> EP established him as a storyteller with range — and now <em>Cruzin'</em> captures that Detroit spirit in full color: lowriders, city lights, and two people making a memory on Woodward Ave.</p>
+        <p>Emil is available for features, collaborations, and live bookings. Fill out the form below to connect.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- CONTACT FORM -->
+  <div class="section reveal">
+    <div class="contact-block">
+      <p class="section-label">Radio · Press · Bookings</p>
+      <h2>Work With Emil</h2>
+      <p class="contact-intro">For radio adds, press features, playlist placements, and live show inquiries — fill out the form and we'll get back to you.</p>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="first_name" placeholder="First" required />
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="last_name" placeholder="Last" required />
+        </div>
+        <div class="form-group full">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group full">
+          <label for="org">Organization / Station / Outlet</label>
+          <input type="text" id="org" name="organization" placeholder="e.g. WJLB 97.9, The Source Mag, Club XYZ" />
+        </div>
+        <div class="form-group full">
+          <label for="inquiry">Type of Inquiry</label>
+          <select id="inquiry" name="inquiry_type" required>
+            <option value="" disabled selected>Select one…</option>
+            <option value="Radio Add">Radio Add / Spin</option>
+            <option value="Press / Blog Feature">Press / Blog Feature</option>
+            <option value="Playlist Placement">Playlist Placement</option>
+            <option value="Live Booking">Live Booking</option>
+            <option value="Collaboration">Collaboration / Feature</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us more about what you have in mind…" required></textarea>
+        </div>
+        <div class="form-group full">
+          <button type="submit" class="btn btn-submit" id="submitBtn">Send Inquiry</button>
+        </div>
+      </form>
+
+      <div class="form-status" id="formStatus"></div>
+
+      <p class="contact-footer-note">
+        Promo by <a href="https://radiomeltdown.com" target="_blank">RadioMeltdown.com</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 Emil D. Gordon, Sr. · Promotion by <a href="https://radiomeltdown.com" target="_blank">RadioMeltdown.com</a>
+  </footer>
+
+  <script>
+    /* ── SCROLL REVEAL ── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* ── THEME TOGGLE ── */
+    function toggleTheme() {
+      const html = document.documentElement;
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch(e) {}
+    }
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch(e) {}
+
+    /* ── FORMSPREE SUBMIT ── */
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      status.textContent = '';
+      status.className = 'form-status';
+
+      const data = new FormData(form);
+
+      try {
+        const res = await fetch('https://formspree.io/f/xojoqqap', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          status.textContent = '✓ Message sent! We\'ll be in touch soon.';
+          status.className = 'form-status success';
+          form.reset();
+        } else {
+          const json = await res.json();
+          const msg = json?.errors?.map(e => e.message).join(', ') || 'Something went wrong.';
+          status.textContent = '✗ ' + msg;
+          status.className = 'form-status error';
+        }
+      } catch (err) {
+        status.textContent = '✗ Network error. Please try again.';
+        status.className = 'form-status error';
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Inquiry';
+    });
+  </script>
+</body>
+</html>
