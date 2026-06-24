@@ -457,3 +457,40 @@ address br {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.2; }
 }
+
+.landing{
+  position: fixed;
+  inset: 0;
+  background: #1a201f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.landing-inner{
+  text-align: center;
+  color: #f3ddc4;
+}
+
+.landing h1{
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.landing button{
+  margin-top: 20px;
+  padding: 12px 22px;
+  border-radius: 30px;
+  border: 1px solid #c9a876;
+  background: transparent;
+  color: #f3ddc4;
+  cursor: pointer;
+}
+
+.landing.hidden{
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.02);
+}
