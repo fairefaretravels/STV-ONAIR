@@ -1100,6 +1100,29 @@
         }
       }
     })();
+    // --- existing init ---
+loadStation();
+
+
+// --- LANDING SYSTEM (ADD THIS HERE) ---
+const landing = document.getElementById('landing');
+const enterBtn = document.getElementById('enterBtn');
+
+enterBtn.addEventListener('click', async () => {
+  landing.classList.add('hidden');
+
+  if (!queue.length) {
+    await loadStation();
+  }
+
+  try {
+    await audio.play();
+    setPlayingUI(true);
+    showLabel(queue[idx]?.name || "station live");
+  } catch (e) {
+    showLabel("tap play if audio doesn’t start");
+  }
+});
   </script>
 </body>
 </html>
