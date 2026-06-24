@@ -1089,20 +1089,7 @@
       <!-- Full-width hero waveform -->
       <canvas id="heroWave"></canvas>
     </div>
-   <button id="startRadio">
-  ENTER RADIO MELTDOWN
-</button>
-
-<audio id="engineSound" preload="auto">
-  <source src="engine.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-document.getElementById('startRadio').onclick = () => {
-  document.getElementById('engineSound').play();
-};
-</script> 
-
+   
     <!-- UTILITY ROW -->
     <div style="background:var(--dark-2);border-bottom:1px solid var(--border);padding:0.5rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;font-size:0.7rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;">
       <div style="display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center;">
@@ -1175,11 +1162,10 @@ document.getElementById('startRadio').onclick = () => {
    class="cruizin-banner">
 
   <div class="road"></div>
-
   <div class="car">🚗</div>
 
   <div class="cruizin-text">
-    CRUIZN’ OUT NOW — CHECK OUT NOW
+    CRUIZN' — OUT NOW
   </div>
 
 </a>
@@ -1196,7 +1182,6 @@ document.getElementById('startRadio').onclick = () => {
   border-bottom: 1px solid rgba(193, 18, 31, 0.25);
 }
 
-/* ROAD LINE */
 .road {
   position: absolute;
   top: 50%;
@@ -1214,17 +1199,15 @@ document.getElementById('startRadio').onclick = () => {
   opacity: 0.5;
 }
 
-/* CAR */
 .car {
   position: absolute;
   top: 35%;
-  left: -50px;
+  right: -50px;
   font-size: 2rem;
-  animation: car-drive 4s linear infinite;
+  animation: car-drive 10s linear infinite;
   filter: drop-shadow(0 0 10px rgba(244, 211, 94, 0.6));
 }
 
-/* TEXT */
 .cruizin-text {
   position: relative;
   text-align: center;
@@ -1235,10 +1218,9 @@ document.getElementById('startRadio').onclick = () => {
   text-shadow: 0 0 10px rgba(193, 18, 31, 0.4);
 }
 
-/* ANIMATIONS */
 @keyframes car-drive {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(120vw); }
+  0%   { transform: scaleX(-1) translateX(0); }
+  100% { transform: scaleX(-1) translateX(120vw); }
 }
 
 @keyframes road-move {
