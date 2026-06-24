@@ -1105,26 +1105,44 @@
     })();
     // --- existing init ---
 loadStation();
+// ===============================
+// PREMIUM ENTRY GATE CONTROLLER
+// ===============================
 
-
-// --- LANDING SYSTEM (ADD THIS HERE) ---
 const landing = document.getElementById('landing');
 const enterBtn = document.getElementById('enterBtn');
 
-enterBtn.addEventListener('click', async () => {
+let hasEntered = false;
+
+async function enterStation(){
+  if (hasEntered) return;
+  hasEntered = true;
+
+  // fade out landing
   landing.classList.add('hidden');
 
+  // ensure station loaded
   if (!queue.length) {
     await loadStation();
   }
 
+  // start audio (browser unlock)
   try {
     await audio.play();
     setPlayingUI(true);
-    showLabel(queue[idx]?.name || "station live");
+    showLabel(queue[idx]?.name || "live station");
   } catch (e) {
-    showLabel("tap play if audio doesn’t start");
+    setPlayingUI(false);
+    showLabel("tap play to continue");
   }
+}
+
+enterBtn.addEventListener('click', enterStation);
+
+// optional: allow click anywhere on landing (premium UX)
+landing.addEventListener('click', (e) => {
+  if (e.target === enterBtn) return;
+  enterStation();
 });
   </script>
 </body>
