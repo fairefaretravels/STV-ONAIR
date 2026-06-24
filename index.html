@@ -1099,6 +1099,61 @@
         <a href="https://www.radiomeltdown.store" target="_blank" rel="noopener noreferrer" style="color:var(--gold);font-weight:600;">Book Us — Bartending &amp; DJ Services</a>
       </div>
     </div>
+    <!-- FULL SITE HYPE BUTTON -->
+<div style="
+  background: linear-gradient(135deg, #07150e 0%, #0d1f16 50%, #07150e 100%);
+  border-bottom: 1px solid var(--border-strong);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+">
+  <a href="https://fairefaretravels.github.io/radiomeltdownorg/"
+     target="_blank"
+     rel="noopener noreferrer"
+     style="
+       display: inline-flex;
+       align-items: center;
+       gap: 0.75rem;
+       background: linear-gradient(90deg, var(--signal) 0%, #a8ff78 50%, var(--gold) 100%);
+       background-size: 200% auto;
+       color: #07150e;
+       font-family: 'Bebas Neue', sans-serif;
+       font-size: 1.3rem;
+       letter-spacing: 0.4em;
+       padding: 0.75rem 2.5rem;
+       border-radius: 2px;
+       text-decoration: none;
+       animation: hype-slide-in 0.7s cubic-bezier(0.16,1,0.3,1) both,
+                  hype-shimmer 2.5s linear 0.7s infinite;
+       box-shadow: 0 0 30px rgba(46,224,122,0.5), 0 0 60px rgba(46,224,122,0.2);
+       position: relative;
+       overflow: hidden;
+     "
+     onmouseover="this.style.boxShadow='0 0 50px rgba(46,224,122,0.9), 0 0 100px rgba(244,211,94,0.4)'; this.style.transform='scale(1.04)'; this.style.transition='all 0.15s';"
+     onmouseout="this.style.boxShadow='0 0 30px rgba(46,224,122,0.5), 0 0 60px rgba(46,224,122,0.2)'; this.style.transform='scale(1)';">
+    <span style="animation: hype-shake 0.5s ease 1.2s 3;">⚡</span>
+    FULL SITE
+    <span style="animation: hype-shake 0.5s ease 1.2s 3;">⚡</span>
+  </a>
+</div>
+
+<style>
+@keyframes hype-slide-in {
+  from { opacity: 0; transform: translateY(-24px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes hype-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+@keyframes hype-shake {
+  0%, 100% { transform: rotate(0deg); }
+  25%       { transform: rotate(-15deg) scale(1.3); }
+  75%       { transform: rotate(15deg) scale(1.3); }
+}
+</style>
 
     <!-- SPOTIFY STRIP -->
     <div style="background:var(--dark-2);border-bottom:1px solid var(--border);padding:0.5rem 1.5rem;">
@@ -1151,27 +1206,107 @@
           </div>
         </div>
 
-        <!-- YOUTUBE LIVE -->
-        <div class="media-card">
-          <div class="media-card-head">
-            <span class="sq sq-signal"></span>
-            <h3>Hyped Up Live Sessions</h3>
-            <small><a href="https://youtube.com/playlist?list=PLf4ZiKBKNEZE&si=jGMWfDXfF-FyMXDo" target="_blank" rel="noopener noreferrer" style="color:var(--signal);text-decoration:none;">Subscribe →</a></small>
-          </div>
-          <div class="media-card-body">
-            <div class="responsive-iframe-container">
-              <iframe src="https://youtube.com/playlist?list=PLf4ZiKBKNEZE&si=jGMWfDXfF-FyMXDo" title="STV Radiomeltdown — Live on YouTube" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
+        <!-- FULL SITE HYPE BUTTON -->
+<<!-- FULL SITE HYPE BUTTON (GOLD + RED BRAND VERSION) -->
+<div class="hype-bar">
+  <a class="hype-button"
+     href="https://fairefaretravels.github.io/radiomeltdownorg/"
+     target="_blank"
+     rel="noopener noreferrer">
+
+    <span class="hype-icon">⚡</span>
+    FULL SITE
+    <span class="hype-icon">⚡</span>
+
+  </a>
+</div>
+
+<style>
+.hype-bar {
+  background: linear-gradient(135deg, #120303 0%, #1a0606 50%, #120303 100%);
+  border-bottom: 1px solid rgba(244, 211, 94, 0.25);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* MAIN BUTTON */
+.hype-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  /* GOLD → RED BRAND GRADIENT */
+  background: linear-gradient(
+    90deg,
+    #b8860b 0%,   /* dark gold */
+    #f4d35e 45%,  /* bright gold */
+    #c1121f 100%  /* deep red */
+  );
+
+  background-size: 200% auto;
+
+  color: #120303;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 0.4em;
+
+  padding: 0.75rem 2.5rem;
+  border-radius: 3px;
+  text-decoration: none;
+
+  box-shadow:
+    0 0 25px rgba(244, 211, 94, 0.35),
+    0 0 55px rgba(193, 18, 31, 0.25);
+
+  animation:
+    hype-slide-in 0.7s cubic-bezier(0.16,1,0.3,1) both,
+    hype-shimmer 2.8s linear 0.7s infinite;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+}
+
+/* HOVER */
+.hype-button:hover {
+  transform: scale(1.04);
+  box-shadow:
+    0 0 45px rgba(244, 211, 94, 0.55),
+    0 0 90px rgba(193, 18, 31, 0.45);
+}
+
+/* ICON PULSE */
+.hype-icon {
+  display: inline-block;
+  animation: hype-shake 0.5s ease 1.2s 3;
+}
+
+/* ANIMATIONS */
+@keyframes hype-slide-in {
+  from { opacity: 0; transform: translateY(-24px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes hype-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes hype-shake {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-15deg) scale(1.3); }
+  75%      { transform: rotate(15deg) scale(1.3); }
+}
+</style>
 
       <!-- VDO NINJA -->
       <div class="media-card" style="margin-bottom:2.5rem;">
         <div class="media-card-head">
           <span class="sq sq-gold"></span>
           <h3>Live Studio — Guest Feed</h3>
-          <small>VDO.Ninja · CH3</small>
+          <small>ON SCENE · CH3</small>
         </div>
         <div class="media-card-body">
           <div class="responsive-iframe-container">
