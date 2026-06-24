@@ -501,3 +501,67 @@ address br {
   transform: scale(1.05);
   filter: blur(8px);
 }
+
+.landing{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: radial-gradient(circle at center, #232b2a 0%, #0f1413 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
+}
+
+.landing-card{
+  text-align: center;
+  color: #f3ddc4;
+  padding: 40px 30px;
+  border: 1px solid rgba(201,168,118,0.25);
+  border-radius: 18px;
+  background: rgba(26,32,31,0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.landing-title{
+  font-size: 22px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.landing-sub{
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: #c9a876;
+}
+
+.enter-btn{
+  margin-top: 25px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 1px solid #c9a876;
+  background: transparent;
+  color: #f3ddc4;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.enter-btn:hover{
+  transform: scale(1.05);
+  background: rgba(201,168,118,0.08);
+}
+
+.landing-note{
+  margin-top: 18px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.landing.hidden{
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.03);
+  filter: blur(10px);
+}
