@@ -494,3 +494,10 @@ address br {
   pointer-events: none;
   transform: scale(1.02);
 }
+
+.landing.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.05);
+  filter: blur(8px);
+}
