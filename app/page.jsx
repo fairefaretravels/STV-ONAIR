@@ -60,7 +60,7 @@ export default function RadioMeltdownPage() {
       <section className={styles.nowPlaying}>
         <div className={styles.albumArt}>
           {/* Replace src with your actual image */}
-          <img src="/album-art.jpg" alt="I'm Off My Meds" />
+          <img src="/Cruizn-promo.png" alt="I'm Off My Meds" />
         </div>
         <div className={styles.trackInfo}>
           <p className={styles.trackTitle}>Season 5 Trailer</p>
