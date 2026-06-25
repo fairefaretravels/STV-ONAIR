@@ -565,3 +565,46 @@ address br {
   transform: scale(1.03);
   filter: blur(10px);
 }
+.cruizin-banner {
+  background: linear-gradient(90deg, #ff1e1e, #ffcc00);
+  padding: 1.2rem;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(255,0,0,0.4);
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.2em;
+  color: #120800;
+}
+
+.road {
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #111,
+    #111 10px,
+    #444 10px,
+    #444 20px
+  );
+  margin-bottom: 10px;
+  animation: roadMove 1s linear infinite;
+}
+
+.car {
+  font-size: 1.8rem;
+  animation: carBounce 1.2s ease-in-out infinite;
+}
+
+.cruizin-text {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* animations */
+@keyframes roadMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-20px); }
+}
+
+@keyframes carBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
