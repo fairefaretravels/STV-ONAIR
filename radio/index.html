@@ -827,8 +827,8 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <iframe
-    src="https://player.cloudinary.com/embed/?cloud_name=dyqfcbgqo&public_id=FROST_THE_BOSS_X_Mz.CANDY_-_MAKE_THIS_CASH_SHOT_BY_MOEHAZE_t74zro"
+  <iframe id="hero-video-frame"
+    src="https://player.cloudinary.com/embed/?cloud_name=dyqfcbgqo&public_id=FROST_THE_BOSS_X_Mz.CANDY_-_MAKE_THIS_CASH_SHOT_BY_MOEHAZE_t74zro&autoplay=true&muted=true&controls=false"
     class="hero-video"
     allow="autoplay; fullscreen; encrypted-media"
     allowfullscreen
@@ -845,6 +845,23 @@
     </button>
   </div>
 </section>
+
+<script>
+  const heroVideos = [
+    "FROST_THE_BOSS_X_Mz.CANDY_-_MAKE_THIS_CASH_SHOT_BY_MOEHAZE_t74zro",
+    "Make_her_wink_background_move_202606201224_smam4i
+    "Love_and_Company_ch1psh.gif"
+    
+  ];
+  let heroIndex = 0;
+  setInterval(() => {
+    heroIndex = (heroIndex + 1) % heroVideos.length;
+    const frame = document.getElementById('hero-video-frame');
+    frame.src = "https://player.cloudinary.com/embed/?cloud_name=dyqfcbgqo&public_id="
+      + heroVideos[heroIndex]
+      + "&autoplay=true&muted=true&controls=false";
+  }, 12000); // switches every 12 seconds
+</script>
 
 <!-- STICKY NAV -->
 <nav class="nav">
