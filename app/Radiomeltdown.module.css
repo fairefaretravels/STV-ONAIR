@@ -1,0 +1,355 @@
+/* RadioMeltdown.module.css
+   All selectors are scoped to this module — zero cascade conflicts. */
+
+/* ── TOKENS ──────────────────────────────────────────── */
+.page {
+  --clr-bg: #0a110a;
+  --clr-panel: #0d1a0d;
+  --clr-green: #2ecc40;
+  --clr-gold: #d4a017;
+  --clr-orange: #e07b00;
+  --clr-red: #c0392b;
+  --clr-text: #e8e8e8;
+  --clr-muted: #7a8a7a;
+  --font-display: "Arial Black", "Impact", sans-serif;
+  --font-body: "Arial", sans-serif;
+
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 480px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 30, 0, 0.7) 100%
+  );
+  overflow: hidden;
+  padding: 48px 24px 32px;
+  text-align: center;
+  border-bottom: 1px dashed rgba(46, 204, 64, 0.3);
+}
+
+/* slow car that drifts across the hero */
+.carTrack {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.car {
+  position: absolute;
+  font-size: 2rem;
+  bottom: 0;
+  /* start off-screen left, drift to off-screen right, very slowly */
+  animation: driftCar 28s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(46, 204, 64, 0.5));
+  transform: scaleX(-1); /* face right */
+}
+
+@keyframes driftCar {
+  0%   { left: -60px; }
+  100% { left: calc(100% + 60px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .car { animation: none; left: 50%; }
+}
+
+.heroBadge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--clr-green);
+  color: #000;
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+
+.heroLocation {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--clr-gold);
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+
+.heroOnAir {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--clr-green);
+  box-shadow: 0 0 8px var(--clr-green);
+  animation: pulse 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* ── META ROW ─────────────────────────────────────────── */
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.metaName {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--clr-muted);
+  text-transform: uppercase;
+}
+
+.metaPhone {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--clr-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.metaPhone:hover {
+  color: var(--clr-green);
+}
+
+/* ── LINKS ROW ────────────────────────────────────────── */
+.links {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px 18px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.linkPlain {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--clr-muted);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.linkPlain:hover {
+  color: var(--clr-text);
+}
+
+.linkUnderline {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--clr-gold);
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+.linkUnderline:hover {
+  color: #fff;
+}
+
+/* ── CTA BUTTON ───────────────────────────────────────── */
+/* 
+  The wrapper IS a full-width flex row so the button is always
+  centred regardless of container width — no margin: auto hacks
+  that can collapse inside flex/grid parents.
+*/
+.ctaWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px 0;
+  box-sizing: border-box;
+}
+
+.ctaButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 420px;
+  padding: 18px 24px;
+  background: linear-gradient(90deg, #f5a623 0%, #e07b00 45%, #c0392b 100%);
+  color: #000;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.15s ease;
+  border-radius: 2px;
+}
+
+.ctaButton:hover {
+  filter: brightness(1.12);
+  transform: scale(1.02);
+}
+
+.ctaButton:active {
+  transform: scale(0.98);
+}
+
+.bolt {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+/* ── FEATURE TRACK ────────────────────────────────────── */
+.featureTrack {
+  background: #1a0505;
+  border-top: 2px solid var(--clr-gold);
+  border-bottom: 2px solid var(--clr-gold);
+  padding: 22px 24px;
+  text-align: center;
+  margin-top: 0;
+}
+
+.featureText {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  color: var(--clr-gold);
+  line-height: 1.45;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.pointer {
+  display: inline-block;
+  animation: nudge 1.2s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(6px); }
+}
+
+/* ── NOW PLAYING ──────────────────────────────────────── */
+.nowPlaying {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--clr-panel);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.albumArt {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #222;
+}
+
+.albumArt img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.trackInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.trackTitle {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trackMeta {
+  font-size: 0.72rem;
+  color: var(--clr-muted);
+  margin: 0 0 2px;
+}
+
+.trackTime {
+  font-size: 0.72rem;
+  color: var(--clr-muted);
+  margin: 0;
+}
+
+.playBtn {
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.playBtn:hover {
+  background: var(--clr-green);
+}
+
+/* ── TIKTOK BANNER ────────────────────────────────────── */
+.tiktokBanner {
+  background: #fff;
+  color: #000;
+  text-align: center;
+  padding: 14px 20px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  font-weight: 900;
+  text-transform: uppercase;
+}
