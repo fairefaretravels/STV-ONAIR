@@ -1135,78 +1135,80 @@
   <span style="animation: hype-shake 0.5s ease 1.2s 3;">⚡</span>
 </a>
     
-<!-- CRUIZN OUT NOW BANNER -->
-<a href="https://youtu.be/R8B3-SPlP18?si=xItJl-YNlyNoQ0_i"
+<!-- CRUIZN OUT NOW BANNER --><a href="https://youtu.be/R8B3-SPlP18?si=xItJl-YNlyNoQ0_i"
    target="_blank"
    rel="noopener noreferrer"
-   class="cruizin-banner"
-   style="display:block; position:relative; overflow:hidden; text-decoration:none;">
+   class="cruizin-banner">
 
   <div class="road"></div>
   <div class="car">🚗</div>
 
   <div class="cruizin-text">
-    EMIL GORDON JR FEAT. RISK - CRUIZN' <span style="font-weight:bold;">Listen 👉 Here</span>
+    EMIL GORDON JR FEAT. RISK - CRUIZN' <span>Listen 👉 Here</span>
   </div>
 
 </a>
 
+</a>
+
 <style>
-.cruizin-banner {
-  position: relative;
+..cruizin-banner {
   display: block;
-  padding: 1.2rem;
-  background: linear-gradient(135deg, #120303, #1a0606);
+  position: relative;
+  height: 120px;
   overflow: hidden;
+  background: #111;
   text-decoration: none;
-  border-top: 1px solid rgba(244, 211, 94, 0.2);
-  border-bottom: 1px solid rgba(193, 18, 31, 0.25);
+  border-radius: 10px;
 }
 
+/* road */
 .road {
   position: absolute;
-  top: 50%;
+  bottom: 25px;
   left: 0;
   width: 200%;
-  height: 2px;
+  height: 4px;
   background: repeating-linear-gradient(
     90deg,
-    rgba(244, 211, 94, 0.8),
-    rgba(244, 211, 94, 0.8) 20px,
+    #555 0px,
+    #555 20px,
     transparent 20px,
     transparent 40px
   );
-  animation: road-move 2.5s linear infinite;
-  opacity: 0.5;
+  animation: roadMove 2s linear infinite;
 }
 
+/* car */
 .car {
   position: absolute;
-  top: 35%;
-  right: -50px;
-  font-size: 2rem;
-  animation: car-drive 8s linear infinite;
-  filter: drop-shadow(0 0 10px rgba(244, 211, 94, 0.6));
+  bottom: 35px;
+  left: -50px;
+  font-size: 28px;
+  z-index: 2;
+  animation: drive 4s linear infinite;
 }
 
+/* text */
 .cruizin-text {
-  position: relative;
-  text-align: center;
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 0.25em;
-  font-size: 1.4rem;
-  color: #f4d35e;
-  text-shadow: 0 0 10px rgba(193, 18, 31, 0.4);
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 14px;
+  z-index: 3;
 }
 
-@keyframes car-drive {
-  0%   { transform: scaleX(-1) translateX(0); }
-  100% { transform: scaleX(-1) translateX(120vw); }
+/* animations */
+@keyframes drive {
+  0% { left: -50px; }
+  100% { left: 110%; }
 }
 
-@keyframes road-move {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+@keyframes roadMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-40px); }
 }
 </style>
     
@@ -1241,7 +1243,7 @@
       </div>
 
       <!-- LIVE STREAMS -->
-      <div class="section-head"><span class="accent-bar"></span><h2>STV Radiomeltdown</h2><p>Live — Watch on Kick or YouTube</p></div>
+      <div class="section-head"><span class="accent-bar"></span><h2>CATCH THE VIBE</h2><p>Live — Watch on Kick or YouTube</p></div>
 
       <div class="two-col" style="margin-bottom:2rem;">
         <!-- KICK -->
@@ -1380,7 +1382,7 @@
 <div class="hype-live-box">
 
   <div class="hype-live-header">
-    🔴🟡 HYPED UP LIVE SESSIONS
+     HYPED UP LIVE SESSIONS
   </div>
 
   <div class="hype-live-player">
