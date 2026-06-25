@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Group Trip Planner — Faire Fare Travels</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600&family=Barlow:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --card: #161616;
+      --border: rgba(200,169,110,0.18);
+      --gold: #c8a96e;
+      --gold-light: #e2c99a;
+      --white: #ffffff;
+      --muted: #888888;
+      --danger: #c0392b;
+      --success: #27ae60;
+      --warning: #e67e22;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--dark);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-back {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* HERO STRIP */
+    .page-hero {
+      background: var(--dark);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+    }
+    .page-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .page-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* LAYOUT */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 5rem;
+    }
+
+    /* SECTION HEADERS */
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+    .section-label span {
+      color: var(--gold);
+      font-size: 1rem;
+      margin-left: 0.5rem;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* FORM ELEMENTS */
+    label {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="email"],
+    select {
+      width: 100%;
+      background: #1a1a1a;
+      border: 1px solid rgba(200,169,110,0.25);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.65rem 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    input:focus, select:focus { border-color: var(--gold); }
+    select option { background: #1a1a1a; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .form-group { margin-bottom: 1rem; }
+    .form-group:last-child { margin-bottom: 0; }
+
+    /* BUTTONS */
+    .btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--black);
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--gold);
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(200,169,110,0.05); }
+    .btn-danger {
+      background: transparent;
+      border: 1px solid rgba(192,57,43,0.3);
+      color: #e74c3c;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.7rem;
+    }
+    .btn-danger:hover { background: rgba(192,57,43,0.1); }
+    .btn-sm {
+      padding: 0.45rem 1rem;
+      font-size: 0.72rem;
+    }
+
+    /* TRAVELER CARDS */
+    .traveler-list { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .traveler-card {
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 1rem;
+    }
+    .traveler-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .traveler-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .traveler-actions { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+
+    /* STATUS BADGES */
+    .badge {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+    .badge-paid { background: rgba(39,174,96,0.15); color: #2ecc71; border: 1px solid rgba(39,174,96,0.3); }
+    .badge-pending { background: rgba(230,126,34,0.15); color: #f39c12; border: 1px solid rgba(230,126,34,0.3); }
+    .badge-atrisk { background: rgba(192,57,43,0.15); color: #e74c3c; border: 1px solid rgba(192,57,43,0.3); }
+
+    /* BUDGET */
+    .budget-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .budget-item {
+      background: #1a1a1a;
+      border: 1px solid var(--border);
+      padding: 1rem;
+    }
+    .budget-item-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .budget-item-input {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .budget-symbol {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      color: var(--gold);
+    }
+    .budget-item input[type="number"] {
+      padding: 0.4rem 0.6rem;
+      font-size: 1rem;
+    }
+
+    /* TOTALS BAR */
+    .totals-bar {
+      background: #1a1a1a;
+      border: 1px solid var(--gold);
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .total-item-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .total-item-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+    }
+
+    /* CATERING TOGGLE */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .toggle-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .toggle-btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toggle-btn.active {
+      background: var(--gold);
+      color: var(--black);
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+    .catering-result {
+      background: #1a1a1a;
+      border-left: 3px solid var(--gold);
+      padding: 1rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .catering-result strong { color: var(--gold); font-weight: 500; }
+
+    /* REMINDER SECTION */
+    .reminder-box {
+      background: rgba(192,57,43,0.08);
+      border: 1px solid rgba(192,57,43,0.25);
+      padding: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .reminder-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #e74c3c;
+      margin-bottom: 0.5rem;
+    }
+    .reminder-text {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+      font-style: italic;
+      background: #1a1a1a;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(200,169,110,0.1);
+    }
+
+    /* SUMMARY CARD */
+    .summary-card {
+      background: var(--dark);
+      border: 1px solid var(--gold);
+      padding: 2rem;
+    }
+    .summary-trip-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .summary-meta {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .summary-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1.25rem 0;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(200,169,110,0.06);
+    }
+    .summary-row-label { color: var(--muted); }
+    .summary-row-value { color: var(--white); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.05em; }
+    .summary-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      margin-top: 0.5rem;
+    }
+    .summary-total-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+    }
+    .summary-total-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+    }
+    .summary-traveler-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(200,169,110,0.06);
+    }
+
+    /* GOLD RULE */
+    .gold-rule {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2.5rem 0;
+    }
+    .gold-rule::before, .gold-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.3;
+    }
+    .gold-rule-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .mt1 { margin-top: 1rem; }
+    .mt2 { margin-top: 1.5rem; }
+    .flex-end { display: flex; justify-content: flex-end; gap: 0.75rem; flex-wrap: wrap; }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      border: 1px dashed rgba(200,169,110,0.15);
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .budget-grid { grid-template-columns: 1fr; }
+      .totals-bar { grid-template-columns: 1fr; }
+      .container { padding: 1.5rem 1rem 4rem; }
+      nav { padding: 0.9rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Faire<span>Fare</span> Travels</a>
+  <a href="index.html" class="nav-back">← Back to Site</a>
+</nav>
+
+<div class="page-hero">
+  <p class="page-eyebrow">Faire Fare Travels</p>
+  <h1 class="page-title">Group Trip Planner</h1>
+  <p class="page-sub">Cruises · Reunions · Couples · Friends & Family</p>
+</div>
+
+<div class="container">
+
+  <!-- TRIP DETAILS -->
+  <div class="section-head">
+    <div class="section-label">Trip Details</div>
+  </div>
+  <div class="card">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Trip Name</label>
+        <input type="text" id="tripName" placeholder="e.g. Jackson Family Reunion 2025" />
+      </div>
+      <div class="form-group">
+        <label>Destination</label>
+        <input type="text" id="tripDest" placeholder="e.g. Caribbean Cruise" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Departure Date</label>
+        <input type="date" id="tripDate" />
+      </div>
+      <div class="form-group">
+        <label>Cruise Line / Resort (optional)</label>
+        <input type="text" id="tripVendor" placeholder="e.g. Carnival, Royal Caribbean" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Deposit Deadline</label>
+        <input type="date" id="depositDeadline" />
+      </div>
+      <div class="form-group">
+        <label>Final Payment Deadline</label>
+        <input type="date" id="finalDeadline" />
+      </div>
+    </div>
+  </div>
+
+  <div class="gold-rule"><span class="gold-rule-text">Travelers</span></div>
+
+  <!-- TRAVELERS -->
+  <div class="section-head">
+    <div class="section-label">Travelers <span id="travelerCount">0</span></div>
+  </div>
+
+  <div id="travelerList" class="traveler-list">
+    <div class="empty-state">No travelers added yet</div>
+  </div>
+
+  <div class="card">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="newName" placeholder="Name" />
+      </div>
+      <div class="form-group">
+        <label>Room Type</label>
+        <select id="newRoom">
+          <option value="Couple">Couple</option>
+          <option value="Solo Share">Solo Share (shared room)</option>
+          <option value="Single Occupancy">Single Occupancy</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Deposit Status</label>
+        <select id="newStatus">
+          <option value="paid">Paid</option>
+          <option value="pending">Pending</option>
+          <option value="atrisk">At Risk</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Amount Paid ($)</label>
+        <input type="number" id="newPaid" placeholder="0" min="0" />
+      </div>
+    </div>
+    <div class="flex-end">
+      <button class="btn btn-gold" onclick="addTraveler()">+ Add Traveler</button>
+    </div>
+  </div>
+
+  <div class="gold-rule"><span class="gold-rule-text">Budget</span></div>
+
+  <!-- BUDGET -->
+  <div class="section-head">
+    <div class="section-label">Trip Budget</div>
+  </div>
+
+  <div class="totals-bar" id="totalsBar">
+    <div>
+      <div class="total-item-label">Total Budget</div>
+      <div class="total-item-value" id="totalBudget">$0</div>
+    </div>
+    <div>
+      <div class="total-item-label">Collected</div>
+      <div class="total-item-value" id="totalCollected">$0</div>
+    </div>
+    <div>
+      <div class="total-item-label">Remaining</div>
+      <div class="total-item-value" id="totalRemaining">$0</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="budget-grid">
+      <div class="budget-item">
+        <div class="budget-item-label">Cruise / Cabin</div>
+        <div class="budget-item-input">
+          <span class="budget-symbol">$</span>
+          <input type="number" id="bCabin" placeholder="0" min="0" onchange="updateBudget()" />
+        </div>
+      </div>
+      <div class="budget-item">
+        <div class="budget-item-label">Excursions</div>
+        <div class="budget-item-input">
+          <span class="budget-symbol">$</span>
+          <input type="number" id="bExcursions" placeholder="0" min="0" onchange="updateBudget()" />
+        </div>
+      </div>
+      <div class="budget-item">
+        <div class="budget-item-label">Food & Drinks</div>
+        <div class="budget-item-input">
+          <span class="budget-symbol">$</span>
+          <input type="number" id="bFood" placeholder="0" min="0" onchange="updateBudget()" />
+        </div>
+      </div>
+      <div class="budget-item">
+        <div class="budget-item-label">Transport / Uber</div>
+        <div class="budget-item-input">
+          <span class="budget-symbol">$</span>
+          <input type="number" id="bTransport" placeholder="0" min="0" onchange="updateBudget()" />
+        </div>
+      </div>
+      <div class="budget-item">
+        <div class="budget-item-label">Gratuities</div>
+        <div class="budget-item-input">
+          <span class="budget-symbol">$</span>
+          <input type="number" id="bGratuity" placeholder="0" min="0" onchange="updateBudget()" />
+        </div>
+      </div>
+      <div class="budget-item">
+        <div class="budget-item-label">Misc / Emergency</div>
+        <div class="budget-item-input">
+          <span class="budget-symbol">$</span>
+          <input type="number" id="bMisc" placeholder="0" min="0" onchange="updateBudget()" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gold-rule"><span class="gold-rule-text">Dining Options</span></div>
+
+  <!-- CATERING VS DINING -->
+  <div class="section-head">
+    <div class="section-label">Catering vs. Dining Out</div>
+  </div>
+  <div class="card">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Number of Meals to Compare</label>
+        <input type="number" id="mealCount" placeholder="e.g. 3" min="1" max="20" value="3" />
+      </div>
+      <div class="form-group">
+        <label>Group Size</label>
+        <input type="number" id="mealGroup" placeholder="e.g. 10" min="1" value="10" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Est. Cost Per Person — Restaurant ($)</label>
+        <input type="number" id="restCost" placeholder="e.g. 45" min="0" value="45" />
+      </div>
+      <div class="form-group">
+        <label>Est. Catering Cost Per Person ($)</label>
+        <input type="number" id="caterCost" placeholder="e.g. 28" min="0" value="28" />
+      </div>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label">Show:</span>
+      <button class="toggle-btn active" id="toggleBoth" onclick="setDiningToggle('both')">Both</button>
+      <button class="toggle-btn" id="toggleRest" onclick="setDiningToggle('restaurant')">Restaurant</button>
+      <button class="toggle-btn" id="toggleCater" onclick="setDiningToggle('catering')">Catering</button>
+    </div>
+    <div id="diningResult" class="catering-result"></div>
+    <div class="flex-end mt1">
+      <button class="btn btn-outline btn-sm" onclick="calcDining()">Calculate</button>
+    </div>
+  </div>
+
+  <div class="gold-rule"><span class="gold-rule-text">At-Risk Reminders</span></div>
+
+  <!-- REMINDERS -->
+  <div class="section-head">
+    <div class="section-label">Reminder Messages</div>
+  </div>
+  <div id="reminderSection">
+    <div class="empty-state">No at-risk travelers — you're good!</div>
+  </div>
+
+  <div class="gold-rule"><span class="gold-rule-text">Trip Summary</span></div>
+
+  <!-- SUMMARY -->
+  <div class="section-head">
+    <div class="section-label">Summary Card</div>
+  </div>
+  <div id="summaryCard" class="summary-card">
+    <div class="summary-trip-name" id="sumName">Trip Name</div>
+    <div class="summary-meta" id="sumMeta">Destination · Date</div>
+    <div class="summary-divider"></div>
+    <div id="sumTravelers"></div>
+    <div class="summary-divider"></div>
+    <div id="sumBudget"></div>
+    <div class="summary-total-row">
+      <div class="summary-total-label">Total Trip Budget</div>
+      <div class="summary-total-value" id="sumTotal">$0</div>
+    </div>
+  </div>
+
+  <div class="flex-end mt2">
+    <button class="btn btn-outline" onclick="window.print()">Print / Save Summary</button>
+    <button class="btn btn-gold" onclick="generateSummary()">Update Summary</button>
+  </div>
+
+</div>
+
+<script>
+  let travelers = [];
+  let diningMode = 'both';
+
+  function addTraveler() {
+    const name = document.getElementById('newName').value.trim();
+    if (!name) { alert('Please enter a name.'); return; }
+    const room = document.getElementById('newRoom').value;
+    const status = document.getElementById('newStatus').value;
+    const paid = parseFloat(document.getElementById('newPaid').value) || 0;
+    travelers.push({ id: Date.now(), name, room, status, paid });
+    document.getElementById('newName').value = '';
+    document.getElementById('newPaid').value = '';
+    renderTravelers();
+    updateBudget();
+    renderReminders();
+    generateSummary();
+  }
+
+  function removeTraveler(id) {
+    travelers = travelers.filter(t => t.id !== id);
+    renderTravelers();
+    updateBudget();
+    renderReminders();
+    generateSummary();
+  }
+
+  function toggleStatus(id) {
+    const t = travelers.find(t => t.id === id);
+    if (!t) return;
+    const cycle = ['pending', 'paid', 'atrisk'];
+    t.status = cycle[(cycle.indexOf(t.status) + 1) % cycle.length];
+    renderTravelers();
+    renderReminders();
+    generateSummary();
+  }
+
+  function renderTravelers() {
+    const list = document.getElementById('travelerList');
+    document.getElementById('travelerCount').textContent = travelers.length;
+    if (travelers.length === 0) {
+      list.innerHTML = '<div class="empty-state">No travelers added yet</div>';
+      return;
+    }
+    list.innerHTML = travelers.map(t => `
+      <div class="traveler-card">
+        <div>
+          <div class="traveler-name">${t.name}</div>
+          <div class="traveler-meta">${t.room} · Paid: $${t.paid.toLocaleString()}</div>
+        </div>
+        <div class="traveler-actions">
+          <span class="badge badge-${t.status}">${t.status === 'atrisk' ? 'At Risk' : t.status.charAt(0).toUpperCase() + t.status.slice(1)}</span>
+          <button class="btn btn-outline btn-sm" onclick="toggleStatus(${t.id})">Toggle</button>
+          <button class="btn btn-danger btn-sm" onclick="removeTraveler(${t.id})">Remove</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function getVal(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+  function updateBudget() {
+    const total = getVal('bCabin') + getVal('bExcursions') + getVal('bFood') + getVal('bTransport') + getVal('bGratuity') + getVal('bMisc');
+    const collected = travelers.reduce((s, t) => s + t.paid, 0);
+    const remaining = Math.max(0, total - collected);
+    document.getElementById('totalBudget').textContent = '$' + total.toLocaleString();
+    document.getElementById('totalCollected').textContent = '$' + collected.toLocaleString();
+    document.getElementById('totalRemaining').textContent = '$' + remaining.toLocaleString();
+    generateSummary();
+  }
+
+  function setDiningToggle(mode) {
+    diningMode = mode;
+    ['Both','Rest','Cater'].forEach(k => document.getElementById('toggle'+k).classList.remove('active'));
+    const map = { both: 'toggleBoth', restaurant: 'toggleRest', catering: 'toggleCater' };
+    document.getElementById(map[mode]).classList.add('active');
+    calcDining();
+  }
+
+  function calcDining() {
+    const meals = getVal('mealCount') || 3;
+    const group = getVal('mealGroup') || travelers.length || 1;
+    const rest = getVal('restCost');
+    const cater = getVal('caterCost');
+    const restTotal = meals * group * rest;
+    const caterTotal = meals * group * cater;
+    const savings = restTotal - caterTotal;
+    let html = '';
+    if (diningMode === 'both' || diningMode === 'restaurant') {
+      html += `<strong>Dining Out:</strong> ${meals} meals × ${group} people × $${rest}/person = <strong>$${restTotal.toLocaleString()}</strong><br>`;
+    }
+    if (diningMode === 'both' || diningMode === 'catering') {
+      html += `<strong>Catering:</strong> ${meals} meals × ${group} people × $${cater}/person = <strong>$${caterTotal.toLocaleString()}</strong><br>`;
+    }
+    if (diningMode === 'both' && savings > 0) {
+      html += `<br>Catering saves the group <strong>$${savings.toLocaleString()}</strong> — that's <strong>$${Math.round(savings/group).toLocaleString()}/person</strong>.`;
+    }
+    document.getElementById('diningResult').innerHTML = html || 'Enter values above and hit Calculate.';
+  }
+
+  function renderReminders() {
+    const atRisk = travelers.filter(t => t.status === 'atrisk');
+    const section = document.getElementById('reminderSection');
+    if (atRisk.length === 0) {
+      section.innerHTML = '<div class="empty-state">No at-risk travelers — you\'re good!</div>';
+      return;
+    }
+    const tripName = document.getElementById('tripName').value || 'our group trip';
+    const deadline = document.getElementById('depositDeadline').value
+      ? new Date(document.getElementById('depositDeadline').value).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+      : 'soon';
+    section.innerHTML = atRisk.map(t => `
+      <div class="reminder-box">
+        <div class="reminder-name">⚠ ${t.name} — At Risk of Losing Slot</div>
+        <div class="reminder-text">Hey ${t.name.split(' ')[0]}! Just a friendly reminder that your deposit for ${tripName} is due by ${deadline}. We don't want you to lose your spot — the group isn't the same without you! Please confirm your payment as soon as possible. Reply if you have questions. 🚢✨</div>
+        <button class="btn btn-outline btn-sm" onclick="copyReminder(${t.id})">Copy Message</button>
+      </div>
+    `).join('');
+  }
+
+  function copyReminder(id) {
+    const t = travelers.find(t => t.id === id);
+    if (!t) return;
+    const tripName = document.getElementById('tripName').value || 'our group trip';
+    const deadline = document.getElementById('depositDeadline').value
+      ? new Date(document.getElementById('depositDeadline').value).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+      : 'soon';
+    const msg = `Hey ${t.name.split(' ')[0]}! Just a friendly reminder that your deposit for ${tripName} is due by ${deadline}. We don't want you to lose your spot — the group isn't the same without you! Please confirm your payment as soon as possible. Reply if you have questions. 🚢✨`;
+    navigator.clipboard.writeText(msg).then(() => alert('Message copied! Paste into text or email.'));
+  }
+
+  function generateSummary() {
+    const name = document.getElementById('tripName').value || 'Untitled Trip';
+    const dest = document.getElementById('tripDest').value || 'TBD';
+    const date = document.getElementById('tripDate').value
+      ? new Date(document.getElementById('tripDate').value).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+      : 'Date TBD';
+    const vendor = document.getElementById('tripVendor').value;
+
+    document.getElementById('sumName').textContent = name;
+    document.getElementById('sumMeta').textContent = `${dest}${vendor ? ' · ' + vendor : ''} · ${date}`;
+
+    const tHTML = travelers.length === 0
+      ? '<div style="color:#888;font-size:0.85rem;padding:0.5rem 0;">No travelers added yet</div>'
+      : travelers.map(t => `
+        <div class="summary-traveler-row">
+          <span>${t.name} <span style="color:#666;font-size:0.8rem;">(${t.room})</span></span>
+          <span><span class="badge badge-${t.status}" style="margin-right:0.5rem">${t.status === 'atrisk' ? 'At Risk' : t.status.charAt(0).toUpperCase() + t.status.slice(1)}</span>$${t.paid.toLocaleString()}</span>
+        </div>
+      `).join('');
+    document.getElementById('sumTravelers').innerHTML = tHTML;
+
+    const cats = [
+      ['Cruise / Cabin', 'bCabin'],
+      ['Excursions', 'bExcursions'],
+      ['Food & Drinks', 'bFood'],
+      ['Transport', 'bTransport'],
+      ['Gratuities', 'bGratuity'],
+      ['Misc', 'bMisc'],
+    ];
+    const total = cats.reduce((s, [, id]) => s + getVal(id), 0);
+    const bHTML = cats.filter(([, id]) => getVal(id) > 0).map(([label, id]) => `
+      <div class="summary-row">
+        <span class="summary-row-label">${label}</span>
+        <span class="summary-row-value">$${getVal(id).toLocaleString()}</span>
+      </div>
+    `).join('');
+    document.getElementById('sumBudget').innerHTML = bHTML || '<div style="color:#888;font-size:0.85rem;padding:0.5rem 0;">No budget entered yet</div>';
+    document.getElementById('sumTotal').textContent = '$' + total.toLocaleString();
+  }
+
+  calcDining();
+  generateSummary();
+</script>
+</body>
+</html>
