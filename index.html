@@ -1105,69 +1105,111 @@
 
   <!-- ══════════ VIEW: RADIO ══════════ -->
   <div class="view active" id="view-radio">
-
     <!-- HERO -->
     <div class="radio-hero">
-  <video id="heroVid1" autoplay muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.45;transition:opacity 1s ease;">
-    <source src="blades1.mp4" type="video/mp4"/>
-  </video>
-  <video id="heroVid2" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-    <video id="heroVid2" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-  <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/FROST_THE_BOSS_X_Mz.CANDY_-_MAKE_THIS_CASH_SHOT_BY_MOEHAZE_t74zro.mp4" type="video/mp4"/>
-</video>
-    <video id="heroVid3" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-    <video id="heroVid3" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-  <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/v12300gd0001d670e7nog65un3okooh0_idxylx.mp4" type="video/mp4"/>
-</video>
-      <video id="heroVid4" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-    <video id="heroVid4" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-  <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/MMslide_eqqhtb.mp4" type="video/mp4"/>
-</video>
-        <video id="heroVid5" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-    <video id="heroVid5" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-  <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/Make_her_wink_background_move_202606201224_smam4i" type="video/mp4"/>
-</video>
-         <video id="heroVid6" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-    <video id="heroVid6" muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
-  <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/griffclip1_phzl8w" type="video/mp4"/>
-</video> 
-  </video>
-  <div class="radio-hero-overlay"></div>
-  <div class="radio-hero-content">
-    <div class="hero-station-name">SanecaTV RADIOMELTDOWN</div>
-    <div class="hero-location">Live From Lithonia, Georgia</div>
-    <div class="hero-on-air">
-      <span class="blink-dot"></span>
-      ON AIR
+        <video id="heroVid1" autoplay muted playsinline loop
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.45;transition:opacity 1s ease;">
+            <source src="blades1.mp4" type="video/mp4">
+        </video>
+
+        <video id="heroVid2" muted playsinline loop
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
+            <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/FROST_THE_BOSS_X_Mz.CANDY_-_MAKE_THIS_CASH_SHOT_BY_MOEHAZE_t74zro.mp4" type="video/mp4">
+        </video>
+
+        <video id="heroVid3" muted playsinline loop
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
+            <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/v12300gd0001d670e7nog65un3okooh0_idxylx.mp4" type="video/mp4">
+        </video>
+
+        <video id="heroVid4" muted playsinline loop
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
+            <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/MMslide_eqqhtb.mp4" type="video/mp4">
+        </video>
+
+        <video id="heroVid5" muted playsinline loop
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
+            <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/Make_her_wink_background_move_202606201224_smam4i.mp4" type="video/mp4">
+        </video>
+
+        <video id="heroVid6" muted playsinline loop
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;">
+            <source src="https://res.cloudinary.com/dyqfcbgqo/video/upload/griffclip1_phzl8w.mp4" type="video/mp4">
+        </video>
+
+        <div class="radio-hero-overlay"></div>
+        <div class="radio-hero-content">
+            <div class="hero-station-name">SanecaTV RADIOMELTDOWN</div>
+            <div class="hero-location">Live From Lithonia, Georgia</div>
+            <div class="hero-on-air">
+                <span class="blink-dot"></span>
+                ON AIR
+            </div>
+        </div>
+        <canvas id="heroWave"></canvas>
     </div>
-  </div>
-  <canvas id="heroWave"></canvas>
-</div>
 
-  <script>
-(function() {
-  const v1 = document.getElementById('heroVid1');
-  const v2 = document.getElementById('heroVid2');
-  let onV1 = true;
+    <script>
+        (function () {
+            const videos = [
+                document.getElementById('heroVid1'),
+                document.getElementById('heroVid2'),
+                document.getElementById('heroVid3'),
+                document.getElementById('heroVid4'),
+                document.getElementById('heroVid5'),
+                document.getElementById('heroVid6')
+            ];
 
-  v1.addEventListener('ended', () => {
-    v2.currentTime = 0;
-    v2.play();
-    v2.style.opacity = '0.45';
-    v1.style.opacity = '0';
-    onV1 = false;
-  });
+            const ACTIVE_OPACITY = 0.45;
+            const SWITCH_INTERVAL = 8000; // ms each video stays on screen
+            const FADE_DURATION = 1000;   // ms, matches CSS transition
 
-  v2.addEventListener('ended', () => {
-    v1.currentTime = 0;
-    v1.play();
-    v1.style.opacity = '0.45';
-    v2.style.opacity = '0';
-    onV1 = true;
-  });
-})();
-   <script>
-     
+            let currentIndex = 0;
+
+            // Preload all videos so they're ready to play instantly when swapped in
+            videos.forEach(v => {
+                v.load();
+                v.currentTime = 0;
+            });
+
+            function showVideo(index) {
+                videos.forEach((v, i) => {
+                    if (i === index) {
+                        v.style.opacity = ACTIVE_OPACITY;
+                        // Restart from beginning each time it becomes active
+                        v.currentTime = 0;
+                        const playPromise = v.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(err => {
+                                console.warn(`heroVid${i + 1} failed to play:`, err);
+                            });
+                        }
+                    } else {
+                        v.style.opacity = 0;
+                    }
+                });
+            }
+
+            function cycleVideos() {
+                const nextIndex = (currentIndex + 1) % videos.length;
+                showVideo(nextIndex);
+
+                // Pause the outgoing video after its fade-out completes
+                const outgoingIndex = currentIndex;
+                setTimeout(() => {
+                    if (outgoingIndex !== nextIndex) {
+                        videos[outgoingIndex].pause();
+                    }
+                }, FADE_DURATION);
+
+                currentIndex = nextIndex;
+            }
+
+            // Kick things off: vid1 is already playing/visible via autoplay
+            setInterval(cycleVideos, SWITCH_INTERVAL);
+        })();
+    </script>
+ 
     <!-- UTILITY ROW -->
     <div style="background:var(--dark-2);border-bottom:1px solid var(--border);padding:0.5rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;font-size:0.7rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;">
       <div style="display:flex;gap:1.25rem;flex-wrap:wrap;align-items:center;">
