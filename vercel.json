@@ -1,8 +1,13 @@
 {
   "rewrites": [
-    {
-      "source": "/watch",
-      "destination": "/watch.html"
-    }
+    { "source": "/watch", "destination": "/watch.html" },
+    { "source": "/news", "destination": "/news.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/schedule", "destination": "/schedule.html" },
+    { "source": "/listen", "destination": "/listen.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/advertise", "destination": "/advertise.html" }
   ]
 }
