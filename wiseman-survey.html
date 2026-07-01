@@ -3,488 +3,879 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Services Rendered</title>
+<title>THE WISE MAN — Now Streaming on XOCO NETWORK</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --ink:        #0d0c0b;
-    --parchment:  #f5f0e8;
-    --gold:       #b8922a;
-    --gold-light: #d4aa4a;
-    --dim:        #6b6560;
-    --rule:       #d6cfc4;
-    --white:      #ffffff;
+:root {
+  --red:       #E50914;
+  --red-dark:  #b20710;
+  --gold:      #c8a245;
+  --gold-pale: #e8d5a0;
+  --white:     #ffffff;
+  --offwhite:  #e5e5e5;
+  --ink:       #000000;
+  --surface:   #141414;
+  --muted:     #999999;
+  --text:      #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4%;
+  height: 68px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+  transition: background 0.4s;
+}
+nav.scrolled {
+  background: rgba(0,0,0,0.98);
+}
+
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  line-height: 1;
+  gap: 2px;
+}
+.nav-logo-main {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--red);
+  text-transform: uppercase;
+  line-height: 1;
+}
+.nav-logo-sub {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  color: var(--offwhite);
+  text-transform: uppercase;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--offwhite);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--white); }
+
+@media (min-width: 1800px) {
+  nav { height: 88px; padding: 0 5%; }
+  .nav-logo-main { font-size: 2.6rem; }
+  .nav-logo-sub { font-size: 0.65rem; }
+  .nav-link { font-size: 1.05rem; }
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 650px;
+  max-height: 1080px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .hero { min-height: 750px; }
+}
+
+/* Cinematic placeholder background — swap for a real photo/video later.
+   To use a photo: add background-image: url('your-file.jpg'); background-size: cover; background-position: center;
+   To use a video loop: uncomment the <video> tag in the HTML below. */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 50% at 25% 15%, rgba(200,162,69,0.16), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 75% 85%, rgba(229,9,20,0.14), transparent 60%),
+    linear-gradient(160deg, #0c0a08 0%, #1a140f 45%, #0a0a0a 100%);
+}
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+}
+
+/* Netflix-style gradient: strong bottom-fade, left-fade */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top,
+      rgba(0,0,0,1)    0%,
+      rgba(0,0,0,0.85) 20%,
+      rgba(0,0,0,0.4)  50%,
+      rgba(0,0,0,0.1)  75%,
+      transparent      100%),
+    linear-gradient(to right,
+      rgba(0,0,0,0.85) 0%,
+      rgba(0,0,0,0.5)  40%,
+      transparent      70%);
+}
+
+.dust-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+.mote {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(232,213,160,0.5);
+  animation: float-up linear infinite;
+}
+@keyframes float-up {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateY(-90vh) translateX(var(--drift)); opacity: 0; }
+}
+
+/* ─── HERO CONTENT ─── */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  padding: 0 4% 6vh;
+  max-width: 900px;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .hero-content { padding: 0 5% 8vh; max-width: 780px; }
+}
+@media (min-width: 1400px) {
+  .hero-content { padding: 0 5% 7vh; max-width: 1000px; }
+}
+@media (min-width: 1800px) {
+  .hero-content { padding: 0 6% 9vh; max-width: 1200px; }
+}
+
+.eyebrow {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: var(--red);
+}
+
+@media (min-width: 768px) {
+  .eyebrow { font-size: 1rem; margin-bottom: 20px; }
+}
+@media (min-width: 1800px) {
+  .eyebrow { font-size: 1.2rem; margin-bottom: 26px; }
+  .eyebrow::before { width: 52px; }
+}
+
+.film-title {
+  font-weight: 900;
+  font-size: clamp(4.5rem, 11vw, 9rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  text-shadow: 0 4px 40px rgba(0,0,0,0.9);
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+.film-title em {
+  display: block;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 0.3em;
+  letter-spacing: 0.5em;
+  color: var(--gold);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .film-title { font-size: clamp(4.5rem, 9vw, 7rem); }
+}
+@media (min-width: 1800px) {
+  .film-title { font-size: clamp(8rem, 9vw, 13rem); margin-bottom: 40px; }
+}
+
+.film-tagline {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  color: var(--offwhite);
+  line-height: 1.55;
+  max-width: 620px;
+  margin-bottom: 36px;
+}
+
+@media (min-width: 1800px) {
+  .film-tagline {
+    font-size: clamp(1.4rem, 1.6vw, 2rem);
+    max-width: 800px;
+    margin-bottom: 50px;
   }
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.meta-tag {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--offwhite);
+  text-transform: uppercase;
+}
+.meta-sep { color: rgba(255,255,255,0.3); font-size: 1rem; }
+.meta-badge {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  border: 2px solid rgba(255,255,255,0.5);
+  padding: 3px 10px;
+  text-transform: uppercase;
+}
 
-  body {
-    background: var(--ink);
-    color: var(--parchment);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-  }
+@media (min-width: 1800px) {
+  .meta-tag { font-size: 1.15rem; }
+  .meta-badge { font-size: 0.95rem; padding: 4px 14px; }
+  .meta-row { gap: 20px; margin-bottom: 56px; }
+}
 
-  /* ── HEADER ── */
-  header {
-    text-align: center;
-    padding: 56px 24px 40px;
-    border-bottom: 1px solid rgba(184,146,42,.25);
-    background: linear-gradient(180deg, #1a1610 0%, var(--ink) 100%);
-  }
+.cta-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 
-  .eyebrow {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 44px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  border-radius: 4px;
+}
+.btn-primary:hover {
+  background: var(--red-dark);
+  transform: scale(1.03);
+}
 
-  header h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: clamp(2.4rem, 6vw, 4rem);
-    line-height: 1.1;
-    letter-spacing: .02em;
-  }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.15);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border: 2px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: var(--white);
+}
 
-  header h1 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
+@media (min-width: 1800px) {
+  .btn-primary { font-size: 1.2rem; padding: 20px 60px; }
+  .btn-outline  { font-size: 1.2rem; padding: 20px 52px; }
+  .cta-row { gap: 22px; }
+}
 
-  header p {
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--dim);
-    letter-spacing: .04em;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.5;
+}
+.scroll-hint span {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.45em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+.scroll-arrow {
+  width: 20px; height: 20px;
+  border-right: 2px solid var(--white);
+  border-bottom: 2px solid var(--white);
+  transform: rotate(45deg);
+  animation: bounce 2s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50%       { transform: rotate(45deg) translateY(5px); }
+}
 
-  /* ── FORM WRAPPER ── */
-  .form-wrap {
-    max-width: 680px;
+/* ─── PLAYER SECTION ─── */
+.player-section {
+  background: var(--ink);
+  padding: 0;
+}
+@media (min-width: 1800px) {
+  .player-section { padding: 0 4%; background: var(--ink); }
+}
+
+.player-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  background: #000;
+  cursor: pointer;
+}
+@media (min-width: 1800px) {
+  .player-wrap {
+    max-width: 1600px;
     margin: 0 auto;
-    padding: 48px 24px 72px;
+    padding-top: min(56.25%, 900px);
   }
+}
 
-  /* ── SECTIONS ── */
-  .section {
-    margin-bottom: 48px;
+.player-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  border: none;
+}
+.player-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.7);
+  gap: 20px;
+  transition: opacity 0.4s;
+}
+.player-overlay.hidden { opacity: 0; pointer-events: none; }
+
+.play-btn {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  background: rgba(229,9,20,0.25);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.play-btn:hover {
+  background: rgba(229,9,20,0.6);
+  transform: scale(1.08);
+}
+.play-btn svg { margin-left: 6px; }
+
+@media (min-width: 768px) {
+  .play-btn { width: 110px; height: 110px; }
+}
+@media (min-width: 1800px) {
+  .play-btn { width: 150px; height: 150px; border-width: 4px; }
+  .play-btn svg { width: 50px; height: 50px; margin-left: 8px; }
+}
+
+.play-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+@media (min-width: 768px) { .play-label { font-size: 1rem; } }
+@media (min-width: 1800px) { .play-label { font-size: 1.3rem; } }
+
+/* ─── DETAILS SECTION (searchlights now live here, very subtle) ─── */
+.details-section {
+  position: relative;
+  background: var(--surface);
+  max-width: 100%;
+  padding: 72px 6% 80px;
+  overflow: hidden;
+}
+
+@media (min-width: 1400px) {
+  .details-section { padding: 88px 8% 100px; }
+}
+@media (min-width: 1800px) {
+  .details-section { padding: 110px 10% 130px; }
+}
+
+/* Subtle searchlight canvas, sits behind the content of the About section */
+#searchlight {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: soft-light;
+  opacity: 0.16;
+}
+
+.details-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.section-rule {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 52px;
+}
+.rule-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(to right, var(--red), transparent);
+}
+.rule-label {
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.45em;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+@media (min-width: 1800px) {
+  .rule-label { font-size: 0.95rem; }
+  .section-rule { margin-bottom: 72px; }
+}
+
+.synopsis {
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--offwhite);
+  max-width: 800px;
+  margin-bottom: 64px;
+  border-left: 4px solid var(--red);
+  padding-left: 28px;
+}
+
+@media (min-width: 1800px) {
+  .synopsis {
+    font-size: clamp(1.3rem, 1.5vw, 1.75rem);
+    max-width: 1100px;
+    margin-bottom: 88px;
+    padding-left: 40px;
+    border-left-width: 5px;
   }
+}
 
-  .section-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(184,146,42,.2);
-  }
+.credits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+@media (min-width: 768px) {
+  .credits-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1024px) {
+  .credits-grid { grid-template-columns: repeat(4, 1fr); }
+}
 
-  /* ── FIELD ── */
-  .field { margin-bottom: 22px; }
+.credit-item {
+  padding: 28px 24px 28px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+@media (min-width: 1800px) {
+  .credit-item { padding: 36px 28px 36px 0; }
+}
 
-  label {
-    display: block;
-    font-size: 12px;
-    letter-spacing: .08em;
-    color: var(--dim);
-    margin-bottom: 7px;
-    text-transform: uppercase;
-  }
+.credit-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.credit-value {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--white);
+}
 
-  input[type="text"],
-  input[type="email"],
-  input[type="date"],
-  input[type="number"],
-  textarea,
-  select {
-    width: 100%;
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(214,207,196,.18);
-    border-radius: 3px;
-    color: var(--parchment);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    padding: 12px 14px;
-    transition: border-color .2s, background .2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
+@media (min-width: 768px) {
+  .credit-label { font-size: 0.75rem; }
+  .credit-value { font-size: 1.05rem; }
+}
+@media (min-width: 1800px) {
+  .credit-label { font-size: 0.9rem; margin-bottom: 12px; }
+  .credit-value { font-size: 1.25rem; }
+}
 
-  input[type="text"]:focus,
-  input[type="email"]:focus,
-  input[type="date"]:focus,
-  input[type="number"]:focus,
-  textarea:focus,
-  select:focus {
-    outline: none;
-    border-color: var(--gold);
-    background: rgba(184,146,42,.06);
-  }
+/* ─── FOOTER ─── */
+footer {
+  background: #000;
+  border-top: 3px solid var(--red);
+  padding: 44px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.footer-logo {
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: var(--red);
+  text-transform: uppercase;
+}
+.footer-copy {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
 
-  textarea { resize: vertical; min-height: 90px; }
+@media (min-width: 1800px) {
+  footer { padding: 60px 8%; }
+  .footer-logo { font-size: 2.2rem; }
+  .footer-copy { font-size: 0.95rem; }
+}
 
-  select option { background: #1a1610; }
+/* ─── FADE IN ─── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fade-up 0.8s ease forwards;
+}
+.fade-in:nth-child(1) { animation-delay: 0.05s; }
+.fade-in:nth-child(2) { animation-delay: 0.18s; }
+.fade-in:nth-child(3) { animation-delay: 0.32s; }
+.fade-in:nth-child(4) { animation-delay: 0.46s; }
+.fade-in:nth-child(5) { animation-delay: 0.6s; }
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  /* ── GRID ── */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
+@media (prefers-reduced-motion: reduce) {
+  .fade-in, .mote, .scroll-arrow { animation: none !important; transition: none !important; }
+  #searchlight { display: none; }
+}
 
-  @media (max-width: 520px) { .two-col { grid-template-columns: 1fr; } }
+/* ─── TABLET LANDSCAPE ─── */
+@media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape) {
+  .film-title { font-size: clamp(3.5rem, 8vw, 6rem); }
+  .hero-content { padding: 0 5% 5vh; }
+}
 
-  /* ── SERVICES CHECKLIST ── */
-  .checklist {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  @media (max-width: 520px) { .checklist { grid-template-columns: 1fr; } }
-
-  .check-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255,255,255,.03);
-    border: 1px solid rgba(214,207,196,.12);
-    border-radius: 3px;
-    padding: 11px 14px;
-    cursor: pointer;
-    transition: border-color .2s, background .2s;
-  }
-
-  .check-item:hover { border-color: rgba(184,146,42,.4); background: rgba(184,146,42,.05); }
-
-  .check-item input[type="checkbox"] {
-    width: 15px;
-    height: 15px;
-    accent-color: var(--gold);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  .check-item span {
-    font-size: 13px;
-    color: var(--parchment);
-    line-height: 1.3;
-  }
-
-  /* ── RATE ROW ── */
-  .rate-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 12px;
-    align-items: end;
-    margin-bottom: 10px;
-  }
-
-  @media (max-width: 520px) { .rate-row { grid-template-columns: 1fr 1fr; } }
-
-  .rate-row .field { margin-bottom: 0; }
-
-  /* ── STAR RATING ── */
-  .stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 4px; }
-
-  .stars input { display: none; }
-
-  .stars label {
-    font-size: 26px;
-    color: rgba(214,207,196,.2);
-    cursor: pointer;
-    text-transform: none;
-    letter-spacing: 0;
-    margin-bottom: 0;
-    line-height: 1;
-    transition: color .15s;
-  }
-
-  .stars input:checked ~ label,
-  .stars label:hover,
-  .stars label:hover ~ label { color: var(--gold); }
-
-  /* ── DIVIDER ── */
-  hr { border: none; border-top: 1px solid rgba(214,207,196,.1); margin: 40px 0; }
-
-  /* ── SUBMIT ── */
-  .submit-wrap { text-align: center; padding-top: 8px; }
-
-  .btn-submit {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--ink);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    padding: 16px 48px;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background .2s, transform .15s;
-  }
-
-  .btn-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
-
-  .submit-note {
-    margin-top: 14px;
-    font-size: 11px;
-    color: var(--dim);
-    letter-spacing: .06em;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 10px;
-    letter-spacing: .12em;
-    color: rgba(107,101,96,.5);
-    border-top: 1px solid rgba(214,207,196,.07);
-  }
+/* ─── MOBILE ─── */
+@media (max-width: 600px) {
+  .film-title { font-size: clamp(3.6rem, 13vw, 5rem); }
+  .cta-row { flex-direction: column; }
+  .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+  footer { flex-direction: column; text-align: center; }
+  .credits-grid { grid-template-columns: repeat(2, 1fr); }
+  .synopsis { font-size: 1rem; }
+}
 </style>
 </head>
 <body>
 
-<header>
-  <p class="eyebrow">STV Broadcast Network</p>
-  <h1><em>The</em> Wise Man</h1>
-  <p>Services Rendered Invoice &amp; Project Summary</p>
-</header>
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <span class="nav-logo-main">XOCO</span>
+    <span class="nav-logo-sub">Broadcast Network</span>
+  </a>
+  <a class="nav-link" href="#film">About The Film</a>
+</nav>
 
-<div class="form-wrap">
-  <form id="survey" onsubmit="handleSubmit(event)">
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg">
+    <!-- Drop in a real photo or video later:
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="wise-man-loop.mp4" type="video/mp4">
+    </video>
+    -->
+  </div>
+  <div class="hero-vignette"></div>
+  <div class="dust-layer" id="dustLayer"></div>
 
-    <!-- VENDOR INFO -->
-    <div class="section">
-      <p class="section-label">Vendor / Contractor Information</p>
-      <div class="two-col">
-        <div class="field">
-          <label>Full Name</label>
-          <input type="text" name="vendor_name" placeholder="Your name" required>
-        </div>
-        <div class="field">
-          <label>Company / DBA</label>
-          <input type="text" name="company" placeholder="Company name (if applicable)">
-        </div>
+  <div class="hero-content">
+    <div class="eyebrow fade-in">Now Streaming</div>
+    <h1 class="film-title fade-in">
+      <em>The</em>
+      Wise Man
+    </h1>
+    <p class="film-tagline fade-in">
+      Some truths are only revealed in darkness — and some men are only wise enough to wish they hadn't looked.
+    </p>
+    <div class="meta-row fade-in">
+      <span class="meta-tag">Drama</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-tag">Indie Film</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-tag">2026</span>
+      <span class="meta-badge">R</span>
+    </div>
+    <div class="cta-row fade-in">
+      <a class="btn-primary" href="#player" onclick="scrollToPlayer(event)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <polygon points="3,1 14,8 3,15" fill="currentColor"/>
+        </svg>
+        Watch Now
+      </a>
+      <a class="btn-outline" href="#film">
+        More Info
+      </a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- PLAYER -->
+<section class="player-section" id="player">
+  <div class="player-wrap" id="playerWrap" onclick="loadPlayer()">
+    <div class="player-overlay" id="playerOverlay">
+      <div class="play-btn">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <polygon points="7,3 26,15 7,27" fill="#ffffff"/>
+        </svg>
       </div>
-      <div class="two-col">
-        <div class="field">
-          <label>Email Address</label>
-          <input type="email" name="email" placeholder="you@example.com" required>
-        </div>
-        <div class="field">
-          <label>Phone</label>
-          <input type="text" name="phone" placeholder="(000) 000-0000">
-        </div>
-      </div>
+      <div class="play-label">Watch The Wise Man</div>
+    </div>
+    <iframe
+  id="vimeoFrame"
+  data-src="https://drive.google.com/file/d/1MvTO9T51y7toye-pUknlMkWLmmKNY0o8/preview"
+  allow="autoplay; fullscreen"
+  allowfullscreen
+  frameborder="0">
+</iframe>
+  </div>
+</section>
+
+<!-- FILM DETAILS (searchlights subtly live behind this section) -->
+<section class="details-section" id="film">
+  <canvas id="searchlight"></canvas>
+  <div class="details-inner">
+    <div class="section-rule">
+      <div class="rule-line"></div>
+      <div class="rule-label">About the Film</div>
+      <div class="rule-line" style="background:linear-gradient(to left, var(--red), transparent);"></div>
     </div>
 
-    <!-- PROJECT DETAILS -->
-    <div class="section">
-      <p class="section-label">Project Details</p>
-      <div class="two-col">
-        <div class="field">
-          <label>Invoice / Reference #</label>
-          <input type="text" name="invoice_num" placeholder="INV-0001">
-        </div>
-        <div class="field">
-          <label>Project Role</label>
-          <select name="role">
-            <option value="">— Select —</option>
-            <option>Director</option>
-            <option>Producer</option>
-            <option>Cinematographer / DP</option>
-            <option>Editor</option>
-            <option>Sound Designer</option>
-            <option>Composer / Musician</option>
-            <option>Colorist</option>
-            <option>Visual Effects</option>
-            <option>Actor / Talent</option>
-            <option>Production Designer</option>
-            <option>Marketing / PR</option>
-            <option>Distribution</option>
-            <option>Other</option>
-          </select>
-        </div>
+    <p class="synopsis">
+      The Wise Man speaks to a modern reality where personal
+      relationships, money, and power are inseparable. The story
+      explores what happens when emotional loyalty collides with
+      financial consequences — and how easily love becomes leverage.
+      Life-changing consequences rarely arrive loudly. They creep in
+      through trust, comfort, and familiarity.
+      At its core, The Wise Man asks a simple question with no easy answer:
+      When do you stop reacting — and start choosing wisely?
+    </p>
+
+    <div class="credits-grid">
+      <div class="credit-item">
+        <div class="credit-label">Director</div>
+        <div class="credit-value">Joshua Purvis</div>
       </div>
-      <div class="two-col">
-        <div class="field">
-          <label>Service Start Date</label>
-          <input type="date" name="start_date">
-        </div>
-        <div class="field">
-          <label>Service End Date</label>
-          <input type="date" name="end_date">
-        </div>
+      <div class="credit-item">
+        <div class="credit-label">Written By</div>
+        <div class="credit-value">Joseph Johnson & Joshua Purvis</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Produced By</div>
+        <div class="credit-value">Joshua Purvis</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Executive Produced By</div>
+        <div class="credit-value">Laron White</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Genre</div>
+        <div class="credit-value">Drama / Suspense / Indie</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Year</div>
+        <div class="credit-value">2026</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Language</div>
+        <div class="credit-value">English</div>
+      </div>
+      <div class="credit-item">
+        <div class="credit-label">Network</div>
+        <div class="credit-value">XOCO Broadcast</div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- SERVICES RENDERED -->
-    <div class="section">
-      <p class="section-label">Services Rendered</p>
-      <div class="checklist">
-        <label class="check-item"><input type="checkbox" name="svc" value="Pre-Production Planning"><span>Pre-Production Planning</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Scriptwriting / Development"><span>Scriptwriting / Development</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Location Scouting"><span>Location Scouting</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Casting"><span>Casting</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Principal Photography"><span>Principal Photography</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Lighting / Grip"><span>Lighting / Grip</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Sound Recording"><span>Sound Recording</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Post-Production Editing"><span>Post-Production Editing</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Color Grading"><span>Color Grading</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="VFX / Motion Graphics"><span>VFX / Motion Graphics</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Score / Music Licensing"><span>Score / Music Licensing</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Marketing &amp; Promotion"><span>Marketing &amp; Promotion</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="Distribution / Delivery"><span>Distribution / Delivery</span></label>
-        <label class="check-item"><input type="checkbox" name="svc" value="On-Screen Talent"><span>On-Screen Talent</span></label>
-      </div>
-      <div class="field" style="margin-top:14px;">
-        <label>Other Services (describe below)</label>
-        <textarea name="other_services" placeholder="List any additional services not covered above…"></textarea>
-      </div>
-    </div>
-
-    <!-- LINE ITEMS -->
-    <div class="section">
-      <p class="section-label">Billing Summary</p>
-
-      <div class="rate-row">
-        <div class="field"><label>Description of Work</label><input type="text" name="li1_desc" placeholder="e.g. Principal Photography — 3 days"></div>
-        <div class="field"><label>Rate / Unit</label><input type="text" name="li1_rate" placeholder="$500 / day"></div>
-        <div class="field"><label>Total ($)</label><input type="number" name="li1_total" placeholder="1500" min="0"></div>
-      </div>
-      <div class="rate-row">
-        <div class="field"><label>&nbsp;</label><input type="text" name="li2_desc" placeholder="e.g. Post-Production Editing"></div>
-        <div class="field"><label>&nbsp;</label><input type="text" name="li2_rate" placeholder="$75 / hr"></div>
-        <div class="field"><label>&nbsp;</label><input type="number" name="li2_total" placeholder="600" min="0"></div>
-      </div>
-      <div class="rate-row">
-        <div class="field"><label>&nbsp;</label><input type="text" name="li3_desc" placeholder="e.g. Equipment Rental"></div>
-        <div class="field"><label>&nbsp;</label><input type="text" name="li3_rate" placeholder="Flat rate"></div>
-        <div class="field"><label>&nbsp;</label><input type="number" name="li3_total" placeholder="250" min="0"></div>
-      </div>
-
-      <div class="two-col" style="margin-top:20px;">
-        <div class="field">
-          <label>Total Amount Requested ($)</label>
-          <input type="number" name="grand_total" placeholder="0.00" min="0" step="0.01" style="font-size:16px;">
-        </div>
-        <div class="field">
-          <label>Payment Method Preferred</label>
-          <select name="payment_method">
-            <option value="">— Select —</option>
-            <option>Check</option>
-            <option>ACH / Bank Transfer</option>
-            <option>PayPal</option>
-            <option>Venmo</option>
-            <option>Cash App</option>
-            <option>Zelle</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <!-- EXPERIENCE -->
-    <div class="section">
-      <p class="section-label">Project Experience</p>
-      <div class="field">
-        <label>Overall Experience on The Wise Man</label>
-        <div class="stars">
-          <input type="radio" id="s5" name="rating" value="5"><label for="s5">★</label>
-          <input type="radio" id="s4" name="rating" value="4"><label for="s4">★</label>
-          <input type="radio" id="s3" name="rating" value="3"><label for="s3">★</label>
-          <input type="radio" id="s2" name="rating" value="2"><label for="s2">★</label>
-          <input type="radio" id="s1" name="rating" value="1"><label for="s1">★</label>
-        </div>
-      </div>
-      <div class="field" style="margin-top:20px;">
-        <label>Notes / Comments</label>
-        <textarea name="comments" placeholder="Any feedback, notes for production, or additional context…" style="min-height:110px;"></textarea>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="submit-wrap">
-      <button type="submit" class="btn-submit">Submit Services</button>
-      <p class="submit-note">Submissions are sent to House of Media · houseofmedia.marketing@gmail.com</p>
-    </div>
-
-  </form>
-</div>
-
-<footer>© 2026 STV Digital / Saneca TV LLC — The Wise Man</footer>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">XOCO Broadcast Network</div>
+  <div class="footer-copy">&copy; 2026 XOCO Digital / Saneca TV LLC — All rights reserved.</div>
+</footer>
 
 <script>
-  function handleSubmit(e) {
-    e.preventDefault();
-    const f = e.target;
+/* NAV */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
 
-    // Collect checked services
-    const services = [...f.querySelectorAll('input[name="svc"]:checked')]
-      .map(el => el.value).join(', ') || 'None selected';
+/* SEARCHLIGHT — now anchored to the About section, slow + faint */
+const canvas = document.getElementById('searchlight');
+const ctx = canvas.getContext('2d');
+let W, H;
 
-    // Star rating
-    const ratingEl = f.querySelector('input[name="rating"]:checked');
-    const rating = ratingEl ? ratingEl.value + ' / 5 stars' : 'Not rated';
+const beams = [
+  { x: 0.25, y: 0, angle: 0.5, speed: 0.0003, spread: Math.PI / 30, color: [255,245,210] },
+  { x: 0.75, y: 0, angle: 0.85, speed: 0.00022, spread: Math.PI / 36, color: [210,230,255] },
+];
 
-    // Build email body
-    const body = `
-SERVICES RENDERED — THE WISE MAN
-==================================
+function resize() {
+  const section = canvas.parentElement;
+  W = canvas.width  = section.offsetWidth;
+  H = canvas.height = section.offsetHeight;
+}
+window.addEventListener('resize', resize, { passive: true });
+resize();
+// re-measure once fonts/content settle (About section height can change)
+window.addEventListener('load', resize);
 
-VENDOR INFORMATION
-  Name:          ${f.vendor_name.value}
-  Company:       ${f.company.value}
-  Email:         ${f.email.value}
-  Phone:         ${f.phone.value}
+let t = 0;
+function drawSearchlights() {
+  t++;
+  ctx.clearRect(0, 0, W, H);
+  beams.forEach((b, i) => {
+    const sway = Math.sin(t * b.speed * 1000 + i * 2.8) * 0.3;
+    const angle = b.angle + sway;
+    const cx = b.x * W;
+    const cy = 0;
+    const endX = cx + Math.sin(angle) * H * 1.4;
+    const endY = cy + Math.cos(angle) * H * 1.4;
+    const len = Math.sqrt((endX - cx) ** 2 + (endY - cy) ** 2);
+    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, len);
+    const [r, g, bl] = b.color;
+    grad.addColorStop(0,   `rgba(${r},${g},${bl},0.18)`);
+    grad.addColorStop(0.4, `rgba(${r},${g},${bl},0.07)`);
+    grad.addColorStop(1,   `rgba(${r},${g},${bl},0)`);
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    const half = b.spread / 2;
+    ctx.lineTo(cx + Math.sin(angle - half) * H * 1.5, cy + Math.cos(angle - half) * H * 1.5);
+    ctx.lineTo(cx + Math.sin(angle + half) * H * 1.5, cy + Math.cos(angle + half) * H * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+    ctx.restore();
+  });
+  requestAnimationFrame(drawSearchlights);
+}
+drawSearchlights();
 
-PROJECT DETAILS
-  Invoice #:     ${f.invoice_num.value}
-  Role:          ${f.role.value}
-  Start Date:    ${f.start_date.value}
-  End Date:      ${f.end_date.value}
+/* DUST MOTES — stay in the hero for atmosphere */
+const dustLayer = document.getElementById('dustLayer');
+for (let i = 0; i < 28; i++) {
+  const m = document.createElement('div');
+  m.className = 'mote';
+  const size = Math.random() * 2 + 0.8;
+  const left = Math.random() * 100;
+  const duration = Math.random() * 14 + 10;
+  const delay = Math.random() * -20;
+  const drift = (Math.random() - 0.5) * 80;
+  m.style.cssText = `
+    left:${left}%; bottom:-10px;
+    width:${size}px; height:${size}px;
+    --drift:${drift}px;
+    animation-duration:${duration}s;
+    animation-delay:${delay}s;
+    opacity:0;
+  `;
+  dustLayer.appendChild(m);
+}
 
-SERVICES RENDERED
-  ${services}
-  Other: ${f.other_services.value}
-
-BILLING SUMMARY
-  Line 1: ${f.li1_desc.value} | ${f.li1_rate.value} | $${f.li1_total.value}
-  Line 2: ${f.li2_desc.value} | ${f.li2_rate.value} | $${f.li2_total.value}
-  Line 3: ${f.li3_desc.value} | ${f.li3_rate.value} | $${f.li3_total.value}
-  TOTAL:   $${f.grand_total.value}
-  Payment: ${f.payment_method.value}
-
-EXPERIENCE
-  Rating:   ${rating}
-  Comments: ${f.comments.value}
-`.trim();
-
-    const subject = encodeURIComponent('Services Rendered — The Wise Man | ' + (f.vendor_name.value || 'Submission'));
-    const bodyEnc = encodeURIComponent(body);
-
-    window.location.href = `mailto:houseofmedia.marketing@gmail.com?subject=${subject}&body=${bodyEnc}`;
-  }
+/* PLAYER */
+function loadPlayer() {
+  const frame   = document.getElementById('vimeoFrame');
+  const overlay = document.getElementById('playerOverlay');
+  frame.src = frame.getAttribute('data-src');
+  frame.style.display = 'block';
+  overlay.classList.add('hidden');
+}
+function scrollToPlayer(e) {
+  e.preventDefault();
+  document.getElementById('player').scrollIntoView({ behavior: 'smooth' });
+  setTimeout(loadPlayer, 600);
+}
 </script>
 </body>
 </html>
