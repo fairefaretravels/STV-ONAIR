@@ -1,6 +1,6 @@
 {
   "name": "SanecaTV Radio",
-  "short_name": "STV Radio",
+  "short_name": "SanecaTV",
   "description": "SanecaTV Radio is the independent streaming platform built for creators, communities, and brands.",
   "start_url": "/",
   "display": "standalone",
