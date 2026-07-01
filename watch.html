@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STV — Watch Live</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root{
+    --bg: #0e0e0f;
+    --bg2: #161618;
+    --bg3: #1e1e21;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0ede8;
+    --text2: #888784;
+    --text3: #555452;
+    --accent: #c8a96e;
+    --accent2: #e8c98e;
+    --live: #e84d3d;
+  }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* TOP BAR */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 1.1rem 1.75rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:34px; height:34px; border-radius:7px;
+    background: var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .brand-mark svg{ width:16px; height:16px; fill:#0e0e0f; }
+  .brand-name{ font-family:'Playfair Display', serif; font-size:1.15rem; font-weight:600; letter-spacing:-.01em; }
+  .brand-sub{ font-size:0.68rem; color:var(--text3); letter-spacing:0.12em; text-transform:uppercase; margin-top:1px; }
+  .onair-pill{
+    display:flex; align-items:center; gap:7px;
+    font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:500;
+    color: var(--live);
+    border: 0.5px solid rgba(232,77,61,0.35);
+    background: rgba(232,77,61,0.08);
+    padding: 6px 13px; border-radius: 99px;
+  }
+  .onair-pill .dot{ width:6px;height:6px;border-radius:50%; background:var(--live); animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+
+  /* MAIN */
+  .stage{ max-width: 980px; margin: 0 auto; padding: 2.5rem 1.75rem 4rem; }
+
+  .video-hero{
+    position:relative;
+    width:100%; aspect-ratio:16/9;
+    background:#000;
+    border-radius: 10px;
+    overflow:hidden;
+    border: 0.5px solid var(--border);
+  }
+  .video-hero iframe{ width:100%; height:100%; border:none; display:block; }
+  .video-hero .live-tag{
+    position:absolute; top:14px; left:14px; z-index:2;
+    background: var(--live); color:#fff;
+    font-size:0.66rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    padding: 5px 10px; border-radius:5px;
+    display:flex; align-items:center; gap:5px;
+    pointer-events:none;
+  }
+
+  /* NOW PLAYING + PROGRESS */
+  .now-block{ margin-top: 1.5rem; }
+  .now-row{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom: 0.6rem; }
+  .now-title{ font-family:'Playfair Display', serif; font-size:1.5rem; font-weight:600; letter-spacing:-.01em; }
+  .now-meta{ font-size:0.78rem; color:var(--text2); display:flex; align-items:center; gap:8px; }
+  .cat-chip{ font-size:0.64rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; padding:2px 9px; border-radius:99px; }
+
+  .progress-track{
+    width:100%; height:4px; border-radius: 99px;
+    background: var(--bg3);
+    overflow:hidden;
+    margin-top: 0.9rem;
+  }
+  .progress-fill{
+    height:100%; border-radius:99px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width:0%;
+    transition: width 1s linear;
+  }
+  .progress-caption{
+    display:flex; justify-content:space-between;
+    font-size:0.68rem; color:var(--text3); letter-spacing:0.03em;
+    margin-top: 6px;
+  }
+
+  /* UP NEXT */
+  .upnext-head{
+    display:flex; align-items:center; gap:10px;
+    margin: 3rem 0 1rem;
+  }
+  .upnext-head .line{ flex:1; height:0.5px; background:var(--border); }
+  .upnext-label{ font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text3); font-weight:500; white-space:nowrap; }
+
+  .upnext-list{ display:flex; flex-direction:column; }
+  .upnext-item{
+    display:flex; align-items:center; gap:16px;
+    padding: 14px 4px;
+    border-bottom: 0.5px solid var(--border);
+    transition: opacity 0.15s;
+  }
+  .upnext-item:first-child{ padding-top: 4px; }
+  .upnext-item:last-child{ border-bottom:none; }
+  .upnext-time{
+    font-family:'DM Sans', sans-serif; font-size:0.78rem; font-weight:500; color:var(--text2);
+    width: 74px; flex-shrink:0;
+  }
+  .upnext-swatch{ width:4px; height:34px; border-radius:3px; flex-shrink:0; }
+  .upnext-info{ flex:1; min-width:0; }
+  .upnext-name{ font-family:'Playfair Display', serif; font-size:1.02rem; font-weight:500; margin-bottom:2px; }
+  .upnext-cat{ font-size:0.72rem; color:var(--text3); }
+  .upnext-in{ font-size:0.7rem; color:var(--text3); white-space:nowrap; }
+
+  @media (max-width: 620px){
+    .stage{ padding: 1.5rem 1.1rem 3rem; }
+    .now-title{ font-size:1.25rem; }
+    .upnext-time{ width:58px; font-size:0.72rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark"><svg viewBox="0 0 24 24"><path d="M4 8l8-5 8 5v8l-8 5-8-5V8z"/><path d="M12 3v18M4 8l8 5 8-5"/></svg></div>
+    <div>
+      <div class="brand-name">STV</div>
+      <div class="brand-sub">Broadcast Network</div>
+    </div>
+  </div>
+  <div class="onair-pill"><span class="dot"></span>On Air</div>
+</header>
+
+<div class="stage">
+
+  <div class="video-hero">
+    <div class="live-tag">📡 Live</div>
+    <iframe id="videoFrame" src="https://archive.org/embed/night_of_the_living_dead" allowfullscreen title="STV Live"></iframe>
+  </div>
+
+  <div class="now-block">
+    <div class="now-row">
+      <div class="now-title" id="nowTitle">—</div>
+      <div class="now-meta">
+        <span class="cat-chip" id="nowChip">—</span>
+        <span id="nowTime">—</span>
+      </div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-caption">
+      <span id="progressElapsed">0 min in</span>
+      <span id="progressRemaining">— left</span>
+    </div>
+  </div>
+
+  <div class="upnext-head">
+    <span class="upnext-label">Up Next</span>
+    <div class="line"></div>
+  </div>
+
+  <div class="upnext-list" id="upnextList"></div>
+
+</div>
+
+<script>
+/* ---------- Category palette (shared language w/ the schedule grid) ---------- */
+const CAT = {
+  news:  { label:'News',         color:'#e5484d' },
+  music: { label:'Music Videos', color:'#3fbf74' },
+  talk:  { label:'Talk Show',    color:'#a78bfa' },
+  kids:  { label:'Kids',         color:'#e0813f' },
+  docu:  { label:'Documentary',  color:'#3aa0ff' },
+  soap:  { label:'Soap Opera',   color:'#e0479e' },
+  cook:  { label:'Cooking',      color:'#c8a96e' },
+  life:  { label:'Lifestyle',    color:'#2bb3a3' },
+  insp:  { label:'Inspiration',  color:'#b3654f' },
+};
+
+/* ---------- One full broadcast day, hourly blocks (24h) ---------- */
+const DAY = [
+  { h:0,  name:'Late Night Music Mix',      cat:'music' },
+  { h:1,  name:'Overnight Documentary',     cat:'docu'  },
+  { h:2,  name:'Archive Films: Midnight',   cat:'docu'  },
+  { h:3,  name:'Quiet Hours Music',         cat:'music' },
+  { h:4,  name:'Sunrise Inspiration',       cat:'insp'  },
+  { h:5,  name:'Morning Inspiration',       cat:'insp'  },
+  { h:6,  name:'Wake Up Music',             cat:'music' },
+  { h:7,  name:'Good Morning Atlanta',      cat:'news'  },
+  { h:8,  name:'Traffic & Weather',         cat:'news'  },
+  { h:9,  name:'The Daily Talk',            cat:'talk'  },
+  { h:10, name:'Lifestyle Today',           cat:'life'  },
+  { h:11, name:'Classic Cartoons',          cat:'kids'  },
+  { h:12, name:'Midday Music Mix',          cat:'music' },
+  { h:13, name:'Documentary Hour',          cat:'docu'  },
+  { h:14, name:'Classic Cartoons',          cat:'kids'  },
+  { h:15, name:'Cooking With Love',         cat:'cook'  },
+  { h:16, name:'The Soap Opera',            cat:'soap'  },
+  { h:17, name:'Life & You',                cat:'talk'  },
+  { h:18, name:'Evening News',              cat:'news'  },
+  { h:19, name:'Primetime Documentary',     cat:'docu'  },
+  { h:20, name:'Feature Film Night',        cat:'docu'  },
+  { h:21, name:'The Soap Opera Late',       cat:'soap'  },
+  { h:22, name:'Night Talk',                cat:'talk'  },
+  { h:23, name:'Late Night Music Mix',      cat:'music' },
+];
+
+function fmtHour(h){
+  const hh = ((h % 24) + 24) % 24;
+  const period = hh < 12 ? 'AM' : 'PM';
+  let display = hh % 12; if(display === 0) display = 12;
+  return display + ':00 ' + period;
+}
+
+function render(){
+  const now = new Date();
+  const h = now.getHours();
+  const mins = now.getMinutes();
+
+  const current = DAY[h];
+  const cat = CAT[current.cat];
+
+  document.getElementById('nowTitle').textContent = current.name;
+  const chip = document.getElementById('nowChip');
+  chip.textContent = cat.label;
+  chip.style.background = cat.color + '26';
+  chip.style.color = cat.color;
+  chip.style.border = '0.5px solid ' + cat.color + '55';
+  document.getElementById('nowTime').textContent = fmtHour(h) + ' – ' + fmtHour(h+1);
+
+  const pct = Math.round((mins/60)*100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressFill').style.background = `linear-gradient(90deg, ${cat.color}, var(--accent2))`;
+  document.getElementById('progressElapsed').textContent = mins + ' min in';
+  document.getElementById('progressRemaining').textContent = (60-mins) + ' min left';
+
+  const list = document.getElementById('upnextList');
+  let html = '';
+  for(let i=1; i<=4; i++){
+    const item = DAY[(h+i) % 24];
+    const c = CAT[item.cat];
+    const inMins = (60-mins) + (i-1)*60;
+    const inLabel = inMins < 60 ? `in ${inMins}m` : `in ${Math.floor(inMins/60)}h ${inMins%60}m`;
+    html += `<div class="upnext-item">
+      <div class="upnext-time">${fmtHour(h+i)}</div>
+      <div class="upnext-swatch" style="background:${c.color}"></div>
+      <div class="upnext-info">
+        <div class="upnext-name">${item.name}</div>
+        <div class="upnext-cat">${c.label}</div>
+      </div>
+      <div class="upnext-in">${inLabel}</div>
+    </div>`;
+  }
+  list.innerHTML = html;
+}
+
+render();
+setInterval(render, 30000);
+</script>
+</body>
+</html>
