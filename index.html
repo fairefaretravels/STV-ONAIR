@@ -1708,7 +1708,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 SanecaTV Radiomeltdown · G4E Movement Studio · Lithonia, GA</p>
+      <p>© 2026 SanecaTV · G4E Movement Studio · Lithonia, GA</p>
       <div class="footer-bottom-links">
         <a href="https://radiomeltdown.com/film-investor-intake/" target="_blank" rel="noopener noreferrer">TELL US ABOUT YOUR PROJECT</a>
         <a href="https://radiomeltdown.com" target="_blank" rel="noopener noreferrer">radiomeltdown.com</a>
@@ -1721,11 +1721,16 @@
 
 <!-- PWA INSTALL BANNER -->
 <div id="installBanner" style="display:none;">
-  <p><strong>FREE APP - Add us to your home screen</strong>Keep your storage we keep the station alive with &amp; offline access.</p>
-  <button id="installBtn">Install</button>
-  <button id="dismissInstall">✕</button>
-</div>
+  <div class="install-content">
+    <h3>Install SanecaTV Radio</h3>
+    <p>Listen live with one tap. Fast, free, and always ready.</p>
 
+    <div class="install-actions">
+      <button id="installBtn">Install</button>
+      <button id="dismissInstall" aria-label="Close">✕</button>
+    </div>
+  </div>
+</div>
 <!-- AUDIO (never removed from DOM) -->
 <audio id="radioAudio" preload="none">
   <source src="https://listen.streamaudio.co/proxy/sanecatv/stream" type="audio/mpeg"/>
