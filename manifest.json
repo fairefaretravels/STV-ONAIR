@@ -1,7 +1,7 @@
 {
-  "name": "STV Radiomeltdown",
-  "short_name": "SANECATV",
-  "description": "Live independent broadcast from Lithonia, GA. Culture-driven. Community-built. Always live.",
+  "name": "SanecaTV Radio",
+  "short_name": "STV Radio",
+  "description": "SanecaTV Radio is the independent streaming platform built for creators, communities, and brands.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "any",
