@@ -1,82 +1,84 @@
-const library = [];
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Studio OS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-function updateClock() {
-    const clock = document.getElementById("clock");
-    if (!clock) return;
+<!-- Background Blobs -->
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
 
-    clock.textContent = new Date().toLocaleTimeString();
-}
+<!-- Header -->
+<header class="topbar">
+    <h1>🎬 Studio OS</h1>
 
-function updateStats() {
-    const count = document.getElementById("videoCount");
-    if (count) {
-        count.textContent = library.length;
-    }
-}
+    <div class="liveStatus">
+        <span class="dot"></span>
+        LIVE
+    </div>
 
-function renderLibrary() {
-    const list = document.getElementById("library");
-    if (!list) return;
+    <div id="clock"></div>
+</header>
 
-    list.innerHTML = "";
+<!-- Stats -->
+<section class="stats">
+    <div class="stat-card">
+        <h3 id="videoCount">0</h3>
+        <p>Videos</p>
+    </div>
 
-    if (library.length === 0) {
-        list.innerHTML = "<p>No media added yet.</p>";
-        updateStats();
-        return;
-    }
+    <div class="stat-card">
+        <h3>Ready</h3>
+        <p>Status</p>
+    </div>
 
-    library.forEach(item => {
-        const row = document.createElement("div");
-        row.className = "media-item";
+    <div class="stat-card">
+        <h3>Cloud</h3>
+        <p>Connected</p>
+    </div>
+</section>
 
-        row.innerHTML = `
-            <strong>${item.title}</strong><br>
-            <small>${item.url}</small>
-        `;
+<div class="studio-grid">
 
-        row.animate([
-            { opacity: 0, transform: "translateX(-20px)" },
-            { opacity: 1, transform: "translateX(0)" }
-        ], {
-            duration: 300,
-            easing: "ease-out"
-        });
+    <div class="panel">
 
-        list.appendChild(row);
-    });
+        <h2>Add Media</h2>
 
-    updateStats();
-}
+        <input id="mediatitle" placeholder="Title">
 
-function saveMedia() {
-    const title = document.getElementById("mediatitle").value.trim();
-    const url = document.getElementById("mediaurl").value.trim();
+        <input id="mediaurl" placeholder="Cloudinary / MP4 URL">
 
-    if (!title || !url) {
-        alert("Enter title and URL");
-        return;
-    }
+        <button onclick="saveMedia()">
+            ➕ Add to Library
+        </button>
 
-    library.push({ title, url });
+    </div>
 
-    renderLibrary();
+    <div class="panel">
 
-    document.getElementById("mediatitle").value = "";
-    document.getElementById("mediaurl").value = "";
-}
+        <h2>Media Library</h2>
 
-function goLive() {
-    if (!library.length) {
-        alert("No media queued.");
-        return;
-    }
+        <div id="library"></div>
 
-    alert(`Sending ${library.length} items to LIVE player`);
-}
+    </div>
 
-window.addEventListener("DOMContentLoaded", () => {
-    renderLibrary();
-    updateClock();
-    setInterval(updateClock, 1000);
-});
+    <div class="panel">
+
+        <h2>Live Control</h2>
+
+        <button onclick="goLive()">
+            Send Live
+        </button>
+
+    </div>
+
+</div>
+
+<script src="studio.js"></script>
+<script src="media.js"></script>
+
+</body>
+</html>
