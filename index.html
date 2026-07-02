@@ -213,296 +213,204 @@
     #app { visibility: hidden; }
     #app.visible { visibility: visible; }
 
-    /* ══════════════════════════════════════
-   STICKY PLAYER BAR
-══════════════════════════════════════ */
-
-#stickyPlayer{
-    position:sticky;
-    top:0;
-    z-index:900;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:18px;
-
-    min-height:72px;
-    padding:14px 20px;
-
-    background:rgba(8,17,11,.96);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-
-    border-bottom:1px solid rgba(57,255,136,.20);
-}
-
-#stickyPlayer::after{
-    content:"";
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    height:2px;
-
-    background:linear-gradient(
-        90deg,
-        transparent,
-        #39ff88,
-        #ffd54a,
-        transparent
-    );
-}
-
-.sp-left{
-    display:flex;
-    align-items:center;
-    gap:18px;
-}
-
-.sp-logo{
-    font-family:"Bebas Neue",sans-serif;
-    font-size:1.45rem;
-    letter-spacing:.12em;
-    color:#fff;
-    white-space:nowrap;
-}
-
-.sp-logo span{
-    color:#39ff88;
-}
-
-.sp-divider{
-    width:1px;
-    height:38px;
-    background:rgba(255,255,255,.15);
-}
-
-#playerWave{
-    flex:1;
-    height:42px;
-    min-width:120px;
-}
-
+    /* ============================= */
+/* STICKY PLAYER MASTER LAYOUT */
 /* ============================= */
 
-.sp-right{
-    display:flex;
-    align-items:center;
-    gap:18px;
+#stickyPlayer {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+  padding: 12px 18px;
+
+  background: rgba(8, 17, 11, 0.96);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-bottom: 1px solid rgba(57, 255, 136, 0.2);
 }
 
-/* PLAY BUTTON */
+/* LEFT */
 
-.play-btn{
-
-    width:50px;
-    height:50px;
-
-    border:none;
-    border-radius:50%;
-
-    background:#39ff88;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    cursor:pointer;
-
-    transition:.25s;
+.sp-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.play-btn:hover{
-
-    transform:scale(1.08);
-
-    background:#fff;
-
-    box-shadow:0 0 24px rgba(57,255,136,.55);
-
+.sp-logo {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.12em;
+  color: #fff;
+  white-space: nowrap;
 }
 
-.play-btn svg{
-
-    width:18px;
-    height:18px;
-
-    fill:#08110b;
-
+.sp-logo span {
+  color: #39ff88;
 }
 
-.play-btn.playing{
+/* CENTER NAV */
 
-    animation:pulse 2.2s infinite;
-
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-@keyframes pulse{
+.nav-tab {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
 
-0%{
-box-shadow:0 0 0 0 rgba(57,255,136,.6);
+  padding: 8px 14px;
+
+  background: transparent;
+  border: none;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  cursor: pointer;
+
+  border-bottom: 2px solid transparent;
+
+  transition: 0.2s ease;
 }
 
-70%{
-box-shadow:0 0 0 18px rgba(57,255,136,0);
+.nav-tab:hover {
+  color: #fff;
 }
 
-100%{
-box-shadow:0 0 0 0 rgba(57,255,136,0);
+.nav-tab.active {
+  color: #39ff88;
+  border-bottom-color: #39ff88;
 }
 
+/* DIVIDER */
+
+.sp-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.15);
 }
 
-/* ============================= */
+/* WAVEFORM */
 
-.sp-status{
-
-display:flex;
-flex-direction:column;
-gap:4px;
-
+#playerWave {
+  flex: 1;
+  height: 40px;
+  min-width: 80px;
 }
 
-.sp-status-row{
+/* RIGHT SIDE */
 
-display:flex;
-align-items:center;
-gap:8px;
-
+.sp-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
 }
 
-.live-dot{
+/* STATUS */
 
-width:10px;
-height:10px;
-
-border-radius:50%;
-
-background:#39ff88;
-
-box-shadow:0 0 14px #39ff88;
-
+.sp-status {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 160px;
 }
 
-.live-dot.loading{
-
-background:#ffd54a;
-
-box-shadow:0 0 12px #ffd54a;
-
-animation:blink 1s infinite;
-
+.sp-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.live-dot.offline{
-
-background:#555;
-
-box-shadow:none;
-
+.live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #39ff88;
+  box-shadow: 0 0 10px #39ff88;
 }
 
-@keyframes blink{
-
-50%{
-opacity:.35;
+.sp-status-label {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.15em;
+  color: #39ff88;
 }
 
+.sp-track {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.sp-status-label{
+/* PLAY BUTTON (FIXED SIZE) */
 
-font-family:"Bebas Neue",sans-serif;
+.play-btn {
+  width: 44px;
+  height: 44px;
 
-font-size:1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-letter-spacing:.18em;
+  border-radius: 50%;
+  border: none;
 
-color:#39ff88;
+  background: #39ff88;
 
+  cursor: pointer;
+
+  flex-shrink: 0;
 }
 
-.sp-status-label.loading{
-
-color:#ffd54a;
-
+.play-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: #08110b;
+  display: block;
 }
 
-.sp-status-label.offline{
+/* VOLUME */
 
-color:#888;
-
+.vol-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* CURRENT SONG */
-
-.sp-track{
-
-font-size:1rem;
-
-font-weight:500;
-
-color:#ffffff;
-
-max-width:320px;
-
-overflow:hidden;
-
-text-overflow:ellipsis;
-
-white-space:nowrap;
-
+.vol-icon {
+  font-size: 0.95rem;
 }
 
-/* ============================= */
-
-.vol-wrap{
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
+.vol-slider {
+  width: 90px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  appearance: none;
 }
 
-.vol-icon{
-
-font-size:1rem;
-
-color:#fff;
-
-}
-
-.vol-slider{
-
-appearance:none;
-
-width:90px;
-
-height:5px;
-
-background:rgba(255,255,255,.18);
-
-border-radius:20px;
-
-cursor:pointer;
-
-}
-
-.vol-slider::-webkit-slider-thumb{
-
-appearance:none;
-
-width:16px;
-
-height:16px;
-
-border-radius:50%;
-
-background:#39ff88;
-
+.vol-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #39ff88;
 }
 
 /* ============================= */
@@ -1297,10 +1205,13 @@ width:100%;
 
   <!-- PERSISTENT PLAYER BAR -->
   <div id="stickyPlayer">
+
+  <!-- LEFT -->
   <div class="sp-left">
     <div class="sp-logo">SanecaTV <span>RADIO</span></div>
   </div>
 
+  <!-- CENTER NAV -->
   <div class="nav-tabs">
     <button class="nav-tab active"
             data-view="radio"
@@ -1310,60 +1221,44 @@ width:100%;
 
     <button class="nav-tab"
             data-view="shows"
-            onclick="window.location.href='STUDIO/watch.html'"
+            onclick="window.location.href='STUDIO/watch.html'">
       Shows
     </button>
-
-    <div class="sp-divider"></div>
   </div>
 
-  <!-- LIVE WAVEFORM -->
+  <div class="sp-divider"></div>
+
+  <!-- WAVEFORM -->
   <canvas id="playerWave"></canvas>
 
+  <!-- RIGHT CONTROLS -->
   <div class="sp-right">
+
     <div class="sp-status">
       <div class="sp-status-row">
         <span class="live-dot loading" id="statusDot"></span>
         <span class="sp-status-label loading" id="statusLabel">LOADING</span>
       </div>
-      <div class="sp-track" id="spTrack">SanecaTV Radiomeltdown</div>
+      <div class="sp-track" id="spTrack">
+        SanecaTV Radiomeltdown
+      </div>
     </div>
 
     <button class="play-btn" id="playBtn" aria-label="Play/Pause">
       <svg id="playIcon" viewBox="0 0 24 24">
-        <polygon points="5,3 19,12 5,21"/>
+        <polygon points="5,3 19,12 5,21"></polygon>
       </svg>
     </button>
 
     <div class="vol-wrap">
       <span class="vol-icon">🔈</span>
-      <input type="range" class="vol-slider" id="volSlider" min="0" max="1" step="0.05" value="0.8"/>
+      <input type="range" class="vol-slider" id="volSlider"
+             min="0" max="1" step="0.05" value="0.8"/>
     </div>
+
   </div>
+
 </div>
-
-    <!-- LIVE WAVEFORM -->
-    <canvas id="playerWave"></canvas>
-
-    <div class="sp-right">
-      <div class="sp-status">
-        <div class="sp-status-row">
-          <span class="live-dot loading" id="statusDot"></span>
-          <span class="sp-status-label loading" id="statusLabel">LOADING</span>
-        </div>
-        <div class="sp-track" id="spTrack">SanecaTV Radiomeltdown</div>
-      </div>
-
-      <button class="play-btn" id="playBtn" aria-label="Play/Pause">
-        <svg id="playIcon" viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-      </button>
-
-      <div class="vol-wrap">
-        <span class="vol-icon">🔈</span>
-        <input type="range" class="vol-slider" id="volSlider" min="0" max="1" step="0.05" value="0.8"/>
-      </div>
-    </div>
-  </div>
 
   <!-- TICKER -->
   <div class="ticker-bar">
