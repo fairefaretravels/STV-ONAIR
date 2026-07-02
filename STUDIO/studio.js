@@ -1,8 +1,9 @@
 window.STUDIO = (function () {
-
     // Root-relative so it always resolves to the real repo root,
     // regardless of whether /watch gets served as /watch or /watch/.
-    const BASE = "/STUDIO-OS-v1/";
+    // NOTE: must match the folder the scripts are actually served from
+    // (watch.html loads them as /STUDIO/studio.js and /STUDIO/media.js).
+    const BASE = "/STUDIO/";
 
     async function loadJSON(file, fallback = []) {
         try {
@@ -23,5 +24,4 @@ window.STUDIO = (function () {
     }
 
     return { generate };
-
 })();
