@@ -1,18 +1,48 @@
+window.mediaLibrary = window.mediaLibrary || [];
+
 window.saveMedia = function () {
-    const title = document.getElementById("mediatitle").value.trim();
-    const url = document.getElementById("mediaurl").value.trim();
+    const titleEl = document.getElementById("mediatitle");
+    const urlEl = document.getElementById("mediaurl");
+
+    const title = titleEl?.value?.trim();
+    const url = urlEl?.value?.trim();
 
     if (!title || !url) {
         alert("Please enter both a title and a URL.");
         return;
     }
 
-    console.log("Saving media:", { title, url });
+    const mediaItem = {
+        id: Date.now(),
+        title,
+        url,
+        createdAt: new Date().toISOString()
+    };
 
-    // Later we'll save this into your media library.
+    window.mediaLibrary.push(mediaItem);
+
+    console.log("Saved media item:", mediaItem);
+    console.log("Current library:", window.mediaLibrary);
+
+    // optional: clear inputs
+    titleEl.value = "";
+    urlEl.value = "";
 };
 
 window.goLive = function () {
-    console.log("Sending current playlist to watch page...");
-    // We'll wire this up once the player is finished.
+    if (!window.mediaLibrary.length) {
+        alert("No media in library yet.");
+        return;
+    }
+
+    // Save to session storage so watch page can read it
+    sessionStorage.setItem(
+        "STUDIO_PLAYLIST",
+        JSON.stringify(window.mediaLibrary)
+    );
+
+    console.log("Go Live triggered. Playlist sent:", window.mediaLibrary);
+
+    // Navigate to watch page (adjust path if needed)
+    window.location.href = "STUDIO/watch.html";
 };
