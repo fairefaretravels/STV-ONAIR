@@ -1,84 +1,79 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Studio OS Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+window.saveMedia = function () {
+    const titleEl = document.getElementById("mediatitle");
+    const urlEl = document.getElementById("mediaurl");
 
-<!-- Background Blobs -->
-<div class="blob b1"></div>
-<div class="blob b2"></div>
-<div class="blob b3"></div>
+    const title = titleEl.value.trim();
+    const url = urlEl.value.trim();
 
-<!-- Header -->
-<header class="topbar">
-    <h1>🎬 Studio OS</h1>
+    // Basic validation
+    if (!title || !url) {
+        showToast?.("⚠️ Missing title or URL");
+        alert("Please enter both a title and a URL.");
+        return;
+    }
 
-    <div class="liveStatus">
-        <span class="dot"></span>
-        LIVE
-    </div>
+    // URL sanity check (lightweight)
+    const isValidUrl = /^https?:\/\/.+/i.test(url);
+    if (!isValidUrl) {
+        showToast?.("⚠️ Invalid URL format");
+        alert("Please enter a valid http(s) URL.");
+        return;
+    }
 
-    <div id="clock"></div>
-</header>
+    const mediaItem = {
+        id: crypto?.randomUUID?.() || String(Date.now()),
+        title,
+        url,
+        createdAt: new Date().toISOString()
+    };
 
-<!-- Stats -->
-<section class="stats">
-    <div class="stat-card">
-        <h3 id="videoCount">0</h3>
-        <p>Videos</p>
-    </div>
+    console.log("[STUDIO] MEDIA INGEST:", mediaItem);
 
-    <div class="stat-card">
-        <h3>Ready</h3>
-        <p>Status</p>
-    </div>
+    // UI feedback hooks (if your dashboard has them)
+    showToast?.(`Added: ${title}`);
 
-    <div class="stat-card">
-        <h3>Cloud</h3>
-        <p>Connected</p>
-    </div>
-</section>
+    // Optional visual pulse effect on save button
+    const btn = document.querySelector("button[onclick='saveMedia()']");
+    if (btn) {
+        btn.classList.add("pulse");
+        setTimeout(() => btn.classList.remove("pulse"), 600);
+    }
 
-<div class="studio-grid">
+    // Clear inputs
+    titleEl.value = "";
+    urlEl.value = "";
+    titleEl.focus();
 
-    <div class="panel">
+    // Future hook: push into library / API
+    window.dispatchEvent(new CustomEvent("studio:media:add", {
+        detail: mediaItem
+    }));
+};
 
-        <h2>Add Media</h2>
+window.goLive = function () {
+    console.log("[STUDIO] INIT LIVE HANDOFF → WATCH ENGINE");
 
-        <input id="mediatitle" placeholder="Title">
+    showToast?.("🚀 Sending to LIVE player...");
 
-        <input id="mediaurl" placeholder="Cloudinary / MP4 URL">
+    // Future-ready payload structure (important for scaling)
+    const payload = {
+        timestamp: new Date().toISOString(),
+        mode: "live",
+        source: "dashboard",
+        action: "sync_playlist"
+    };
 
-        <button onclick="saveMedia()">
-            ➕ Add to Library
-        </button>
+    console.log("[STUDIO] LIVE PAYLOAD:", payload);
 
-    </div>
+    // This is your integration hook to watch.html
+    window.dispatchEvent(new CustomEvent("studio:go-live", {
+        detail: payload
+    }));
 
-    <div class="panel">
-
-        <h2>Media Library</h2>
-
-        <div id="library"></div>
-
-    </div>
-
-    <div class="panel">
-
-        <h2>Live Control</h2>
-
-        <button onclick="goLive()">
-            Send Live
-        </button>
-
-    </div>
-
-</div>
-
-<script src="studio.js"></script>
-<script src="media.js"></script>
-
-</body>
-</html>
+    // Optional UX hint
+    const btn = document.querySelector("button[onclick='goLive()']");
+    if (btn) {
+        btn.classList.add("live-fire");
+        setTimeout(() => btn.classList.remove("live-fire"), 800);
+    }
+};
