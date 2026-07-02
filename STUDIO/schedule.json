@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "timezone": "EST",
+  "blocks": [
+    {
+      "type": "music_block",
+      "duration": 1500,
+      "repeat": true,
+      "insertCommercialEvery": 900,
+      "playlist": [
+        "switchlades-distant-lover",
+        "switchlades-always-getting-high"
+      ]
+    },
+    {
+      "type": "show",
+      "id": "slept-on",
+      "duration": 1800
+    },
+    {
+      "type": "track",
+      "id": "stv-teaser",
+      "label": "COMING UP ON STV",
+      "duration": 30
+    },
+    {
+      "type": "show",
+      "id": "g4e-live",
+      "duration": 3600
+    },
+    {
+      "type": "track",
+      "id": "griff-trailer",
+      "label": "G4E FEATURE TRAILER",
+      "duration": 180
+    },
+    {
+      "type": "show",
+      "id": "professor-griff",
+      "duration": 964
+    }
+  ]
+}

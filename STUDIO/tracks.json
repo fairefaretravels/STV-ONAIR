@@ -1,0 +1,38 @@
+[
+  {
+    "id": "griff-trailer",
+    "title": "Professor Griff — Trailer",
+    "artist": "Professor Griff",
+    "type": "trailer",
+    "url": "https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782355124/griffclip1_phzl8w.mp4",
+    "cover": "https://res.cloudinary.com/dyqfcbgqo/video/upload/so_0/griffclip1_phzl8w.jpg",
+    "duration": 180
+  },
+  {
+    "id": "stv-teaser",
+    "title": "STV Broadcast Network — Teaser",
+    "artist": "STV",
+    "type": "trailer",
+    "url": "https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782971075/Copy_of_tv_TEASER_szqmgm.mp4",
+    "cover": "https://res.cloudinary.com/dyqfcbgqo/image/upload/v1782971056/stv-logo1_nuf7fb.jpg",
+    "duration": 30
+  },
+  {
+    "id": "switchlades-distant-lover",
+    "title": "Distant Lover",
+    "artist": "The Switchlades",
+    "type": "music",
+    "url": "https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782973867/The_Swichblades_-_Distant_Lover_dwhpkq.mp4",
+    "cover": "https://res.cloudinary.com/dyqfcbgqo/image/upload/v1782971056/stv-logo1_nuf7fb.jpg",
+    "duration": 406,
+  },
+  {
+    "id": "switchlades-always-getting-high",
+    "title": "Get This Cash",
+    "artist": "Frost The Boss feat Ms Candy",
+    "type": "music",
+    "url": "https://res.cloudinary.com/dyqfcbgqo/video/upload/FROST_THE_BOSS_X_Mz.CANDY_-_MAKE_THIS_CASH_SHOT_BY_MOEHAZE_t74zro.mp4",
+    "cover": "https://res.cloudinary.com/dyqfcbgqo/image/upload/v1782971056/stv-logo1_nuf7fb.jpg",
+    "duration": 343,
+  }
+]
