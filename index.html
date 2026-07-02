@@ -1056,7 +1056,7 @@
     Radio
   </button>
 
-  <a href="/watch" class="nav-tab">Shows</a>
+  <button class="nav-tab" data-view="shows" onclick="navigate('shows', this)">Shows</button>
 
     <div class="sp-divider"></div>
 
@@ -1355,7 +1355,6 @@
         </div>
       </div>
 
-    <!-- LIVE STREAMS -->
 <!-- LIVE STREAMS -->
 <div class="section-head"><span class="accent-bar"></span><h2>CATCH THE VIBE</h2><p>Live — Watch on Kick or YouTube</p></div>
 
@@ -1410,7 +1409,15 @@
   <!-- ══════════ VIEW: SHOWS ══════════ -->
   <div class="view" id="view-shows">
     <div class="page">
-
+      
+<!-- LIVE CHANNEL EMBED -->
+<div class="section-head" style="margin-top:1rem;"><span class="accent-bar"></span><h2>Live Channel</h2><p>STV Broadcast — 24/7 Programming</p></div>
+<div style="border:1px solid var(--border-strong);border-radius:4px;overflow:hidden;margin-bottom:2.5rem;background:#000;">
+  <div class="responsive-iframe-container">
+    <iframe id="showsChannelFrame" data-src="https://studio-os-v1.vercel.app/watch" src="about:blank"
+      title="STV Broadcast Live Channel" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
       <!-- NEVERLAND CARD -->
       <div class="section-head" style="margin-top:1rem;"><span class="accent-bar"></span><h2>Featured</h2><p>STV Network Originals &amp; Features</p></div>
       <a href="https://fairefaretravels.github.io/neverland-the-underground/" target="_blank" rel="noopener noreferrer" class="link-card" style="border:1px solid rgba(200,169,110,0.35);background:#0a0806;" onmouseover="this.querySelector('.link-card-inner').style.borderColor='rgba(200,169,110,0.9)'" onmouseout="this.querySelector('.link-card-inner').style.borderColor=''">
@@ -2008,6 +2015,14 @@ function navigate(viewKey, tabEl) {
   // Update tab
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   if (tabEl) tabEl.classList.add('active');
+
+  // Lazy-load the live channel embed the first time Shows is opened
+  if (viewKey === 'shows') {
+    const frame = document.getElementById('showsChannelFrame');
+    if (frame && frame.src === 'about:blank') {
+      frame.src = frame.dataset.src;
+    }
+  }
 
   // Update URL hash without reload
   history.replaceState(null, '', '#' + viewKey);
