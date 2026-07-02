@@ -1,48 +1,82 @@
-window.mediaLibrary = window.mediaLibrary || [];
+const library = [];
 
-window.saveMedia = function () {
-    const titleEl = document.getElementById("mediatitle");
-    const urlEl = document.getElementById("mediaurl");
+function updateClock() {
+    const clock = document.getElementById("clock");
+    if (!clock) return;
 
-    const title = titleEl?.value?.trim();
-    const url = urlEl?.value?.trim();
+    clock.textContent = new Date().toLocaleTimeString();
+}
+
+function updateStats() {
+    const count = document.getElementById("videoCount");
+    if (count) {
+        count.textContent = library.length;
+    }
+}
+
+function renderLibrary() {
+    const list = document.getElementById("library");
+    if (!list) return;
+
+    list.innerHTML = "";
+
+    if (library.length === 0) {
+        list.innerHTML = "<p>No media added yet.</p>";
+        updateStats();
+        return;
+    }
+
+    library.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "media-item";
+
+        row.innerHTML = `
+            <strong>${item.title}</strong><br>
+            <small>${item.url}</small>
+        `;
+
+        row.animate([
+            { opacity: 0, transform: "translateX(-20px)" },
+            { opacity: 1, transform: "translateX(0)" }
+        ], {
+            duration: 300,
+            easing: "ease-out"
+        });
+
+        list.appendChild(row);
+    });
+
+    updateStats();
+}
+
+function saveMedia() {
+    const title = document.getElementById("mediatitle").value.trim();
+    const url = document.getElementById("mediaurl").value.trim();
 
     if (!title || !url) {
-        alert("Please enter both a title and a URL.");
+        alert("Enter title and URL");
         return;
     }
 
-    const mediaItem = {
-        id: Date.now(),
-        title,
-        url,
-        createdAt: new Date().toISOString()
-    };
+    library.push({ title, url });
 
-    window.mediaLibrary.push(mediaItem);
+    renderLibrary();
 
-    console.log("Saved media item:", mediaItem);
-    console.log("Current library:", window.mediaLibrary);
+    document.getElementById("mediatitle").value = "";
+    document.getElementById("mediaurl").value = "";
+}
 
-    // optional: clear inputs
-    titleEl.value = "";
-    urlEl.value = "";
-};
-
-window.goLive = function () {
-    if (!window.mediaLibrary.length) {
-        alert("No media in library yet.");
+function goLive() {
+    if (!library.length) {
+        alert("No media queued.");
         return;
     }
 
-    // Save to session storage so watch page can read it
-    sessionStorage.setItem(
-        "STUDIO_PLAYLIST",
-        JSON.stringify(window.mediaLibrary)
-    );
+    alert(`Sending ${library.length} items to LIVE player`);
+}
 
-    console.log("Go Live triggered. Playlist sent:", window.mediaLibrary);
-
-    // Navigate to watch page (adjust path if needed)
-    window.location.href = "STUDIO/watch.html";
-};
+window.addEventListener("DOMContentLoaded", () => {
+    renderLibrary();
+    updateClock();
+    setInterval(updateClock, 1000);
+});
