@@ -1,112 +1,29 @@
-body {
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #151515, #0b0b0b);
-  color: white;
-  margin: 0;
-}
+{
+  "tracks": {
+    "distant-lover": {
+      "plays": 10,
+      "completions": 8,
+      "dropoffs": 2,
+      "completionRate": 0.8,
+      "dropoffRate": 0.2,
+      "score": 76
+    },
+    "always-getting-high": {
+      "plays": 6,
+      "completions": 5,
+      "dropoffs": 1,
+      "completionRate": 0.83,
+      "dropoffRate": 0.17,
+      "score": 81
+    }
+  },
 
-/* GRID */
-.studio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-/* PANELS */
-.panel {
-  background: linear-gradient(145deg, #1a1a1a, #111);
-  padding: 16px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.panel:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 40px rgba(124,92,255,0.15);
-}
-
-/* INPUTS */
-input {
-  width: 100%;
-  margin: 6px 0;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #2a2a2a;
-  background: #0f0f0f;
-  color: white;
-  outline: none;
-}
-
-input:focus {
-  border-color: #7c5cff;
-  box-shadow: 0 0 0 2px rgba(124,92,255,0.25);
-}
-
-/* BUTTONS */
-button {
-  padding: 10px 12px;
-  background: linear-gradient(90deg, #7c5cff, #5b3fe0);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: transform 0.15s ease, filter 0.2s ease;
-}
-
-button:hover {
-  filter: brightness(1.1);
-}
-
-button:active {
-  transform: scale(0.96);
-}
-
-/* MEDIA ITEMS */
-.media-item {
-  background: #111;
-  border: 1px solid #222;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 10px;
-  animation: fadeIn 0.25s ease;
-}
-
-.media-item strong {
-  display: block;
-  color: #fff;
-}
-
-.media-item small {
-  color: #aaa;
-  font-size: 11px;
-}
-
-/* ANIMATIONS */
-.pulse {
-  animation: pulseGlow 0.6s ease;
-}
-
-@keyframes pulseGlow {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.03); box-shadow: 0 0 20px rgba(124,92,255,0.5); }
-  100% { transform: scale(1); }
-}
-
-.live-fire {
-  animation: liveFlash 0.8s ease;
-}
-
-@keyframes liveFlash {
-  0% { background: #7c5cff; }
-  50% { background: #e5484d; transform: scale(1.05); }
-  100% { background: #7c5cff; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  "shows": {
+    "slept-on": {
+      "plays": 4,
+      "completions": 4,
+      "completionRate": 1.0,
+      "score": 92
+    }
+  }
 }
