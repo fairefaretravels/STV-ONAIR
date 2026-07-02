@@ -1,277 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STV — Watch Live</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root{
-    --bg: #0e0e0f;
-    --bg2: #161618;
-    --bg3: #1e1e21;
-    --border: rgba(255,255,255,0.08);
-    --text: #f0ede8;
-    --text2: #888784;
-    --text3: #555452;
-    --accent: #c8a96e;
-    --accent2: #e8c98e;
-    --live: #e84d3d;
-  }
-  html{ scroll-behavior: smooth; }
-  body{
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WHAT'S ON NOW</title>
 
-  /* TOP BAR */
-  .topbar{
-    display:flex; align-items:center; justify-content:space-between;
-    padding: 1.1rem 1.75rem;
-    border-bottom: 0.5px solid var(--border);
-  }
-  .brand{ display:flex; align-items:center; gap:12px; }
-  .brand-mark{
-    width:34px; height:34px; border-radius:7px;
-    background: var(--accent);
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-  }
-  .brand-mark svg{ width:16px; height:16px; fill:#0e0e0f; }
-  .brand-name{ font-family:'Playfair Display', serif; font-size:1.15rem; font-weight:600; letter-spacing:-.01em; }
-  .brand-sub{ font-size:0.68rem; color:var(--text3); letter-spacing:0.12em; text-transform:uppercase; margin-top:1px; }
-  .onair-pill{
-    display:flex; align-items:center; gap:7px;
-    font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:500;
-    color: var(--live);
-    border: 0.5px solid rgba(232,77,61,0.35);
-    background: rgba(232,77,61,0.08);
-    padding: 6px 13px; border-radius: 99px;
-  }
-  .onair-pill .dot{ width:6px;height:6px;border-radius:50%; background:var(--live); animation: pulse 1.8s ease-in-out infinite; }
-  @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111827;
+      --panel-border: #222;
+      --text: #ffffff;
+      --muted: #aaaaaa;
+      --danger: #d40000;
+      --danger-bright: #ff2d2d;
+      --gold: #ffd54a;
+    }
 
-  /* MAIN */
-  .stage{ max-width: 980px; margin: 0 auto; padding: 2.5rem 1.75rem 4rem; }
+    * {
+      box-sizing: border-box;
+    }
 
-  .video-hero{
-    position:relative;
-    width:100%; aspect-ratio:16/9;
-    background:#000;
-    border-radius: 10px;
-    overflow:hidden;
-    border: 0.5px solid var(--border);
-  }
-  .video-hero iframe{ width:100%; height:100%; border:none; display:block; }
-  .video-hero .live-tag{
-    position:absolute; top:14px; left:14px; z-index:2;
-    background: var(--live); color:#fff;
-    font-size:0.66rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
-    padding: 5px 10px; border-radius:5px;
-    display:flex; align-items:center; gap:5px;
-    pointer-events:none;
-  }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+    }
 
-  /* NOW PLAYING + PROGRESS */
-  .now-block{ margin-top: 1.5rem; }
-  .now-row{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom: 0.6rem; }
-  .now-title{ font-family:'Playfair Display', serif; font-size:1.5rem; font-weight:600; letter-spacing:-.01em; }
-  .now-meta{ font-size:0.78rem; color:var(--text2); display:flex; align-items:center; gap:8px; }
-  .cat-chip{ font-size:0.64rem; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; padding:2px 9px; border-radius:99px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--panel-border);
+    }
 
-  .progress-track{
-    width:100%; height:4px; border-radius: 99px;
-    background: var(--bg3);
-    overflow:hidden;
-    margin-top: 0.9rem;
-  }
-  .progress-fill{
-    height:100%; border-radius:99px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    width:0%;
-    transition: width 1s linear;
-  }
-  .progress-caption{
-    display:flex; justify-content:space-between;
-    font-size:0.68rem; color:var(--text3); letter-spacing:0.03em;
-    margin-top: 6px;
-  }
+    .live {
+      color: #ff3b3b;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
 
-  /* UP NEXT */
-  .upnext-head{
-    display:flex; align-items:center; gap:10px;
-    margin: 3rem 0 1rem;
-  }
-  .upnext-head .line{ flex:1; height:0.5px; background:var(--border); }
-  .upnext-label{ font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text3); font-weight:500; white-space:nowrap; }
+    .container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      padding: 20px;
+      align-items: start;
+    }
 
-  .upnext-list{ display:flex; flex-direction:column; }
-  .upnext-item{
-    display:flex; align-items:center; gap:16px;
-    padding: 14px 4px;
-    border-bottom: 0.5px solid var(--border);
-    transition: opacity 0.15s;
-  }
-  .upnext-item:first-child{ padding-top: 4px; }
-  .upnext-item:last-child{ border-bottom:none; }
-  .upnext-time{
-    font-family:'DM Sans', sans-serif; font-size:0.78rem; font-weight:500; color:var(--text2);
-    width: 74px; flex-shrink:0;
-  }
-  .upnext-swatch{ width:4px; height:34px; border-radius:3px; flex-shrink:0; }
-  .upnext-info{ flex:1; min-width:0; }
-  .upnext-name{ font-family:'Playfair Display', serif; font-size:1.02rem; font-weight:500; margin-bottom:2px; }
-  .upnext-cat{ font-size:0.72rem; color:var(--text3); }
-  .upnext-in{ font-size:0.7rem; color:var(--text3); white-space:nowrap; }
+    .player-box {
+      position: relative;
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      min-height: 500px;
+    }
 
-  @media (max-width: 620px){
-    .stage{ padding: 1.5rem 1.1rem 3rem; }
-    .now-title{ font-size:1.25rem; }
-    .upnext-time{ width:58px; font-size:0.72rem; }
-  }
-</style>
+    video,
+    iframe {
+      width: 100%;
+      height: 500px;
+      display: block;
+      border: none;
+      background: black;
+    }
+
+    video {
+      transition: opacity 0.6s ease;
+    }
+
+    .info {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .title {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .artist {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .status {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: red;
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .broadcast-overlay {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      overflow: hidden;
+    }
+
+    .channel-bug {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(180, 0, 0, 0.92);
+      color: white;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 1px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+      text-transform: uppercase;
+    }
+
+    .logo-bug {
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .logo-bug img {
+      width: 90px;
+      height: auto;
+      opacity: 0.92;
+      filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+      display: block;
+    }
+
+    .now-playing-banner {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      min-width: 320px;
+      max-width: 520px;
+      background: linear-gradient(90deg, rgba(180, 0, 0, 0.95), rgba(30, 30, 30, 0.9));
+      color: white;
+      padding: 10px 14px;
+      border-left: 5px solid var(--gold);
+      transform: translateX(-120%);
+      opacity: 0;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .now-playing-banner.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .np-label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .np-title {
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .np-sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.82);
+      margin-top: 3px;
+    }
+
+    .lower-third {
+      position: absolute;
+      left: 18px;
+      bottom: 56px;
+      display: flex;
+      align-items: stretch;
+      min-width: 500px;
+      max-width: 72%;
+      background: rgba(10, 10, 10, 0.82);
+      backdrop-filter: blur(4px);
+      border-top: 3px solid #c40000;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      opacity: 0.98;
+    }
+
+    .lt-accent {
+      width: 10px;
+      background: linear-gradient(180deg, var(--danger-bright), #8b0000);
+    }
+
+    .lt-content {
+      padding: 12px 16px;
+    }
+
+    .lt-kicker {
+      font-size: 11px;
+      font-weight: 800;
+      color: #ff5252;
+      letter-spacing: 1.5px;
+      margin-bottom: 3px;
+    }
+
+    .lt-headline {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.05;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .lt-subheadline {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.82);
+      margin-top: 5px;
+    }
+
+    .ticker-wrap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 42px;
+      display: flex;
+      background: rgba(120, 0, 0, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .ticker-label {
+      flex: 0 0 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e00000;
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .ticker-track {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-text {
+      white-space: nowrap;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      padding-left: 100%;
+      animation: tickerScroll 20s linear infinite;
+    }
+
+    @keyframes tickerScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .commercial-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(40, 40, 40, 0.85), rgba(0, 0, 0, 0.95));
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .commercial-overlay.show {
+      display: flex;
+    }
+
+    .commercial-card {
+      text-align: center;
+      padding: 40px 60px;
+      background: rgba(20, 20, 20, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .commercial-label {
+      font-size: 13px;
+      letter-spacing: 2px;
+      color: #ff5a5a;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .commercial-title {
+      font-size: 36px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .commercial-sub {
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+    }
+
+    @media (max-width: 1100px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .lower-third {
+        min-width: auto;
+        max-width: calc(100% - 36px);
+      }
+    }
+
+    @media (max-width: 700px) {
+      video,
+      iframe,
+      .player-box {
+        min-height: 320px;
+        height: 320px;
+      }
+
+      .now-playing-banner {
+        min-width: auto;
+        max-width: calc(100% - 36px);
+      }
+
+      .lt-headline {
+        font-size: 18px;
+      }
+
+      .lt-subheadline {
+        font-size: 12px;
+      }
+
+      .ticker-label {
+        flex-basis: 100px;
+        font-size: 10px;
+      }
+
+      .ticker-text {
+        font-size: 12px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-mark"><svg viewBox="0 0 24 24"><path d="M4 8l8-5 8 5v8l-8 5-8-5V8z"/><path d="M12 3v18M4 8l8 5 8-5"/></svg></div>
-    <div>
-      <div class="brand-name">STV</div>
-      <div class="brand-sub">Broadcast Network</div>
-    </div>
-  </div>
-  <div class="onair-pill"><span class="dot"></span>On Air</div>
-</header>
-
-<div class="stage">
-
-  <div class="video-hero">
-    <div class="live-tag">📡 Live</div>
-    <iframe id="videoFrame" src="https://archive.org/embed/night_of_the_living_dead" allowfullscreen title="STV Live"></iframe>
+  <div class="topbar">
+    <div>STUDIO CHANNEL FEED</div>
+    <div class="live"> ● LIVE</div>
   </div>
 
-  <div class="now-block">
-    <div class="now-row">
-      <div class="now-title" id="nowTitle">—</div>
-      <div class="now-meta">
-        <span class="cat-chip" id="nowChip">—</span>
-        <span id="nowTime">—</span>
+  <div class="container">
+    <div class="player-box">
+      <video id="player" controls autoplay muted></video>
+      <iframe id="playerFrame" style="display:none;" allow="autoplay" frameborder="0" title="STV Live Player"></iframe>
+
+      <div class="broadcast-overlay">
+        <div class="channel-bug logo-bug">
+          <img src="media/stv-logo.jpeg" alt="STV Live" />
+        </div>
+
+        <div class="now-playing-banner" id="nowPlayingBanner">
+          <div class="np-label">NOW PLAYING</div>
+          <div class="np-title" id="npTitle">Loading...</div>
+          <div class="np-sub" id="npSub">Stand by</div>
+        </div>
+
+        <div class="lower-third" id="lowerThird">
+          <div class="lt-accent"></div>
+          <div class="lt-content">
+            <div class="lt-kicker">LIVE</div>
+            <div class="lt-headline" id="ltHeadline">SanecaTV Broadcast Network</div>
+            <div class="lt-subheadline" id="ltSubheadline">Programming will begin shortly</div>
+          </div>
+        </div>
+
+        <div class="ticker-wrap">
+          <div class="ticker-label">HEADLINES</div>
+          <div class="ticker-track">
+            <div class="ticker-text" id="tickerText">
+             LIVE • Breaking updates • Entertainment • News • Weather • Music • Community programming • Stay tuned for more
+            </div>
+          </div>
+        </div>
+
+        <div class="commercial-overlay" id="commercialOverlay">
+          <div class="commercial-card">
+            <div class="commercial-label">WE'LL BE RIGHT BACK</div>
+            <div class="commercial-title">Commercial Break</div>
+            <div class="commercial-sub">SanecaTV Broadcast Network</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="progress-caption">
-      <span id="progressElapsed">0 min in</span>
-      <span id="progressRemaining">— left</span>
+
+    <div class="info">
+      <div class="status">
+        <div class="dot"></div>
+        <div>NOW PLAYING</div>
+      </div>
+
+      <div class="title" id="title">Loading...</div>
+      <div class="artist" id="artist"></div>
+
+      <hr style="border-color:#222" />
+
+      <div style="color:#888; font-size:12px;">
+        XOCO MEDIA PLAYER
+      </div>
     </div>
   </div>
 
-  <div class="upnext-head">
-    <span class="upnext-label">Up Next</span>
-    <div class="line"></div>
-  </div>
+  <script src="/studio.js"></script>
+  <script src="/media.js"></script>
 
-  <div class="upnext-list" id="upnextList"></div>
+  <script>
+    window.addEventListener("DOMContentLoaded", async () => {
+      try {
+        console.log("Generating schedule...");
 
-</div>
+        const queue = await STUDIO.generate();
 
-<script>
-/* ---------- Category palette (shared language w/ the schedule grid) ---------- */
-const CAT = {
-  news:  { label:'News',         color:'#e5484d' },
-  music: { label:'Music Videos', color:'#3fbf74' },
-  talk:  { label:'Talk Show',    color:'#a78bfa' },
-  kids:  { label:'Kids',         color:'#e0813f' },
-  docu:  { label:'Documentary',  color:'#3aa0ff' },
-  soap:  { label:'Soap Opera',   color:'#e0479e' },
-  cook:  { label:'Cooking',      color:'#c8a96e' },
-  life:  { label:'Lifestyle',    color:'#2bb3a3' },
-  insp:  { label:'Inspiration',  color:'#b3654f' },
-};
+        console.log("Queue loaded:", queue);
 
-/* ---------- One full broadcast day, hourly blocks (24h) ---------- */
-const DAY = [
-  { h:0,  name:'Late Night Music Mix',      cat:'music' },
-  { h:1,  name:'Overnight Documentary',     cat:'docu'  },
-  { h:2,  name:'Archive Films: Midnight',   cat:'docu'  },
-  { h:3,  name:'Quiet Hours Music',         cat:'music' },
-  { h:4,  name:'Sunrise Inspiration',       cat:'insp'  },
-  { h:5,  name:'Morning Inspiration',       cat:'insp'  },
-  { h:6,  name:'Wake Up Music',             cat:'music' },
-  { h:7,  name:'Good Morning Atlanta',      cat:'news'  },
-  { h:8,  name:'Traffic & Weather',         cat:'news'  },
-  { h:9,  name:'The Daily Talk',            cat:'talk'  },
-  { h:10, name:'Lifestyle Today',           cat:'life'  },
-  { h:11, name:'Classic Cartoons',          cat:'kids'  },
-  { h:12, name:'Midday Music Mix',          cat:'music' },
-  { h:13, name:'Documentary Hour',          cat:'docu'  },
-  { h:14, name:'Classic Cartoons',          cat:'kids'  },
-  { h:15, name:'Cooking With Love',         cat:'cook'  },
-  { h:16, name:'The Soap Opera',            cat:'soap'  },
-  { h:17, name:'Life & You',                cat:'talk'  },
-  { h:18, name:'Evening News',              cat:'news'  },
-  { h:19, name:'Primetime Documentary',     cat:'docu'  },
-  { h:20, name:'Feature Film Night',        cat:'docu'  },
-  { h:21, name:'The Soap Opera Late',       cat:'soap'  },
-  { h:22, name:'Night Talk',                cat:'talk'  },
-  { h:23, name:'Late Night Music Mix',      cat:'music' },
-];
+        if (!queue || !queue.length) {
+          console.error("EMPTY SCHEDULE");
+          return;
+        }
 
-function fmtHour(h){
-  const hh = ((h % 24) + 24) % 24;
-  const period = hh < 12 ? 'AM' : 'PM';
-  let display = hh % 12; if(display === 0) display = 12;
-  return display + ':00 ' + period;
-}
-
-function render(){
-  const now = new Date();
-  const h = now.getHours();
-  const mins = now.getMinutes();
-
-  const current = DAY[h];
-  const cat = CAT[current.cat];
-
-  document.getElementById('nowTitle').textContent = current.name;
-  const chip = document.getElementById('nowChip');
-  chip.textContent = cat.label;
-  chip.style.background = cat.color + '26';
-  chip.style.color = cat.color;
-  chip.style.border = '0.5px solid ' + cat.color + '55';
-  document.getElementById('nowTime').textContent = fmtHour(h) + ' – ' + fmtHour(h+1);
-
-  const pct = Math.round((mins/60)*100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressFill').style.background = `linear-gradient(90deg, ${cat.color}, var(--accent2))`;
-  document.getElementById('progressElapsed').textContent = mins + ' min in';
-  document.getElementById('progressRemaining').textContent = (60-mins) + ' min left';
-
-  const list = document.getElementById('upnextList');
-  let html = '';
-  for(let i=1; i<=4; i++){
-    const item = DAY[(h+i) % 24];
-    const c = CAT[item.cat];
-    const inMins = (60-mins) + (i-1)*60;
-    const inLabel = inMins < 60 ? `in ${inMins}m` : `in ${Math.floor(inMins/60)}h ${inMins%60}m`;
-    html += `<div class="upnext-item">
-      <div class="upnext-time">${fmtHour(h+i)}</div>
-      <div class="upnext-swatch" style="background:${c.color}"></div>
-      <div class="upnext-info">
-        <div class="upnext-name">${item.name}</div>
-        <div class="upnext-cat">${c.label}</div>
-      </div>
-      <div class="upnext-in">${inLabel}</div>
-    </div>`;
-  }
-  list.innerHTML = html;
-}
-
-render();
-setInterval(render, 30000);
-</script>
+        MEDIA.start(queue);
+      } catch (err) {
+        console.error("STUDIO START FAILED:", err);
+      }
+    });
+  </script>
 </body>
 </html>
