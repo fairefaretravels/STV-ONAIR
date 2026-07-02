@@ -1,97 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Studio OS Dashboard</title>
-  <link rel="stylesheet" href="styles.css">
+    <title>Studio OS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-  <div class="studio-grid">
+<!-- Background Blobs -->
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
 
-    <!-- UPLOAD PANEL -->
+<!-- Header -->
+<header class="topbar">
+    <h1>🎬 Studio OS</h1>
+
+    <div class="liveStatus">
+        <span class="dot"></span>
+        LIVE
+    </div>
+
+    <div id="clock"></div>
+</header>
+
+<!-- Stats -->
+<section class="stats">
+    <div class="stat-card">
+        <h3 id="videoCount">0</h3>
+        <p>Videos</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Ready</h3>
+        <p>Status</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Cloud</h3>
+        <p>Connected</p>
+    </div>
+</section>
+
+<div class="studio-grid">
+
     <div class="panel">
-      <h2>📥 Add Media (Cloudinary URL)</h2>
 
-      <input id="mediatitle" placeholder="Title">
-      <input id="mediaurl" placeholder="Cloudinary / MP4 URL">
+        <h2>Add Media</h2>
 
-      <button onclick="saveMedia()">Add to Library</button>
+        <input id="mediatitle" placeholder="Title">
+
+        <input id="mediaurl" placeholder="Cloudinary / MP4 URL">
+
+        <button onclick="saveMedia()">
+            ➕ Add to Library
+        </button>
+
     </div>
 
-    <!-- LIBRARY -->
     <div class="panel">
-      <h2>📚 Media Library</h2>
-      <div id="library"></div>
+
+        <h2>Media Library</h2>
+
+        <div id="library"></div>
+
     </div>
 
-    <!-- LIVE CONTROL -->
     <div class="panel">
-      <h2>📡 Live Control</h2>
-      <button onclick="goLive()">Send to Watch</button>
+
+        <h2>Live Control</h2>
+
+        <button onclick="goLive()">
+            Send Live
+        </button>
+
     </div>
 
-  </div>
+</div>
 
-  <script src="./STUDIO/studio.js"></script>
-  <script src="./STUDIO/media.js"></script>
+<script src="studio.js"></script>
+<script src="media.js"></script>
 
-<script>
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("STUDIO OS READY");
-});
-</script>
-<script>
-const library = [];
-
-function renderLibrary() {
-  const list = document.getElementById("library");
-
-  if (library.length === 0) {
-    list.innerHTML = "<p>No media added yet.</p>";
-    return;
-  }
-
-  list.innerHTML = library.map(item => `
-    <div class="media-item">
-      <strong>${item.title}</strong><br>
-      <small>${item.url}</small>
-    </div>
-  `).join("");
-}
-
-function saveMedia() {
-  const title = document.getElementById("mediatitle").value.trim();
-  const url = document.getElementById("mediaurl").value.trim();
-
-  if (!title || !url) {
-    alert("Enter both a title and a URL.");
-    return;
-  }
-
-  library.push({
-    title,
-    url
-  });
-
-  renderLibrary();
-
-  document.getElementById("mediatitle").value = "";
-  document.getElementById("mediaurl").value = "";
-
-  alert("Media added successfully!");
-}
-
-function goLive() {
-  if (!library.length) {
-    alert("No media in the library.");
-    return;
-  }
-
-  alert(`Ready to send ${library.length} media item(s) to the live player.`);
-}
-
-renderLibrary();
-</script>
 </body>
 </html>
