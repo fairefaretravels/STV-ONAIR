@@ -111,12 +111,11 @@ button:active {
   100% { transform: scale(1); }
 }
 
-.live-fire {
+..live-fire {
   animation: liveFlash 0.8s ease;
 }
 
-@keyframes liveFlash {
-  0% { background: #7c5cff; }
-  50% { background: #e5484d; transform: scale(1.05); }
-  100% { background: #7c5cff; }
+/* IMPORTANT: restrict background override to buttons only */
+button.live-fire {
+  animation: liveFlash 0.8s ease;
 }
