@@ -162,44 +162,40 @@ window.MEDIA = (function () {
 
         // ---------- VIDEO ----------
         frame.style.display = "none";
-        frame.src = "about:blank";
+frame.src = "about:blank";
 
-        player.style.display = "block";
-        player.loop = !!item?.loop;
-        player.src = src;
+player.style.display = "block";
+player.loop = !!item?.loop;
 
-        // Safety net: if this video never becomes playable, don't hang the broadcast forever
-        scheduleStallFallback(item);
+clearStallTimer();
 
-        player.oncanplay = () => {
-            clearStallTimer();
-            setLoading(false, item);
+player.pause();
+player.removeAttribute("src");
+player.load();
 
-            player.play().catch(err => {
-                console.error("PLAY FAILED:", err);
-            });
+player.oncanplay = null;
 
-            // only schedule if looping
-            if (item?.loop) {
-                scheduleAdvance(item?.duration || 30);
-            }
-        };
+player.addEventListener("canplay", () => {
+    clearStallTimer();
+    setLoading(false, item);
 
-        player.onended = () => {
-            if (!item?.loop) next();
-        };
+    player.play().catch(console.error);
 
-        player.onerror = () => {
-            console.error("MEDIA LOAD ERROR:", item);
-            clearStallTimer();
+    if (item?.loop) {
+        scheduleAdvance(item?.duration || 30);
+    }
+}, { once: true });
 
-            item._failCount = (item._failCount || 0) + 1;
-            if (item._failCount > 2) {
-                console.warn("Skipping permanently failed item:", item);
-            }
+player.onerror = () => {
+    console.error("MEDIA LOAD ERROR:", item);
+    clearStallTimer();
+    next();
+};
 
-            next();
-        };
+player.src = src;
+player.load();
+
+scheduleStallFallback(item);
 
         // NOTE: intentionally NOT wiring onplay/onpause to clearScheduledAdvance here.
         // play() resolves asynchronously after oncanplay schedules the advance timer,
