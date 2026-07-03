@@ -3,22 +3,22 @@ window.STUDIO = (function () {
     // regardless of whether /watch gets served as /watch or /watch/.
     // NOTE: must match the folder the scripts are actually served from
     // (watch.html loads them as /STUDIO/studio.js and /STUDIO/media.js).
-    const BASE = "/STUDIO/";
+    const BASE = "";
 
-    async function loadJSON(file, fallback = []) {
-        try {
-            const res = await fetch(`${BASE}${file}`);
-            if (!res.ok) throw new Error(`${file} failed: ${res.status}`);
-            return await res.json();
-        } catch (err) {
-            console.warn(`[STUDIO] Using fallback for ${file}`, err);
-            return fallback;
-        }
+async function loadJSON(file, fallback = []) {
+    try {
+        const res = await fetch(`/data/${file}`);
+        if (!res.ok) throw new Error(`${file} failed: ${res.status}`);
+        return await res.json();
+    } catch (err) {
+        console.warn(`[STUDIO] Using fallback for ${file}`, err);
+        return fallback;
     }
+}
 
     // Just load the flat, pre-ordered playlist and play it top to bottom, on loop.
     async function generate() {
-        const playlist = await loadJSON("data/playlist.json", []);
+        const playlist = await loadJSON("playlist.json", []);
         console.log(`[STUDIO] Queue generated: ${playlist.length} items`);
         return playlist;
     }
