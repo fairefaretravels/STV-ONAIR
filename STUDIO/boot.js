@@ -4,8 +4,27 @@ window.STUDIO_BOOT = (function () {
     try {
       console.log("[BOOT] Starting STUDIO...");
 
-      if (!window.STUDIO || !window.MEDIA) {
-        throw new Error("Missing STUDIO or MEDIA module");
+      function validateModules() {
+        const issues = [];
+
+        if (!window.STUDIO) issues.push("STUDIO missing");
+        if (!window.MEDIA) issues.push("MEDIA missing");
+
+        if (window.STUDIO && typeof window.STUDIO.generate !== "function") {
+          issues.push("STUDIO.generate invalid");
+        }
+
+        if (window.MEDIA && typeof window.MEDIA.start !== "function") {
+          issues.push("MEDIA.start invalid");
+        }
+
+        return issues;
+      }
+
+      const issues = validateModules();
+
+      if (issues.length) {
+        throw new Error(issues.join(", "));
       }
 
       let queue = [];
@@ -19,20 +38,32 @@ window.STUDIO_BOOT = (function () {
       if (!queue || queue.length === 0) {
         queue = [{
           id: "fallback",
-          title: "System Idle",
-          type: "track",
-          url: ""
+          title: "SYSTEM RECOVERY MODE",
+          type: "commercial",
+          duration: 30
         }];
       }
 
-      MEDIA.start(queue);
+      try {
+        MEDIA.start(queue);
+      } catch (e) {
+        console.error("[BOOT] MEDIA failed:", e);
+
+        const el = document.getElementById("title");
+        if (el) el.innerText = "Playback Engine Error";
+
+        return;
+      }
 
       console.log("[BOOT] SUCCESS");
 
     } catch (err) {
       console.error("[BOOT FAILURE]", err);
 
-      document.getElementById("title").innerText = "System Offline";
+      const el = document.getElementById("title");
+      if (el) el.innerText = "SYSTEM OFFLINE";
+
+      document.body.style.background = "#0b0d14";
     }
   }
 
