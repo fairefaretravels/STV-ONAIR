@@ -22,7 +22,7 @@ jobs:
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .   # IMPORTANT: root deploy
+          path: .   # or ./public if you have structure
 
       - name: Deploy to Pages
         uses: actions/deploy-pages@v5
