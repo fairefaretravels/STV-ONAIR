@@ -386,6 +386,70 @@ window.applyRec = function (el) {
   // Later: send to backend / Supabase
 };
 </script>
+  <script>
+/* =========================
+   LIVE CLOCK + AUTO REFRESH
+========================= */
+function tickClock() {
+  const now = new Date();
+  const timeEl = document.getElementById('clockTime');
+  const dateEl = document.getElementById('clockDate');
+  if (timeEl) {
+    timeEl.textContent = now.toLocaleTimeString('en-US', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+    });
+  }
+  if (dateEl) {
+    dateEl.textContent = now.toLocaleDateString('en-US', {
+      month: 'long', day: '2-digit', year: 'numeric'
+    }).toUpperCase();
+  }
+}
+setInterval(tickClock, 1000);
+tickClock(); // run immediately, don't wait 1s for first paint
+
+/* =========================
+   PERIODIC ON-AIR RE-CHECK
+   (re-syncs "now playing" to real time
+    even when playlist.json hasn't changed)
+========================= */
+async function refreshOnAirState() {
+  try {
+    const res = await fetch('/STUDIO/data/schedule.json', { cache: 'no-store' });
+    if (!res.ok) return;
+    const schedule = await res.json();
+
+    const now = new Date();
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+    // Expects each entry like: { start: "18:00", end: "19:00", title, category }
+    const current = schedule.find(item => {
+      const [sh, sm] = item.start.split(':').map(Number);
+      const [eh, em] = item.end.split(':').map(Number);
+      const startMin = sh * 60 + sm;
+      const endMin = eh * 60 + em;
+      return nowMinutes >= startMin && nowMinutes < endMin;
+    });
+
+    if (current) {
+      document.getElementById('onairTitle').textContent = current.title;
+      document.getElementById('onairName2').textContent = current.title;
+      document.getElementById('onairMeta').textContent = current.category || '';
+    }
+
+    const upcoming = schedule.find(item => {
+      const [sh, sm] = item.start.split(':').map(Number);
+      return (sh * 60 + sm) > nowMinutes;
+    });
+    if (upcoming) document.getElementById('onairNext').textContent = upcoming.title;
+
+  } catch (err) {
+    console.warn('[LIVE SYNC] schedule refresh failed', err);
+  }
+}
+refreshOnAirState();
+setInterval(refreshOnAirState, 30000); // re-sync every 30s
+</script>
 <body>
 <div class="app">
   <aside class="sidebar">
