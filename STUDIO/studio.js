@@ -18,7 +18,7 @@ window.STUDIO = (function () {
 
     // Just load the flat, pre-ordered playlist and play it top to bottom, on loop.
     async function generate() {
-        const playlist = await loadJSON("playlist.json", []);
+        const playlist = await loadJSON("data/playlist.json", []);
         console.log(`[STUDIO] Queue generated: ${playlist.length} items`);
         return playlist;
     }
