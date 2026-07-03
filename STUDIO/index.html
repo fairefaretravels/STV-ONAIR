@@ -573,29 +573,36 @@
 <script src="/STUDIO/media.js"></script>
 
 <script>
-(async function boot() {
+window.addEventListener("DOMContentLoaded", async () => {
   try {
+    console.log("[BOOT] Starting STUDIO OS...");
+
     if (!window.STUDIO || !window.STUDIO.generate) {
-      console.error("STUDIO not loaded");
-      return;
+      throw new Error("STUDIO not loaded");
     }
 
     if (!window.MEDIA || !window.MEDIA.start) {
-      console.error("MEDIA not loaded");
-      return;
+      throw new Error("MEDIA not loaded");
     }
 
     const queue = await window.STUDIO.generate();
 
-    if (!Array.isArray(queue) || queue.length === 0) {
-      console.error("EMPTY QUEUE");
-      return;
-    }
+    const safeQueue = Array.isArray(queue) && queue.length
+      ? queue
+      : [{
+          id: "fallback",
+          type: "commercial",
+          title: "SYSTEM FALLBACK LOOP",
+          duration: 30
+        }];
 
-    window.MEDIA.start(queue);
+    console.log("[BOOT] queue ready:", safeQueue.length);
 
+    window.MEDIA.start(safeQueue);
+
+    console.log("[BOOT] SUCCESS");
   } catch (err) {
-    console.error("BOOT FAILURE:", err);
+    console.error("[BOOT FAILURE]", err);
   }
-})();
+});
 </script>
