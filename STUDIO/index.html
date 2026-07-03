@@ -278,6 +278,50 @@
     0%, 100% { box-shadow: 0 0 0 rgba(229,9,20,0); }
     50%      { box-shadow: 0 0 14px rgba(229,9,20,0.55); }
   }
+
+  /* ══════════════════════════════════════
+     WATCH LIVE — EMBEDDED MODAL
+  ══════════════════════════════════════ */
+  .live-modal-overlay{
+    display:none;
+    position:fixed; inset:0; z-index:2000;
+    background: rgba(5,6,10,.82);
+    backdrop-filter: blur(4px);
+    align-items:center; justify-content:center;
+    padding: 30px;
+  }
+  .live-modal-overlay.open{ display:flex; }
+  .live-modal{
+    width:100%; max-width: 1100px; height: 82vh;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display:flex; flex-direction:column;
+    overflow:hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+  .live-modal-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel-2);
+    flex-shrink:0;
+  }
+  .live-modal-title{
+    display:flex; align-items:center; gap:8px;
+    font-weight:700; font-size:13px;
+  }
+  .live-modal-title .dot{ width:8px;height:8px;border-radius:50%; background:var(--red); box-shadow:0 0 8px var(--red); }
+  .live-modal-close{
+    width:30px;height:30px; border-radius:8px;
+    background: var(--panel-2); border:1px solid var(--border); color:var(--text);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:16px; line-height:1;
+  }
+  .live-modal-close:hover{ background:#1c2130; }
+  .live-modal iframe{
+    flex:1; width:100%; height:100%; border:0; display:block; background:#000;
+  }
 </style>
 </head>
   <script>
@@ -288,11 +332,20 @@
 window.watchLive = function () {
   console.log("[UI] Watch Live clicked");
 
-  // Example behavior (replace with real stream URL later)
-  alert("Live stream launching...");
+  const overlay = document.getElementById('liveModalOverlay');
+  const frame = document.getElementById('liveModalFrame');
 
-  // If you have a player page:
-  // window.open("/live.html", "_blank");
+  if (frame && frame.src === 'about:blank') {
+    frame.src = 'watch.html';
+  }
+
+  if (overlay) overlay.classList.add('open');
+};
+
+window.closeLiveModal = function () {
+  const overlay = document.getElementById('liveModalOverlay');
+  if (overlay) overlay.classList.remove('open');
+  // Iframe src is left intact on close so playback isn't reset on reopen.
 };
 
 window.runAI = async function () {
@@ -475,7 +528,7 @@ window.applyRec = function (el) {
         <div class="onair-info">
           <div class="show-title" id="onairTitle">Loading…</div>
           <div class="show-meta" id="onairMeta">—</div>
-          <button class="btn btn-purple" onclick="watchLive(watch.html)">
+          <button class="btn btn-purple" onclick="watchLive()">
             <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             Watch Live
           </button>
@@ -620,6 +673,16 @@ window.applyRec = function (el) {
       </div>
     </div>
   </main>
+
+  <div class="live-modal-overlay" id="liveModalOverlay" onclick="if(event.target===this) closeLiveModal()">
+    <div class="live-modal">
+      <div class="live-modal-head">
+        <div class="live-modal-title"><span class="dot"></span>STV Broadcast — Live</div>
+        <button class="live-modal-close" onclick="closeLiveModal()">✕</button>
+      </div>
+      <iframe id="liveModalFrame" src="about:blank" title="STV Live Watch" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
 </div>
 
 <script src="/STUDIO/studio.js"></script>
@@ -659,3 +722,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 </script>
+</body>
+</html>
