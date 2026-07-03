@@ -3,7 +3,7 @@ window.STUDIO = (function () {
     // regardless of whether /watch gets served as /watch or /watch/.
     // NOTE: must match the folder the scripts are actually served from
     // (watch.html loads them as /STUDIO/studio.js and /STUDIO/media.js).
-    const BASE = "";
+    const BASE = "/STUDIO";
 
 async function loadJSON(file, fallback = []) {
     try {
