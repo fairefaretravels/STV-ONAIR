@@ -1,6 +1,6 @@
 window.STUDIO = (function () {
 
-    const BASE = "STUDIO/";
+    const BASE = "./STUDIO/";
 
     async function loadJSON(file, fallback = []) {
         try {
