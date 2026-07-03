@@ -571,335 +571,133 @@
 
 <script src="/STUDIO/studio.js"></script>
 <script src="/STUDIO/media.js"></script>
+
 <script>
-function tick(){
-  const now = new Date();
-  const opts = { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:true };
-  document.getElementById('clockTime').textContent = now.toLocaleTimeString('en-US', opts);
-  document.getElementById('clockDate').textContent = now.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
-}
-tick(); setInterval(tick, 1000);
+(async () => {
+    const queue = await window.STUDIO.generate();
 
-setInterval(()=>{
-  const el = document.getElementById('liveViewers');
-  let v = parseInt(el.textContent.replace(/,/g,''));
-  v += Math.round((Math.random()-0.45) * 12);
-  el.textContent = v.toLocaleString();
-}, 2500);
-
-function classify(item){
-  const t = (item.type || '').toLowerCase();
-  if (t === 'commercial') return { cls: 'c-commercial', label: 'Commercial' };
-  if (t === 'trailer')    return { cls: 'c-trailer',    label: 'Trailer' };
-  if (t.startsWith('music')) return { cls: 'c-music',   label: item.type.replace('_',' ') };
-  if (t === 'show_episode' || t === 'show') {
-    const showType = (item.showType || '').toLowerCase();
-    if (showType === 'talk_show') return { cls: 'c-talk', label: 'Talk Show' };
-    if (showType === 'live_show') return { cls: 'c-news', label: 'Live Show' };
-    return { cls: 'c-show', label: item.showType || 'Series' };
-  }
-  return { cls: 'c-life', label: item.type || 'Programming' };
-}
-
-function buildTimeline(queue, loops = 3){
-  const totalDuration = queue.reduce((s, it) => s + (it.duration || 30), 0);
-  if (!totalDuration) return { timeline: [], totalDuration: 0 };
-  const dayStart = new Date();
-  dayStart.setHours(0, 0, 0, 0);
-  const timeline = [];
-  let cursor = new Date(dayStart);
-  for (let loop = 0; loop < loops; loop++) {
-    queue.forEach(item => {
-      const start = new Date(cursor);
-      const dur = item.duration || 30;
-      const end = new Date(cursor.getTime() + dur * 1000);
-      timeline.push({ item, start, end });
-      cursor = end;
-    });
-  }
-  return { timeline, totalDuration };
-}
-
-function findNowIndex(timeline){
-  const now = new Date();
-  for (let i = 0; i < timeline.length; i++){
-    if (now >= timeline[i].start && now < timeline[i].end) return i;
-  }
-  return 0;
-}
-
-function fmtTime(d){
-  return d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-}
-
-function renderOnAir(entry, nextEntry){
-  const item = entry.item;
-  const info = classify(item);
-  const label = item.blockLabel || info.label.toUpperCase();
-  document.getElementById('onairBlockLabel').textContent = label;
-  document.getElementById('onairName2').textContent = (item.title || 'STV LIVE').toUpperCase();
-  document.getElementById('onairTitle').textContent = item.title || 'STV Live';
-  document.getElementById('onairMeta').textContent =
-    `${info.label} · ${fmtTime(entry.start)} – ${fmtTime(entry.end)}`;
-  document.getElementById('onairNext').textContent =
-    nextEntry ? `${nextEntry.item.title} · ${fmtTime(nextEntry.start)}` : '—';
-
-  const thumb = document.getElementById('onairThumb');
-  const existingImg = thumb.querySelector('img');
-  if (item.cover) {
-    if (existingImg) {
-      existingImg.src = item.cover;
-    } else {
-      const img = document.createElement('img');
-      img.src = item.cover;
-      img.alt = item.title || '';
-      thumb.insertBefore(img, thumb.firstChild);
+    if (!queue || !queue.length) {
+        console.error("EMPTY QUEUE - STUDIO failed to generate playlist");
+        return;
     }
-  } else if (existingImg) {
-    existingImg.remove();
-  }
-}
 
-function renderLineup(timeline, nowIndex){
-  const table = document.getElementById('scheduleTable');
-  const rows = timeline.slice(nowIndex, nowIndex + 14);
-  let html = '<thead><tr><th>TIME</th><th>PROGRAMMING</th></tr></thead><tbody>';
-  rows.forEach((entry, i) => {
-    const info = classify(entry.item);
-    const label = entry.item.blockLabel || info.label;
-    const isLive = i === 0;
-    html += `<tr>
-      <td>${fmtTime(entry.start)}</td>
-      <td>
-        <div class="cell-block ${info.cls} ${isLive ? 'live-now' : ''}">
-          <div class="info">
-            <div class="block-label">${isLive ? '● LIVE NOW — ' : ''}${label}</div>
-            <div class="name">${entry.item.title}</div>
-            <div class="cat">${info.label}</div>
-          </div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        </div>
-      </td>
-    </tr>`;
-  });
-  html += '</tbody>';
-  table.innerHTML = html;
-}
+    if (!window.MEDIA || !window.MEDIA.start) {
+        console.error("MEDIA ENGINE NOT LOADED");
+        return;
+    }
 
-function renderDonut(queue){
-  const buckets = {};
-  queue.forEach(item => {
-    if ((item.type || '') === 'commercial') return;
-    const info = classify(item);
-    const key = info.label;
-    buckets[key] = (buckets[key] || 0) + (item.duration || 30);
-  });
-  const totalTime = Object.values(buckets).reduce((s, v) => s + v, 0) || 1;
-  const palette = ['#e5484d', '#22c55e', '#a78bfa', '#e0479e', '#e0813f', '#3aa0ff', '#2bb3a3', '#c8a96e'];
-  const mix = Object.entries(buckets)
-    .sort((a, b) => b[1] - a[1])
-    .map(([label, secs], i) => ({ label, pct: +(secs / totalTime * 100).toFixed(1), color: palette[i % palette.length] }));
+    window.MEDIA.start(queue);
+})();
 
-  const g = document.getElementById('donutSegments');
-  const r = 68, cx = 85, cy = 85, circ = 2 * Math.PI * r;
-  let offset = 0;
-  let svgHtml = '';
-  mix.forEach(seg => {
-    const len = (seg.pct / 100) * circ;
-    svgHtml += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${seg.color}" stroke-width="22"
-      stroke-dasharray="${len} ${circ - len}" stroke-dashoffset="${-offset}" />`;
-    offset += len;
-  });
-  g.innerHTML = svgHtml;
-
-  document.getElementById('legendList').innerHTML = mix.map(seg => `
-    <div class="legend-item">
-      <div class="legend-left"><span class="legend-dot" style="background:${seg.color}"></span>${seg.label}</div>
-      <b>${seg.pct}%</b>
-    </div>
-  `).join('');
-
-  document.getElementById('donutTotal').textContent = queue.length;
-}
-
-function renderStats(queue, shows, tracksList){
-  const showItems = queue.filter(i => i.type === 'show' || i.type === 'show_episode');
-  const adSlots = queue.filter(i => i.type === 'commercial');
-  const libraryCount = tracksList.length + shows.reduce((s, sh) =>
-    s + (Array.isArray(sh.episodes) ? sh.episodes.length : 1), 0);
-  document.getElementById('statPrograms').textContent = showItems.length;
-  document.getElementById('statAds').textContent = adSlots.length;
-  document.getElementById('statLibrary').textContent = libraryCount;
-}
-
-async function safeFetchJSON(url, fallback = []) {
-  try {
-    const r = await fetch(url);
-    if (!r.ok) return fallback;
-    return await r.json();
-  } catch {
-    return fallback;
-  }
-}
-
-/* Fixed: this used to be missing its function wrapper entirely (dangling
-   catch with no matching try), and never called STUDIO.generate() — it
-   referenced an undefined `queue` variable. That syntax error broke the
-   whole script block, which is why every button on the page was dead. */
-async function loadDashboard(){
+  async function loadDashboard() {
   try {
     const [shows, tracksList] = await Promise.all([
-  safeFetchJSON('./data/shows.json', []),
-  safeFetchJSON('./data/tracks.json', [])
-]);
+      safeFetchJSON('./data/shows.json', []),
+      safeFetchJSON('./data/tracks.json', [])
+    ]);
 
-let queue = [];
+    console.log("[DASHBOARD] shows:", shows);
+    console.log("[DASHBOARD] tracks:", tracksList);
 
-// 1. BUILD BASE CONTENT POOL
-const contentPool = [
-  ...shows.map(s => ({
-    type: 'show',
-    title: s.title || s.name || 'Untitled Show',
-    duration: s.duration || 1800,
-    id: s.id
-  })),
-  ...tracksList.map(t => ({
-    type: 'music',
-    title: t.title || t.name || 'Track',
-    duration: t.duration || 180
-  }))
-];
+    let queue = [];
 
-// 2. COMMERCIAL RULE SET (HARD LAYER)
-const commercials = [
-  {
-    type: 'commercial',
-    title: 'Sponsored Break',
-    duration: 30
-  },
-  {
-    type: 'commercial',
-    title: 'Ad Slot',
-    duration: 15
-  }
-];
+    // 1. BUILD CONTENT POOL
+    const contentPool = [
+      ...shows.map(s => ({
+        id: s.id,
+        type: 'show',
+        title: s.title || s.name || 'Untitled Show',
+        duration: s.duration || 1800
+      })),
+      ...tracksList.map(t => ({
+        id: t.id,
+        type: 'music',
+        title: t.title || t.name || 'Track',
+        duration: t.duration || 180
+      }))
+    ];
 
-// 3. BUILD SCHEDULE WITH AD INSERTION RULE
-const AD_INTERVAL = 4; // insert ads every 4 items
+    // 2. COMMERCIALS
+    const commercials = [
+      { type: 'commercial', title: 'Sponsored Break', duration: 30, id: 'ad-1' },
+      { type: 'commercial', title: 'Ad Slot', duration: 15, id: 'ad-2' }
+    ];
 
-let counter = 0;
+    // 3. BUILD SCHEDULE
+    const AD_INTERVAL = 4;
+    let counter = 0;
 
-contentPool.forEach(item => {
-  queue.push(item);
-  counter++;
+    contentPool.forEach(item => {
+      queue.push(item);
+      counter++;
 
-  if (counter % AD_INTERVAL === 0) {
-    // insert 1–2 commercials
-    const ad = commercials[Math.floor(Math.random() * commercials.length)];
-    queue.push({ ...ad });
-  }
-});
+      if (counter % AD_INTERVAL === 0) {
+        const ad = commercials[Math.floor(Math.random() * commercials.length)];
+        queue.push({ ...ad });
+      }
+    });
 
-// 4. SAFETY CHECK
-if (!queue.length) {
-  console.error('EMPTY QUEUE — no content or ads available');
-  return;
-}
+    // 4. HARD FALLBACK (NO BLANK STATES EVER)
+    if (!queue.length) {
+      console.warn("[DASHBOARD] EMPTY QUEUE → injecting fallback loop");
 
+      queue = [{
+        id: "fallback",
+        type: "commercial",
+        title: "STV LIVE LOOP ACTIVE",
+        duration: 15
+      }];
+    }
+
+    // 5. APPLY SHOW TYPE MAP
     const showTypeById = {};
     shows.forEach(s => showTypeById[s.id] = s.type);
+
     queue.forEach(item => {
       if (item.type === 'show' || item.type === 'show_episode') {
         item.showType = showTypeById[item.id] || item.showType;
       }
     });
 
+    // 6. BUILD TIMELINE SAFELY
     const { timeline } = buildTimeline(queue, 4);
-    if (!timeline.length){
-      console.error('EMPTY TIMELINE');
+
+    if (!timeline || !timeline.length) {
+      console.warn("[DASHBOARD] EMPTY TIMELINE → forcing fallback render");
+
+      renderOnAir({
+        item: queue[0],
+        start: new Date(),
+        end: new Date(Date.now() + 30000)
+      }, null);
+
+      renderLineup([{ item: queue[0], start: new Date(), end: new Date() }], 0);
+
       return;
     }
 
-    const nowIndex = findNowIndex(timeline);
+    const nowIndex = findNowIndex(timeline) || 0;
+
+    // 7. RENDER SAFE
     renderOnAir(timeline[nowIndex], timeline[nowIndex + 1]);
     renderLineup(timeline, nowIndex);
     renderDonut(queue);
     renderStats(queue, shows, tracksList);
 
   } catch (err) {
-    console.error('DASHBOARD LOAD FAILED:', err);
+    console.error("[DASHBOARD] CRASH RECOVERY MODE:", err);
+
+    // EMERGENCY FALLBACK UI
+    const fallback = {
+      item: {
+        title: "SYSTEM RECOVERING",
+        type: "commercial",
+        duration: 30
+      },
+      start: new Date(),
+      end: new Date(Date.now() + 30000)
+    };
+
+    renderOnAir(fallback, null);
   }
 }
-
-loadDashboard();
-setInterval(loadDashboard, 60000);
-
-function watchLive(){
-  // Previously only faked a button-text change and showed no video anywhere.
-  // The real player (overlay, ticker, commercial-break screen) lives in
-  // watch.html — open it so the user can actually see the live stream.
-  window.open('./watch.html', '_blank');
-}
-
-function runAI(){
-  const label = document.getElementById('runBtnLabel');
-  const ring = document.getElementById('ringProgress');
-  const pctEl = document.querySelector('.ring-center .pct');
-  label.textContent = 'Analyzing content…';
-  ring.style.transition = 'stroke-dashoffset 1.4s ease';
-  ring.setAttribute('stroke-dashoffset', 314);
-  pctEl.textContent = '0%';
-
-  let p = 0;
-  const iv = setInterval(()=>{
-    p += Math.round(8 + Math.random()*12);
-    if(p >= 100){ p = 100; clearInterval(iv); label.textContent = 'Run AI Programmer Now'; document.getElementById('lastRun').textContent = 'Last run: ' + new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); }
-    pctEl.textContent = p + '%';
-    ring.setAttribute('stroke-dashoffset', 314 - (314*p/100));
-  }, 220);
-}
-
-function applyRec(btn){
-  btn.textContent = '✓ Applied';
-  btn.classList.add('applied');
-}
-  function showToast(msg){
-  let t = document.getElementById('stvToast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'stvToast';
-    t.style.cssText = `
-      position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
-      background:#161a26; border:1px solid #232838; color:#eef0f6;
-      padding:10px 18px; border-radius:8px; font-size:12.5px; font-weight:600;
-      z-index:9999; opacity:0; transition:opacity .2s;`;
-    document.body.appendChild(t);
-  }
-  t.textContent = msg;
-  t.style.opacity = '1';
-  clearTimeout(t._hideTimer);
-  t._hideTimer = setTimeout(() => t.style.opacity = '0', 1800);
-}
-
-document.querySelectorAll('.nav-item').forEach(el => {
-  el.addEventListener('click', () => {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    el.classList.add('active');
-
-    const tab = el.dataset.tab;
-    if (tab === 'dashboard') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-    if (tab === 'schedule')  { document.querySelector('.schedule-card').scrollIntoView({ behavior: 'smooth' }); return; }
-    if (tab === 'ai')        { document.querySelector('.card-title.purple').closest('.card').scrollIntoView({ behavior: 'smooth' }); return; }
-
-    showToast(`${el.textContent.trim()} — coming soon`);
-  });
-});
-
-document.querySelectorAll('.view-all').forEach(el => {
-  el.addEventListener('click', () => showToast('Coming soon'));
-});
-
-document.querySelector('.bell').addEventListener('click', () => showToast('3 notifications — coming soon'));
-</script>
-</body>
-</html>
