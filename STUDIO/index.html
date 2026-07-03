@@ -749,8 +749,8 @@ async function safeFetchJSON(url, fallback = []) {
 async function loadDashboard(){
   try {
     const [shows, tracksList] = await Promise.all([
-  safeFetchJSON('./shows.json', []),
-  safeFetchJSON('./tracks.json', [])
+  safeFetchJSON('./data/shows.json', []),
+  safeFetchJSON('./data/tracks.json', [])
 ]);
 
 let queue = [];
