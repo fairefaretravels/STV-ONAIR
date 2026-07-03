@@ -2,7 +2,6 @@ window.STUDIO_METRICS = (function () {
 
   const KEY = "stv_metrics_v1";
 
-  // Load from storage or rebuild clean
   function load() {
     try {
       const raw = localStorage.getItem(KEY);
@@ -43,11 +42,14 @@ window.STUDIO_METRICS = (function () {
     }
   }
 
-  // Called whenever something plays
-  function recordPlay(item) {
-    const type = item.type || "tracks";
-    const bucket = normalize(type);
+  function normalize(type) {
+    if (type === "commercial") return "commercials";
+    if (type === "show" || type === "show_episode") return "shows";
+    return "tracks";
+  }
 
+  function recordPlay(item) {
+    const bucket = normalize(item.type);
     ensureBucket(bucket, item.id);
 
     state[bucket][item.id].plays++;
@@ -56,24 +58,48 @@ window.STUDIO_METRICS = (function () {
     save(state);
   }
 
-  // Called when playback finishes
-  function recordComplete(item) {
-    const bucket = normalize(item.type || "tracks");
+  window.STUDIO_METRICS = (function () {
 
-    ensureBucket(bucket, item.id);
+  const KEY = "stv_metrics_v1";
 
-    state[bucket][item.id].completions++;
-    save(state);
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return createEmpty();
+      return JSON.parse(raw);
+    } catch (e) {
+      console.warn("[METRICS] Corrupt data reset");
+      return createEmpty();
+    }
   }
 
-  // Called when user skips
-  function recordDropoff(item) {
-    const bucket = normalize(item.type || "tracks");
+  function createEmpty() {
+    return {
+      tracks: {},
+      shows: {},
+      commercials: {},
+      meta: {
+        created: Date.now(),
+        lastRepair: Date.now()
+      }
+    };
+  }
 
-    ensureBucket(bucket, item.id);
+  function save(data) {
+    localStorage.setItem(KEY, JSON.stringify(data));
+  }
 
-    state[bucket][item.id].dropoffs++;
-    save(state);
+  let state = load();
+
+  function ensureBucket(type, id) {
+    if (!state[type][id]) {
+      state[type][id] = {
+        plays: 0,
+        completions: 0,
+        dropoffs: 0,
+        lastSeen: null
+      };
+    }
   }
 
   function normalize(type) {
@@ -82,19 +108,38 @@ window.STUDIO_METRICS = (function () {
     return "tracks";
   }
 
-  // Auto-repair missing structure
+  function recordPlay(item) {
+    const bucket = normalize(item.type);
+    ensureBucket(bucket, item.id);
+
+    state[bucket][item.id].plays++;
+    state[bucket][item.id].lastSeen = Date.now();
+
+    save(state);
+  }
+
+  function recordComplete(item) {
+    const bucket = normalize(item.type);
+    ensureBucket(bucket, item.id);
+
+    state[bucket][item.id].completions++;
+    save(state);
+  }
+
+  function recordDropoff(item) {
+    const bucket = normalize(item.type);
+    ensureBucket(bucket, item.id);
+
+    state[bucket][item.id].dropoffs++;
+    save(state);
+  }
+
   function repair() {
     const fixed = createEmpty();
 
-    for (const k in state.tracks || {}) {
-      fixed.tracks[k] = state.tracks[k];
-    }
-    for (const k in state.shows || {}) {
-      fixed.shows[k] = state.shows[k];
-    }
-    for (const k in state.commercials || {}) {
-      fixed.commercials[k] = state.commercials[k];
-    }
+    for (const k in state.tracks || {}) fixed.tracks[k] = state.tracks[k];
+    for (const k in state.shows || {}) fixed.shows[k] = state.shows[k];
+    for (const k in state.commercials || {}) fixed.commercials[k] = state.commercials[k];
 
     fixed.meta.lastRepair = Date.now();
     state = fixed;
