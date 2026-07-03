@@ -280,6 +280,59 @@
   }
 </style>
 </head>
+  <script>
+/* =========================
+   UI ACTIONS (GLOBAL HOOKS)
+========================= */
+
+window.watchLive = function () {
+  console.log("[UI] Watch Live clicked");
+
+  // Example behavior (replace with real stream URL later)
+  alert("Live stream launching...");
+
+  // If you have a player page:
+  // window.open("/live.html", "_blank");
+};
+
+window.runAI = async function () {
+  console.log("[UI] Run AI triggered");
+
+  const btn = document.querySelector("#runBtnLabel");
+  if (btn) btn.textContent = "Running AI...";
+
+  try {
+    if (!window.STUDIO?.generate) {
+      throw new Error("STUDIO.generate missing");
+    }
+
+    const queue = await window.STUDIO.generate();
+
+    if (window.MEDIA?.start) {
+      window.MEDIA.start(queue);
+    }
+
+    const last = document.getElementById("lastRun");
+    if (last) {
+      last.textContent = "Last run: " + new Date().toLocaleTimeString();
+    }
+
+  } catch (err) {
+    console.error("[AI ERROR]", err);
+  } finally {
+    if (btn) btn.textContent = "Run AI Programmer Now";
+  }
+};
+
+window.applyRec = function (el) {
+  console.log("[UI] Recommendation applied");
+
+  el.classList.add("applied");
+  el.textContent = "Applied";
+
+  // Later: send to backend / Supabase
+};
+</script>
 <body>
 <div class="app">
   <aside class="sidebar">
@@ -422,7 +475,7 @@
         <div class="onair-info">
           <div class="show-title" id="onairTitle">Loading…</div>
           <div class="show-meta" id="onairMeta">—</div>
-          <button class="btn btn-purple" onclick="watchLive()">
+          <button class="btn btn-purple" onclick="watchLive(watch.html)">
             <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             Watch Live
           </button>
