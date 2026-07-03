@@ -573,131 +573,29 @@
 <script src="/STUDIO/media.js"></script>
 
 <script>
-(async () => {
-    const queue = await window.STUDIO.generate();
-
-    if (!queue || !queue.length) {
-        console.error("EMPTY QUEUE - STUDIO failed to generate playlist");
-        return;
-    }
-
-    if (!window.MEDIA || !window.MEDIA.start) {
-        console.error("MEDIA ENGINE NOT LOADED");
-        return;
-    }
-
-    window.MEDIA.start(queue);
-})();
-
-  async function loadDashboard() {
+(async function boot() {
   try {
-    const [shows, tracksList] = await Promise.all([
-      safeFetchJSON('./data/shows.json', []),
-      safeFetchJSON('./data/tracks.json', [])
-    ]);
-
-    console.log("[DASHBOARD] shows:", shows);
-    console.log("[DASHBOARD] tracks:", tracksList);
-
-    let queue = [];
-
-    // 1. BUILD CONTENT POOL
-    const contentPool = [
-      ...shows.map(s => ({
-        id: s.id,
-        type: 'show',
-        title: s.title || s.name || 'Untitled Show',
-        duration: s.duration || 1800
-      })),
-      ...tracksList.map(t => ({
-        id: t.id,
-        type: 'music',
-        title: t.title || t.name || 'Track',
-        duration: t.duration || 180
-      }))
-    ];
-
-    // 2. COMMERCIALS
-    const commercials = [
-      { type: 'commercial', title: 'Sponsored Break', duration: 30, id: 'ad-1' },
-      { type: 'commercial', title: 'Ad Slot', duration: 15, id: 'ad-2' }
-    ];
-
-    // 3. BUILD SCHEDULE
-    const AD_INTERVAL = 4;
-    let counter = 0;
-
-    contentPool.forEach(item => {
-      queue.push(item);
-      counter++;
-
-      if (counter % AD_INTERVAL === 0) {
-        const ad = commercials[Math.floor(Math.random() * commercials.length)];
-        queue.push({ ...ad });
-      }
-    });
-
-    // 4. HARD FALLBACK (NO BLANK STATES EVER)
-    if (!queue.length) {
-      console.warn("[DASHBOARD] EMPTY QUEUE → injecting fallback loop");
-
-      queue = [{
-        id: "fallback",
-        type: "commercial",
-        title: "STV LIVE LOOP ACTIVE",
-        duration: 15
-      }];
-    }
-
-    // 5. APPLY SHOW TYPE MAP
-    const showTypeById = {};
-    shows.forEach(s => showTypeById[s.id] = s.type);
-
-    queue.forEach(item => {
-      if (item.type === 'show' || item.type === 'show_episode') {
-        item.showType = showTypeById[item.id] || item.showType;
-      }
-    });
-
-    // 6. BUILD TIMELINE SAFELY
-    const { timeline } = buildTimeline(queue, 4);
-
-    if (!timeline || !timeline.length) {
-      console.warn("[DASHBOARD] EMPTY TIMELINE → forcing fallback render");
-
-      renderOnAir({
-        item: queue[0],
-        start: new Date(),
-        end: new Date(Date.now() + 30000)
-      }, null);
-
-      renderLineup([{ item: queue[0], start: new Date(), end: new Date() }], 0);
-
+    if (!window.STUDIO || !window.STUDIO.generate) {
+      console.error("STUDIO not loaded");
       return;
     }
 
-    const nowIndex = findNowIndex(timeline) || 0;
+    if (!window.MEDIA || !window.MEDIA.start) {
+      console.error("MEDIA not loaded");
+      return;
+    }
 
-    // 7. RENDER SAFE
-    renderOnAir(timeline[nowIndex], timeline[nowIndex + 1]);
-    renderLineup(timeline, nowIndex);
-    renderDonut(queue);
-    renderStats(queue, shows, tracksList);
+    const queue = await window.STUDIO.generate();
+
+    if (!Array.isArray(queue) || queue.length === 0) {
+      console.error("EMPTY QUEUE");
+      return;
+    }
+
+    window.MEDIA.start(queue);
 
   } catch (err) {
-    console.error("[DASHBOARD] CRASH RECOVERY MODE:", err);
-
-    // EMERGENCY FALLBACK UI
-    const fallback = {
-      item: {
-        title: "SYSTEM RECOVERING",
-        type: "commercial",
-        duration: 30
-      },
-      start: new Date(),
-      end: new Date(Date.now() + 30000)
-    };
-
-    renderOnAir(fallback, null);
+    console.error("BOOT FAILURE:", err);
   }
-}
+})();
+</script>
