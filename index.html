@@ -196,6 +196,27 @@
       opacity: 0;
       animation: fade-up 0.6s ease 1.8s forwards;
     }
+    .enter-btn-row {
+      display: flex;
+      gap: 0.75rem;
+      opacity: 0;
+      animation: fade-up 0.6s ease 1.5s forwards;
+    }
+
+    .enter-btn-row .enter-btn {
+      opacity: 1;
+      animation: none;
+    }
+
+    .enter-btn.tv {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    .enter-btn.tv:hover {
+      background: var(--white);
+      box-shadow: 0 12px 40px rgba(244, 211, 94, 0.45);
+    }
 
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(12px); }
@@ -1151,7 +1172,10 @@
 
     <canvas id="landingWave"></canvas>
 
-    <button class="enter-btn" id="enterBtn">TUNE IN</button>
+    <div class="enter-btn-row">
+      <button class="enter-btn" id="enterBtnRadio">RADIO</button>
+      <button class="enter-btn tv" id="enterBtnTV">TV</button>
+    </div>
     <div class="enter-hint">Tap to enter the station</div>
   </div>
 </div>
@@ -2100,7 +2124,8 @@ animateWaves();
    LANDING → ENTER
 ═══════════════════════════════════════════════ */
 const landing = document.getElementById('landing');
-const enterBtn= document.getElementById('enterBtn');
+const enterBtnRadio = document.getElementById('enterBtnRadio');
+const enterBtnTV    = document.getElementById('enterBtnTV');
 const app     = document.getElementById('app');
 
 async function enterStation() {
@@ -2113,7 +2138,11 @@ async function enterStation() {
   await startPlayback();
 }
 
-enterBtn.addEventListener('click', enterStation);
+enterBtnRadio.addEventListener('click', enterStation);
+
+enterBtnTV.addEventListener('click', () => {
+  window.location.href = 'watch.html';
+});
 
 /* ═══════════════════════════════════════════════
    HASH-BASED ROUTING (audio never interrupted)
