@@ -51,7 +51,7 @@ window.MEDIA = (function () {
 
         if (tickerText) {
             tickerText.innerText =
-                `STV LIVE • NOW PLAYING: ${titleText} • ${subtitleText} • Breaking updates • Entertainment • News • Weather • Community coverage • Stay tuned`;
+                `STV LIVE • NOW PLAYING: ${titleText} • ${subtitleText} • Imterviews • Entertainment • News • Weather • Community coverage • Stay tuned`;
         }
 
         if (banner) {
