@@ -748,16 +748,63 @@ async function safeFetchJSON(url, fallback = []) {
    whole script block, which is why every button on the page was dead. */
 async function loadDashboard(){
   try {
-    const [queue, shows, tracksList] = await Promise.all([
-      STUDIO.generate(),
-      safeFetchJSON('./shows.json', []),
-      safeFetchJSON('./tracks.json', [])
-    ]);
+    const [shows, tracksList] = await Promise.all([
+  safeFetchJSON('./shows.json', []),
+  safeFetchJSON('./tracks.json', [])
+]);
 
-    if (!queue.length){
-      console.error('EMPTY QUEUE — check schedule.json or STUDIO.generate()');
-      return;
-    }
+let queue = [];
+
+// 1. BUILD BASE CONTENT POOL
+const contentPool = [
+  ...shows.map(s => ({
+    type: 'show',
+    title: s.title || s.name || 'Untitled Show',
+    duration: s.duration || 1800,
+    id: s.id
+  })),
+  ...tracksList.map(t => ({
+    type: 'music',
+    title: t.title || t.name || 'Track',
+    duration: t.duration || 180
+  }))
+];
+
+// 2. COMMERCIAL RULE SET (HARD LAYER)
+const commercials = [
+  {
+    type: 'commercial',
+    title: 'Sponsored Break',
+    duration: 30
+  },
+  {
+    type: 'commercial',
+    title: 'Ad Slot',
+    duration: 15
+  }
+];
+
+// 3. BUILD SCHEDULE WITH AD INSERTION RULE
+const AD_INTERVAL = 4; // insert ads every 4 items
+
+let counter = 0;
+
+contentPool.forEach(item => {
+  queue.push(item);
+  counter++;
+
+  if (counter % AD_INTERVAL === 0) {
+    // insert 1–2 commercials
+    const ad = commercials[Math.floor(Math.random() * commercials.length)];
+    queue.push({ ...ad });
+  }
+});
+
+// 4. SAFETY CHECK
+if (!queue.length) {
+  console.error('EMPTY QUEUE — no content or ads available');
+  return;
+}
 
     const showTypeById = {};
     shows.forEach(s => showTypeById[s.id] = s.type);
