@@ -115,3 +115,27 @@ button:active {
 button.live-fire {
   animation: liveFlash 0.8s ease;
 }
+.enter-btn-row {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 14px 10px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+
+  z-index: 9999;
+}
+
+/* optional: makes buttons feel like a dock */
+.enter-btn {
+  flex: 1;
+  margin: 0 6px;
+  padding: 14px 10px;
+  border-radius: 10px;
+}
