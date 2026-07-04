@@ -310,32 +310,82 @@
       </div>
     </div>
 
-    <div class="deck-title">STREAM DECK</div>
+   <div class="stream-deck">
 
-    <div class="stream-deck">
-      <button class="deck-btn" id="enableCamBtn"><span class="deck-icon">📷</span>Enable Camera</button>
-      <a class="deck-btn" id="pushBtn" href="https://vdo.ninja/?room=whatsthe411&roomkey=DfmbmuvdavLBPykP&push" target="_blank" rel="noopener"><span class="deck-icon">📡</span>Push to Room</a>
-      <a class="deck-btn" href="https://vdo.ninja/?director=whatsthe411&roomkey=DfmbmuvdavLBPykP&requireapproval&showdirector" target="_blank" rel="noopener"><span class="deck-icon">🎛️</span>Open Director</a>
-      <a class="deck-btn" href="https://vdo.ninja/?scene&room=whatsthe411&roomkey=DfmbmuvdavLBPykP&sas&sl" target="_blank" rel="noopener"><span class="deck-icon">📺</span>Open Scene</a>
-      <a class="deck-btn" href="watch.html" target="_blank" rel="noopener"><span class="deck-icon">👁️</span>Open Viewer</a>
-      <a class="deck-btn" href="../watch.html"target="_blank" rel="noopener">
-      <button class="deck-btn" id="copyInviteBtn"><span class="deck-icon">🔗</span>Copy Invite Link</button>
-      <button class="deck-btn" id="showQrBtn"><span class="deck-icon">▦</span>Show QR</button>
-      <button class="deck-btn" id="refreshBtn"><span class="deck-icon">↻</span>Refresh Preview</button>
-    </div>
+  <button class="deck-btn" id="enableCamBtn">
+    <span class="deck-icon">📷</span>Enable Camera
+  </button>
+
+  <a class="deck-btn"
+     id="pushBtn"
+     href="https://vdo.ninja/?room=whatsthe411&roomkey=DfmbmuvdavLBPykP&push"
+     target="_blank" rel="noopener">
+    <span class="deck-icon">📡</span>Push to Room
+  </a>
+
+  <a class="deck-btn"
+     href="https://vdo.ninja/?director=whatsthe411&roomkey=DfmbmuvdavLBPykP&requireapproval&showdirector"
+     target="_blank" rel="noopener">
+    <span class="deck-icon">🎛️</span>Open Director
+  </a>
+
+  <a class="deck-btn"
+     href="https://vdo.ninja/?scene&room=whatsthe411&roomkey=DfmbmuvdavLBPykP&sas&sl"
+     target="_blank" rel="noopener">
+    <span class="deck-icon">📺</span>Open Scene
+  </a>
+
+  <a class="deck-btn"
+     href="../watch.html"
+     target="_blank" rel="noopener">
+    <span class="deck-icon">👁️</span>Open Viewer
+  </a>
+
+  <a class="deck-btn"
+     href="oppdash.html">
+    <span class="deck-icon">📊</span>Open Dashboard
+  </a>
+
+  <button class="deck-btn" id="copyInviteBtn">
+    <span class="deck-icon">🔗</span>Copy Invite Link
+  </button>
+
+  <button class="deck-btn" id="showQrBtn">
+    <span class="deck-icon">▦</span>Show QR
+  </button>
+
+  <button class="deck-btn" id="refreshBtn">
+    <span class="deck-icon">↻</span>Refresh Preview
+  </button>
+
+</div>
 
     <!-- QR modal (simple inline reveal, no overlay library needed) -->
-    <div id="qrPanel" style="display:none; margin-top:20px; text-align:center;">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://invite.cam/U2FsdGVkX1%2BQMWbI16QX0ILSVj1jNeskyDKYX3E8G51ClAtp8s0PxmpGtDXJUKfWlotC%2B2reCVz8G6AQGUL2YQ%3D%3D" alt="Join QR" style="width:200px;height:200px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);" />
-      <div style="color:var(--muted); font-size:12px; margin-top:8px; letter-spacing:1px; text-transform:uppercase;">Scan to call in</div>
-    </div>
+<div id="qrPanel" style="display:none; margin-top:20px; text-align:center;">
 
+  <img
+    id="inviteQR"
+    src=""
+    alt="Join QR"
+    style="width:200px;height:200px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);"
+  />
+
+  <div style="
+    color:var(--muted);
+    font-size:12px;
+    margin-top:8px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  ">
+    Scan to call in
   </div>
+
+</div>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    const INVITE_LINK = "https://invite.cam/U2FsdGVkX1+QMWbI16QX0ILSVj1jNeskyDKYX3E8G51ClAtp8s0PxmpGtDXJUKfWlotC+2reCVz8G6AQGUL2YQ==";
+    const INVITE_LINK =const INVITE_LINK = "https://invite.cam/U2FsdGVkX1+QMWbI16QX0ILSVj1jNeskyDKYX3E8G51ClAtp8s0PxmpGtDXJUKfWlotC+2reCVz8G6AQGUL2YQ==";
 
     const toastEl = document.getElementById("toast");
     function toast(msg) {
@@ -428,6 +478,10 @@
       if (frame) frame.src = frame.src;
       toast("Preview refreshed");
     });
+ 
+    document.getElementById("inviteQR").src =
+  "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" +
+  encodeURIComponent(INVITE_LINK); 
   </script>
 
 </body>
