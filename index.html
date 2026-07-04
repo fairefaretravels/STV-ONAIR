@@ -1187,6 +1187,7 @@
 </div>
 
     <div class="enter-hint">Tap to enter the station</div>
+    <div id="liveIndicator">● OFF AIR</div>
   </div>
 </div>
 
@@ -1199,20 +1200,21 @@
     btn.classList.add("active");
   }
 
-  document.getElementById("enterBtnRadio").addEventListener("click", function () {
-    setActive(this);
-    window.location.href = "/radio";
-  });
+  document.getElementById("enterBtnRadio").addEventListener("click", () => {
+  StudioOS.setMode("radio");
+  window.location.href = "/radio";
+});
 
-  document.getElementById("enterBtnTV").addEventListener("click", function () {
-    setActive(this);
-    window.location.href = "watch.html";
-  });
+document.getElementById("enterBtnTV").addEventListener("click", () => {
+  StudioOS.setMode("tv");
+  window.location.href = "watch.html";
+});
 
-  document.getElementById("enterBtnTalk").addEventListener("click", function () {
-    setActive(this);
-    window.location.href = "https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==";
-  });
+document.getElementById("enterBtnTalk").addEventListener("click", () => {
+  StudioOS.setMode("talk");
+  window.location.href =
+    "https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==";
+});
 </script>
 
 </body>
@@ -1355,65 +1357,100 @@
     </div>
 
     <script>
-        (function () {
-            const videos = [
-                document.getElementById('heroVid1'),
-                document.getElementById('heroVid2'),
-                document.getElementById('heroVid3'),
-                document.getElementById('heroVid4'),
-                document.getElementById('heroVid5'),
-                document.getElementById('heroVid6')
-            ];
+(function () {
 
-            const ACTIVE_OPACITY = 0.45;
-            const SWITCH_INTERVAL = 8000; // ms each video stays on screen
-            const FADE_DURATION = 1000;   // ms, matches CSS transition
+    const videos = [
+        document.getElementById('heroVid1'),
+        document.getElementById('heroVid2'),
+        document.getElementById('heroVid3'),
+        document.getElementById('heroVid4'),
+        document.getElementById('heroVid5'),
+        document.getElementById('heroVid6')
+    ].filter(Boolean); // prevents null crashes
 
-            let currentIndex = 0;
+    const ACTIVE_OPACITY = 0.45;
+    const SWITCH_INTERVAL = 8000;
+    const FADE_DURATION = 1000;
 
-            // Preload all videos so they're ready to play instantly when swapped in
-            videos.forEach(v => {
-                v.load();
-                v.currentTime = 0;
-            });
+    let currentIndex = 0;
 
-            function showVideo(index) {
-                videos.forEach((v, i) => {
-                    if (i === index) {
-                        v.style.opacity = ACTIVE_OPACITY;
-                        // Restart from beginning each time it becomes active
-                        v.currentTime = 0;
-                        const playPromise = v.play();
-                        if (playPromise !== undefined) {
-                            playPromise.catch(err => {
-                                console.warn(`heroVid${i + 1} failed to play:`, err);
-                            });
-                        }
-                    } else {
-                        v.style.opacity = 0;
+    // preload safely
+    videos.forEach(v => {
+        try {
+            v.load();
+            v.currentTime = 0;
+        } catch (e) {
+            console.warn("Video preload failed:", e);
+        }
+    });
+
+    function showVideo(index) {
+        videos.forEach((v, i) => {
+
+            if (i === index) {
+                v.style.opacity = ACTIVE_OPACITY;
+
+                try {
+                    v.currentTime = 0;
+                    const playPromise = v.play();
+
+                    if (playPromise !== undefined) {
+                        playPromise.catch(err => {
+                            console.warn(`heroVid${i + 1} play blocked:`, err);
+                        });
                     }
-                });
+                } catch (e) {
+                    console.warn("Play error:", e);
+                }
+
+            } else {
+                v.style.opacity = 0;
             }
+        });
+    }
 
-            function cycleVideos() {
-                const nextIndex = (currentIndex + 1) % videos.length;
-                showVideo(nextIndex);
+    function cycleVideos() {
+        const nextIndex = (currentIndex + 1) % videos.length;
 
-                // Pause the outgoing video after its fade-out completes
-                const outgoingIndex = currentIndex;
-                setTimeout(() => {
-                    if (outgoingIndex !== nextIndex) {
-                        videos[outgoingIndex].pause();
-                    }
-                }, FADE_DURATION);
+        const outgoingIndex = currentIndex;
 
-                currentIndex = nextIndex;
+        showVideo(nextIndex);
+
+        setTimeout(() => {
+            if (videos[outgoingIndex]) {
+                videos[outgoingIndex].pause();
             }
+        }, FADE_DURATION);
 
-            // Kick things off: vid1 is already playing/visible via autoplay
-            setInterval(cycleVideos, SWITCH_INTERVAL);
-        })();
-    </script>
+        currentIndex = nextIndex;
+
+        // optional broadcast hook
+        setLive(nextIndex === 0); // example: vid1 = LIVE state
+    }
+
+    // SAFE LIVE INDICATOR
+    function setLive(state) {
+        const el = document.getElementById("liveIndicator");
+        if (!el) return;
+
+        if (state) {
+            el.textContent = "● LIVE";
+            el.classList.add("live");
+        } else {
+            el.textContent = "● OFF AIR";
+            el.classList.remove("live");
+        }
+    }
+
+    // INIT STATE (IMPORTANT FIX)
+    if (videos.length > 0) {
+        showVideo(0);
+    }
+
+    setInterval(cycleVideos, SWITCH_INTERVAL);
+
+})();
+</script>
  
     <!-- UTILITY ROW -->
 <div style="background:#0b0f14;border-bottom:1px solid #222;padding:10px 20px;
