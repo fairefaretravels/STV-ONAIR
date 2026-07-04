@@ -1173,10 +1173,18 @@
     <canvas id="landingWave"></canvas>
 
     <div class="enter-btn-row">
-      <button type="button" class="enter-btn" id="enterBtnRadio">RADIO</button>
-      <button type="button" class="enter-btn" id="enterBtnTV">TV</button>
-      <button type="button" class="enter-btn" id="enterBtnTalk">TALK</button>
-    </div>
+  <button type="button" class="enter-btn active" data-target="radio" id="enterBtnRadio">
+    RADIO
+  </button>
+
+  <button type="button" class="enter-btn" data-target="tv" id="enterBtnTV">
+    TV
+  </button>
+
+  <button type="button" class="enter-btn" data-target="talk" id="enterBtnTalk">
+    TALK
+  </button>
+</div>
 
     <div class="enter-hint">Tap to enter the station</div>
   </div>
@@ -1184,15 +1192,25 @@
 
 <!-- ✅ SCRIPT GOES HERE (FIX) -->
 <script>
+  const buttons = document.querySelectorAll(".enter-btn");
+
+  function setActive(btn) {
+    buttons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+  }
+
   document.getElementById("enterBtnRadio").addEventListener("click", function () {
+    setActive(this);
     window.location.href = "/radio";
   });
 
   document.getElementById("enterBtnTV").addEventListener("click", function () {
+    setActive(this);
     window.location.href = "watch.html";
   });
 
   document.getElementById("enterBtnTalk").addEventListener("click", function () {
+    setActive(this);
     window.location.href = "https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==";
   });
 </script>
