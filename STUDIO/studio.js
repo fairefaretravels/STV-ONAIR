@@ -13,7 +13,7 @@ async function loadJSON(file, fallback = []) {
     }
 }
     async function generate() {
-        const playlist = await loadJSON("playlist.json", []);
+        const playlist = await loadJSON("cloudinary-to-playlist.json", []);
         console.log(`[STUDIO] Queue generated: ${playlist.length} items`);
         return playlist;
     }
