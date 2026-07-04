@@ -1,3 +1,6 @@
+/* =========================
+   BASE SYSTEM
+========================= */
 body {
   font-family: Arial, sans-serif;
   background: radial-gradient(circle at top, #151515, #0b0b0b);
@@ -23,7 +26,7 @@ body {
 }
 
 /* =========================
-   PANELS (Glass Upgrade)
+   GLASS PANELS
 ========================= */
 .panel {
   background: rgba(26, 26, 26, 0.75);
@@ -34,13 +37,14 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .panel:hover {
   transform: translateY(-3px);
   box-shadow: 0 15px 40px rgba(0,0,0,0.55);
 }
 
 /* =========================
-   INPUTS
+   INPUT SYSTEM
 ========================= */
 input {
   width: 100%;
@@ -53,15 +57,16 @@ input {
   outline: none;
   transition: border 0.2s ease, box-shadow 0.2s ease;
 }
+
 input:focus {
   border-color: #7c5cff;
   box-shadow: 0 0 0 2px rgba(124,92,255,0.25);
 }
 
 /* =========================
-   BUTTONS (Broadcast Feel)
+   PANEL BUTTONS (SAFE SCOPE)
 ========================= */
-button {
+.panel button {
   padding: 10px 14px;
   background: linear-gradient(90deg, gold, #ffcc33);
   border: none;
@@ -70,16 +75,18 @@ button {
   border-radius: 8px;
   transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
-button:hover {
+
+.panel button:hover {
   transform: scale(1.03);
   box-shadow: 0 0 18px rgba(255, 215, 0, 0.35);
 }
-button:active {
+
+.panel button:active {
   transform: scale(0.98);
 }
 
 /* =========================
-   MEDIA ITEMS (for library)
+   MEDIA ITEMS
 ========================= */
 .media-item {
   background: #111;
@@ -89,32 +96,14 @@ button:active {
   margin-top: 8px;
   transition: background 0.2s ease;
 }
+
 .media-item:hover {
   background: #1a1a1a;
 }
 
 /* =========================
-   ANIMATIONS (your system hooks)
+   ENTER DOCK (RADIO / TV / TALK)
 ========================= */
-.pulse {
-  animation: pulseGlow 0.6s ease;
-}
-@keyframes pulseGlow {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.04); box-shadow: 0 0 20px rgba(124,92,255,0.6); }
-  100% { transform: scale(1); }
-}
-
-@keyframes liveFlash {
-  0%   { background: #7c5cff; }
-  50%  { background: #e5484d; transform: scale(1.05); }
-  100% { background: #7c5cff; }
-}
-
-/* IMPORTANT: restrict background override to buttons only */
-button.live-fire {
-  animation: liveFlash 0.8s ease;
-}
 .enter-btn-row {
   position: fixed;
   bottom: 0;
@@ -134,27 +123,51 @@ button.live-fire {
   flex: 1;
   padding: 14px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
 
+  border: 1px solid rgba(255,255,255,0.08);
   background: #111827;
+
   color: white;
   font-weight: 700;
   letter-spacing: 0.5px;
 
-  transition: all 0.25s ease;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-/* hover */
 .enter-btn:hover {
   transform: translateY(-2px);
   background: #1f2937;
 }
 
-/* ACTIVE STATE (LIVE CHANNEL FEEL) */
+/* ACTIVE STATE */
 .enter-btn.active {
   background: #f59e0b;
   color: #0b0f14;
   box-shadow: 0 0 18px rgba(245, 158, 11, 0.6);
   transform: translateY(-3px);
+}
+
+/* =========================
+   ANIMATIONS / SYSTEM FEEDBACK
+========================= */
+@keyframes pulseGlow {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); box-shadow: 0 0 20px rgba(124,92,255,0.6); }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulseGlow 0.6s ease;
+}
+
+/* LIVE STATE FLASH (optional system hook) */
+@keyframes liveFlash {
+  0%   { background: #7c5cff; }
+  50%  { background: #e5484d; transform: scale(1.05); }
+  100% { background: #7c5cff; }
+}
+
+button.live-fire {
+  animation: liveFlash 0.8s ease;
 }
