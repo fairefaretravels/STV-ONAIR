@@ -28,7 +28,7 @@ const path = require('path');
 const cloudinary = require('cloudinary').v2;
 
 const CLIPS_DIR = process.argv[2] || './clips';
-const PLAYLIST_PATH = process.argv[3] || './playlist.json';
+const PLAYLIST_PATH = process.argv[3] || './data/playlist.json';
 const TAG = 'stv-onair';
 const VIDEO_EXTENSIONS = new Set(['.mp4', '.mov', '.m4v', '.webm']);
 
