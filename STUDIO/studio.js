@@ -4,9 +4,7 @@ window.STUDIO = (function () {
     const BASE = "./data/";
 
     const PLAYLIST_SOURCES = [
-        "./STUDIO/data/cloudinary-to-playlist.json",
-        "playlist.json",
-        "emergency-playlist.json"
+        "./STUDIO/data/cloudinary-to-playlist.json"
     ];
 
     let activeSource = null;
