@@ -267,7 +267,7 @@
       <span id="airStateText">STANDBY</span>
     </div>
   </div>
-</div>v>
+    </div>
   </div>
 
   <div class="wrap">
@@ -281,7 +281,7 @@
           <video id="selfCam" autoplay muted playsinline style="display:none;"></video>
           <div class="cam-placeholder" id="camPlaceholder">
             <div class="icon">🎙️</div>
-            <div>Camera preview off.<br>Tap "Enable Camera" on the deck below,<br>then "Push to Room" to go on air as a guest.</div>
+            <div> Camera preview off.<br>Tap "Enable Camera" on the deck below,<br>then "Push to Room" to go on air as a guest.</div>
           </div>
         </div>
       </div>
@@ -290,7 +290,7 @@
       <div class="box">
         <div class="box-header"><span class="label-num">BOX 2 — WHAT'S ON NOW</span><span>viewer mirror</span></div>
         <div class="box-body">
-          <iframe src="watch.html" title="What's On Now preview"></iframe>
+          <iframe id="viewerFrame" src="../watch.html" title="What's On Now preview"></iframe>
         </div>
       </div>
 
@@ -308,7 +308,6 @@
           <div class="control-sub">Back to the standby photo, off air</div>
         </div>
       </div>
-
     </div>
 
     <div class="deck-title">STREAM DECK</div>
@@ -319,7 +318,7 @@
       <a class="deck-btn" href="https://vdo.ninja/?director=whatsthe411&roomkey=DfmbmuvdavLBPykP&requireapproval&showdirector" target="_blank" rel="noopener"><span class="deck-icon">🎛️</span>Open Director</a>
       <a class="deck-btn" href="https://vdo.ninja/?scene&room=whatsthe411&roomkey=DfmbmuvdavLBPykP&sas&sl" target="_blank" rel="noopener"><span class="deck-icon">📺</span>Open Scene</a>
       <a class="deck-btn" href="watch.html" target="_blank" rel="noopener"><span class="deck-icon">👁️</span>Open Viewer</a>
-      <a class="deck-btn" href="oppdash.html"><span class="deck-icon">📊</span>Open Dashboard</a>
+      <a class="deck-btn" href="../watch.html"target="_blank" rel="noopener">
       <button class="deck-btn" id="copyInviteBtn"><span class="deck-icon">🔗</span>Copy Invite Link</button>
       <button class="deck-btn" id="showQrBtn"><span class="deck-icon">▦</span>Show QR</button>
       <button class="deck-btn" id="refreshBtn"><span class="deck-icon">↻</span>Refresh Preview</button>
@@ -425,7 +424,7 @@
     });
 
     document.getElementById("refreshBtn").addEventListener("click", () => {
-      const frame = document.querySelector(".box iframe");
+      const frame = document.getElementById("viewerFrame");
       if (frame) frame.src = frame.src;
       toast("Preview refreshed");
     });
