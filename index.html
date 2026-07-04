@@ -1155,19 +1155,7 @@
     }
   </style>
 </head>
-  <script>
-  document.getElementById("enterBtnRadio").addEventListener("click", function () {
-    window.location.href = "/radio";
-  });
-
-  document.getElementById("enterBtnTV").addEventListener("click", function () {
-    window.location.href = "watch.html";
-  });
-
-  document.getElementById("enterBtnTalk").addEventListener("click", function () {
-    window.location.href = "https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==";
-  });
-</script>
+ 
 <body>
 
 <!-- ══════════════════════════════════════
@@ -1185,14 +1173,32 @@
     <canvas id="landingWave"></canvas>
 
     <div class="enter-btn-row">
-  <button type="button" class="enter-btn" id="enterBtnRadio">RADIO</button>
-  <button type="button" class="enter-btn" id="enterBtnTV">TV</button>
-  <button type="button" class="enterBtnTalk" id="enterBtnTalk">TALK</button>
-</div>
+      <button type="button" class="enter-btn" id="enterBtnRadio">RADIO</button>
+      <button type="button" class="enter-btn" id="enterBtnTV">TV</button>
+      <button type="button" class="enter-btn" id="enterBtnTalk">TALK</button>
+    </div>
 
-<div class="enter-hint">Tap to enter the station</div>
+    <div class="enter-hint">Tap to enter the station</div>
   </div>
 </div>
+
+<!-- ✅ SCRIPT GOES HERE (FIX) -->
+<script>
+  document.getElementById("enterBtnRadio").addEventListener("click", function () {
+    window.location.href = "/radio";
+  });
+
+  document.getElementById("enterBtnTV").addEventListener("click", function () {
+    window.location.href = "watch.html";
+  });
+
+  document.getElementById("enterBtnTalk").addEventListener("click", function () {
+    window.location.href = "https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==";
+  });
+</script>
+
+</body>
+</html>
 
 <!-- ══════════════════════════════════════
      PAGE TRANSITION SPLASH (shown briefly between views)
