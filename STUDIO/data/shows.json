@@ -29,8 +29,9 @@
     "type": "series",
     "cover": "https://res.cloudinary.com/dyqfcbgqo/video/upload/so_0/griffclip1_phzl8w.jpg",
     "duration": 964,
-    "episodes": [
-      {
+    "episodes": 
+      {,
+        {
         "id": "griff-01",
         "title": "How a hollow pot became a drum",
         "url": "https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956585/How_a_hollow_pot_became_a_drum_peq07b.mp4",
@@ -179,6 +180,4 @@
       }
     ]
   }
-]
-]
-]
+
