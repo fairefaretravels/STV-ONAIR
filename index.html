@@ -1155,6 +1155,19 @@
     }
   </style>
 </head>
+  <script>
+  document.getElementById("enterBtnRadio").addEventListener("click", function () {
+    window.location.href = "/radio";
+  });
+
+  document.getElementById("enterBtnTV").addEventListener("click", function () {
+    window.location.href = "watch.html";
+  });
+
+  document.getElementById("enterBtnTalk").addEventListener("click", function () {
+    window.location.href = "https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==";
+  });
+</script>
 <body>
 
 <!-- ══════════════════════════════════════
@@ -1172,11 +1185,12 @@
     <canvas id="landingWave"></canvas>
 
     <div class="enter-btn-row">
-      <button class="enter-btn" id="enterBtnRadio">RADIO</button>
-      <button class="enter-btn" id="enterBtnTV">TV</button>
-      <button class="enter-btn" id="enterBtnTalk">TALK</button>
-    </div>
-    <div class="enter-hint">Tap to enter the station</div>
+  <button type="button" class="enter-btn" id="enterBtnRadio">RADIO</button>
+  <button type="button" class="enter-btn" id="enterBtnTV">TV</button>
+  <button type="button" class="enterBtnTalk" id="enterBtnTalk">TALK</button>
+</div>
+
+<div class="enter-hint">Tap to enter the station</div>
   </div>
 </div>
 
@@ -1481,7 +1495,7 @@ font-size:12px;letter-spacing:0.08em;text-transform:uppercase;">
       <!-- CTA ROW -->
       <div class="cta-row" style="margin-top:0.5rem;">
         <a href="watch.html" class="btn btn-tv-now">
-          <img src="stv-logo_2.jpeg" alt="Saneca TV logo"/>
+          <img src="stvlogo1.jpg" alt="Saneca TV logo"/>
           <span>What's On Now</span>
         </a>
         <a href="https://sen-finds.myshopify.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Saw It on TikTok</a>
