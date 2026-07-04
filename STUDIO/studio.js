@@ -1,6 +1,6 @@
 window.STUDIO = (function () {
 
-    const BASE = "/STUDIO/data/";
+    const BASE = "const BASE = new URL("./data/", window.location.href).pathname;";
 
     // PRIMARY + FALLBACK CHAINS
     const PLAYLIST_SOURCES = [
