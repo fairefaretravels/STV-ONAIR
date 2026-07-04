@@ -1,9 +1,12 @@
 window.STUDIO = (function () {
 
-    const BASE = "/STUDIO/data/";
+    const PLAYLIST_FILE = "cloudinary-to-playlist.json";
 
-async function loadJSON(file, fallback = []) {
-    try {
+async function generate() {
+    const playlist = await loadJSON(PLAYLIST_FILE, []);
+    console.log(`[STUDIO] Queue generated: ${playlist.length} items`);
+    return playlist;
+}
         const res = await fetch(`${BASE}${file}`);
         if (!res.ok) throw new Error(`${file} failed: ${res.status}`);
         return await res.json();
