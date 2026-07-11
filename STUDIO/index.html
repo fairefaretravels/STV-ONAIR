@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>STV STUDIO — Operator Console</title>
+
+<style>
+:root{
+  --bg:#060a14;
+  --panel:#0e1422;
+  --border:rgba(255,255,255,0.08);
+  --text:#f3f1ea;
+  --muted:#a9adba;
+  --gold:#c9a44c;
+  --red:#ff3b4e;
+  --green:#4fd18b;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* TOP BAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 18px;
+  border-bottom:1px solid var(--border);
+  background:#0a0f1a;
+}
+.brand{font-weight:700; letter-spacing:2px}
+
+.nav a{
+  color:var(--muted);
+  margin-right:10px;
+  text-decoration:none;
+  font-size:12px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+  padding:12px;
+}
+
+.box{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  min-height:300px;
+}
+
+.header{
+  padding:10px;
+  font-size:12px;
+  color:var(--muted);
+  border-bottom:1px solid var(--border);
+}
+
+.body{padding:10px;height:100%}
+
+iframe,video{
+  width:100%;
+  height:260px;
+  border:0;
+  background:black;
+}
+
+/* BUTTONS */
+.btn{
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#111827;
+  color:var(--text);
+  cursor:pointer;
+}
+
+.btn.live{background:var(--red)}
+.btn.talk.on{background:var(--green); color:#000}
+
+/* QR */
+#qrPanel{
+  display:none;
+  text-align:center;
+  padding:10px;
+}
+
+/* WHAT'S ON — live channel feed */
+.channel-feed{
+  position:relative;
+  width:100%;
+  height:260px;
+  background:#000;
+  border-radius:6px;
+  overflow:hidden;
+}
+.channel-feed video{
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+.feed-badge{
+  position:absolute;
+  top:8px;
+  left:50%;
+  transform:translate(-50%,-6px);
+  opacity:0;
+  transition:opacity .3s ease, transform .3s ease;
+  background:rgba(0,0,0,0.65);
+  border:1px solid rgba(224,168,63,0.5);
+  color:#e0a83f;
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  padding:3px 9px;
+  border-radius:3px;
+  pointer-events:none;
+}
+.feed-badge.show{opacity:1;transform:translate(-50%,0);}
+.feed-lower{
+  position:absolute;
+  left:8px;
+  bottom:8px;
+  max-width:78%;
+  font-size:11px;
+  line-height:1.3;
+  background:rgba(0,0,0,0.6);
+  border-left:2px solid var(--gold);
+  padding:4px 8px;
+  opacity:0;
+  transition:opacity .4s ease;
+  pointer-events:none;
+}
+.feed-lower.show{opacity:1;}
+.feed-lower .series{
+  display:block;
+  font-size:9px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:1px;
+}
+.feed-mute{
+  position:absolute;
+  bottom:8px;
+  right:8px;
+  background:rgba(0,0,0,0.6);
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:4px;
+  padding:4px 9px;
+  font-size:12px;
+  cursor:pointer;
+}
+.feed-live-dot{
+  position:absolute;
+  top:9px;
+  right:9px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-size:9px;
+  letter-spacing:1px;
+  color:var(--red);
+  background:rgba(0,0,0,0.5);
+  padding:3px 7px;
+  border-radius:3px;
+}
+.feed-live-dot .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 6px var(--red);
+  animation:feedpulse 1.6s ease-in-out infinite;
+}
+@keyframes feedpulse{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.4;transform:scale(0.75);}
+}
+
+/* MOBILE — stack the three panels instead of squeezing them side by side */
+@media (max-width: 700px){
+  .grid{
+    grid-template-columns: 1fr;
+  }
+  .box{
+    min-height:auto;
+  }
+  iframe,video{
+    height:220px;
+  }
+  .channel-feed{
+    height:220px;
+  }
+  .topbar{
+    flex-wrap:wrap;
+    gap:6px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <div class="brand">STV STUDIO</div>
+  <div class="nav">
+    <a href="watch">Viewer</a>
+    <a href="oppdash.html">Dashboard</a>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- CAMERA -->
+  <div class="box">
+    <div class="header">CAMERA</div>
+    <div class="body">
+      <video id="selfCam" autoplay muted playsinline></video>
+      <button class="btn" id="camBtn">Enable Camera</button>
+    </div>
+  </div>
+
+  <!-- WHAT'S ON — live channel feed, same schedule/commercial logic as the public channel page -->
+  <div class="box">
+    <div class="header">WHAT'S ON</div>
+    <div class="body">
+      <div class="channel-feed">
+        <video id="feedPlayer" muted autoplay playsinline></video>
+        <div class="feed-live-dot"><span class="dot"></span>ON AIR</div>
+        <div class="feed-badge" id="feedBadge">Commercial Break</div>
+        <div class="feed-lower" id="feedLower">
+          <span class="series" id="feedSeries"></span>
+          <span id="feedTitle"></span>
+        </div>
+        <button class="feed-mute" id="feedMute">🔇</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="box">
+    <div class="header">CONTROL ROOM</div>
+    <div class="body">
+
+      <button class="btn live" id="goLive">GO LIVE</button>
+      <button class="btn" id="talk">TALK</button>
+      <button class="btn" id="standby">STANDBY</button>
+
+      <button class="btn" id="qrBtn">QR</button>
+
+      <div id="qrPanel">
+        <img id="qrImg" width="180"/>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+const INVITE_LINK =
+"https://invite.cam/U2FsdGVkX1+QMWbI16QX0ILSVj1jNeskyDKYX3E8G51ClAtp8s0PxmpGtDXJUKfWlotC+2reCVz8G6AQGUL2YQ==";
+
+let stream = null;
+let micEnabled = false;
+
+/* CAMERA */
+document.getElementById("camBtn").onclick = async () => {
+  stream = await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+  document.getElementById("selfCam").srcObject = stream;
+};
+
+/* TALK BUTTON — REAL MIC CONTROL */
+document.getElementById("talk").onclick = () => {
+  if(!stream) return;
+
+  micEnabled = !micEnabled;
+
+  stream.getAudioTracks().forEach(t => {
+    t.enabled = micEnabled;
+  });
+
+  const btn = document.getElementById("talk");
+  btn.classList.toggle("on", micEnabled);
+  btn.textContent = micEnabled ? "MIC LIVE" : "TALK";
+};
+
+/* LIVE / STANDBY */
+document.getElementById("goLive").onclick = () => {
+  window.open("https://vdo.ninja/?director=whatsthe411&roomkey=DfmbmuvdavLBPykP&showdirector","_blank");
+};
+
+document.getElementById("standby").onclick = () => {
+  micEnabled = false;
+  if(stream){
+    stream.getAudioTracks().forEach(t=>t.enabled=false);
+  }
+  document.getElementById("talk").classList.remove("on");
+  document.getElementById("talk").textContent="TALK";
+};
+
+/* QR */
+document.getElementById("qrBtn").onclick = () => {
+  const panel = document.getElementById("qrPanel");
+  const img = document.getElementById("qrImg");
+
+  const open = panel.style.display !== "block";
+  panel.style.display = open ? "block" : "none";
+
+  img.src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" +
+    encodeURIComponent(INVITE_LINK);
+};
+
+/* =========================================================
+   WHAT'S ON — live channel feed
+   Same linear-queue + top-of-hour commercial-break logic as
+   the public channel page, so the operator sees exactly what
+   viewers see. Muted by default (autoplay policy); tap the
+   speaker icon to monitor audio.
+   ========================================================= */
+(function(){
+
+  const SHOWS_RAW = [
+    {
+      id:"slept-on", title:"SLEPT ON",
+      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/d62425463c8e42ad8574ff40e961c9a7_kap3f7.mov"
+    },
+    {
+      id:"g4e-live", title:"G4E LIVE",
+      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/f18ea060546e4d70868c2f6321d1713f_k6hssr.mov"
+    },
+    {
+      id:"live-show-1", title:"THE LIVE SHOW",
+      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/7369ce6bf1638f15e00f9170efc81285_zhfbup.mp4"
+    },
+    {
+      id:"professor-griff", title:"PROFESSOR GRIFF",
+      episodes:[
+        {title:"How a hollow pot became a drum",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956585/How_a_hollow_pot_became_a_drum_peq07b.mp4"},
+        {title:"How gatekeepers censor political hip hop",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956585/How_gatekeepers_censor_political_hip_hop_qtdtke.mp4"},
+        {title:"Would Public Enemy Be Censored Today?",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956582/Would_Public_Enemy_Be_Censored_Today__zozlyp.mp4"},
+        {title:"Why drums are the foundation of my music",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956374/Why_drums_are_the_foundation_of_my_music_pvspde.mp4"},
+        {title:"How I Outsmarted a Backstage Thief",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956368/How_I_Outsmarted_a_Backstage_Thief_zgbdwc.mp4"},
+        {title:"Rant: Media as Sorcery",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956368/Rant__Media_as_Sorcery_1_c5cvpj.mp4"},
+        {title:"Road manager tricks attacker and locks him in a room",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956363/Road_manager_tricks_attacker_and_locks_him_in_a_room_fsyh1a.mp4"},
+        {title:"Why drums are the foundation of my music (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956359/Why_drums_are_the_foundation_of_my_music_1_cvh5yi.mp4"},
+        {title:"How I Outsmarted a Backstage Thief (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956355/How_I_Outsmarted_a_Backstage_Thief_1_quzr2b.mp4"},
+        {title:"Hip Hop, Censorship and the Flavor Flav Divide",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956354/Hip_Hop__Censorship_and_the_Flavor_Flav_Divide_b5odow.mp4"},
+        {title:"Is Jesus Invented? Professor Griff on Religion and the \"Slave Bible\"",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956345/Is_Jesus_Invented__Professor_Griff_on_Religion_and_the__Slave_Bible__ovjgrn.mp4"},
+        {title:"How a hollow pot became a drum (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956345/How_a_hollow_pot_became_a_drum_1_sty0yw.mp4"},
+        {title:"How gatekeepers censor political hip hop (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956342/How_gatekeepers_censor_political_hip_hop_1_wfuhre.mp4"},
+        {title:"Would Public Enemy Be Censored Today? (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956339/Would_Public_Enemy_Be_Censored_Today__1_lz0g4v.mp4"},
+        {title:"Turning 65: Why I'm Making My Music Documentary Now",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956320/Turning_65__why_I_m_making_my_music_documentary_now_sluqp7.mp4"},
+        {title:"A Day on the Tour Bus: Scholars in Back, Fun in Front",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956309/A_day_on_the_tour_bus__scholars_in_back__fun_in_front_oljywm.mp4"},
+        {title:"I Joined the Military to Learn Tactics for Change",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956295/I_Joined_the_Military_to_Learn_Tactics_for_Change_qic1v8.mp4"},
+        {title:"Outro Bloopers: \"Come On, Fumble\"",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956255/Outro_bloopers___Come_on__fumble_y1jq5b.mp4"},
+        {title:"When a European Show Turned Into a Physical Fight",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956235/When_a_European_show_turned_into_a_physical_fight_isddiw.mp4"},
+        {title:"When a Show Almost Turned Into a Fight",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956234/When_a_show_almost_turned_into_a_fight_g0fx2a.mp4"},
+        {title:"Griff Clip 1",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782355124/griffclip1_phzl8w.mp4"}
+      ]
+    }
+  ];
+
+  const COMMERCIALS = [
+    { title:"Mack Magic Mobile Bar", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1781930406/MMslide_eqqhtb.mp4" },
+    { title:"Mack Magic Mobile Bar", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782972594/Mackinthedark_lut8nf.mp4" },
+    { title:"So Luv", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782972584/soluv_thvauh.mp4" }
+  ];
+
+  function buildQueue(shows){
+    const queue = [];
+    shows.forEach(item=>{
+      if (item.episodes && item.episodes.length){
+        item.episodes.forEach(ep=>{
+          queue.push({ title: ep.title, series: item.title, url: ep.url });
+        });
+      } else {
+        queue.push({ title: item.title, series: null, url: item.url });
+      }
+    });
+    return queue;
+  }
+
+  const mainQueue = buildQueue(SHOWS_RAW);
+
+  let mainIndex = 0;
+  let commercialIndex = 0;
+  let isBreak = false;
+  let savedTime = 0;
+  let breakDoneThisHour = null;
+
+  const video = document.getElementById('feedPlayer');
+  const badge = document.getElementById('feedBadge');
+  const lower = document.getElementById('feedLower');
+  const lowerSeries = document.getElementById('feedSeries');
+  const lowerTitle = document.getElementById('feedTitle');
+  const muteBtn = document.getElementById('feedMute');
+
+  function updateLower(item){
+    lowerSeries.textContent = item.series || '';
+    lowerSeries.style.display = item.series ? 'inline' : 'none';
+    lowerTitle.textContent = item.title;
+    lower.classList.remove('show');
+    void lower.offsetWidth;
+    lower.classList.add('show');
+  }
+
+  function loadMain(index){
+    const item = mainQueue[index % mainQueue.length];
+    video.src = item.url;
+    updateLower(item);
+    video.play().catch(()=>{});
+  }
+
+  function resumeMain(){
+    const item = mainQueue[mainIndex % mainQueue.length];
+    video.src = item.url;
+    const seekOnce = () => {
+      video.currentTime = savedTime;
+      video.removeEventListener('loadedmetadata', seekOnce);
+    };
+    video.addEventListener('loadedmetadata', seekOnce);
+    updateLower(item);
+    video.play().catch(()=>{});
+  }
+
+  function playCommercial(){
+    isBreak = true;
+    savedTime = video.currentTime || 0;
+    const ad = COMMERCIALS[commercialIndex % COMMERCIALS.length];
+    commercialIndex++;
+    video.src = ad.url;
+    lower.classList.remove('show');
+    badge.classList.add('show');
+    video.play().catch(()=>{});
+  }
+
+  video.addEventListener('ended', () => {
+    if (isBreak){
+      isBreak = false;
+      badge.classList.remove('show');
+      resumeMain();
+    } else {
+      mainIndex = (mainIndex + 1) % mainQueue.length;
+      loadMain(mainIndex);
+    }
+  });
+
+  muteBtn.onclick = () => {
+    video.muted = !video.muted;
+    muteBtn.textContent = video.muted ? '🔇' : '🔊';
+  };
+
+  function tick(){
+    const now = new Date();
+    const hour = now.getHours();
+    const min = now.getMinutes();
+    const sec = now.getSeconds();
+
+    if (min === 0 && sec < 2 && breakDoneThisHour !== hour && !isBreak){
+      breakDoneThisHour = hour;
+      playCommercial();
+    }
+  }
+  setInterval(tick, 1000);
+
+  loadMain(mainIndex);
+
+})();
+</script>
+
+</body>
+</html>
