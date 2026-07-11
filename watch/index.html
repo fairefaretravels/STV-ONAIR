@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WHAT'S ON NOW — STV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-navy: #060a14;
+      --panel: rgba(14, 20, 34, 0.62);
+      --panel-solid: #0e1422;
+      --panel-border: rgba(201, 164, 76, 0.18);
+      --text: #f3f1ea;
+      --muted: #a9adba;
+      --gold: #c9a44c;
+      --gold-bright: #e6c878;
+      --navy-deep: #060a14;
+      --navy-mid: #101a30;
+      --glass-hairline: rgba(255, 255, 255, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: 'DM Sans', Arial, sans-serif;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Always-moving GIF background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("stv-gif.gif");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -2;
+      transform: scale(1.05);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(6, 10, 20, 0.35), rgba(4, 6, 12, 0.86) 70%),
+        linear-gradient(180deg, rgba(4, 6, 12, 0.75), rgba(4, 6, 12, 0.92));
+      z-index: -1;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 26px;
+      background: rgba(9, 13, 24, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--panel-border);
+      letter-spacing: 1px;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .topbar .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-family: 'Bebas Neue', Arial, sans-serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+
+    .topbar-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--panel-border);
+    }
+
+    .topbar-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .live {
+      color: var(--gold-bright);
+      font-weight: 700;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live .pulse-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold-bright);
+      box-shadow: 0 0 8px rgba(230, 200, 120, 0.8);
+    }
+
+    .topbar-right { display: flex; align-items: center; gap: 14px; }
+
+    .suite-nav {
+      display: flex; align-items: center; gap: 2px;
+      background: rgba(6,10,20,0.5); border: 1px solid var(--panel-border);
+      border-radius: 999px; padding: 3px;
+    }
+    .suite-nav a {
+      text-decoration: none; color: var(--muted); font-size: 11px; font-weight:700;
+      letter-spacing: .3px; padding: 6px 12px; border-radius: 999px;
+      text-transform: none; transition: all .15s;
+    }
+    .suite-nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    .suite-nav a.current { background: linear-gradient(90deg, var(--gold), #a5813a); color: #10131c; }
+
+    .container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 22px;
+      padding: 26px;
+      align-items: start;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .side-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .player-box {
+      position: relative;
+      background: #05070d;
+      border-radius: 16px;
+      overflow: hidden;
+      min-height: 500px;
+      border: 1px solid var(--panel-border);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    }
+
+    /* Main box is now the VDO.Ninja remote feed */
+    #mainFrame {
+      width: 100%;
+      height: 500px;
+      display: block;
+      border: none;
+      background: black;
+      position: relative;
+      z-index: 1;
+    }
+
+    .info {
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 16px;
+      padding: 22px;
+      border: 1px solid var(--panel-border);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .status {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .dot {
+      width: 9px; height: 9px;
+      background: var(--gold-bright);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(230, 200, 120, 0.8);
+    }
+
+    .title { font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.3px; }
+    .artist { color: var(--muted); margin-bottom: 4px; font-size: 14px; }
+
+    .info hr { border: none; border-top: 1px solid var(--glass-hairline); margin: 18px 0; }
+
+    .info-footer {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--muted); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    }
+
+    .info-footer .footer-logo {
+      width: 20px; height: 20px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+      border: 1px solid var(--panel-border);
+    }
+    .info-footer .footer-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* QR / join panel */
+    .qr-wrap { text-align: center; padding: 4px 0 6px; }
+    .qr-wrap img {
+      width: 200px; height: 200px; border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .qr-caption { text-align: center; color: var(--muted); font-size: 13px; margin-top: 10px; }
+
+    .btn {
+      display: block;
+      margin: 14px auto 0;
+      padding: 11px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--panel-border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+      background: rgba(201, 164, 76, 0.08);
+      transition: border-color 0.2s ease, background 0.2s ease;
+      max-width: 220px;
+    }
+    .btn:hover { border-color: var(--gold); background: rgba(201, 164, 76, 0.16); }
+
+    .broadcast-overlay { pointer-events: none; position: absolute; inset: 0; z-index: 5; overflow: hidden; }
+
+    .now-playing-banner {
+      position: absolute; top: 18px; left: 18px;
+      min-width: 320px; max-width: 520px;
+      background: rgba(10, 14, 24, 0.68);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      color: white; padding: 12px 16px;
+      border-left: 3px solid var(--gold);
+      border-radius: 6px;
+      transform: translateX(-120%);
+      opacity: 0;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    }
+    .now-playing-banner.show { transform: translateX(0); opacity: 1; }
+    .np-label { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; color: var(--gold-bright); margin-bottom: 4px; }
+    .np-title { font-family: 'Bebas Neue', Arial, sans-serif; font-size: 26px; letter-spacing: 0.5px; line-height: 1.1; }
+    .np-sub { font-size: 13px; color: rgba(255, 255, 255, 0.75); margin-top: 3px; }
+
+    .lower-third {
+      position: absolute; left: 18px; bottom: 56px;
+      display: flex; align-items: stretch;
+      min-width: 500px; max-width: 72%;
+      background: rgba(8, 12, 22, 0.68);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--panel-border);
+      border-radius: 6px; overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      opacity: 0.98;
+    }
+    .lt-accent { width: 6px; background: linear-gradient(180deg, var(--gold-bright), var(--gold)); }
+    .lt-content { padding: 12px 18px; }
+    .lt-kicker { font-size: 11px; font-weight: 800; color: var(--gold-bright); letter-spacing: 1.5px; margin-bottom: 3px; }
+    .lt-headline {
+      font-family: 'Bebas Neue', Arial, sans-serif;
+      font-size: 26px; line-height: 1.1; color: white;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .lt-subheadline { font-size: 13px; color: rgba(255, 255, 255, 0.72); margin-top: 5px; }
+
+    .ticker-wrap {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 42px;
+      display: flex;
+      background: rgba(8, 12, 22, 0.78);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--panel-border);
+    }
+    .ticker-label {
+      flex: 0 0 130px; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(90deg, var(--gold), #a5813a);
+      color: #10131c; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .ticker-track { position: relative; flex: 1; overflow: hidden; display: flex; align-items: center; }
+    .ticker-text {
+      white-space: nowrap; color: var(--text); font-size: 14px; font-weight: 600;
+      padding-left: 100%; animation: tickerScroll 20s linear infinite;
+    }
+    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+    .commercial-overlay {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at center, rgba(16, 22, 38, 0.9), rgba(4, 6, 12, 0.97));
+      display: none; align-items: center; justify-content: center;
+    }
+    .commercial-overlay.show { display: flex; }
+    .commercial-card {
+      text-align: center; padding: 40px 60px;
+      background: rgba(14, 20, 34, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    }
+    .commercial-label { font-size: 12px; letter-spacing: 2.5px; color: var(--gold-bright); font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
+    .commercial-title { font-family: 'Bebas Neue', Arial, sans-serif; font-size: 38px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .commercial-sub { margin-top: 8px; color: rgba(255, 255, 255, 0.6); font-size: 13px; letter-spacing: 0.5px; }
+
+    /* Scheduled programming box (linear channel, separate from the live VDO.Ninja feed above) */
+    .channel-box-feed {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--panel-border);
+    }
+    .channel-box-feed video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+    .cb-badge {
+      position: absolute; top: 8px; left: 50%;
+      transform: translate(-50%, -6px);
+      opacity: 0;
+      transition: opacity .3s ease, transform .3s ease;
+      background: rgba(6, 10, 20, 0.72);
+      border: 1px solid var(--panel-border);
+      color: var(--gold-bright);
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 4px;
+      pointer-events: none;
+    }
+    .cb-badge.show { opacity: 1; transform: translate(-50%, 0); }
+    .cb-lower {
+      position: absolute; left: 8px; bottom: 8px;
+      max-width: 80%;
+      background: rgba(6, 10, 20, 0.68);
+      backdrop-filter: blur(6px);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 6px 10px;
+      opacity: 0;
+      transition: opacity .4s ease;
+      pointer-events: none;
+    }
+    .cb-lower.show { opacity: 1; }
+    .cb-series {
+      display: block;
+      font-size: 9px; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gold-bright);
+      margin-bottom: 2px;
+    }
+    .cb-title {
+      font-family: 'Bebas Neue', Arial, sans-serif;
+      font-size: 16px; letter-spacing: 0.4px; color: var(--text);
+      line-height: 1.15;
+    }
+    .cb-mute {
+      position: absolute; bottom: 8px; right: 8px;
+      background: rgba(6, 10, 20, 0.65);
+      border: 1px solid var(--panel-border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .cb-live {
+      position: absolute; top: 9px; right: 9px;
+      display: flex; align-items: center; gap: 5px;
+      font-size: 9px; font-weight: 800; letter-spacing: 1px;
+      color: var(--gold-bright);
+      background: rgba(6, 10, 20, 0.55);
+      padding: 4px 8px; border-radius: 4px;
+    }
+    .cb-live .dot { box-shadow: 0 0 6px rgba(230, 200, 120, 0.8); }
+    .cb-caption { color: var(--muted); font-size: 12px; margin-top: 10px; line-height: 1.5; }
+
+    @media (max-width: 1100px) {
+      .container { grid-template-columns: 1fr; }
+      .lower-third { min-width: auto; max-width: calc(100% - 36px); }
+    }
+
+    @media (max-width: 700px) {
+      #mainFrame, .player-box { min-height: 320px; height: 320px; }
+      .now-playing-banner { min-width: auto; max-width: calc(100% - 36px); }
+      .lt-headline { font-size: 19px; }
+      .lt-subheadline { font-size: 12px; }
+      .ticker-label { flex-basis: 100px; font-size: 10px; }
+      .ticker-text { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="topbar-logo"><img src="stvlogo1.jpg" alt="Station logo" /></div>
+      STUDIO CHANNEL FEED
+    </div>
+    <div class="topbar-right">
+      <nav class="suite-nav">
+  <a href="/radio">RADIO</a>
+  <a href="watch" class="current">TV</a>
+  <a href="https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==" target="_blank" rel="noopener">TALK</a>
+</nav>
+      <div class="live"><span class="pulse-dot"></span> LIVE</div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="player-box">
+      <!-- Single box: VDO.Ninja remote feed is now the main player, overlay kept on top -->
+      <iframe
+        id="mainFrame"
+        src="https://vdo.ninja/?scene&room=whatsthe411&roomkey=DfmbmuvdavLBPykP&sas&sl"
+        allow="camera; microphone; autoplay; fullscreen"
+        title="STV Live Player"
+      ></iframe>
+
+      <div class="broadcast-overlay">
+        <div class="now-playing-banner" id="nowPlayingBanner">
+          <div class="np-label">NOW PLAYING</div>
+          <div class="np-title" id="npTitle">The Live Show</div>
+          <div class="np-sub" id="npSub">Broadcasting now</div>
+        </div>
+
+        <div class="lower-third" id="lowerThird">
+          <div class="lt-accent"></div>
+          <div class="lt-content">
+            <div class="lt-kicker">LIVE</div>
+            <div class="lt-headline" id="ltHeadline">Catch new episodes below</div>
+            <div class="lt-subheadline" id="ltSubheadline">Live feed will begin shortly</div>
+          </div>
+        </div>
+
+        <div class="ticker-wrap">
+          <div class="ticker-label">HEADLINES</div>
+          <div class="ticker-track">
+            <div class="ticker-text" id="tickerText">
+              LIVE • Breaking updates • Entertainment • News • Weather • Music • Community programming • Stay tuned for more
+            </div>
+          </div>
+        </div>
+
+        <div class="commercial-overlay" id="commercialOverlay">
+          <div class="commercial-card">
+            <div class="commercial-label">WE'LL BE RIGHT BACK</div>
+            <div class="commercial-title">Commercial Break</div>
+            <div class="commercial-sub">SanecaTV Broadcast Network</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-stack">
+
+      <div class="info">
+        <div class="status"><div class="dot"></div><div>NOW PLAYING</div></div>
+        <div class="title" id="title">SanecaTV Live</div>
+        <div class="artist" id="artist">Broadcasting now</div>
+        <hr />
+        <div class="info-footer">XOCO MEDIA PLAYER</div>
+      </div>
+
+      <!-- Scheduled programming — the linear auto-advancing channel with top-of-hour commercial breaks -->
+      <div class="info">
+        <div class="status"><div class="dot"></div><div>SCHEDULED PROGRAMMING</div></div>
+        <div class="channel-box-feed">
+          <video id="scheduleFeedPlayer" muted autoplay playsinline></video>
+          <div class="cb-live"><span class="dot"></span>ON AIR</div>
+          <div class="cb-badge" id="cbBadge">Commercial Break</div>
+          <div class="cb-lower" id="cbLower">
+            <span class="cb-series" id="cbSeries"></span>
+            <span class="cb-title" id="cbTitle"></span>
+          </div>
+          <button class="cb-mute" id="cbMute">🔇</button>
+        </div>
+        <div class="cb-caption">Auto-advancing channel lineup. Commercial breaks air at the top of every hour.</div>
+      </div>
+
+      <div class="info">
+        <div class="status"><div class="dot"></div><div>JOIN BY PHONE / TABLET</div></div>
+        <div class="qr-wrap">
+          <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://invite.cam/U2FsdGVkX1%2BQMWbI16QX0ILSVj1jNeskyDKYX3E8G51ClAtp8s0PxmpGtDXJUKfWlotC%2B2reCVz8G6AQGUL2YQ%3D%3D"
+            alt="Join QR Code"
+          />
+        </div>
+        <div class="qr-caption">Scan to join on phone or tablet</div>
+        <a class="btn" href="https://invite.cam/U2FsdGVkX1+QMWbI16QX0ILSVj1jNeskyDKYX3E8G51ClAtp8s0PxmpGtDXJUKfWlotC+2reCVz8G6AQGUL2YQ==" target="_blank" rel="noopener">
+          Open Invite Link
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   SCHEDULED PROGRAMMING — linear channel feed
+   Same auto-advancing queue + top-of-hour commercial-break
+   logic used on the operator console and public channel page.
+   ========================================================= */
+(function(){
+
+  const SHOWS_RAW = [
+    {
+      id:"slept-on", title:"SLEPT ON",
+      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/d62425463c8e42ad8574ff40e961c9a7_kap3f7.mov"
+    },
+    {
+      id:"g4e-live", title:"G4E LIVE",
+      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/f18ea060546e4d70868c2f6321d1713f_k6hssr.mov"
+    },
+    {
+      id:"live-show-1", title:"THE LIVE SHOW",
+      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/7369ce6bf1638f15e00f9170efc81285_zhfbup.mp4"
+    },
+    {
+      id:"professor-griff", title:"PROFESSOR GRIFF",
+      episodes:[
+        {title:"How a hollow pot became a drum",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956585/How_a_hollow_pot_became_a_drum_peq07b.mp4"},
+        {title:"How gatekeepers censor political hip hop",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956585/How_gatekeepers_censor_political_hip_hop_qtdtke.mp4"},
+        {title:"Would Public Enemy Be Censored Today?",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956582/Would_Public_Enemy_Be_Censored_Today__zozlyp.mp4"},
+        {title:"Why drums are the foundation of my music",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956374/Why_drums_are_the_foundation_of_my_music_pvspde.mp4"},
+        {title:"How I Outsmarted a Backstage Thief",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956368/How_I_Outsmarted_a_Backstage_Thief_zgbdwc.mp4"},
+        {title:"Rant: Media as Sorcery",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956368/Rant__Media_as_Sorcery_1_c5cvpj.mp4"},
+        {title:"Road manager tricks attacker and locks him in a room",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956363/Road_manager_tricks_attacker_and_locks_him_in_a_room_fsyh1a.mp4"},
+        {title:"Why drums are the foundation of my music (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956359/Why_drums_are_the_foundation_of_my_music_1_cvh5yi.mp4"},
+        {title:"How I Outsmarted a Backstage Thief (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956355/How_I_Outsmarted_a_Backstage_Thief_1_quzr2b.mp4"},
+        {title:"Hip Hop, Censorship and the Flavor Flav Divide",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956354/Hip_Hop__Censorship_and_the_Flavor_Flav_Divide_b5odow.mp4"},
+        {title:"Is Jesus Invented? Professor Griff on Religion and the \"Slave Bible\"",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956345/Is_Jesus_Invented__Professor_Griff_on_Religion_and_the__Slave_Bible__ovjgrn.mp4"},
+        {title:"How a hollow pot became a drum (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956345/How_a_hollow_pot_became_a_drum_1_sty0yw.mp4"},
+        {title:"How gatekeepers censor political hip hop (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956342/How_gatekeepers_censor_political_hip_hop_1_wfuhre.mp4"},
+        {title:"Would Public Enemy Be Censored Today? (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956339/Would_Public_Enemy_Be_Censored_Today__1_lz0g4v.mp4"},
+        {title:"Turning 65: Why I'm Making My Music Documentary Now",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956320/Turning_65__why_I_m_making_my_music_documentary_now_sluqp7.mp4"},
+        {title:"A Day on the Tour Bus: Scholars in Back, Fun in Front",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956309/A_day_on_the_tour_bus__scholars_in_back__fun_in_front_oljywm.mp4"},
+        {title:"I Joined the Military to Learn Tactics for Change",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956295/I_Joined_the_Military_to_Learn_Tactics_for_Change_qic1v8.mp4"},
+        {title:"Outro Bloopers: \"Come On, Fumble\"",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956255/Outro_bloopers___Come_on__fumble_y1jq5b.mp4"},
+        {title:"When a European Show Turned Into a Physical Fight",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956235/When_a_European_show_turned_into_a_physical_fight_isddiw.mp4"},
+        {title:"When a Show Almost Turned Into a Fight",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956234/When_a_show_almost_turned_into_a_fight_g0fx2a.mp4"},
+        {title:"Griff Clip 1",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782355124/griffclip1_phzl8w.mp4"}
+      ]
+    }
+  ];
+
+  const COMMERCIALS = [
+    { title:"Mack Magic Mobile Bar", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1781930406/MMslide_eqqhtb.mp4" },
+    { title:"Mack Magic Mobile Bar", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782972594/Mackinthedark_lut8nf.mp4" },
+    { title:"So Luv", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782972584/soluv_thvauh.mp4" }
+  ];
+
+  function buildQueue(shows){
+    const queue = [];
+    shows.forEach(item=>{
+      if (item.episodes && item.episodes.length){
+        item.episodes.forEach(ep=>{
+          queue.push({ title: ep.title, series: item.title, url: ep.url });
+        });
+      } else {
+        queue.push({ title: item.title, series: null, url: item.url });
+      }
+    });
+    return queue;
+  }
+
+  const mainQueue = buildQueue(SHOWS_RAW);
+
+  let mainIndex = 0;
+  let commercialIndex = 0;
+  let isBreak = false;
+  let savedTime = 0;
+  let breakDoneThisHour = null;
+
+  const video = document.getElementById('scheduleFeedPlayer');
+  const badge = document.getElementById('cbBadge');
+  const lower = document.getElementById('cbLower');
+  const lowerSeries = document.getElementById('cbSeries');
+  const lowerTitle = document.getElementById('cbTitle');
+  const muteBtn = document.getElementById('cbMute');
+
+  function updateLower(item){
+    lowerSeries.textContent = item.series || '';
+    lowerSeries.style.display = item.series ? 'block' : 'none';
+    lowerTitle.textContent = item.title;
+    lower.classList.remove('show');
+    void lower.offsetWidth;
+    lower.classList.add('show');
+  }
+
+  function loadMain(index){
+    const item = mainQueue[index % mainQueue.length];
+    video.src = item.url;
+    updateLower(item);
+    video.play().catch(()=>{});
+  }
+
+  function resumeMain(){
+    const item = mainQueue[mainIndex % mainQueue.length];
+    video.src = item.url;
+    const seekOnce = () => {
+      video.currentTime = savedTime;
+      video.removeEventListener('loadedmetadata', seekOnce);
+    };
+    video.addEventListener('loadedmetadata', seekOnce);
+    updateLower(item);
+    video.play().catch(()=>{});
+  }
+
+  function playCommercial(){
+    isBreak = true;
+    savedTime = video.currentTime || 0;
+    const ad = COMMERCIALS[commercialIndex % COMMERCIALS.length];
+    commercialIndex++;
+    video.src = ad.url;
+    lower.classList.remove('show');
+    badge.classList.add('show');
+    video.play().catch(()=>{});
+  }
+
+  video.addEventListener('ended', () => {
+    if (isBreak){
+      isBreak = false;
+      badge.classList.remove('show');
+      resumeMain();
+    } else {
+      mainIndex = (mainIndex + 1) % mainQueue.length;
+      loadMain(mainIndex);
+    }
+  });
+
+  muteBtn.onclick = () => {
+    video.muted = !video.muted;
+    muteBtn.textContent = video.muted ? '🔇' : '🔊';
+  };
+
+  function tick(){
+    const now = new Date();
+    const hour = now.getHours();
+    const min = now.getMinutes();
+    const sec = now.getSeconds();
+
+    if (min === 0 && sec < 2 && breakDoneThisHour !== hour && !isBreak){
+      breakDoneThisHour = hour;
+      playCommercial();
+    }
+  }
+  setInterval(tick, 1000);
+
+  loadMain(mainIndex);
+
+})();
+</script>
+
+</body>
+</html>
