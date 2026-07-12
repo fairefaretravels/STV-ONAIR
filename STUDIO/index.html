@@ -25,6 +25,38 @@ body{
   color:var(--text);
 }
 
+/* LOCK SCREEN */
+#lockScreen{
+  position:fixed;
+  inset:0;
+  background:var(--bg);
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:20px;
+}
+#lockScreen .brand{font-weight:700; letter-spacing:2px; font-size:16px;}
+#lockScreen .sub{color:var(--muted); font-size:13px;}
+#lockScreen input{
+  padding:11px 14px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#111827;
+  color:var(--text);
+  width:220px;
+  font-size:14px;
+}
+#lockScreen input:focus{outline:1px solid var(--gold);}
+#lockScreen .btn{width:220px;}
+#pwError{
+  color:var(--red);
+  font-size:12px;
+  display:none;
+}
+
 /* TOP BAR */
 .topbar{
   display:flex;
@@ -88,6 +120,7 @@ iframe,video{
 
 .btn.live{background:var(--red)}
 .btn.talk.on{background:var(--green); color:#000}
+.btn.training{background:var(--gold); color:#1a1400; font-weight:700;}
 
 /* QR */
 #qrPanel{
@@ -212,6 +245,17 @@ iframe,video{
 
 <body>
 
+<!-- LOCK SCREEN — client-side password gate. See note below the code. -->
+<div id="lockScreen">
+  <div class="brand">STV STUDIO</div>
+  <div class="sub">Enter operator password to continue</div>
+  <input type="password" id="pwInput" placeholder="Password" autocomplete="off" />
+  <button class="btn live" id="pwSubmit">Enter</button>
+  <div id="pwError">Incorrect password — try again.</div>
+</div>
+
+<div id="consoleApp" style="display:none;">
+
 <div class="topbar">
   <div class="brand">STV STUDIO</div>
   <div class="nav">
@@ -263,12 +307,44 @@ iframe,video{
         <img id="qrImg" width="180"/>
       </div>
 
+      <button class="btn training" id="trainingBtn">TRAINING</button>
+
     </div>
   </div>
 
 </div>
 
+</div>
+<!-- /#consoleApp -->
+
 <script>
+
+/* =========================================================
+   PASSWORD GATE
+   Client-side only — see the note in chat about what this
+   does and doesn't protect against.
+   ========================================================= */
+const OPERATOR_PASSWORD = "admin123";
+
+function tryUnlock(){
+  const val = document.getElementById("pwInput").value;
+  if(val === OPERATOR_PASSWORD){
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("consoleApp").style.display = "block";
+  } else {
+    document.getElementById("pwError").style.display = "block";
+  }
+}
+document.getElementById("pwSubmit").addEventListener("click", tryUnlock);
+document.getElementById("pwInput").addEventListener("keydown", e => {
+  if(e.key === "Enter") tryUnlock();
+});
+
+/* TRAINING — opens the staff training map/tutorial in a new tab.
+   Update the path below if the training file lives somewhere else. */
+document.getElementById("trainingBtn").addEventListener("click", () => {
+  window.open("stv-onair-training-map.html", "_blank");
+});
 
 const INVITE_LINK =
 "https://invite.cam/U2FsdGVkX1+QMWbI16QX0ILSVj1jNeskyDKYX3E8G51ClAtp8s0PxmpGtDXJUKfWlotC+2reCVz8G6AQGUL2YQ==";
