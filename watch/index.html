@@ -515,48 +515,18 @@
    Same auto-advancing queue + top-of-hour commercial-break
    logic used on the operator console and public channel page.
    ========================================================= */
-(function(){
+(async function(){
 
-  const SHOWS_RAW = [
-    {
-      id:"slept-on", title:"SLEPT ON",
-      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/d62425463c8e42ad8574ff40e961c9a7_kap3f7.mov"
-    },
-    {
-      id:"g4e-live", title:"G4E LIVE",
-      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/f18ea060546e4d70868c2f6321d1713f_k6hssr.mov"
-    },
-    {
-      id:"live-show-1", title:"THE LIVE SHOW",
-      url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/7369ce6bf1638f15e00f9170efc81285_zhfbup.mp4"
-    },
-    {
-      id:"professor-griff", title:"PROFESSOR GRIFF",
-      episodes:[
-        {title:"How a hollow pot became a drum",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956585/How_a_hollow_pot_became_a_drum_peq07b.mp4"},
-        {title:"How gatekeepers censor political hip hop",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956585/How_gatekeepers_censor_political_hip_hop_qtdtke.mp4"},
-        {title:"Would Public Enemy Be Censored Today?",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956582/Would_Public_Enemy_Be_Censored_Today__zozlyp.mp4"},
-        {title:"Why drums are the foundation of my music",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956374/Why_drums_are_the_foundation_of_my_music_pvspde.mp4"},
-        {title:"How I Outsmarted a Backstage Thief",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956368/How_I_Outsmarted_a_Backstage_Thief_zgbdwc.mp4"},
-        {title:"Rant: Media as Sorcery",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956368/Rant__Media_as_Sorcery_1_c5cvpj.mp4"},
-        {title:"Road manager tricks attacker and locks him in a room",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956363/Road_manager_tricks_attacker_and_locks_him_in_a_room_fsyh1a.mp4"},
-        {title:"Why drums are the foundation of my music (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956359/Why_drums_are_the_foundation_of_my_music_1_cvh5yi.mp4"},
-        {title:"How I Outsmarted a Backstage Thief (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956355/How_I_Outsmarted_a_Backstage_Thief_1_quzr2b.mp4"},
-        {title:"Hip Hop, Censorship and the Flavor Flav Divide",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956354/Hip_Hop__Censorship_and_the_Flavor_Flav_Divide_b5odow.mp4"},
-        {title:"Is Jesus Invented? Professor Griff on Religion and the \"Slave Bible\"",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956345/Is_Jesus_Invented__Professor_Griff_on_Religion_and_the__Slave_Bible__ovjgrn.mp4"},
-        {title:"How a hollow pot became a drum (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956345/How_a_hollow_pot_became_a_drum_1_sty0yw.mp4"},
-        {title:"How gatekeepers censor political hip hop (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956342/How_gatekeepers_censor_political_hip_hop_1_wfuhre.mp4"},
-        {title:"Would Public Enemy Be Censored Today? (Take 2)",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956339/Would_Public_Enemy_Be_Censored_Today__1_lz0g4v.mp4"},
-        {title:"Turning 65: Why I'm Making My Music Documentary Now",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956320/Turning_65__why_I_m_making_my_music_documentary_now_sluqp7.mp4"},
-        {title:"A Day on the Tour Bus: Scholars in Back, Fun in Front",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956309/A_day_on_the_tour_bus__scholars_in_back__fun_in_front_oljywm.mp4"},
-        {title:"I Joined the Military to Learn Tactics for Change",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956295/I_Joined_the_Military_to_Learn_Tactics_for_Change_qic1v8.mp4"},
-        {title:"Outro Bloopers: \"Come On, Fumble\"",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956255/Outro_bloopers___Come_on__fumble_y1jq5b.mp4"},
-        {title:"When a European Show Turned Into a Physical Fight",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956235/When_a_European_show_turned_into_a_physical_fight_isddiw.mp4"},
-        {title:"When a Show Almost Turned Into a Fight",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782956234/When_a_show_almost_turned_into_a_fight_g0fx2a.mp4"},
-        {title:"Griff Clip 1",url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782355124/griffclip1_phzl8w.mp4"}
-      ]
-    }
-  ];
+  // Single source of truth: /shows.json (repo root). Previously this was a
+  // hardcoded copy that had to be kept in sync by hand with /247/index.html
+  // and the STUDIO dashboard's expected data file. Now every surface reads
+  // the same file.
+  const SHOWS_RAW = await fetch('/shows.json', { cache: 'no-store' })
+    .then(res => res.json())
+    .catch(err => {
+      console.error('[STV] Failed to load /shows.json', err);
+      return [];
+    });
 
   const COMMERCIALS = [
     { title:"Mack Magic Mobile Bar", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1781930406/MMslide_eqqhtb.mp4" },
