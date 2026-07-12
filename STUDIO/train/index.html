@@ -5,8 +5,8 @@
 <title>STV-ONAIR site map — staff training</title>
 <style>
   :root{
-    --bg:#f6f5f1; --panel:#ffffff; --ink:#17181a; --ink-soft:#5a5c60; --line:#dedad0;
-    --accent:#1d4ed8; --accent-ink:#ffffff;
+    --bg:#0f1012; --panel:#1a1b1e; --ink:#f1f1ef; --ink-soft:#9a9ca1; --line:#2c2d31;
+    --accent:#5b8dff; --accent-ink:#0f1012;
     --sans:"Inter", -apple-system, "Segoe UI", sans-serif;
   }
   *{box-sizing:border-box;}
@@ -21,7 +21,7 @@
     background:var(--accent); color:var(--accent-ink); border:none; padding:11px 20px;
     border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;
   }
-  button.primary:hover{background:#1a3fb8;}
+  button.primary:hover{background:#7ba3ff;}
   button.ghost{
     background:transparent; color:var(--ink); border:1px solid var(--line); padding:10px 16px;
     border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;
@@ -42,7 +42,7 @@
     justify-content:space-between; gap:10px;
   }
   details.card summary::-webkit-details-marker{display:none;}
-  .card-title{font-size:15px; font-weight:600;}
+  .card-title{font-size:15px; font-weight:600; color:var(--ink);}
   .card-tag{
     font-size:11px; font-weight:700; padding:4px 9px; border-radius:999px;
     background:var(--card-bg); color:var(--card-text); white-space:nowrap;
@@ -68,21 +68,21 @@
   .speaker-label{font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--card-text); font-weight:700; margin-bottom:4px;}
   .holly-script{
     font-size:13px; color:var(--card-text); border:1px dashed var(--card-border); border-radius:8px;
-    padding:10px 12px; background:rgba(255,255,255,.5); outline:none; min-height:20px;
+    padding:10px 12px; background:rgba(0,0,0,.18); outline:none; min-height:20px;
   }
   .holly-script:focus{border-style:solid;}
   .speaker-controls{display:flex; gap:8px; margin-top:10px; align-items:center;}
   .play-btn, .reset-btn{
-    font-size:12px; font-weight:600; border:1px solid var(--card-border); background:#fff;
+    font-size:12px; font-weight:600; border:1px solid var(--card-border); background:rgba(0,0,0,.2);
     color:var(--card-text); padding:6px 12px; border-radius:999px; cursor:pointer;
   }
-  .play-btn:hover, .reset-btn:hover{background:var(--card-bg);}
+  .play-btn:hover, .reset-btn:hover{background:var(--card-border); color:#fff;}
   .placeholder-note{font-size:11px; color:var(--card-text); opacity:.75; margin-top:8px;}
 
   #tutorial-bar{
-    position:fixed; left:0; right:0; bottom:0; background:var(--ink); color:#fff;
+    position:fixed; left:0; right:0; bottom:0; background:#000; color:#fff;
     display:none; align-items:center; justify-content:space-between; padding:14px 24px;
-    box-shadow:0 -6px 18px rgba(0,0,0,.15); z-index:10;
+    box-shadow:0 -6px 18px rgba(0,0,0,.4); z-index:10; border-top:1px solid var(--line);
   }
   #tutorial-bar .step-text{font-size:13px; font-weight:600;}
   #tutorial-bar .nav{display:flex; gap:8px;}
@@ -111,7 +111,7 @@
 
   <div class="grid">
 
-    <details class="card" id="card-public" style="--card-bg:#E1F5EE; --card-border:#0F6E56; --card-text:#04342C; --card-accent:#0F6E56;">
+    <details class="card" id="card-public" style="--card-bg:#12332A; --card-border:#2FA98A; --card-text:#8FE3C7; --card-accent:#2FA98A;">
       <summary>
         <span class="card-title">Public site</span>
         <span style="display:flex; align-items:center; gap:10px;">
@@ -141,7 +141,7 @@
       </div>
     </details>
 
-    <details class="card" id="card-studio" style="--card-bg:#FAEEDA; --card-border:#854F0B; --card-text:#412402; --card-accent:#854F0B;">
+    <details class="card" id="card-studio" style="--card-bg:#332608; --card-border:#C68A1E; --card-text:#F0C878; --card-accent:#C68A1E;">
       <summary>
         <span class="card-title">STUDIO</span>
         <span style="display:flex; align-items:center; gap:10px;">
@@ -170,7 +170,7 @@
       </div>
     </details>
 
-    <details class="card" id="card-guests" style="--card-bg:#FAECE7; --card-border:#993C1D; --card-text:#4A1B0C; --card-accent:#993C1D;">
+    <details class="card" id="card-guests" style="--card-bg:#3A200F; --card-border:#D9713A; --card-text:#F3B78D; --card-accent:#D9713A;">
       <summary>
         <span class="card-title">Interviews &amp; guests</span>
         <span style="display:flex; align-items:center; gap:10px;">
@@ -199,7 +199,7 @@
       </div>
     </details>
 
-    <details class="card" id="card-artists" style="--card-bg:#EEEDFE; --card-border:#534AB7; --card-text:#26215C; --card-accent:#534AB7;">
+    <details class="card" id="card-artists" style="--card-bg:#221F42; --card-border:#7C72E8; --card-text:#C4BEF7; --card-accent:#7C72E8;">
       <summary>
         <span class="card-title">Artist &amp; show pages</span>
         <span style="display:flex; align-items:center; gap:10px;">
@@ -228,7 +228,7 @@
       </div>
     </details>
 
-    <details class="card" id="card-config" style="--card-bg:#F1EFE8; --card-border:#5F5E5A; --card-text:#2C2C2A; --card-accent:#5F5E5A;">
+    <details class="card" id="card-config" style="--card-bg:#232321; --card-border:#8C8A83; --card-text:#D6D4CC; --card-accent:#8C8A83;">
       <summary>
         <span class="card-title">Config &amp; assets</span>
         <span style="display:flex; align-items:center; gap:10px;">
@@ -257,7 +257,7 @@
       </div>
     </details>
 
-    <details class="card" id="card-headsup" style="--card-bg:#FCEBEB; --card-border:#A32D2D; --card-text:#501313; --card-accent:#A32D2D;">
+    <details class="card" id="card-headsup" style="--card-bg:#3A1414; --card-border:#D95151; --card-text:#F5AFAF; --card-accent:#D95151;">
       <summary>
         <span class="card-title">Heads up</span>
         <span style="display:flex; align-items:center; gap:10px;">
