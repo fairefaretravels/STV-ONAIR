@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Link sorter — STV / The Static</title>
+<style>
+  :root{
+    --bg: #f6f5f1;
+    --panel: #ffffff;
+    --ink: #17181a;
+    --ink-soft: #5a5c60;
+    --line: #dedad0;
+    --accent: #1d4ed8;
+    --accent-ink: #ffffff;
+    --mono: "SF Mono", "Menlo", "Consolas", monospace;
+    --sans: "Inter", -apple-system, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.5; padding:40px 20px 80px;
+  }
+  .wrap{max-width:840px; margin:0 auto;}
+  header{margin-bottom:28px;}
+  header .eyebrow{
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); margin-bottom:6px;
+  }
+  h1{font-size:26px; font-weight:600; margin:0 0 6px;}
+  header p{color:var(--ink-soft); margin:0; font-size:14px; max-width:520px;}
+
+  .panel{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:24px; margin-bottom:20px;
+  }
+  label{display:block; font-size:13px; font-weight:600; margin-bottom:8px;}
+  textarea{
+    width:100%; min-height:160px; resize:vertical; padding:14px;
+    border:1px solid var(--line); border-radius:8px; font-family:var(--mono);
+    font-size:13px; color:var(--ink); background:#fdfdfb;
+  }
+  textarea:focus{outline:2px solid var(--accent); outline-offset:1px;}
+
+  .dropzone{
+    margin-top:12px; border:1px dashed var(--line); border-radius:8px;
+    padding:14px; font-size:13px; color:var(--ink-soft); text-align:center;
+    cursor:pointer; transition:border-color .15s, background .15s;
+  }
+  .dropzone.drag{border-color:var(--accent); background:#eef2ff;}
+  .dropzone input{display:none;}
+
+  .row{display:flex; align-items:center; justify-content:space-between; margin-top:16px; gap:12px; flex-wrap:wrap;}
+  .filename{font-size:12px; color:var(--ink-soft); font-family:var(--mono);}
+
+  button.primary{
+    background:var(--accent); color:var(--accent-ink); border:none;
+    padding:11px 22px; border-radius:8px; font-size:14px; font-weight:600;
+    cursor:pointer;
+  }
+  button.primary:hover{background:#1a3fb8;}
+  button.primary:disabled{background:#b7c1e6; cursor:not-allowed;}
+
+  .summary{
+    display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px;
+  }
+  .chip{
+    font-size:12px; font-weight:600; padding:6px 12px; border-radius:999px;
+    border:1px solid var(--line); background:var(--panel);
+  }
+
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.05em;
+    color:var(--ink-soft); border-bottom:1px solid var(--line); padding:8px 10px;
+  }
+  td{border-bottom:1px solid var(--line); padding:10px; vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .url-cell{font-family:var(--mono); font-size:12px; word-break:break-all; color:var(--ink);}
+  .url-cell a{color:var(--ink); text-decoration:none;}
+  .url-cell a:hover{text-decoration:underline;}
+
+  .badge{
+    display:inline-block; font-size:11px; font-weight:700; padding:4px 9px;
+    border-radius:5px; white-space:nowrap;
+  }
+  .empty-state{
+    text-align:center; padding:40px 20px; color:var(--ink-soft); font-size:14px;
+  }
+  .note{font-size:11px; color:var(--ink-soft); margin-top:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">STV-ONAIR / staff tool</div>
+    <h1>Link sorter</h1>
+    <p>Paste an article, a caption draft, or a raw list of links. It pulls out every URL and tags which platform or tool each one belongs to — TikTok, Hootsuite, Instagram, and so on.</p>
+  </header>
+
+  <div class="panel">
+    <label for="input">Paste text or links</label>
+    <textarea id="input" placeholder="Paste an article, a list of links, or anything containing URLs..."></textarea>
+
+    <div class="dropzone" id="dropzone">
+      Drop a .txt / .md / .html file here, or click to upload
+      <input type="file" id="fileInput" accept=".txt,.md,.html,.csv">
+    </div>
+
+    <div class="row">
+      <span class="filename" id="filename"></span>
+      <button class="primary" id="analyzeBtn">Sort the links</button>
+    </div>
+  </div>
+
+  <div id="results"></div>
+
+</div>
+
+<script>
+const PLATFORMS = [
+  { name: "TikTok",      color: "#000000", bg: "#eaeaea", test: h => /(^|\.)tiktok\.com$/.test(h) },
+  { name: "Instagram",   color: "#ffffff", bg: "#c0328f", test: h => /(^|\.)instagram\.com$/.test(h) },
+  { name: "Facebook",    color: "#ffffff", bg: "#1156c7", test: h => /(^|\.)(facebook\.com|fb\.com|fb\.watch)$/.test(h) },
+  { name: "X / Twitter", color: "#ffffff", bg: "#111111", test: h => /(^|\.)(twitter\.com|x\.com)$/.test(h) },
+  { name: "YouTube",     color: "#ffffff", bg: "#b3241c", test: h => /(^|\.)(youtube\.com|youtu\.be)$/.test(h) },
+  { name: "LinkedIn",    color: "#ffffff", bg: "#0a5fa8", test: h => /(^|\.)linkedin\.com$/.test(h) },
+  { name: "Pinterest",   color: "#ffffff", bg: "#b81c26", test: h => /(^|\.)pinterest\.[a-z.]+$/.test(h) },
+  { name: "Snapchat",    color: "#111111", bg: "#f6e64d", test: h => /(^|\.)snapchat\.com$/.test(h) },
+  { name: "Threads",     color: "#ffffff", bg: "#222222", test: h => /(^|\.)threads\.net$/.test(h) },
+  { name: "Hootsuite",   color: "#ffffff", bg: "#1a2e57", test: h => /(^|\.)hootsuite\.com$/.test(h) },
+  { name: "Buffer",      color: "#ffffff", bg: "#2c2ee0", test: h => /(^|\.)buffer\.com$/.test(h) },
+  { name: "Later",       color: "#ffffff", bg: "#5b4bd6", test: h => /(^|\.)later\.com$/.test(h) },
+  { name: "Sprout Social", color: "#ffffff", bg: "#127b5c", test: h => /(^|\.)sproutsocial\.com$/.test(h) },
+  { name: "Spotify",     color: "#111111", bg: "#8fe8a3", test: h => /(^|\.)spotify\.com$/.test(h) },
+  { name: "Apple",       color: "#ffffff", bg: "#555555", test: h => /(^|\.)(apple\.com|podcasts\.apple\.com)$/.test(h) },
+];
+
+const SHORTENERS = /(^|\.)(bit\.ly|tinyurl\.com|t\.co|buff\.ly|ow\.ly|rebrand\.ly|lnkd\.in)$/;
+
+function classify(urlStr){
+  let host;
+  try{ host = new URL(urlStr).hostname.toLowerCase().replace(/^www\./,""); }
+  catch(e){ return { name: "Unrecognized link", color:"#333", bg:"#eee" }; }
+
+  for(const p of PLATFORMS){ if(p.test(host)) return p; }
+  if(SHORTENERS.test(host)) return { name: "Shortened — check manually", color:"#7a5b00", bg:"#fbeec4" };
+  return { name: "Other / website", color:"#333333", bg:"#e7e5df" };
+}
+
+function extractUrls(text){
+  const re = /\bhttps?:\/\/[^\s<>"')\]]+/gi;
+  const found = text.match(re) || [];
+  return [...new Set(found.map(u => u.replace(/[.,;:!?]+$/, "")))];
+}
+
+const input = document.getElementById("input");
+const dropzone = document.getElementById("dropzone");
+const fileInput = document.getElementById("fileInput");
+const filenameEl = document.getElementById("filename");
+const analyzeBtn = document.getElementById("analyzeBtn");
+const resultsEl = document.getElementById("results");
+
+function loadFile(file){
+  if(!file) return;
+  filenameEl.textContent = file.name;
+  const reader = new FileReader();
+  reader.onload = e => { input.value = e.target.result; };
+  reader.readAsText(file);
+}
+
+dropzone.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", e => loadFile(e.target.files[0]));
+["dragenter","dragover"].forEach(evt =>
+  dropzone.addEventListener(evt, e => { e.preventDefault(); dropzone.classList.add("drag"); }));
+["dragleave","drop"].forEach(evt =>
+  dropzone.addEventListener(evt, e => { e.preventDefault(); dropzone.classList.remove("drag"); }));
+dropzone.addEventListener("drop", e => loadFile(e.dataTransfer.files[0]));
+
+analyzeBtn.addEventListener("click", () => {
+  const urls = extractUrls(input.value);
+  if(urls.length === 0){
+    resultsEl.innerHTML = `<div class="panel"><div class="empty-state">No links found yet. Paste some text or upload a file above.</div></div>`;
+    return;
+  }
+
+  const rows = urls.map(u => ({ url: u, platform: classify(u) }));
+  const counts = {};
+  rows.forEach(r => { counts[r.platform.name] = (counts[r.platform.name]||0) + 1; });
+
+  const chips = Object.entries(counts)
+    .sort((a,b) => b[1]-a[1])
+    .map(([name,count]) => `<span class="chip">${name} · ${count}</span>`)
+    .join("");
+
+  const tableRows = rows.map(r => `
+    <tr>
+      <td class="url-cell"><a href="${r.url}" target="_blank" rel="noopener">${r.url}</a></td>
+      <td><span class="badge" style="color:${r.platform.color}; background:${r.platform.bg}">${r.platform.name}</span></td>
+    </tr>`).join("");
+
+  resultsEl.innerHTML = `
+    <div class="summary">${chips}</div>
+    <div class="panel" style="padding:0; overflow:hidden;">
+      <table>
+        <thead><tr><th style="padding-left:20px;">Link</th><th>Platform</th></tr></thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+    <p class="note">Shortened links (bit.ly, t.co, etc.) can't be auto-resolved here — open them manually to confirm the destination.</p>
+  `;
+});
+</script>
+</body>
+</html>
