@@ -793,8 +793,8 @@ async function loadDashboard(){
   try {
     const [queue, shows, tracksList] = await Promise.all([
       STUDIO.generate(),
-      safeFetchJSON('./shows.json', []),
-      safeFetchJSON('./tracks.json', [])
+      safeFetchJSON('/shows.json', []),
+      safeFetchJSON('./data/tracks.json', [])
     ]);
 
     if (!queue.length){

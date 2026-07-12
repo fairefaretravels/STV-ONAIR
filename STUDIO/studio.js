@@ -1,6 +1,8 @@
 window.STUDIO = (function () {
-    // Base path for data files, relative to watch.html
-    const BASE = "./data/";
+    // Base path for data files. Absolute so this resolves correctly no
+    // matter which page includes studio.js. shows.json is the single
+    // shared source used by /watch, /247, and this dashboard.
+    const BASE = "/";
     const PLAYLIST_SOURCES = [
         "shows.json"
     ];
