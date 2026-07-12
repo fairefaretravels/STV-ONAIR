@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>STV-ONAIR site map — staff training</title>
+<style>
+  :root{
+    --bg:#f6f5f1; --panel:#ffffff; --ink:#17181a; --ink-soft:#5a5c60; --line:#dedad0;
+    --accent:#1d4ed8; --accent-ink:#ffffff;
+    --sans:"Inter", -apple-system, "Segoe UI", sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.55; padding:36px 20px 120px;}
+  .wrap{max-width:920px; margin:0 auto;}
+  .eyebrow{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px;}
+  h1{font-size:26px; font-weight:600; margin:0 0 8px;}
+  header p{color:var(--ink-soft); margin:0 0 18px; font-size:14px; max-width:600px;}
+
+  .toolbar{display:flex; gap:10px; align-items:center; margin-bottom:24px; flex-wrap:wrap;}
+  button.primary{
+    background:var(--accent); color:var(--accent-ink); border:none; padding:11px 20px;
+    border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;
+  }
+  button.primary:hover{background:#1a3fb8;}
+  button.ghost{
+    background:transparent; color:var(--ink); border:1px solid var(--line); padding:10px 16px;
+    border-radius:8px; font-size:13px; font-weight:600; cursor:pointer;
+  }
+  button.ghost:hover{border-color:var(--ink);}
+  .hint{font-size:12px; color:var(--ink-soft);}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px;}
+
+  details.card{
+    border-radius:12px; border:1px solid var(--line); background:var(--panel);
+    padding:0; transition:opacity .2s, box-shadow .2s, border-color .2s; overflow:hidden;
+  }
+  details.card.dim{opacity:.35;}
+  details.card.active{border-color:var(--card-accent, var(--accent)); box-shadow:0 0 0 2px var(--card-accent, var(--accent));}
+  details.card summary{
+    list-style:none; cursor:pointer; padding:18px 20px; display:flex; align-items:center;
+    justify-content:space-between; gap:10px;
+  }
+  details.card summary::-webkit-details-marker{display:none;}
+  .card-title{font-size:15px; font-weight:600;}
+  .card-tag{
+    font-size:11px; font-weight:700; padding:4px 9px; border-radius:999px;
+    background:var(--card-bg); color:var(--card-text); white-space:nowrap;
+  }
+  .chevron{transition:transform .2s; color:var(--ink-soft); flex-shrink:0;}
+  details[open] .chevron{transform:rotate(180deg);}
+
+  .card-body{padding:0 20px 20px;}
+  .item-list{margin:0 0 16px; padding-left:18px; font-size:13px; color:var(--ink-soft);}
+  .item-list li{margin-bottom:4px;}
+  .item-list code{font-size:12px; background:var(--card-bg); color:var(--card-text); padding:1px 5px; border-radius:4px;}
+
+  .speaker{
+    display:flex; gap:12px; background:var(--card-bg); border-radius:10px; padding:14px;
+    border:1px solid var(--card-border);
+  }
+  .avatar{
+    width:34px; height:34px; border-radius:50%; background:var(--card-border); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px;
+    flex-shrink:0;
+  }
+  .speaker-body{flex:1; min-width:0;}
+  .speaker-label{font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:var(--card-text); font-weight:700; margin-bottom:4px;}
+  .holly-script{
+    font-size:13px; color:var(--card-text); border:1px dashed var(--card-border); border-radius:8px;
+    padding:10px 12px; background:rgba(255,255,255,.5); outline:none; min-height:20px;
+  }
+  .holly-script:focus{border-style:solid;}
+  .speaker-controls{display:flex; gap:8px; margin-top:10px; align-items:center;}
+  .play-btn, .reset-btn{
+    font-size:12px; font-weight:600; border:1px solid var(--card-border); background:#fff;
+    color:var(--card-text); padding:6px 12px; border-radius:999px; cursor:pointer;
+  }
+  .play-btn:hover, .reset-btn:hover{background:var(--card-bg);}
+  .placeholder-note{font-size:11px; color:var(--card-text); opacity:.75; margin-top:8px;}
+
+  #tutorial-bar{
+    position:fixed; left:0; right:0; bottom:0; background:var(--ink); color:#fff;
+    display:none; align-items:center; justify-content:space-between; padding:14px 24px;
+    box-shadow:0 -6px 18px rgba(0,0,0,.15); z-index:10;
+  }
+  #tutorial-bar .step-text{font-size:13px; font-weight:600;}
+  #tutorial-bar .nav{display:flex; gap:8px;}
+  #tutorial-bar button{
+    font-size:13px; font-weight:600; padding:8px 16px; border-radius:7px; cursor:pointer; border:none;
+  }
+  #tutorial-bar .nav-btn{background:#2b2c2f; color:#fff;}
+  #tutorial-bar .nav-btn:hover{background:#3a3b3f;}
+  #tutorial-bar .nav-btn:disabled{opacity:.35; cursor:not-allowed;}
+  #tutorial-bar .exit-btn{background:transparent; color:#c9c9c6; text-decoration:underline; padding:8px 4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">STV-ONAIR / staff training</div>
+    <h1>Site map &amp; onboarding tour</h1>
+    <p>Click any section to see what's inside. Each one has a placeholder intro from Holly, our virtual assistant — text-to-speech in this browser, so it's ready for real narration later. Scripts are editable — click the text and customize it.</p>
+  </header>
+
+  <div class="toolbar">
+    <button class="primary" id="start-tutorial">Start tutorial</button>
+    <span class="hint">Or skip straight to exploring — click any card below.</span>
+  </div>
+
+  <div class="grid">
+
+    <details class="card" id="card-public" style="--card-bg:#E1F5EE; --card-border:#0F6E56; --card-text:#04342C; --card-accent:#0F6E56;">
+      <summary>
+        <span class="card-title">Public site</span>
+        <span style="display:flex; align-items:center; gap:10px;">
+          <span class="card-tag">Customer-facing</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="card-body">
+        <ul class="item-list">
+          <li><code>index.html</code> — homepage</li>
+          <li><code>watch/</code>, <code>radio/</code>, <code>247/</code> — live viewing &amp; listening</li>
+          <li><code>community-channel.html</code>, <code>the-static-publication.html</code></li>
+          <li><code>book.html</code>, <code>course.html</code>, <code>film-packages.html</code></li>
+        </ul>
+        <div class="speaker">
+          <div class="avatar">H</div>
+          <div class="speaker-body">
+            <div class="speaker-label">Holly · virtual assistant</div>
+            <div class="holly-script" contenteditable="true">Hi, I'm Holly, your virtual assistant. You're entering the customer-facing area — bright smiles and stay camera-ready! Everything here is what fans and visitors see first.</div>
+            <div class="speaker-controls">
+              <button class="play-btn">▶ Play Holly's line</button>
+              <button class="reset-btn">Reset text</button>
+            </div>
+            <div class="placeholder-note">Placeholder script — swap in a recorded voiceover here later.</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="card" id="card-studio" style="--card-bg:#FAEEDA; --card-border:#854F0B; --card-text:#412402; --card-accent:#854F0B;">
+      <summary>
+        <span class="card-title">STUDIO</span>
+        <span style="display:flex; align-items:center; gap:10px;">
+          <span class="card-tag">Staff-only</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="card-body">
+        <ul class="item-list">
+          <li><code>STUDIO/index.html</code>, <code>oppdash.html</code> — internal dashboards</li>
+          <li><code>analytics.js</code>, <code>dashboard.js</code>, <code>metrics.js</code></li>
+          <li><code>data/schedule.json</code>, <code>tracks.json</code>, <code>commercials.json</code></li>
+        </ul>
+        <div class="speaker">
+          <div class="avatar">H</div>
+          <div class="speaker-body">
+            <div class="speaker-label">Holly · virtual assistant</div>
+            <div class="holly-script" contenteditable="true">Hi, I'm Holly. This is STUDIO — our internal ops dashboard. It's staff-only, so nothing you see in here should ever be shared outside the team.</div>
+            <div class="speaker-controls">
+              <button class="play-btn">▶ Play Holly's line</button>
+              <button class="reset-btn">Reset text</button>
+            </div>
+            <div class="placeholder-note">Placeholder script — swap in a recorded voiceover here later.</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="card" id="card-guests" style="--card-bg:#FAECE7; --card-border:#993C1D; --card-text:#4A1B0C; --card-accent:#993C1D;">
+      <summary>
+        <span class="card-title">Interviews &amp; guests</span>
+        <span style="display:flex; align-items:center; gap:10px;">
+          <span class="card-tag">Booking &amp; waivers</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="card-body">
+        <ul class="item-list">
+          <li><code>XOCOstudios/</code> — host tools, interview command center</li>
+          <li><code>interview-confirmation/</code> — approve, prep, confirmation</li>
+          <li><code>Guest portal/</code>, <code>waiver.html</code></li>
+        </ul>
+        <div class="speaker">
+          <div class="avatar">H</div>
+          <div class="speaker-body">
+            <div class="speaker-label">Holly · virtual assistant</div>
+            <div class="holly-script" contenteditable="true">Hi, I'm Holly. This is where we manage guest bookings, waivers, and interview prep. Always confirm the paperwork is signed before recording starts.</div>
+            <div class="speaker-controls">
+              <button class="play-btn">▶ Play Holly's line</button>
+              <button class="reset-btn">Reset text</button>
+            </div>
+            <div class="placeholder-note">Placeholder script — swap in a recorded voiceover here later.</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="card" id="card-artists" style="--card-bg:#EEEDFE; --card-border:#534AB7; --card-text:#26215C; --card-accent:#534AB7;">
+      <summary>
+        <span class="card-title">Artist &amp; show pages</span>
+        <span style="display:flex; align-items:center; gap:10px;">
+          <span class="card-tag">Talent microsites</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="card-body">
+        <ul class="item-list">
+          <li><code>emilgordonsr/</code></li>
+          <li><code>agent-sanecamack.html</code>, <code>TheStatic-Griff.html</code></li>
+          <li><code>Stv-switchbladoku.html</code> — party game page</li>
+        </ul>
+        <div class="speaker">
+          <div class="avatar">H</div>
+          <div class="speaker-body">
+            <div class="speaker-label">Holly · virtual assistant</div>
+            <div class="holly-script" contenteditable="true">Hi, I'm Holly. These are individual artist and show microsites. Keep each one on-brand for the talent it represents — don't mix up assets between pages.</div>
+            <div class="speaker-controls">
+              <button class="play-btn">▶ Play Holly's line</button>
+              <button class="reset-btn">Reset text</button>
+            </div>
+            <div class="placeholder-note">Placeholder script — swap in a recorded voiceover here later.</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="card" id="card-config" style="--card-bg:#F1EFE8; --card-border:#5F5E5A; --card-text:#2C2C2A; --card-accent:#5F5E5A;">
+      <summary>
+        <span class="card-title">Config &amp; assets</span>
+        <span style="display:flex; align-items:center; gap:10px;">
+          <span class="card-tag">Technical backbone</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="card-body">
+        <ul class="item-list">
+          <li><code>manifest.json</code>, <code>sw.js</code> — app config, service worker</li>
+          <li><code>vercel.json</code> — URL routing for deploy</li>
+          <li>Logos, promo videos and images used site-wide</li>
+        </ul>
+        <div class="speaker">
+          <div class="avatar">H</div>
+          <div class="speaker-body">
+            <div class="speaker-label">Holly · virtual assistant</div>
+            <div class="holly-script" contenteditable="true">Hi, I'm Holly. This is the technical backbone — deploy settings, shared assets, and branding files. Handle changes here carefully, they affect the whole site at once.</div>
+            <div class="speaker-controls">
+              <button class="play-btn">▶ Play Holly's line</button>
+              <button class="reset-btn">Reset text</button>
+            </div>
+            <div class="placeholder-note">Placeholder script — swap in a recorded voiceover here later.</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="card" id="card-headsup" style="--card-bg:#FCEBEB; --card-border:#A32D2D; --card-text:#501313; --card-accent:#A32D2D;">
+      <summary>
+        <span class="card-title">Heads up</span>
+        <span style="display:flex; align-items:center; gap:10px;">
+          <span class="card-tag">Known issue</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="card-body">
+        <ul class="item-list">
+          <li><code>group-planner/</code> — folder exists but is empty, no live page</li>
+        </ul>
+        <div class="speaker">
+          <div class="avatar">H</div>
+          <div class="speaker-body">
+            <div class="speaker-label">Holly · virtual assistant</div>
+            <div class="holly-script" contenteditable="true">Hi, I'm Holly. Quick heads-up — the group planner link doesn't have a live page behind it yet. If you spot it linked anywhere on the site, flag it to a producer.</div>
+            <div class="speaker-controls">
+              <button class="play-btn">▶ Play Holly's line</button>
+              <button class="reset-btn">Reset text</button>
+            </div>
+            <div class="placeholder-note">Placeholder script — swap in a recorded voiceover here later.</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<div id="tutorial-bar">
+  <span class="step-text" id="step-text">Step 1 of 6</span>
+  <div class="nav">
+    <button class="nav-btn" id="back-btn">Back</button>
+    <button class="nav-btn" id="next-btn">Next</button>
+    <button class="exit-btn" id="exit-btn">Exit tutorial</button>
+  </div>
+</div>
+
+<script>
+const ORDER = ["public","studio","guests","artists","config","headsup"];
+const cards = ORDER.map(id => document.getElementById("card-"+id));
+const startBtn = document.getElementById("start-tutorial");
+const bar = document.getElementById("tutorial-bar");
+const stepText = document.getElementById("step-text");
+const backBtn = document.getElementById("back-btn");
+const nextBtn = document.getElementById("next-btn");
+const exitBtn = document.getElementById("exit-btn");
+
+let step = 0;
+let active = false;
+
+function showStep(){
+  cards.forEach((el, i) => {
+    el.open = (i === step);
+    el.classList.toggle("active", i === step);
+    el.classList.toggle("dim", i !== step);
+  });
+  cards[step].scrollIntoView({ behavior: "smooth", block: "center" });
+  stepText.textContent = `Step ${step+1} of ${ORDER.length}`;
+  backBtn.disabled = step === 0;
+  nextBtn.textContent = step === ORDER.length - 1 ? "Finish" : "Next";
+}
+
+function startTutorial(){
+  active = true; step = 0;
+  bar.style.display = "flex";
+  startBtn.textContent = "Restart tutorial";
+  showStep();
+}
+
+function exitTutorial(){
+  active = false;
+  bar.style.display = "none";
+  cards.forEach(el => el.classList.remove("active","dim"));
+}
+
+startBtn.addEventListener("click", startTutorial);
+exitBtn.addEventListener("click", exitTutorial);
+nextBtn.addEventListener("click", () => {
+  if(step < ORDER.length - 1){ step++; showStep(); }
+  else { exitTutorial(); }
+});
+backBtn.addEventListener("click", () => {
+  if(step > 0){ step--; showStep(); }
+});
+
+// Speaker controls — uses the browser's built-in text-to-speech (no external calls).
+document.querySelectorAll(".card").forEach(card => {
+  const scriptEl = card.querySelector(".holly-script");
+  const playBtn = card.querySelector(".play-btn");
+  const resetBtn = card.querySelector(".reset-btn");
+  scriptEl.dataset.default = scriptEl.textContent.trim();
+
+  playBtn.addEventListener("click", () => {
+    if(!("speechSynthesis" in window)){
+      alert("Text-to-speech isn't supported in this browser.");
+      return;
+    }
+    if(window.speechSynthesis.speaking){
+      window.speechSynthesis.cancel();
+      playBtn.textContent = "▶ Play Holly's line";
+      return;
+    }
+    const utter = new SpeechSynthesisUtterance(scriptEl.textContent.trim());
+    utter.onend = () => { playBtn.textContent = "▶ Play Holly's line"; };
+    playBtn.textContent = "■ Stop";
+    window.speechSynthesis.speak(utter);
+  });
+
+  resetBtn.addEventListener("click", () => {
+    scriptEl.textContent = scriptEl.dataset.default;
+  });
+});
+</script>
+</body>
+</html>
