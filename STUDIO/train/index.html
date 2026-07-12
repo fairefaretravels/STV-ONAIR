@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -170,6 +170,36 @@
       </div>
     </details>
 
+    <details class="card" id="card-marketing" style="--card-bg:#182F3D; --card-border:#3B92C6; --card-text:#9CD3F0; --card-accent:#3B92C6;">
+      <summary>
+        <span class="card-title">Marketing / Lead pipeline</span>
+        <span style="display:flex; align-items:center; gap:10px;">
+          <span class="card-tag">Cold call &amp; closing</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="card-body">
+        <ul class="item-list">
+          <li><code>lead-pipeline-tracker.html</code> — live board: add leads, track status, export to Excel</li>
+          <li>3 checkpoints: <code>Client Answered</code> (Cold Callers) → <code>Needs Service</code> (Follow-Up Team) → <code>Info Sent</code> (Closer Heaven)</li>
+          <li>Scripts: cold call opener, engaged follow-up, no-answer text/email</li>
+          <li>Cold leads auto-queue a 1-week callback; warm leads stay green with no timer until all 3 are checked</li>
+        </ul>
+        <div class="speaker">
+          <div class="avatar">H</div>
+          <div class="speaker-body">
+            <div class="speaker-label">Holly · virtual assistant</div>
+            <div class="holly-script" contenteditable="true">Hi, I'm Holly. This is the marketing pipeline — every lead climbs three checkpoints on the way to Closer Heaven. Cold callers get the answer, the follow-up team confirms the need, and closers send the info. Keep it moving!</div>
+            <div class="speaker-controls">
+              <button class="play-btn">▶ Play Holly's line</button>
+              <button class="reset-btn">Reset text</button>
+            </div>
+            <div class="placeholder-note">Placeholder script — swap in a recorded voiceover here later.</div>
+          </div>
+        </div>
+      </div>
+    </details>
+
     <details class="card" id="card-guests" style="--card-bg:#3A200F; --card-border:#D9713A; --card-text:#F3B78D; --card-accent:#D9713A;">
       <summary>
         <span class="card-title">Interviews &amp; guests</span>
@@ -297,7 +327,7 @@
 </div>
 
 <script>
-const ORDER = ["public","studio","guests","artists","config","headsup"];
+const ORDER = ["public","studio","marketing","guests","artists","config","headsup"];
 const cards = ORDER.map(id => document.getElementById("card-"+id));
 const startBtn = document.getElementById("start-tutorial");
 const bar = document.getElementById("tutorial-bar");
