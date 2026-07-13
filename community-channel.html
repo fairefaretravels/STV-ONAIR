@@ -108,6 +108,8 @@
   .ext-link { font-size: 0.76rem; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; opacity: .85; }
   .ext-link:hover { opacity: 1; text-decoration: underline; }
   .ext-link svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .np-desc { font-size: 0.8rem; color: var(--text2); margin-top: 10px; line-height: 1.55; max-height: 4.6em; overflow-y: auto; }
+  .np-desc:empty { display: none; }
   .side-col { overflow-y: auto; padding: 1.25rem 1rem; display: flex; flex-direction: column; gap: 0; }
   .side-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
   .side-heading { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); font-weight: 500; }
@@ -208,11 +210,13 @@
       <div class="np-meta">
         <span class="badge" id="npBadge"></span>
         <span id="npYear"></span>
+        <span id="npCreator"></span>
         <a class="ext-link" id="npLink" href="#" target="_blank">
           Archive page
           <svg viewBox="0 0 12 12"><path d="M2 2h8v8M10 2L2 10" stroke-linecap="round"/></svg>
         </a>
       </div>
+      <div class="np-desc" id="npDesc"></div>
     </div>
   </div>
 
@@ -232,7 +236,8 @@ const CATS = [
   { key:'education', label:'Education',         q:'mediatype:movies AND subject:educational AND year:[1930 TO 1980]' },
   { key:'news',      label:'Newsreels',         q:'mediatype:movies AND (subject:newsreel OR subject:"news film") AND year:[1920 TO 1970]' },
   { key:'audio',     label:'Music',             q:'mediatype:audio AND licenseurl:(*publicdomain*) AND year:[1900 TO 1960]' },
-  { key:'texts',     label:'Docs & Short films',q:'mediatype:movies AND subject:documentary AND year:[1920 TO 1970]' },
+  { key:'docs',      label:'Docs & Short films',q:'mediatype:movies AND subject:documentary AND year:[1920 TO 1970]' },
+  { key:'books',     label:'Books',             q:'mediatype:texts AND (subject:fiction OR subject:literature OR collection:americana) AND year:[1600 TO 1970]' },
 ];
 let activeCat='movies', activeId=null, results=[];
 
@@ -268,7 +273,7 @@ async function doSearch() {
   const q = document.getElementById('searchInput').value.trim(); if(!q) return;
   activeCat=null; renderCats(); showLoading();
   try {
-    const url = `${BASE}?q=${encodeURIComponent(q+' AND (mediatype:movies OR mediatype:audio)')}&fl[]=identifier&fl[]=title&fl[]=year&fl[]=mediatype&fl[]=description&sort[]=downloads+desc&rows=30&output=json`;
+    const url = `${BASE}?q=${encodeURIComponent(q+' AND (mediatype:movies OR mediatype:audio OR mediatype:texts)')}&fl[]=identifier&fl[]=title&fl[]=year&fl[]=mediatype&fl[]=description&sort[]=downloads+desc&rows=30&output=json`;
     const res = await fetch(url);
     const data = await res.json();
     results = (data.response && data.response.docs) || [];
@@ -283,6 +288,7 @@ function catLabel(mt) { const m={movies:'Film',audio:'Audio',texts:'Text',educat
 const ICON = {
   movies:`<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 4v16M17 4v16M2 9h5M17 9h5M2 15h5M17 15h5"/></svg>`,
   audio:`<svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`,
+  texts:`<svg viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22.5v-18z"/><path d="M20 2v18M4 4.5V19"/></svg>`,
   default:`<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>`,
 };
 function renderPlaylist() {
@@ -314,8 +320,27 @@ function play(v) {
   badge.className=`badge ${catClass(mt)}`;
   badge.textContent=catLabel(mt);
   document.getElementById('npYear').textContent=v.year||'';
+  document.getElementById('npCreator').textContent='';
   document.getElementById('npLink').href=`https://archive.org/details/${v.identifier}`;
+  document.getElementById('npDesc').textContent=stripHtml(v.description||'');
   renderPlaylist();
+  fetchMeta(v.identifier);
+}
+function stripHtml(s){ const d=document.createElement('div'); d.innerHTML=String(s||''); return d.textContent||''; }
+async function fetchMeta(identifier) {
+  try {
+    const res = await fetch(`https://archive.org/metadata/${identifier}`);
+    const data = await res.json();
+    if(!data.metadata || activeId!==identifier) return; // stale response guard
+    const md = data.metadata;
+    if(md.creator){
+      const creator = Array.isArray(md.creator) ? md.creator.join(', ') : md.creator;
+      document.getElementById('npCreator').textContent = '· '+creator;
+    }
+    if(md.description){
+      document.getElementById('npDesc').textContent = stripHtml(md.description);
+    }
+  } catch(e) { /* metadata is a nice-to-have, fail silently */ }
 }
 renderCats();
 fetchCat('movies');
