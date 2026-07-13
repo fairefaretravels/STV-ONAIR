@@ -18,7 +18,6 @@
       --gold: #c9a44c;
       --gold-bright: #e6c878;
       --navy-deep: #060a14;
-      --navy-mid: #101a30;
       --glass-hairline: rgba(255, 255, 255, 0.08);
     }
 
@@ -34,7 +33,6 @@
       overflow-x: hidden;
     }
 
-    /* Always-moving GIF background */
     body::before {
       content: "";
       position: fixed;
@@ -57,6 +55,7 @@
       z-index: -1;
     }
 
+    /* ============ TOPBAR ============ */
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -83,30 +82,25 @@
     }
 
     .topbar-logo {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      overflow: hidden;
-      flex-shrink: 0;
+      width: 30px; height: 30px; border-radius: 50%;
+      overflow: hidden; flex-shrink: 0;
       border: 1px solid var(--panel-border);
     }
-
     .topbar-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .live {
       color: var(--gold-bright);
       font-weight: 700;
       letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      display: flex; align-items: center; gap: 8px;
     }
-
     .live .pulse-dot {
       width: 8px; height: 8px; border-radius: 50%;
       background: var(--gold-bright);
       box-shadow: 0 0 8px rgba(230, 200, 120, 0.8);
+      animation: pulse 1.6s ease-in-out infinite;
     }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} }
 
     .topbar-right { display: flex; align-items: center; gap: 14px; }
 
@@ -123,21 +117,177 @@
     .suite-nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
     .suite-nav a.current { background: linear-gradient(90deg, var(--gold), #a5813a); color: #10131c; }
 
+    /* ============ HERO PROMO ============ */
+    .hero-reel {
+      max-width: 1400px;
+      margin: 22px auto 0;
+      padding: 0 26px;
+    }
+    .promo {
+      position: relative;
+      aspect-ratio: 21 / 7;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #05070d;
+      border: 1px solid var(--panel-border);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    }
+    .promo::before {
+      content: "STV ON-AIR REEL";
+      position: absolute;
+      top: 12px; left: 14px; z-index: 4;
+      font-family: 'Bebas Neue', Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: var(--navy-deep);
+      background: linear-gradient(90deg, var(--gold-bright), var(--gold));
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .promo-slide {
+      position: absolute; inset: 0;
+      opacity: 0;
+      animation: promoFade 12s infinite;
+    }
+    .promo-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      filter: saturate(1.08) contrast(1.03);
+      animation: promoZoom 12s infinite;
+      transform-origin: center;
+    }
+    .promo-slide:nth-child(1) { animation-delay: 0s; }
+    .promo-slide:nth-child(2) { animation-delay: 4s; }
+    .promo-slide:nth-child(3) { animation-delay: 8s; }
+    .promo-slide:nth-child(1) img { animation-delay: 0s; }
+    .promo-slide:nth-child(2) img { animation-delay: 4s; }
+    .promo-slide:nth-child(3) img { animation-delay: 8s; }
+
+    @keyframes promoFade {
+      0%      { opacity: 0; }
+      4%      { opacity: 1; }
+      30%     { opacity: 1; }
+      37%     { opacity: 0; }
+      100%    { opacity: 0; }
+    }
+    @keyframes promoZoom {
+      0%   { transform: scale(1.0); }
+      33%  { transform: scale(1.08); }
+      100% { transform: scale(1.08); }
+    }
+
+    .promo-scan {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: repeating-linear-gradient(180deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 3px);
+      mix-blend-mode: overlay;
+    }
+    .promo-vignette {
+      position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(6,10,20,0.55), transparent 30%, transparent 65%, rgba(6,10,20,0.75)),
+        radial-gradient(ellipse at center, transparent 55%, rgba(4,6,12,0.5) 100%);
+    }
+    .promo-tag {
+      position: absolute; left: 14px; bottom: 12px; z-index: 4;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .promo-tag .live-chip {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(6,10,20,0.65);
+      border: 1px solid var(--panel-border);
+      color: var(--gold-bright);
+      font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 10px; border-radius: 5px;
+    }
+    .promo-tag .live-chip .dot {
+      width: 7px; height: 7px; box-shadow: 0 0 6px rgba(230,200,120,0.8);
+    }
+    .promo-dots {
+      position: absolute; right: 14px; bottom: 14px; z-index: 4;
+      display: flex; gap: 6px;
+    }
+    .promo-dots span {
+      width: 22px; height: 3px; border-radius: 2px;
+      background: rgba(255,255,255,0.25);
+      overflow: hidden; position: relative;
+    }
+    .promo-dots span::after {
+      content: ""; position: absolute; inset: 0;
+      background: var(--gold-bright);
+      transform: scaleX(0); transform-origin: left;
+      animation: promoDot 12s infinite;
+    }
+    .promo-dots span:nth-child(1)::after { animation-delay: 0s; }
+    .promo-dots span:nth-child(2)::after { animation-delay: 4s; }
+    .promo-dots span:nth-child(3)::after { animation-delay: 8s; }
+    @keyframes promoDot {
+      0%   { transform: scaleX(0); }
+      2%   { transform: scaleX(0); }
+      33%  { transform: scaleX(1); }
+      100% { transform: scaleX(1); }
+    }
+
+    /* ============ TUNER ============ */
+    .tuner {
+      max-width: 1400px;
+      margin: 18px auto 0;
+      padding: 0 26px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .tuner-label {
+      font-family: 'Bebas Neue', Arial, sans-serif;
+      font-size: 13px; letter-spacing: 3px; color: var(--muted);
+      flex-shrink: 0;
+    }
+    .channel-buttons {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .chan-btn {
+      position: relative;
+      display: flex; align-items: baseline; gap: 8px;
+      background: rgba(14, 20, 34, 0.65);
+      border: 1px solid var(--panel-border);
+      color: var(--text);
+      padding: 10px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'DM Sans', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      transition: all .18s ease;
+      backdrop-filter: blur(8px);
+    }
+    .chan-btn .num {
+      font-family: 'Bebas Neue', Arial, sans-serif;
+      font-size: 20px;
+      color: var(--gold-bright);
+      line-height: 1;
+    }
+    .chan-btn .name { font-size: 12px; text-transform: uppercase; color: var(--muted); letter-spacing: 1px; }
+    .chan-btn:hover { border-color: var(--gold); background: rgba(201,164,76,0.1); }
+    .chan-btn.active {
+      background: linear-gradient(90deg, var(--gold), #a5813a);
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 22px rgba(201,164,76,0.35);
+    }
+    .chan-btn.active .num,
+    .chan-btn.active .name { color: #10131c; }
+
+    /* ============ LAYOUT ============ */
     .container {
       display: grid;
       grid-template-columns: 2fr 1fr;
       gap: 22px;
-      padding: 26px;
+      padding: 18px 26px 26px;
       align-items: start;
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    .side-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
+    .side-stack { display: flex; flex-direction: column; gap: 18px; }
 
     .player-box {
       position: relative;
@@ -149,15 +299,22 @@
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
     }
 
-    /* Main box is now the VDO.Ninja remote feed */
     #mainFrame {
-      width: 100%;
-      height: 500px;
-      display: block;
-      border: none;
-      background: black;
-      position: relative;
-      z-index: 1;
+      width: 100%; height: 500px;
+      display: block; border: none; background: black;
+      position: relative; z-index: 1;
+    }
+
+    .chan-id {
+      position: absolute; top: 18px; right: 18px; z-index: 6;
+      background: rgba(6,10,20,0.68);
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-family: 'Bebas Neue', Arial, sans-serif;
+      font-size: 16px; letter-spacing: 1px;
+      color: var(--gold-bright);
+      pointer-events: none;
     }
 
     .info {
@@ -171,21 +328,13 @@
     }
 
     .status {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 14px;
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--muted);
+      display: flex; gap: 10px; align-items: center;
+      margin-bottom: 14px; font-size: 12px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
     }
-
     .dot {
-      width: 9px; height: 9px;
-      background: var(--gold-bright);
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(230, 200, 120, 0.8);
+      width: 9px; height: 9px; background: var(--gold-bright);
+      border-radius: 50%; box-shadow: 0 0 8px rgba(230, 200, 120, 0.8);
     }
 
     .title { font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.3px; }
@@ -198,205 +347,29 @@
       color: var(--muted); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
     }
 
-    .info-footer .footer-logo {
-      width: 20px; height: 20px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
-      border: 1px solid var(--panel-border);
-    }
-    .info-footer .footer-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    /* QR / join panel */
     .qr-wrap { text-align: center; padding: 4px 0 6px; }
-    .qr-wrap img {
-      width: 200px; height: 200px; border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
+    .qr-wrap img { width: 200px; height: 200px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
     .qr-caption { text-align: center; color: var(--muted); font-size: 13px; margin-top: 10px; }
 
     .btn {
-      display: block;
-      margin: 14px auto 0;
-      padding: 11px 16px;
-      border-radius: 8px;
-      border: 1px solid var(--panel-border);
-      color: var(--text);
-      text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-align: center;
+      display: block; margin: 14px auto 0; padding: 11px 16px;
+      border-radius: 8px; border: 1px solid var(--panel-border);
+      color: var(--text); text-decoration: none; font-size: 12px;
+      letter-spacing: 1px; text-transform: uppercase; text-align: center;
       background: rgba(201, 164, 76, 0.08);
       transition: border-color 0.2s ease, background 0.2s ease;
       max-width: 220px;
     }
     .btn:hover { border-color: var(--gold); background: rgba(201, 164, 76, 0.16); }
 
-    .broadcast-overlay { pointer-events: none; position: absolute; inset: 0; z-index: 5; overflow: hidden; }
-
-    .now-playing-banner {
-      position: absolute; top: 18px; left: 18px;
-      min-width: 320px; max-width: 520px;
-      background: rgba(10, 14, 24, 0.68);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      color: white; padding: 12px 16px;
-      border-left: 3px solid var(--gold);
-      border-radius: 6px;
-      transform: translateX(-120%);
-      opacity: 0;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-    }
-    .now-playing-banner.show { transform: translateX(0); opacity: 1; }
-    .np-label { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; color: var(--gold-bright); margin-bottom: 4px; }
-    .np-title { font-family: 'Bebas Neue', Arial, sans-serif; font-size: 26px; letter-spacing: 0.5px; line-height: 1.1; }
-    .np-sub { font-size: 13px; color: rgba(255, 255, 255, 0.75); margin-top: 3px; }
-
-    .lower-third {
-      position: absolute; left: 18px; bottom: 56px;
-      display: flex; align-items: stretch;
-      min-width: 500px; max-width: 72%;
-      background: rgba(8, 12, 22, 0.68);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid var(--panel-border);
-      border-radius: 6px; overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      opacity: 0.98;
-    }
-    .lt-accent { width: 6px; background: linear-gradient(180deg, var(--gold-bright), var(--gold)); }
-    .lt-content { padding: 12px 18px; }
-    .lt-kicker { font-size: 11px; font-weight: 800; color: var(--gold-bright); letter-spacing: 1.5px; margin-bottom: 3px; }
-    .lt-headline {
-      font-family: 'Bebas Neue', Arial, sans-serif;
-      font-size: 26px; line-height: 1.1; color: white;
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .lt-subheadline { font-size: 13px; color: rgba(255, 255, 255, 0.72); margin-top: 5px; }
-
-    .ticker-wrap {
-      position: absolute; left: 0; right: 0; bottom: 0; height: 42px;
-      display: flex;
-      background: rgba(8, 12, 22, 0.78);
-      backdrop-filter: blur(10px);
-      border-top: 1px solid var(--panel-border);
-    }
-    .ticker-label {
-      flex: 0 0 130px; display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(90deg, var(--gold), #a5813a);
-      color: #10131c; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
-    }
-    .ticker-track { position: relative; flex: 1; overflow: hidden; display: flex; align-items: center; }
-    .ticker-text {
-      white-space: nowrap; color: var(--text); font-size: 14px; font-weight: 600;
-      padding-left: 100%; animation: tickerScroll 20s linear infinite;
-    }
-    @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-    .commercial-overlay {
-      position: absolute; inset: 0;
-      background: radial-gradient(circle at center, rgba(16, 22, 38, 0.9), rgba(4, 6, 12, 0.97));
-      display: none; align-items: center; justify-content: center;
-    }
-    .commercial-overlay.show { display: flex; }
-    .commercial-card {
-      text-align: center; padding: 40px 60px;
-      background: rgba(14, 20, 34, 0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--panel-border);
-      border-radius: 12px;
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-    }
-    .commercial-label { font-size: 12px; letter-spacing: 2.5px; color: var(--gold-bright); font-weight: 800; margin-bottom: 10px; text-transform: uppercase; }
-    .commercial-title { font-family: 'Bebas Neue', Arial, sans-serif; font-size: 38px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .commercial-sub { margin-top: 8px; color: rgba(255, 255, 255, 0.6); font-size: 13px; letter-spacing: 0.5px; }
-
-    /* Scheduled programming box (linear channel, separate from the live VDO.Ninja feed above) */
-    .channel-box-feed {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #000;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--panel-border);
-    }
-    .channel-box-feed video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      background: #000;
-    }
-    .cb-badge {
-      position: absolute; top: 8px; left: 50%;
-      transform: translate(-50%, -6px);
-      opacity: 0;
-      transition: opacity .3s ease, transform .3s ease;
-      background: rgba(6, 10, 20, 0.72);
-      border: 1px solid var(--panel-border);
-      color: var(--gold-bright);
-      font-size: 10px; font-weight: 800;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 4px;
-      pointer-events: none;
-    }
-    .cb-badge.show { opacity: 1; transform: translate(-50%, 0); }
-    .cb-lower {
-      position: absolute; left: 8px; bottom: 8px;
-      max-width: 80%;
-      background: rgba(6, 10, 20, 0.68);
-      backdrop-filter: blur(6px);
-      border-left: 3px solid var(--gold);
-      border-radius: 4px;
-      padding: 6px 10px;
-      opacity: 0;
-      transition: opacity .4s ease;
-      pointer-events: none;
-    }
-    .cb-lower.show { opacity: 1; }
-    .cb-series {
-      display: block;
-      font-size: 9px; font-weight: 800;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      color: var(--gold-bright);
-      margin-bottom: 2px;
-    }
-    .cb-title {
-      font-family: 'Bebas Neue', Arial, sans-serif;
-      font-size: 16px; letter-spacing: 0.4px; color: var(--text);
-      line-height: 1.15;
-    }
-    .cb-mute {
-      position: absolute; bottom: 8px; right: 8px;
-      background: rgba(6, 10, 20, 0.65);
-      border: 1px solid var(--panel-border);
-      color: var(--text);
-      border-radius: 6px;
-      padding: 5px 10px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-    .cb-live {
-      position: absolute; top: 9px; right: 9px;
-      display: flex; align-items: center; gap: 5px;
-      font-size: 9px; font-weight: 800; letter-spacing: 1px;
-      color: var(--gold-bright);
-      background: rgba(6, 10, 20, 0.55);
-      padding: 4px 8px; border-radius: 4px;
-    }
-    .cb-live .dot { box-shadow: 0 0 6px rgba(230, 200, 120, 0.8); }
-    .cb-caption { color: var(--muted); font-size: 12px; margin-top: 10px; line-height: 1.5; }
-
     @media (max-width: 1100px) {
       .container { grid-template-columns: 1fr; }
-      .lower-third { min-width: auto; max-width: calc(100% - 36px); }
+      .reel-strip { grid-template-columns: 1fr 1fr 1fr; }
     }
-
     @media (max-width: 700px) {
       #mainFrame, .player-box { min-height: 320px; height: 320px; }
-      .now-playing-banner { min-width: auto; max-width: calc(100% - 36px); }
-      .lt-headline { font-size: 19px; }
-      .lt-subheadline { font-size: 12px; }
-      .ticker-label { flex-basis: 100px; font-size: 10px; }
-      .ticker-text { font-size: 12px; }
+      .reel-strip { grid-template-columns: 1fr; }
+      .tuner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -404,92 +377,62 @@
 
   <div class="topbar">
     <div class="brand">
-      <div class="topbar-logo"><img src="stvlogo1.jpg" alt="Station logo" /></div>
+      <div class="topbar-logo"><img src="stvlogo-2.jpg" alt="Station logo" /></div>
       WHAT'S ON
     </div>
     <div class="topbar-right">
       <nav class="suite-nav">
-  <a href="/radio">RADIO</a>
-  <a href="watch" class="current">TV</a>
-  <a href="https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==" target="_blank" rel="noopener">TALK</a>
-</nav>
+        <a href="/radio">RADIO</a>
+        <a href="watch" class="current">TV</a>
+        <a href="https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==" target="_blank" rel="noopener">TALK</a>
+      </nav>
       <div class="live"><span class="pulse-dot"></span> LIVE</div>
+    </div>
+  </div>
+
+  <!-- Hero promo reel: cycles the three images like a station ID / promo -->
+  <div class="hero-reel">
+    <div class="promo">
+      <div class="promo-slide"><img src="stv-gif.gif" alt="STV live motion reel" /></div>
+      <div class="promo-slide"><img src="stvlogo-2.jpg" alt="STV station logo" /></div>
+      <div class="promo-slide"><img src="IMG_8181.jpg" alt="Station photo" /></div>
+      <div class="promo-scan"></div>
+      <div class="promo-vignette"></div>
+      <div class="promo-tag"><div class="live-chip"><span class="dot"></span>STV</div></div>
+      <div class="promo-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+
+  <!-- Channel tuner -->
+  <div class="tuner">
+    <div class="tuner-label">TUNE IN —</div>
+    <div class="channel-buttons" id="channelButtons">
+      <button class="chan-btn active" data-chan="1"><span class="num">CH 1</span><span class="name">Ch1</span></button>
+      <button class="chan-btn" data-chan="2"><span class="num">CH 2</span><span class="name">Live Room</span></button>
+      <button class="chan-btn" data-chan="3"><span class="num">CH 3</span><span class="name">247</span></button>
     </div>
   </div>
 
   <div class="container">
 
     <div class="player-box">
-      <!-- Single box: VDO.Ninja remote feed is now the main player, overlay kept on top -->
+      <div class="chan-id" id="chanId">CH 1</div>
       <iframe
         id="mainFrame"
-        src="https://vdo.ninja/?scene&room=whatsthe411&roomkey=DfmbmuvdavLBPykP&sas&sl"
+        src="/Ch1/"
         allow="camera; microphone; autoplay; fullscreen"
-        title="STV Live Player"
+        title="STV Channel Player"
       ></iframe>
-
-      <div class="broadcast-overlay">
-        <div class="now-playing-banner" id="nowPlayingBanner">
-          <div class="np-label">NOW PLAYING</div>
-          <div class="np-title" id="npTitle">The Live Show</div>
-          <div class="np-sub" id="npSub">Broadcasting now</div>
-        </div>
-
-        <div class="lower-third" id="lowerThird">
-          <div class="lt-accent"></div>
-          <div class="lt-content">
-            <div class="lt-kicker">LIVE</div>
-            <div class="lt-headline" id="ltHeadline">Catch new episodes below</div>
-            <div class="lt-subheadline" id="ltSubheadline">Live feed will begin shortly</div>
-          </div>
-        </div>
-
-        <div class="ticker-wrap">
-          <div class="ticker-label">HEADLINES</div>
-          <div class="ticker-track">
-            <div class="ticker-text" id="tickerText">
-              LIVE • Breaking updates • Entertainment • News • Weather • Music • Community programming • Stay tuned for more
-            </div>
-          </div>
-        </div>
-
-        <div class="commercial-overlay" id="commercialOverlay">
-          <div class="commercial-card">
-            <div class="commercial-label">WE'LL BE RIGHT BACK</div>
-            <div class="commercial-title">Commercial Break</div>
-            <div class="commercial-sub">SanecaTV Broadcast Network</div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="side-stack">
 
       <div class="info">
         <div class="status"><div class="dot"></div><div>NOW PLAYING</div></div>
-        <div class="title" id="title">SanecaTV Live</div>
+        <div class="title" id="title">Channel 1</div>
         <div class="artist" id="artist">Broadcasting now</div>
         <hr />
         <div class="info-footer">XOCO MEDIA PLAYER</div>
-      </div>
-
-      <!-- Scheduled programming — the linear auto-advancing channel with top-of-hour commercial breaks -->
-      <div class="info">
-        <div class="status"><div class="dot"></div><div>SCHEDULED PROGRAMMING</div></div>
-        <div class="channel-box-feed">
-          <video id="scheduleFeedPlayer" muted autoplay playsinline></video>
-          <div class="cb-live"><span class="dot"></span>ON AIR</div>
-          <div class="cb-badge" id="cbBadge">Commercial Break</div>
-          <div class="cb-lower" id="cbLower">
-            <span class="cb-series" id="cbSeries"></span>
-            <span class="cb-title" id="cbTitle"></span>
-          </div>
-          <button class="cb-mute" id="cbMute">🔇</button>
-        </div>
-        <div class="cb-caption">N2DEEP Live in  Detroit feat Mz. Candy and interview with Professor Griff of Public Enemy.</div>
-        <a class="btn" href="/247/">
-          Open Full Channel
-        </a>
       </div>
 
       <div class="info">
@@ -510,130 +453,47 @@
   </div>
 
 <script>
-/* =========================================================
-   SCHEDULED PROGRAMMING — linear channel feed
-   Same auto-advancing queue + top-of-hour commercial-break
-   logic used on the operator console and public channel page.
-   ========================================================= */
-(async function(){
-
-  // Single source of truth: /shows.json (repo root). Previously this was a
-  // hardcoded copy that had to be kept in sync by hand with /247/index.html
-  // and the STUDIO dashboard's expected data file. Now every surface reads
-  // the same file.
-  const SHOWS_RAW = await fetch('/shows.json', { cache: 'no-store' })
-    .then(res => res.json())
-    .catch(err => {
-      console.error('[STV] Failed to load /shows.json', err);
-      return [];
-    });
-
-  const COMMERCIALS = [
-    { title:"Mack Magic Mobile Bar", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1781930406/MMslide_eqqhtb.mp4" },
-    { title:"Mack Magic Mobile Bar", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782972594/Mackinthedark_lut8nf.mp4" },
-    { title:"So Luv", url:"https://res.cloudinary.com/dyqfcbgqo/video/upload/v1782972584/soluv_thvauh.mp4" }
-  ];
-
-  function buildQueue(shows){
-    const queue = [];
-    shows.forEach(item=>{
-      if (item.episodes && item.episodes.length){
-        item.episodes.forEach(ep=>{
-          queue.push({ title: ep.title, series: item.title, url: ep.url });
-        });
-      } else {
-        queue.push({ title: item.title, series: null, url: item.url });
-      }
-    });
-    return queue;
-  }
-
-  const mainQueue = buildQueue(SHOWS_RAW);
-
-  let mainIndex = 0;
-  let commercialIndex = 0;
-  let isBreak = false;
-  let savedTime = 0;
-  let breakDoneThisHour = null;
-
-  const video = document.getElementById('scheduleFeedPlayer');
-  const badge = document.getElementById('cbBadge');
-  const lower = document.getElementById('cbLower');
-  const lowerSeries = document.getElementById('cbSeries');
-  const lowerTitle = document.getElementById('cbTitle');
-  const muteBtn = document.getElementById('cbMute');
-
-  function updateLower(item){
-    lowerSeries.textContent = item.series || '';
-    lowerSeries.style.display = item.series ? 'block' : 'none';
-    lowerTitle.textContent = item.title;
-    lower.classList.remove('show');
-    void lower.offsetWidth;
-    lower.classList.add('show');
-  }
-
-  function loadMain(index){
-    const item = mainQueue[index % mainQueue.length];
-    video.src = item.url;
-    updateLower(item);
-    video.play().catch(()=>{});
-  }
-
-  function resumeMain(){
-    const item = mainQueue[mainIndex % mainQueue.length];
-    video.src = item.url;
-    const seekOnce = () => {
-      video.currentTime = savedTime;
-      video.removeEventListener('loadedmetadata', seekOnce);
-    };
-    video.addEventListener('loadedmetadata', seekOnce);
-    updateLower(item);
-    video.play().catch(()=>{});
-  }
-
-  function playCommercial(){
-    isBreak = true;
-    savedTime = video.currentTime || 0;
-    const ad = COMMERCIALS[commercialIndex % COMMERCIALS.length];
-    commercialIndex++;
-    video.src = ad.url;
-    lower.classList.remove('show');
-    badge.classList.add('show');
-    video.play().catch(()=>{});
-  }
-
-  video.addEventListener('ended', () => {
-    if (isBreak){
-      isBreak = false;
-      badge.classList.remove('show');
-      resumeMain();
-    } else {
-      mainIndex = (mainIndex + 1) % mainQueue.length;
-      loadMain(mainIndex);
+  // Channel definitions — swap the URLs below to match your real paths.
+  const CHANNELS = {
+    1: {
+      src: "/Ch1/",
+      label: "CH 1",
+      title: "Channel 1",
+      sub: "Broadcasting now"
+    },
+    2: {
+      src: "https://vdo.ninja/?scene&room=whatsthe411&roomkey=DfmbmuvdavLBPykP&sas&sl",
+      label: "CH 2",
+      title: "Live Room",
+      sub: "VDO.Ninja live feed"
+    },
+    3: {
+      src: "/247/",
+      label: "CH 3",
+      title: "24/7 Channel",
+      sub: "Scheduled programming"
     }
-  });
-
-  muteBtn.onclick = () => {
-    video.muted = !video.muted;
-    muteBtn.textContent = video.muted ? '🔇' : '🔊';
   };
 
-  function tick(){
-    const now = new Date();
-    const hour = now.getHours();
-    const min = now.getMinutes();
-    const sec = now.getSeconds();
+  const frame = document.getElementById('mainFrame');
+  const chanId = document.getElementById('chanId');
+  const title = document.getElementById('title');
+  const artist = document.getElementById('artist');
+  const buttons = document.querySelectorAll('.chan-btn');
 
-    if (min === 0 && sec < 2 && breakDoneThisHour !== hour && !isBreak){
-      breakDoneThisHour = hour;
-      playCommercial();
-    }
+  function tune(num){
+    const ch = CHANNELS[num];
+    if (!ch) return;
+    frame.src = ch.src;
+    chanId.textContent = ch.label;
+    title.textContent = ch.title;
+    artist.textContent = ch.sub;
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.chan === String(num)));
   }
-  setInterval(tick, 1000);
 
-  loadMain(mainIndex);
-
-})();
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => tune(btn.dataset.chan));
+  });
 </script>
 
 </body>
