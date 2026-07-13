@@ -370,6 +370,795 @@ max-width:520px;
 margin-bottom:34px;
 
 }   
+    /* =====================================
+   STV STREAMING EXPERIENCE UPGRADE
+   WATCH LIVE + CHANNELS + PLAYER
+===================================== */
+
+
+/* =========================
+   HERO BUTTON SYSTEM
+========================= */
+
+.hero-buttons{
+display:flex;
+gap:18px;
+margin-top:30px;
+}
+
+.hero-buttons button,
+.stv-live-btn{
+
+border:none;
+
+padding:16px 34px;
+
+border-radius:100px;
+
+font-size:16px;
+
+font-weight:800;
+
+cursor:pointer;
+
+transition:.35s;
+
+letter-spacing:.5px;
+
+}
+
+
+#watchLive{
+
+background:
+linear-gradient(
+135deg,
+var(--gold2),
+var(--gold)
+);
+
+color:#050505;
+
+box-shadow:
+
+0 0 25px rgba(216,178,90,.45),
+
+inset 0 0 12px rgba(255,255,255,.35);
+
+animation:
+goldPulse 2.5s infinite;
+
+}
+
+
+#watchLive:hover{
+
+transform:
+translateY(-5px)
+scale(1.05);
+
+box-shadow:
+
+0 0 45px rgba(216,178,90,.75);
+
+}
+
+
+.hero-buttons button:nth-child(2){
+
+background:
+
+rgba(255,255,255,.08);
+
+color:white;
+
+border:1px solid rgba(255,255,255,.12);
+
+backdrop-filter:blur(12px);
+
+}
+
+
+.hero-buttons button:nth-child(2):hover{
+
+background:white;
+
+color:black;
+
+transform:translateY(-4px);
+
+}
+
+
+
+@keyframes goldPulse{
+
+0%,100%{
+
+box-shadow:
+
+0 0 20px rgba(216,178,90,.35);
+
+}
+
+50%{
+
+box-shadow:
+
+0 0 45px rgba(243,216,137,.8);
+
+}
+
+}
+
+
+
+/* =========================
+   LIVE BAR
+========================= */
+
+
+.live-bar{
+
+display:flex;
+
+justify-content:center;
+
+gap:50px;
+
+padding:24px;
+
+background:
+
+rgba(255,255,255,.04);
+
+border-top:
+
+1px solid var(--border);
+
+border-bottom:
+
+1px solid var(--border);
+
+font-weight:800;
+
+letter-spacing:2px;
+
+color:var(--gold2);
+
+}
+
+
+
+/* =========================
+   CHANNEL CARDS
+========================= */
+
+
+.channels{
+
+padding:70px 80px;
+
+}
+
+
+.channels h2{
+
+font-family:'Bebas Neue';
+
+font-size:48px;
+
+letter-spacing:3px;
+
+margin-bottom:35px;
+
+}
+
+
+
+.channel-grid{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(3,1fr);
+
+gap:25px;
+
+}
+
+
+
+.channel-card{
+
+position:relative;
+
+padding:35px;
+
+height:220px;
+
+border-radius:var(--radius);
+
+background:
+
+linear-gradient(
+
+145deg,
+
+rgba(255,255,255,.08),
+
+rgba(255,255,255,.02)
+
+);
+
+border:
+
+1px solid var(--border);
+
+overflow:hidden;
+
+transition:.45s;
+
+cursor:pointer;
+
+}
+
+
+
+.channel-card::before{
+
+content:"";
+
+position:absolute;
+
+inset:-50%;
+
+background:
+
+radial-gradient(
+
+circle,
+
+rgba(216,178,90,.25),
+
+transparent 55%
+
+);
+
+opacity:0;
+
+transition:.4s;
+
+}
+
+
+
+.channel-card:hover{
+
+transform:
+
+translateY(-10px)
+
+scale(1.03);
+
+border-color:
+
+rgba(216,178,90,.6);
+
+}
+
+
+
+.channel-card:hover::before{
+
+opacity:1;
+
+}
+
+
+
+.channel-card.active{
+
+border:
+
+1px solid var(--gold);
+
+box-shadow:
+
+0 0 35px rgba(216,178,90,.25);
+
+}
+
+
+
+.channel-card.active::after{
+
+content:"ON AIR";
+
+position:absolute;
+
+top:20px;
+
+right:20px;
+
+background:#d8b25a;
+
+color:black;
+
+padding:6px 12px;
+
+border-radius:50px;
+
+font-size:12px;
+
+font-weight:900;
+
+animation:pulse 1.5s infinite;
+
+}
+
+
+
+.number{
+
+font-size:55px;
+
+font-weight:900;
+
+color:
+
+rgba(255,255,255,.08);
+
+}
+
+
+
+.channel-card h3{
+
+font-size:28px;
+
+margin-top:20px;
+
+}
+
+
+
+.channel-card p{
+
+color:var(--muted);
+
+margin-top:8px;
+
+}
+
+
+
+/* =========================
+   FLOATING PLAYER
+========================= */
+
+
+#playerSection{
+
+padding:60px 80px;
+
+position:relative;
+
+}
+
+
+
+#mainFrame{
+
+width:100%;
+
+height:600px;
+
+border:none;
+
+border-radius:30px;
+
+background:black;
+
+box-shadow:
+
+0 30px 80px rgba(0,0,0,.7);
+
+transition:.5s;
+
+animation:
+
+playerEnter 1s ease;
+
+}
+
+
+
+#mainFrame:hover{
+
+transform:
+
+scale(1.01);
+
+box-shadow:
+
+0 40px 100px rgba(216,178,90,.25);
+
+}
+
+
+
+@keyframes playerEnter{
+
+from{
+
+opacity:0;
+
+transform:
+
+translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+
+translateY(0);
+
+}
+
+}
+
+
+
+/* =========================
+   NETFLIX STYLE RAIL SYSTEM
+========================= */
+
+
+.content-rail{
+
+display:flex;
+
+gap:22px;
+
+overflow-x:auto;
+
+scroll-snap-type:x mandatory;
+
+padding-bottom:20px;
+
+}
+
+
+
+.content-rail::-webkit-scrollbar{
+
+display:none;
+
+}
+
+
+.show-card{
+
+min-width:280px;
+
+height:160px;
+
+border-radius:20px;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#111827,
+
+#05070d
+
+);
+
+scroll-snap-align:start;
+
+transition:.35s;
+
+}
+
+
+
+.show-card:hover{
+
+transform:
+
+scale(1.08);
+
+z-index:5;
+
+}
+
+
+
+
+/* =========================
+   MOBILE STREAMING MODE
+========================= */
+
+
+@media(max-width:768px){
+
+
+.header{
+
+padding:0 16px;
+
+}
+
+
+.logo span{
+
+display:none;
+
+}
+
+
+nav{
+
+display:none;
+
+}
+
+
+.hero{
+
+height:80vh;
+
+padding:
+
+110px 25px 50px;
+
+}
+
+
+
+.hero h1{
+
+font-size:55px;
+
+}
+
+
+
+.hero p{
+
+font-size:17px;
+
+}
+
+
+
+.hero-buttons{
+
+flex-direction:column;
+
+}
+
+
+
+.hero-buttons button{
+
+width:100%;
+
+}
+
+
+
+.live-bar{
+
+gap:20px;
+
+flex-wrap:wrap;
+
+font-size:12px;
+
+}
+
+
+
+.channels{
+
+padding:
+
+50px 25px;
+
+}
+
+
+
+.channels h2{
+
+font-size:38px;
+
+}
+
+
+
+.channel-grid{
+
+grid-template-columns:1fr;
+
+}
+
+
+
+#playerSection{
+
+padding:30px 20px;
+
+}
+
+
+
+#mainFrame{
+
+height:300px;
+
+border-radius:20px;
+
+}
+
+
+}
+    .content-section{
+
+padding:40px 80px;
+
+}
+
+
+.content-section h2{
+
+font-family:'Bebas Neue';
+
+font-size:46px;
+
+letter-spacing:3px;
+
+margin-bottom:25px;
+
+}
+
+
+.show-card{
+
+padding:25px;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:flex-end;
+
+border:1px solid rgba(255,255,255,.08);
+
+overflow:hidden;
+
+position:relative;
+
+}
+
+
+.show-card::before{
+
+content:"";
+
+position:absolute;
+
+inset:0;
+
+background:
+
+linear-gradient(
+
+transparent,
+
+rgba(0,0,0,.8)
+
+);
+
+}
+
+
+.show-card h3,
+.show-card p{
+
+position:relative;
+
+z-index:2;
+
+}
+
+
+.show-card h3{
+
+font-size:24px;
+
+}
+
+
+.show-card p{
+
+color:#d8b25a;
+
+font-weight:700;
+
+margin-top:8px;
+
+}
+
+
+
+@media(max-width:768px){
+
+.content-section{
+
+padding:30px 25px;
+
+}
+
+.content-section h2{
+
+font-size:36px;
+
+}
+
+}
+    /* LIVE PLAYER ACTIVATION */
+
+#playerSection.active{
+
+animation:
+
+playerFocus .8s ease;
+
+}
+
+
+@keyframes playerFocus{
+
+0%{
+
+transform:scale(.96);
+
+opacity:.5;
+
+}
+
+
+100%{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+
+
+#mainFrame{
+
+transition:
+
+transform .6s ease,
+
+box-shadow .6s ease;
+
+}
   </style>
 </head>
   <body>
@@ -523,6 +1312,66 @@ Broadcasting Worldwide
 
 </section>
 
+    <section class="content-section">
+
+<h2>STV ORIGINALS</h2>
+
+<div class="content-rail">
+
+<div class="show-card">
+<h3>Professor Griff</h3>
+<p>Rebel Documentary</p>
+</div>
+
+<div class="show-card">
+<h3>STV Sessions</h3>
+<p>Live Performances</p>
+</div>
+
+<div class="show-card">
+<h3>The Static</h3>
+<p>STV News Stories</p>
+</div>
+
+<div class="show-card">
+<h3>Community Spotlight</h3>
+<p>Local Voices</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="content-section">
+
+<h2>MUSIC & PERFORMANCE</h2>
+
+<div class="content-rail">
+
+<div class="show-card">
+<h3>Radio Meltdown</h3>
+<p>24/7 Music Channel</p>
+</div>
+
+<div class="show-card">
+<h3>G4E Sessions</h3>
+<p>Artists & Interviews</p>
+</div>
+
+<div class="show-card">
+<h3>Live Events</h3>
+<p>Concert Coverage</p>
+</div>
+
+<div class="show-card">
+<h3>Studio Vault</h3>
+<p>Exclusive Archives</p>
+</div>
+
+</div>
+
+</section>
 
 <section id="playerSection">
 
@@ -539,6 +1388,90 @@ allow="autoplay; fullscreen"
 ></iframe>
 
 </section>
+<script>
 
+const watchLive = document.getElementById("watchLive");
+const playerSection = document.getElementById("playerSection");
+const mainFrame = document.getElementById("mainFrame");
+
+
+watchLive.addEventListener("click", () => {
+
+watchLive.innerHTML = "● CONNECTING...";
+
+watchLive.style.opacity = ".7";
+
+
+setTimeout(()=>{
+
+playerSection.scrollIntoView({
+
+behavior:"smooth",
+
+block:"center"
+
+});
+
+
+mainFrame.style.animation="playerEnter 1s ease";
+
+
+watchLive.innerHTML="▶ WATCH LIVE";
+
+watchLive.style.opacity="1";
+
+
+},800);
+
+
+});
+
+
+</script>
+    <script>
+
+const player = document.getElementById("playerSection");
+const toggle = document.querySelector(".player-toggle");
+
+
+window.addEventListener("scroll",()=>{
+
+const playerTop = player.getBoundingClientRect().top;
+
+
+if(playerTop < -200){
+
+player.classList.add("floating");
+
+}
+
+else{
+
+player.classList.remove("floating");
+
+}
+
+});
+
+
+
+toggle.addEventListener("click",()=>{
+
+player.classList.toggle("floating");
+
+
+toggle.innerHTML = 
+
+player.classList.contains("floating")
+
+? "EXPAND"
+
+: "MINIMIZE";
+
+
+});
+
+
+</script>
 </body>
 </html>
