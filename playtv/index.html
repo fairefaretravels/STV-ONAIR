@@ -633,7 +633,7 @@
   }
 
   /* ---------------- Clue flow ---------------- */
-  const LIGHTNING_SECONDS = 10;
+  const LIGHTNING_SECONDS = 60;
   let lightningTimer = null;
 
   function openClue(ci, qi, tileEl){
@@ -694,20 +694,29 @@
     });
 
     if(isLightning){
-      const fillEl = document.getElementById('timerFill');
-      const numEl = document.getElementById('timerNum');
-      let remaining = LIGHTNING_SECONDS * 10;
-      lightningTimer = setInterval(() => {
-        remaining--;
-        fillEl.style.width = (remaining / (LIGHTNING_SECONDS * 10) * 100) + '%';
-        numEl.textContent = Math.ceil(remaining / 10);
-        if(remaining <= 0){
-          clearInterval(lightningTimer);
-          lightningTimer = null;
-          lockAnswer(null);
-        }
-      }, 100);
+  const fillEl = document.getElementById('timerFill');
+  const numEl = document.getElementById('timerNum');
+
+  let remaining = LIGHTNING_SECONDS;
+
+  numEl.textContent = remaining;
+  fillEl.style.width = "100%";
+
+  lightningTimer = setInterval(() => {
+
+    remaining--;
+
+    fillEl.style.width = (remaining / LIGHTNING_SECONDS * 100) + '%';
+    numEl.textContent = remaining;
+
+    if(remaining <= 0){
+      clearInterval(lightningTimer);
+      lightningTimer = null;
+      lockAnswer(null);
     }
+
+  }, 1000);
+}
 
     nextBtn.addEventListener('click', () => {
       closeOverlay();
@@ -744,7 +753,7 @@
   /* ---------------- Reset ---------------- */
   function resetGame(){
     score = 0; played = 0;
-    scorePill.textContent = '$0';
+    scorePill.textContent = '0';
     updateProgress();
     closeOverlay();
     renderBoard();
