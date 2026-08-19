@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1220">
+
+  <title>Real Estate Contracts</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f4f6f8;
+      color: #101828;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+      background: #0b1220;
+      color: white;
+      padding: 34px 20px;
+      text-align: center;
+      border-radius: 0 0 28px 28px;
+    }
+
+    .header-icon {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: clamp(30px, 7vw, 44px);
+      line-height: 1.1;
+    }
+
+    .header p {
+      max-width: 600px;
+      margin: 12px auto 0;
+      color: #d0d5dd;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .content {
+      padding: 24px 16px 40px;
+    }
+
+    /* =========================
+       PRINTABLE SECTION
+    ========================= */
+
+    .print-section {
+      background: #ffffff;
+      border: 1px solid #e4e7ec;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #eef2f6;
+      color: #344054;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .print-section h2,
+    .digital-section h2 {
+      margin: 14px 0 7px;
+      font-size: 26px;
+    }
+
+    .section-description {
+      margin: 0 0 18px;
+      color: #667085;
+      line-height: 1.5;
+    }
+
+    .print-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .print-button {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 76px;
+      padding: 14px 16px;
+      background: #f8fafc;
+      border: 1px solid #e4e7ec;
+      border-radius: 16px;
+      color: #101828;
+      transition: all .18s ease;
+    }
+
+    .print-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(16, 24, 40, .08);
+      background: #ffffff;
+    }
+
+    .print-icon {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: #e9eef5;
+      font-size: 23px;
+    }
+
+    .print-info {
+      flex: 1;
+    }
+
+    .print-title {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .print-type {
+      margin-top: 4px;
+      color: #667085;
+      font-size: 12px;
+    }
+
+    .open-arrow {
+      color: #98a2b3;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       DIVIDER
+    ========================= */
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 30px 0;
+      color: #98a2b3;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      height: 1px;
+      background: #d0d5dd;
+      flex: 1;
+    }
+
+    /* =========================
+       DIGITAL SECTION
+    ========================= */
+
+    .digital-section {
+      background: #e9eef8;
+      border-radius: 28px;
+      padding: 28px 20px 34px;
+      border: 1px solid #d8e0ee;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .digital-section .section-label {
+      background: #dce6ff;
+      color: #2948a5;
+    }
+
+    .digital-section h2 {
+      color: #0b1220;
+    }
+
+    .digital-section .section-description {
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* =========================
+       ANIMATED CIRCLES
+    ========================= */
+
+    .circle-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      justify-items: center;
+      margin-top: 28px;
+    }
+
+    .circle-link {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-radius: 50%;
+      background: #0b1220;
+      color: #ffffff;
+      padding: 18px;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 1.2;
+      box-shadow:
+        0 10px 25px rgba(16, 24, 40, .18),
+        0 0 0 0 rgba(37, 99, 235, .35);
+      transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+      animation: floatCircle 4s ease-in-out infinite;
+    }
+
+    .circle-link::before {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 2px solid rgba(37, 99, 235, .28);
+      animation: pulseRing 2.5s ease-out infinite;
+    }
+
+    .circle-link:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow:
+        0 18px 35px rgba(16, 24, 40, .25),
+        0 0 0 8px rgba(37, 99, 235, .10);
+    }
+
+    .circle-link:nth-child(2) {
+      animation-delay: .35s;
+    }
+
+    .circle-link:nth-child(3) {
+      animation-delay: .7s;
+    }
+
+    .circle-link:nth-child(4) {
+      animation-delay: 1.05s;
+    }
+
+    .circle-link:nth-child(5) {
+      animation-delay: 1.4s;
+    }
+
+    @keyframes floatCircle {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: scale(.94);
+        opacity: .8;
+      }
+
+      70% {
+        transform: scale(1.12);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1.12);
+        opacity: 0;
+      }
+    }
+
+    .digital-note {
+      margin-top: 28px;
+      color: #526070;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 26px 16px 40px;
+      text-align: center;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      background: #0b1220;
+      color: #ffffff;
+      font-weight: 800;
+      transition: transform .15s ease;
+    }
+
+    .footer-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .footer-copy {
+      margin-top: 12px;
+      color: #98a2b3;
+      font-size: 12px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 760px) {
+      .circle-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px 16px;
+      }
+
+      .circle-link {
+        width: 125px;
+        height: 125px;
+      }
+
+      .circle-link:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .content {
+        padding: 18px 12px 30px;
+      }
+
+      .print-section {
+        padding: 18px;
+      }
+
+      .digital-section {
+        padding: 24px 12px 30px;
+      }
+
+      .circle-link {
+        width: 115px;
+        height: 115px;
+        font-size: 13px;
+      }
+    }
+
+    /* Respect reduced-motion accessibility settings */
+    @media (prefers-reduced-motion: reduce) {
+      .circle-link,
+      .circle-link::before {
+        animation: none;
+      }
+
+      .circle-link,
+      .print-button,
+      .footer-link {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <header class="header">
+
+    <div class="header-icon">📄</div>
+
+    <h1>Real Estate Contracts</h1>
+
+    <p>
+      Choose a printable form or open one of the digital agreements.
+    </p>
+
+  </header>
+
+
+  <main class="content">
+
+    <!-- =========================
+         PRINTABLE PDF/WORD FORMS
+    ========================= -->
+
+    <section class="print-section">
+
+      <span class="section-label">
+        🖨️ Printable Forms
+      </span>
+
+      <h2>Forms for Printing</h2>
+
+      <p class="section-description">
+        These are the existing document forms. Open the document,
+        review it, and print when needed.
+      </p>
+
+
+      <div class="print-list">
+
+        <!-- BUYER CANCELLATION -->
+
+        <a
+          class="print-button"
+          href="Buyers%20Notice%20of%20Cancellation.docx"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="print-icon">
+            ⚠️
+          </div>
+
+          <div class="print-info">
+
+            <div class="print-title">
+              Buyer's Notice of Cancellation
+            </div>
+
+            <div class="print-type">
+              DOCX • Printable Form
+            </div>
+
+          </div>
+
+          <div class="open-arrow">
+            ›
+          </div>
+
+        </a>
+
+
+        <!-- ASSIGNMENT -->
+
+        <a
+          class="print-button"
+          href="Wholesale%20Assignment%20Contract.doc"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="print-icon">
+            📝
+          </div>
+
+          <div class="print-info">
+
+            <div class="print-title">
+              Wholesale Assignment Contract
+            </div>
+
+            <div class="print-type">
+              DOC • Printable Form
+            </div>
+
+          </div>
+
+          <div class="open-arrow">
+            ›
+          </div>
+
+        </a>
+
+
+        <!-- JV -->
+
+        <a
+          class="print-button"
+          href="Wholesale%20JV%20Agreement.docx"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="print-icon">
+            🤝
+          </div>
+
+          <div class="print-info">
+
+            <div class="print-title">
+              Wholesale JV Agreement
+            </div>
+
+            <div class="print-type">
+              DOCX • Printable Form
+            </div>
+
+          </div>
+
+          <div class="open-arrow">
+            ›
+          </div>
+
+        </a>
+
+
+        <!-- OPTION -->
+
+        <a
+          class="print-button"
+          href="Wholesale%20Option%20To%20Purchase.doc"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="print-icon">
+            🏠
+          </div>
+
+          <div class="print-info">
+
+            <div class="print-title">
+              Wholesale Option To Purchase
+            </div>
+
+            <div class="print-type">
+              DOC • Printable Form
+            </div>
+
+          </div>
+
+          <div class="open-arrow">
+            ›
+          </div>
+
+        </a>
+
+
+        <!-- PURCHASE AGREEMENT -->
+
+        <a
+          class="print-button"
+          href="Wholesale%20Purchase%20Agreement.doc"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="print-icon">
+            📋
+          </div>
+
+          <div class="print-info">
+
+            <div class="print-title">
+              Wholesale Purchase Agreement
+            </div>
+
+            <div class="print-type">
+              DOC • Printable Form
+            </div>
+
+          </div>
+
+          <div class="open-arrow">
+            ›
+          </div>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SECTION DIVIDER
+    ========================= -->
+
+    <div class="divider">
+      Digital Agreements
+    </div>
+
+
+    <!-- =========================
+         DIGITAL AGREEMENTS
+    ========================= -->
+
+    <section class="digital-section">
+
+      <span class="section-label">
+        ✨ Digital Agreements
+      </span>
+
+      <h2>Complete an Agreement Online</h2>
+
+      <p class="section-description">
+        These digital agreement pages are being built next.
+        Select an agreement below when it is ready.
+      </p>
+
+
+      <div class="circle-grid">
+
+        <!-- CANCELLATION -->
+
+        <a
+          class="circle-link"
+          href="/RealEstate/Contracts/Cancellation"
+        >
+          Cancellation
+        </a>
+
+
+        <!-- ASSIGNMENT -->
+
+        <a
+          class="circle-link"
+          href="/RealEstate/Contracts/AssignmentContract"
+        >
+          Assignment<br>Contract
+        </a>
+
+
+        <!-- JV -->
+
+        <a
+          class="circle-link"
+          href="/RealEstate/Contracts/JV"
+        >
+          JV<br>Agreement
+        </a>
+
+
+        <!-- OPTION -->
+
+        <a
+          class="circle-link"
+          href="/RealEstate/Contracts/Option"
+        >
+          Option<br>to Purchase
+        </a>
+
+
+        <!-- PURCHASE -->
+
+        <a
+          class="circle-link"
+          href="/RealEstate/Contracts/PurchaseAgreement"
+        >
+          Purchase<br>Agreement
+        </a>
+
+      </div>
+
+
+      <p class="digital-note">
+        Digital agreements will be built individually and connected to
+        their corresponding pages.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    <a
+      class="footer-link"
+      href="https://radiomeltdown.com/RealEstate/"
+    >
+      ← Back to Real Estate Dashboard
+    </a>
+
+    <div class="footer-copy">
+      Braylen's Real Estate Resources
+    </div>
+
+  </footer>
+
+</body>
+</html>
