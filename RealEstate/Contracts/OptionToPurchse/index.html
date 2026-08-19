@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Option to Purchase Real Property Agreement</title>
+
+<style>
+:root {
+  --bg: #080808;
+  --card: #121212;
+  --card2: #181818;
+  --line: #303030;
+  --text: #f5f5f5;
+  --muted: #a8a8a8;
+  --accent: #ff1744;
+  --accent2: #ff4d6d;
+  --success: #4ade80;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, rgba(255,23,68,.15), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+}
+
+.container {
+  width: min(100%, 850px);
+  margin: auto;
+  padding: 20px 16px 60px;
+}
+
+.header {
+  text-align: center;
+  padding: 25px 0 30px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid #444;
+  background: #151515;
+  color: #ff8097;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 18px 0 8px;
+  font-size: clamp(30px, 7vw, 52px);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -.04em;
+}
+
+.header p {
+  color: var(--muted);
+  max-width: 650px;
+  margin: auto;
+}
+
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.25);
+}
+
+.section-title {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+h2 {
+  margin: 0 0 18px;
+  font-size: 24px;
+}
+
+h3 {
+  margin: 24px 0 10px;
+  font-size: 17px;
+}
+
+.field {
+  margin-bottom: 17px;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid #363636;
+  border-radius: 12px;
+  padding: 13px 14px;
+  background: #0b0b0b;
+  color: white;
+  outline: none;
+  font: inherit;
+}
+
+input {
+  min-height: 50px;
+}
+
+textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,23,68,.12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.provisions {
+  margin-top: 10px;
+}
+
+.provision {
+  padding: 14px;
+  margin-bottom: 9px;
+  border: 1px solid #292929;
+  border-radius: 12px;
+  background: #0d0d0d;
+  color: #ddd;
+}
+
+.provision strong {
+  color: white;
+}
+
+.notice {
+  padding: 15px;
+  border-left: 3px solid var(--accent);
+  background: rgba(255,23,68,.06);
+  border-radius: 0 10px 10px 0;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.signature-box {
+  margin-top: 18px;
+  padding: 15px;
+  border: 1px solid #303030;
+  border-radius: 15px;
+  background: #0c0c0c;
+}
+
+.signature-pad {
+  position: relative;
+  margin-top: 10px;
+}
+
+canvas {
+  width: 100%;
+  height: 160px;
+  display: block;
+  background: white;
+  border-radius: 10px;
+  touch-action: none;
+}
+
+.signature-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.clear-btn {
+  border: 1px solid #444;
+  background: #222;
+  color: white;
+  padding: 8px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+button {
+  min-height: 54px;
+  border: 0;
+  border-radius: 13px;
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.submit {
+  background: var(--accent);
+  color: white;
+}
+
+.download {
+  background: #242424;
+  border: 1px solid #3a3a3a;
+  color: white;
+}
+
+.back {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: #181818;
+  border: 1px solid #333;
+  padding: 15px;
+  border-radius: 12px;
+  color: white;
+  margin-top: 12px;
+}
+
+.status {
+  display: none;
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(74,222,128,.08);
+  border: 1px solid rgba(74,222,128,.3);
+  color: #bdf7ce;
+}
+
+.status.show {
+  display: block;
+}
+
+footer {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  padding: 25px 0;
+}
+
+footer a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+@media(max-width:650px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-card {
+    padding: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="header">
+
+  <div class="badge">
+    Real Estate Agreement
+  </div>
+
+  <h1>Option to Purchase</h1>
+
+  <p>
+    Option to Purchase Real Property Agreement
+  </p>
+
+</header>
+
+<form id="optionForm">
+
+<!-- BASIC INFORMATION -->
+
+<section class="form-card">
+
+<div class="section-title">01 / Agreement Information</div>
+
+<h2>Basic Information</h2>
+
+<div class="grid">
+
+<div class="field">
+<label for="agreementDate">Date</label>
+<input type="date" id="agreementDate" name="agreementDate">
+</div>
+
+<div class="field">
+<label for="optionPeriod">Option Period</label>
+<input
+type="text"
+id="optionPeriod"
+name="optionPeriod"
+value="45 days"
+readonly>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PARTIES -->
+
+<section class="form-card">
+
+<div class="section-title">02 / Parties</div>
+
+<h2>Buyer & Seller Information</h2>
+
+<div class="field">
+
+<label for="buyer">
+Buyer / Buyer and/or Assigns
+</label>
+
+<input
+type="text"
+id="buyer"
+name="buyer"
+placeholder="Enter buyer name"
+required>
+
+</div>
+
+
+<div class="field">
+
+<label for="seller1">
+Seller #1
+</label>
+
+<input
+type="text"
+id="seller1"
+name="seller1"
+placeholder="Enter seller name"
+required>
+
+</div>
+
+
+<div class="field">
+
+<label for="seller2">
+Seller #2 — Optional
+</label>
+
+<input
+type="text"
+id="seller2"
+name="seller2"
+placeholder="Enter second seller name">
+
+</div>
+
+
+<div class="field">
+
+<label for="propertyAddress">
+Property Address
+</label>
+
+<input
+type="text"
+id="propertyAddress"
+name="propertyAddress"
+placeholder="Street, City, State, ZIP"
+required>
+
+</div>
+
+</section>
+
+
+<!-- OFFER -->
+
+<section class="form-card">
+
+<div class="section-title">03 / Offer</div>
+
+<h2>Purchase Option</h2>
+
+<div class="field">
+
+<label for="offerPrice">
+Buyer has the option to buy the property at
+</label>
+
+<input
+type="text"
+id="offerPrice"
+name="offerPrice"
+placeholder="$0.00"
+required>
+
+</div>
+
+</section>
+
+
+<!-- PROVISIONS -->
+
+<section class="form-card">
+
+<div class="section-title">04 / Provisions</div>
+
+<h2>Terms & Conditions</h2>
+
+<div class="notice">
+Please review the following provisions before signing.
+</div>
+
+<div class="provisions">
+
+<div class="provision">
+<strong>1.</strong>
+Seller understands that buyer is acting as a principal in the transaction
+and is not working as a licensed real estate broker representing anyone
+in the transaction.
+</div>
+
+<div class="provision">
+<strong>2.</strong>
+Upon buyer's decision to exercise this option, both parties agree to move
+forward with the necessary standard purchase and sales agreement.
+</div>
+
+<div class="provision">
+<strong>3.</strong>
+Seller may cancel this agreement at any time if they find their own buyer
+or tenant or decide not to sell.
+</div>
+
+<div class="provision">
+<strong>4.</strong>
+Seller agrees to allow buyer to notify investors/partners that the
+property is for sale.
+</div>
+
+<div class="provision">
+<strong>5.</strong>
+If buyer does not exercise their option to buy within 45 days of acceptance
+of this Option Agreement, this agreement becomes null and void.
+</div>
+
+<div class="provision">
+<strong>6.</strong>
+Seller agrees to allow buyer access to the property via lock box
+provided by buyer.
+</div>
+
+<div class="provision">
+<strong>7.</strong>
+All parties agree that property is being sold in "as is" condition
+unless noted otherwise.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COMMENTS -->
+
+<section class="form-card">
+
+<div class="section-title">05 / Additional Terms</div>
+
+<h2>Added Comments</h2>
+
+<div class="field">
+
+<label for="comments">
+Additional Comments
+</label>
+
+<textarea
+id="comments"
+name="comments"
+placeholder="Enter any additional terms, conditions, or notes..."></textarea>
+
+</div>
+
+</section>
+
+
+<!-- SIGNATURES -->
+
+<section class="form-card">
+
+<div class="section-title">06 / Signatures</div>
+
+<h2>Electronic Signatures</h2>
+
+<div class="notice">
+Each signer can draw their signature directly on the screen using a
+finger, stylus, or mouse.
+</div>
+
+
+<!-- BUYER -->
+
+<div class="signature-box">
+
+<h3>Buyer</h3>
+
+<div class="field">
+
+<label for="buyerPrintName">
+Print Name
+</label>
+
+<input
+type="text"
+id="buyerPrintName"
+name="buyerPrintName"
+placeholder="Buyer printed name"
+required>
+
+</div>
+
+<label>Buyer Signature</label>
+
+<div class="signature-pad">
+
+<canvas id="buyerSignature"></canvas>
+
+</div>
+
+<div class="signature-controls">
+
+<button
+type="button"
+class="clear-btn"
+onclick="clearSignature('buyerSignature')">
+Clear Signature
+</button>
+
+</div>
+
+<div class="field">
+
+<label for="buyerDate">
+Date
+</label>
+
+<input
+type="date"
+id="buyerDate"
+name="buyerDate"
+required>
+
+</div>
+
+</div>
+
+
+<!-- SELLER 1 -->
+
+<div class="signature-box">
+
+<h3>Seller #1</h3>
+
+<div class="field">
+
+<label for="seller1PrintName">
+Print Name
+</label>
+
+<input
+type="text"
+id="seller1PrintName"
+name="seller1PrintName"
+placeholder="Seller printed name"
+required>
+
+</div>
+
+<label>Seller Signature</label>
+
+<div class="signature-pad">
+
+<canvas id="seller1Signature"></canvas>
+
+</div>
+
+<div class="signature-controls">
+
+<button
+type="button"
+class="clear-btn"
+onclick="clearSignature('seller1Signature')">
+Clear Signature
+</button>
+
+</div>
+
+<div class="field">
+
+<label for="seller1Date">
+Date
+</label>
+
+<input
+type="date"
+id="seller1Date"
+name="seller1Date"
+required>
+
+</div>
+
+</div>
+
+
+<!-- SELLER 2 -->
+
+<div class="signature-box">
+
+<h3>Seller #2 — Optional</h3>
+
+<div class="field">
+
+<label for="seller2PrintName">
+Print Name
+</label>
+
+<input
+type="text"
+id="seller2PrintName"
+name="seller2PrintName"
+placeholder="Second seller printed name">
+
+</div>
+
+<label>Seller Signature</label>
+
+<div class="signature-pad">
+
+<canvas id="seller2Signature"></canvas>
+
+</div>
+
+<div class="signature-controls">
+
+<button
+type="button"
+class="clear-btn"
+onclick="clearSignature('seller2Signature')">
+Clear Signature
+</button>
+
+</div>
+
+<div class="field">
+
+<label for="seller2Date">
+Date
+</label>
+
+<input
+type="date"
+id="seller2Date"
+name="seller2Date">
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ACTIONS -->
+
+<section class="form-card">
+
+<div class="section-title">07 / Complete Agreement</div>
+
+<h2>Submit or Save</h2>
+
+<p style="color:#aaa;">
+Review the information and signatures before submitting.
+</p>
+
+<div class="actions">
+
+<button
+type="submit"
+class="submit">
+SUBMIT AGREEMENT →
+</button>
+
+<button
+type="button"
+class="download"
+id="downloadBtn">
+DOWNLOAD AGREEMENT
+</button>
+
+</div>
+
+<div
+class="status"
+id="status">
+Agreement prepared successfully.
+</div>
+
+</section>
+
+</form>
+
+
+<a
+class="back"
+href="https://radiomeltdown.com/RealEstate/Contracts/">
+← Back to Real Estate Contracts
+</a>
+
+
+<footer>
+
+<strong>STV Radiomeltdown</strong><br>
+
+Real Estate Resources
+
+<br><br>
+
+<a href="https://radiomeltdown.com/RealEstate/">
+Main Real Estate Dashboard
+</a>
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SIGNATURE PAD
+========================================================= */
+
+const signaturePads = {};
+
+function setupSignature(id) {
+
+  const canvas = document.getElementById(id);
+
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * ratio;
+
+    canvas.height = rect.height * ratio;
+
+    ctx.scale(ratio, ratio);
+
+    ctx.lineWidth = 2;
+
+    ctx.lineCap = "round";
+
+    ctx.lineJoin = "round";
+
+  }
+
+  resizeCanvas();
+
+  let drawing = false;
+
+  function position(e) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    if (e.touches) {
+
+      return {
+        x: e.touches[0].clientX - rect.left,
+        y: e.touches[0].clientY - rect.top
+      };
+
+    }
+
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+
+  }
+
+  function start(e) {
+
+    e.preventDefault();
+
+    drawing = true;
+
+    const p = position(e);
+
+    ctx.beginPath();
+
+    ctx.moveTo(p.x, p.y);
+
+  }
+
+  function move(e) {
+
+    if (!drawing) return;
+
+    e.preventDefault();
+
+    const p = position(e);
+
+    ctx.lineTo(p.x, p.y);
+
+    ctx.stroke();
+
+  }
+
+  function end() {
+
+    drawing = false;
+
+  }
+
+  canvas.addEventListener("mousedown", start);
+
+  canvas.addEventListener("mousemove", move);
+
+  canvas.addEventListener("mouseup", end);
+
+  canvas.addEventListener("mouseleave", end);
+
+  canvas.addEventListener("touchstart", start, {passive:false});
+
+  canvas.addEventListener("touchmove", move, {passive:false});
+
+  canvas.addEventListener("touchend", end);
+
+  signaturePads[id] = {
+    canvas,
+    ctx
+  };
+
+}
+
+
+function clearSignature(id) {
+
+  const pad = signaturePads[id];
+
+  if (!pad) return;
+
+  pad.ctx.clearRect(
+    0,
+    0,
+    pad.canvas.width,
+    pad.canvas.height
+  );
+
+}
+
+
+/* =========================================================
+   INITIALIZE SIGNATURES
+========================================================= */
+
+setupSignature("buyerSignature");
+
+setupSignature("seller1Signature");
+
+setupSignature("seller2Signature");
+
+
+/* =========================================================
+   COLLECT FORM DATA
+========================================================= */
+
+function value(id) {
+
+  const element = document.getElementById(id);
+
+  return element ? element.value.trim() : "";
+
+}
+
+
+function signatureData(id) {
+
+  const canvas =
+    document.getElementById(id);
+
+  return canvas.toDataURL("image/png");
+
+}
+
+
+function buildAgreementText() {
+
+  return `
+OPTION TO PURCHASE REAL PROPERTY AGREEMENT
+
+Date: ${value("agreementDate")}
+
+PARTIES
+
+Buyer: ${value("buyer")}
+
+Seller #1: ${value("seller1")}
+
+Seller #2: ${value("seller2") || "N/A"}
+
+Property Address:
+${value("propertyAddress")}
+
+OFFER
+
+Buyer has the option to buy the property at:
+
+${value("offerPrice")}
+
+OPTION PERIOD
+
+45 days
+
+PROVISIONS
+
+1. Seller understands that buyer is acting as a principal in the transaction
+and is not working as a licensed real estate broker representing anyone
+in the transaction.
+
+2. Upon buyer's decision to exercise this option, both parties agree to
+move forward with the necessary standard purchase and sales agreement.
+
+3. Seller may cancel this agreement at any time if they find their own buyer
+or tenant or decide not to sell.
+
+4. Seller agrees to allow buyer to notify investors/partners that the
+property is for sale.
+
+5. If buyer does not exercise their option to buy within 45 days of
+acceptance of this Option Agreement, this agreement becomes null and void.
+
+6. Seller agrees to allow buyer access to the property via lock box
+provided by buyer.
+
+7. All parties agree that property is being sold in "as is" condition
+unless noted otherwise.
+
+ADDED COMMENTS
+
+${value("comments") || "None"}
+
+SIGNATURES
+
+BUYER
+
+Print Name: ${value("buyerPrintName")}
+Date: ${value("buyerDate")}
+
+SELLER #1
+
+Print Name: ${value("seller1PrintName")}
+Date: ${value("seller1Date")}
+
+SELLER #2
+
+Print Name: ${value("seller2PrintName") || "N/A"}
+Date: ${value("seller2Date") || "N/A"}
+
+Electronic signature images are captured with this agreement.
+
+STV RADIOMELTDOWN
+Real Estate Resources
+`;
+
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+document
+.getElementById("optionForm")
+.addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  if (!this.checkValidity()) {
+
+    this.reportValidity();
+
+    return;
+
+  }
+
+  const agreement =
+    buildAgreementText();
+
+  /*
+    This creates an email draft on the user's
+    device. Replace the email address below
+    with the final destination when desired.
+  */
+
+  const email =
+    "marketing@radiomeltdown.com";
+
+  const subject =
+    encodeURIComponent(
+      "Option to Purchase Agreement - " +
+      value("propertyAddress")
+    );
+
+  const body =
+    encodeURIComponent(agreement);
+
+  const mailto =
+    `mailto:${email}?subject=${subject}&body=${body}`;
+
+  document
+    .getElementById("status")
+    .classList
+    .add("show");
+
+  window.location.href = mailto;
+
+});
+
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+document
+.getElementById("downloadBtn")
+.addEventListener("click", function() {
+
+  const text =
+    buildAgreementText();
+
+  const blob =
+    new Blob(
+      [text],
+      {
+        type:
+          "text/plain;charset=utf-8"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const link =
+    document.createElement("a");
+
+  const address =
+    value("propertyAddress")
+      .replace(/[^a-z0-9]/gi, "-")
+      .toLowerCase();
+
+  link.href = url;
+
+  link.download =
+    `option-to-purchase-${address || "agreement"}.txt`;
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+});
+
+
+/* =========================================================
+   AUTO DATE
+========================================================= */
+
+const today =
+  new Date()
+    .toISOString()
+    .split("T")[0];
+
+if (!value("agreementDate")) {
+
+  document
+    .getElementById("agreementDate")
+    .value = today;
+
+}
+
+if (!value("buyerDate")) {
+
+  document
+    .getElementById("buyerDate")
+    .value = today;
+
+}
+
+if (!value("seller1Date")) {
+
+  document
+    .getElementById("seller1Date")
+    .value = today;
+
+}
+
+</script>
+
+</body>
+</html>
