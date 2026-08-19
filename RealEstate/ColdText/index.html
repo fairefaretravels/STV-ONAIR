@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Real Estate Texting Center</title>
+
+<style>
+:root {
+    --bg: #070707;
+    --card: #111111;
+    --card2: #181818;
+    --line: #2b2b2b;
+    --text: #f5f5f5;
+    --muted: #999;
+    --accent: #00e676;
+    --accent-dark: #00b85a;
+    --danger: #ff5252;
+    --blue: #2196f3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at top, rgba(0,230,118,.10), transparent 35%),
+        var(--bg);
+    color: var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.page {
+    width: min(100%, 850px);
+    margin: auto;
+    padding: 18px 16px 70px;
+}
+
+/* HEADER */
+
+.header {
+    padding: 15px 0 25px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border: 1px solid #333;
+    border-radius: 999px;
+    color: #ccc;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+}
+
+h1 {
+    margin: 18px 0 8px;
+    font-size: clamp(36px, 9vw, 64px);
+    line-height: .92;
+    letter-spacing: -.05em;
+    text-transform: uppercase;
+}
+
+h1 span {
+    color: var(--accent);
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+/* NAV */
+
+.nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+    margin-bottom: 20px;
+}
+
+.nav-btn {
+    min-height: 48px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: #151515;
+    color: white;
+    font-weight: 800;
+}
+
+.nav-btn:hover {
+    border-color: #555;
+}
+
+/* CARDS */
+
+.card {
+    margin-top: 18px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--card);
+}
+
+.card h2 {
+    margin: 0 0 6px;
+    font-size: 21px;
+}
+
+.card-description {
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* FIELDS */
+
+.field {
+    margin-top: 15px;
+}
+
+.field:first-child {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #0b0b0b;
+    color: white;
+    padding: 13px;
+    outline: none;
+}
+
+input {
+    min-height: 49px;
+}
+
+textarea {
+    min-height: 180px;
+    resize: vertical;
+    line-height: 1.55;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0,230,118,.10);
+}
+
+.two-column {
+    display: grid;
+    gap: 14px;
+}
+
+/* TEMPLATES */
+
+.templates {
+    display: grid;
+    gap: 9px;
+}
+
+.template {
+    width: 100%;
+    padding: 14px;
+    text-align: left;
+    border: 1px solid #303030;
+    border-radius: 12px;
+    background: #0c0c0c;
+    color: #ddd;
+    transition: .15s ease;
+}
+
+.template:hover {
+    border-color: #555;
+}
+
+.template.active {
+    border-color: var(--accent);
+    background: rgba(0,230,118,.08);
+    color: white;
+}
+
+.template-title {
+    display: block;
+    font-weight: 850;
+    margin-bottom: 4px;
+}
+
+.template-description {
+    display: block;
+    color: #777;
+    font-size: 12px;
+}
+
+/* MESSAGE */
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 7px;
+}
+
+.counter {
+    color: #777;
+    font-size: 11px;
+}
+
+.message-tools {
+    display: flex;
+    gap: 8px;
+    margin-top: 9px;
+}
+
+.small-btn {
+    min-height: 40px;
+    padding: 0 13px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: #202020;
+    color: white;
+    font-weight: 700;
+}
+
+/* SEND */
+
+.send-card {
+    border-color: rgba(0,230,118,.25);
+    background:
+        radial-gradient(circle at 90% 0%, rgba(0,230,118,.12), transparent 40%),
+        var(--card);
+}
+
+.send-btn {
+    width: 100%;
+    min-height: 58px;
+    border: 0;
+    border-radius: 13px;
+    background: var(--accent);
+    color: #001b0d;
+    font-size: 16px;
+    font-weight: 950;
+    transition: .15s ease;
+}
+
+.send-btn:hover {
+    background: #20ff91;
+}
+
+.send-btn:active {
+    transform: scale(.98);
+}
+
+.warning {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255,82,82,.10);
+    border: 1px solid rgba(255,82,82,.25);
+    color: #ffb0b0;
+    font-size: 13px;
+}
+
+.warning.show {
+    display: block;
+}
+
+.status {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(0,230,118,.08);
+    border: 1px solid rgba(0,230,118,.25);
+    color: #a9ffce;
+    font-size: 13px;
+}
+
+.status.show {
+    display: block;
+}
+
+/* FOOTER */
+
+footer {
+    padding-top: 35px;
+    text-align: center;
+    color: #666;
+    font-size: 12px;
+}
+
+footer a {
+    color: #aaa;
+}
+
+@media (min-width: 650px) {
+
+    .page {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .nav {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .templates {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="header">
+
+    <div class="badge">
+        <span class="badge-dot"></span>
+        REAL ESTATE LEAD SYSTEM
+    </div>
+
+    <h1>
+        Texting<br>
+        <span>Center</span>
+    </h1>
+
+    <p class="subtitle">
+        Select a lead, choose a message, personalize it, and send.
+    </p>
+
+</header>
+
+
+<!-- NAVIGATION -->
+
+<div class="nav">
+
+    <a
+        class="nav-btn"
+        href="https://radiomeltdown.com/RealEstate/"
+        style="display:flex;align-items:center;justify-content:center;">
+        ← MAIN DASHBOARD
+    </a>
+
+    <a
+        class="nav-btn"
+        href="https://radiomeltdown.com/RealEstate/Leads"
+        style="display:flex;align-items:center;justify-content:center;">
+        LEAD BOARD →
+    </a>
+
+</div>
+
+
+<!-- LEAD INFORMATION -->
+
+<section class="card">
+
+    <h2>01 / Lead Information</h2>
+
+    <p class="card-description">
+        Enter the homeowner's information before choosing a message.
+    </p>
+
+    <div class="two-column">
+
+        <div class="field">
+
+            <label for="name">
+                Homeowner Name
+            </label>
+
+            <input
+                id="name"
+                type="text"
+                placeholder="John Homeowner">
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="phone">
+                Mobile Phone Number *
+            </label>
+
+            <input
+                id="phone"
+                type="tel"
+                inputmode="tel"
+                placeholder="(404) 555-1234">
+
+        </div>
+
+    </div>
+
+
+    <div class="field">
+
+        <label for="address">
+            Property Address
+        </label>
+
+        <input
+            id="address"
+            type="text"
+            placeholder="123 Main Street, Lithonia, GA">
+
+    </div>
+
+</section>
+
+
+<!-- TEMPLATES -->
+
+<section class="card">
+
+    <h2>02 / Choose a Text</h2>
+
+    <p class="card-description">
+        Select a template. You can edit it before sending.
+    </p>
+
+
+    <div class="templates">
+
+        <button class="template" data-template="first">
+            <span class="template-title">
+                👋 First Contact
+            </span>
+
+            <span class="template-description">
+                Simple introduction without pressure.
+            </span>
+        </button>
+
+
+        <button class="template" data-template="property">
+            <span class="template-title">
+                🏠 Property Question
+            </span>
+
+            <span class="template-description">
+                Ask about the property.
+            </span>
+        </button>
+
+
+        <button class="template" data-template="interest">
+            <span class="template-title">
+                💬 Interested in Selling?
+            </span>
+
+            <span class="template-description">
+                Direct but conversational.
+            </span>
+        </button>
+
+
+        <button class="template" data-template="followup">
+            <span class="template-title">
+                📞 Follow-Up
+            </span>
+
+            <span class="template-description">
+                Follow up after the first message.
+            </span>
+        </button>
+
+
+        <button class="template" data-template="noreply">
+            <span class="template-title">
+                ⏰ No Response
+            </span>
+
+            <span class="template-description">
+                Gentle follow-up after no response.
+            </span>
+        </button>
+
+
+        <button class="template" data-template="second">
+            <span class="template-title">
+                🔄 Second Follow-Up
+            </span>
+
+            <span class="template-description">
+                Final low-pressure follow-up.
+            </span>
+        </button>
+
+
+        <button class="template" data-template="notinterested">
+            <span class="template-title">
+                ❌ Not Interested
+            </span>
+
+            <span class="template-description">
+                Respectful response when they decline.
+            </span>
+        </button>
+
+
+        <button class="template" data-template="custom">
+            <span class="template-title">
+                ✍️ Custom Message
+            </span>
+
+            <span class="template-description">
+                Start with a blank message.
+            </span>
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- MESSAGE -->
+
+<section class="card">
+
+    <div class="message-header">
+
+        <h2 style="margin:0;">
+            03 / Message
+        </h2>
+
+        <span
+            class="counter"
+            id="counter">
+            0 characters
+        </span>
+
+    </div>
+
+    <textarea
+        id="message"
+        placeholder="Your message will appear here..."></textarea>
+
+
+    <div class="message-tools">
+
+        <button
+            type="button"
+            class="small-btn"
+            id="copyBtn">
+            COPY
+        </button>
+
+        <button
+            type="button"
+            class="small-btn"
+            id="clearBtn">
+            CLEAR
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- SEND -->
+
+<section class="card send-card">
+
+    <h2>04 / Send Text</h2>
+
+    <p class="card-description">
+        The button opens the phone's messaging app with the number
+        and message already prepared.
+    </p>
+
+    <button
+        type="button"
+        class="send-btn"
+        id="sendBtn">
+        📱 SEND SMS
+    </button>
+
+
+    <div
+        class="warning"
+        id="warning">
+    </div>
+
+
+    <div
+        class="status"
+        id="status">
+        Message prepared. Your messaging app should open now.
+    </div>
+
+</section>
+
+
+<footer>
+
+    <strong>STV RADIOMELTDOWN</strong><br>
+
+    Real Estate Lead System
+
+    <br><br>
+
+    <a href="https://radiomeltdown.com/RealEstate/">
+        Return to Main Dashboard
+    </a>
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   TEXT TEMPLATES
+========================================================= */
+
+const templates = {
+
+    first:
+`Hi [Name], this is Braylen. I’m reaching out about [Address]. I wanted to see if you might be open to talking about the property. No pressure at all.`,
+
+    property:
+`Hi [Name], this is Braylen. I was reaching out about the property at [Address]. Is this a property you still own?`,
+
+    interest:
+`Hi [Name], this is Braylen. I’m interested in [Address]. Would you be open to discussing an offer for the property?`,
+
+    followup:
+`Hi [Name], just following up regarding [Address]. I wanted to see if you had a chance to think about my message. Happy to talk whenever it's convenient.`,
+
+    noreply:
+`Hi [Name], just checking back with you about [Address]. I know you may be busy, so no worries if now isn't a good time. Let me know if you'd like to talk.`,
+
+    second:
+`Hi [Name], I'll make this my last follow-up for now regarding [Address]. If selling is ever something you'd consider, feel free to reach back out. Thanks!`,
+
+    notinterested:
+`No problem, [Name]. I completely understand. Thanks for getting back to me. If anything changes with [Address], feel free to reach out.`,
+
+    custom:
+``
+
+};
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const nameInput =
+    document.getElementById("name");
+
+const phoneInput =
+    document.getElementById("phone");
+
+const addressInput =
+    document.getElementById("address");
+
+const messageInput =
+    document.getElementById("message");
+
+const counter =
+    document.getElementById("counter");
+
+const warning =
+    document.getElementById("warning");
+
+const status =
+    document.getElementById("status");
+
+const sendBtn =
+    document.getElementById("sendBtn");
+
+const copyBtn =
+    document.getElementById("copyBtn");
+
+const clearBtn =
+    document.getElementById("clearBtn");
+
+
+/* =========================================================
+   PERSONALIZATION
+========================================================= */
+
+function personalize(text) {
+
+    const name =
+        nameInput.value.trim() || "there";
+
+    const address =
+        addressInput.value.trim() || "the property";
+
+    return text
+        .replace(/\[Name\]/g, name)
+        .replace(/\[Address\]/g, address);
+}
+
+
+/* =========================================================
+   LOAD TEMPLATE
+========================================================= */
+
+document.querySelectorAll(".template")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const key =
+            button.dataset.template;
+
+        document
+            .querySelectorAll(".template")
+            .forEach(btn =>
+                btn.classList.remove("active")
+            );
+
+        button.classList.add("active");
+
+        messageInput.value =
+            personalize(templates[key]);
+
+        updateCounter();
+
+        messageInput.focus();
+
+    });
+
+});
+
+
+/* =========================================================
+   UPDATE MESSAGE WHEN NAME / ADDRESS CHANGES
+========================================================= */
+
+function refreshMessagePersonalization() {
+
+    const current =
+        messageInput.value;
+
+    if (!current) return;
+
+    /*
+       Only replace messages containing our
+       template placeholders.
+    */
+
+    if (
+        current.includes("[Name]") ||
+        current.includes("[Address]")
+    ) {
+
+        messageInput.value =
+            personalize(current);
+
+    }
+
+}
+
+
+/* =========================================================
+   CHARACTER COUNTER
+========================================================= */
+
+function updateCounter() {
+
+    const length =
+        messageInput.value.length;
+
+    counter.textContent =
+        `${length} characters`;
+
+}
+
+
+messageInput.addEventListener(
+    "input",
+    updateCounter
+);
+
+
+/* =========================================================
+   COPY
+========================================================= */
+
+copyBtn.addEventListener(
+    "click",
+    async () => {
+
+        if (!messageInput.value.trim()) {
+
+            showWarning(
+                "There is no message to copy."
+            );
+
+            return;
+        }
+
+        try {
+
+            await navigator.clipboard.writeText(
+                messageInput.value
+            );
+
+            showStatus(
+                "Message copied to clipboard."
+            );
+
+        } catch (error) {
+
+            messageInput.select();
+
+            document.execCommand("copy");
+
+            showStatus(
+                "Message copied."
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLEAR
+========================================================= */
+
+clearBtn.addEventListener(
+    "click",
+    () => {
+
+        messageInput.value = "";
+
+        document
+            .querySelectorAll(".template")
+            .forEach(btn =>
+                btn.classList.remove("active")
+            );
+
+        updateCounter();
+
+        hideMessages();
+
+    }
+);
+
+
+/* =========================================================
+   PHONE NUMBER CLEANUP
+========================================================= */
+
+function cleanPhone(phone) {
+
+    return phone.replace(
+        /[^0-9+]/g,
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   SEND SMS
+========================================================= */
+
+sendBtn.addEventListener(
+    "click",
+    () => {
+
+        hideMessages();
+
+        const phone =
+            cleanPhone(phoneInput.value);
+
+        const message =
+            messageInput.value.trim();
+
+        if (!phoneInput.value.trim()) {
+
+            showWarning(
+                "Enter the homeowner's phone number first."
+            );
+
+            phoneInput.focus();
+
+            return;
+        }
+
+
+        if (phone.length < 10) {
+
+            showWarning(
+                "Please enter a valid phone number."
+            );
+
+            phoneInput.focus();
+
+            return;
+        }
+
+
+        if (!message) {
+
+            showWarning(
+                "Choose a text template or enter a message first."
+            );
+
+            messageInput.focus();
+
+            return;
+        }
+
+
+        /*
+          Native SMS link.
+
+          On iPhone:
+          Opens Messages with recipient + message.
+
+          On Android:
+          Opens the available SMS application.
+        */
+
+        const smsURL =
+            "sms:" +
+            phone +
+            "?&body=" +
+            encodeURIComponent(message);
+
+
+        showStatus(
+            "Opening your messaging app..."
+        );
+
+
+        window.location.href =
+            smsURL;
+
+    }
+);
+
+
+/* =========================================================
+   WARNINGS / STATUS
+========================================================= */
+
+function showWarning(text) {
+
+    warning.textContent = text;
+
+    warning.classList.add("show");
+
+    status.classList.remove("show");
+
+}
+
+
+function showStatus(text) {
+
+    status.textContent = text;
+
+    status.classList.add("show");
+
+    warning.classList.remove("show");
+
+}
+
+
+function hideMessages() {
+
+    warning.classList.remove("show");
+
+    status.classList.remove("show");
+
+}
+
+
+/* =========================================================
+   AUTO PERSONALIZATION
+========================================================= */
+
+[nameInput, addressInput]
+.forEach(input => {
+
+    input.addEventListener(
+        "input",
+        () => {
+
+            /*
+              If a template was selected,
+              rebuild it using current information.
+            */
+
+            const active =
+                document.querySelector(
+                    ".template.active"
+                );
+
+            if (!active) return;
+
+            const key =
+                active.dataset.template;
+
+            if (key === "custom") return;
+
+            messageInput.value =
+                personalize(templates[key]);
+
+            updateCounter();
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   SAVE CURRENT LEAD LOCALLY
+========================================================= */
+
+function saveLeadDraft() {
+
+    const draft = {
+
+        name:
+            nameInput.value,
+
+        phone:
+            phoneInput.value,
+
+        address:
+            addressInput.value,
+
+        message:
+            messageInput.value
+
+    };
+
+    localStorage.setItem(
+        "real_estate_texting_draft",
+        JSON.stringify(draft)
+    );
+
+}
+
+
+/* Save while typing */
+
+[
+    nameInput,
+    phoneInput,
+    addressInput,
+    messageInput
+]
+.forEach(input => {
+
+    input.addEventListener(
+        "input",
+        saveLeadDraft
+    );
+
+});
+
+
+/* =========================================================
+   RESTORE DRAFT
+========================================================= */
+
+function restoreDraft() {
+
+    const saved =
+        localStorage.getItem(
+            "real_estate_texting_draft"
+        );
+
+    if (!saved) return;
+
+    try {
+
+        const draft =
+            JSON.parse(saved);
+
+        nameInput.value =
+            draft.name || "";
+
+        phoneInput.value =
+            draft.phone || "";
+
+        addressInput.value =
+            draft.address || "";
+
+        messageInput.value =
+            draft.message || "";
+
+        updateCounter();
+
+    } catch (error) {
+
+        console.warn(
+            "Could not restore draft.",
+            error
+        );
+
+    }
+
+}
+
+
+restoreDraft();
+
+
+</script>
+
+</body>
+</html>
