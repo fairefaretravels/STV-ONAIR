@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Buyer's Notice of Cancellation | Real Estate</title>
+
+<style>
+:root {
+  --bg: #080808;
+  --card: #121212;
+  --card2: #181818;
+  --line: #303030;
+  --text: #f5f5f5;
+  --muted: #aaa;
+  --red: #ff1744;
+  --red2: #ff4d6d;
+  --green: #35d07f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, rgba(255,23,68,.15), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+  line-height: 1.5;
+}
+
+.container {
+  width: min(900px, calc(100% - 28px));
+  margin: auto;
+  padding-bottom: 70px;
+}
+
+/* HEADER */
+
+header {
+  padding: 30px 0 20px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 7px 12px;
+  border: 1px solid #444;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: #ddd;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(32px, 8vw, 58px);
+  line-height: .95;
+  letter-spacing: -.04em;
+  margin: 18px 0 12px;
+  text-transform: uppercase;
+}
+
+h1 span {
+  color: var(--red);
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+  max-width: 700px;
+}
+
+/* NAV */
+
+.top-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #171717;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.nav-button:hover {
+  border-color: var(--red);
+}
+
+/* CARDS */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px;
+  margin-top: 18px;
+}
+
+.card h2 {
+  margin: 0 0 5px;
+  font-size: 23px;
+}
+
+.card-description {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0 0 20px;
+}
+
+/* FORM */
+
+.form-grid {
+  display: grid;
+  gap: 17px;
+}
+
+@media (min-width: 680px) {
+  .form-grid.two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+input,
+textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 13px;
+  border-radius: 11px;
+  border: 1px solid #373737;
+  background: #0b0b0b;
+  color: white;
+  outline: none;
+  font: inherit;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(255,23,68,.12);
+}
+
+.required {
+  color: var(--red);
+}
+
+/* AGREEMENT TEXT */
+
+.agreement {
+  background: #0d0d0d;
+  border: 1px solid #292929;
+  border-radius: 13px;
+  padding: 18px;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.agreement p {
+  margin: 0 0 17px;
+}
+
+/* CHECKBOXES */
+
+.reason-list {
+  display: grid;
+  gap: 10px;
+}
+
+.check-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background: #0b0b0b;
+  cursor: pointer;
+}
+
+.check-option:hover {
+  border-color: #555;
+}
+
+.check-option input {
+  width: 19px;
+  min-height: 19px;
+  accent-color: var(--red);
+}
+
+/* NOTICE */
+
+.notice {
+  padding: 15px;
+  border-left: 3px solid var(--red);
+  background: rgba(255,23,68,.06);
+  border-radius: 0 10px 10px 0;
+  color: #ccc;
+  font-size: 13px;
+  margin-top: 15px;
+}
+
+/* EARNEST MONEY */
+
+.earnest {
+  background:
+    linear-gradient(135deg, rgba(255,23,68,.08), transparent),
+    var(--card2);
+  border: 1px solid #3b3b3b;
+}
+
+.radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background: #0b0b0b;
+}
+
+.radio-option input {
+  width: 18px;
+  min-height: 18px;
+  accent-color: var(--red);
+}
+
+/* SIGNATURE */
+
+.signature-box {
+  margin-top: 20px;
+}
+
+.signature-title {
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.signature-canvas-wrap {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #444;
+}
+
+.signature-canvas {
+  width: 100%;
+  height: 170px;
+  display: block;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.signature-help {
+  color: #777;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.clear-signature {
+  margin-top: 8px;
+}
+
+/* BUTTONS */
+
+.actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+@media (min-width: 650px) {
+  .actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+button {
+  min-height: 52px;
+  border-radius: 11px;
+  padding: 0 17px;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 850;
+}
+
+.primary {
+  background: var(--red);
+  color: white;
+}
+
+.primary:hover {
+  background: var(--red2);
+}
+
+.secondary {
+  background: #222;
+  color: white;
+  border: 1px solid #3a3a3a;
+}
+
+.green {
+  background: var(--green);
+  color: #06140c;
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  color: #666;
+  font-size: 11px;
+  padding: 35px 0;
+}
+
+/* PRINT */
+
+@media print {
+
+  body {
+    background: white;
+    color: black;
+    font-family: Arial, sans-serif;
+  }
+
+  .container {
+    width: 100%;
+    padding: 0;
+  }
+
+  header,
+  .top-nav,
+  .actions,
+  footer,
+  .notice {
+    display: none !important;
+  }
+
+  .card {
+    border: 0;
+    padding: 0;
+    margin: 0 0 20px;
+    background: white;
+    box-shadow: none;
+  }
+
+  .card h2 {
+    color: black;
+  }
+
+  .agreement {
+    background: white;
+    border: 0;
+    padding: 0;
+    color: black;
+  }
+
+  input,
+  textarea {
+    border: 0;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+    color: black;
+    background: white;
+    padding: 5px 2px;
+  }
+
+  .check-option,
+  .radio-option {
+    border: 0;
+    padding: 3px;
+    background: white;
+    color: black;
+  }
+
+  .earnest {
+    background: white;
+    border: 0;
+  }
+
+  .signature-canvas-wrap {
+    border: 1px solid black;
+  }
+
+  .signature-canvas {
+    height: 130px;
+  }
+
+  .required {
+    color: black;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+  <div class="badge">
+    Real Estate Contracts
+  </div>
+
+  <h1>
+    Buyer's Notice<br>
+    <span>of Cancellation</span>
+  </h1>
+
+  <p class="subtitle">
+    Complete the agreement below. You may print it, save the completed
+    information, or prepare it for email.
+  </p>
+
+  <nav class="top-nav">
+
+    <a
+      class="nav-button"
+      href="https://radiomeltdown.com/RealEstate/Contracts/">
+      ← Contracts
+    </a>
+
+    <a
+      class="nav-button"
+      href="https://radiomeltdown.com/RealEstate">
+      Real Estate Dashboard
+    </a>
+
+  </nav>
+
+</header>
+
+
+<form id="cancellationForm">
+
+
+<!-- PARTIES -->
+
+<section class="card">
+
+  <h2>1. Property & Parties</h2>
+
+  <p class="card-description">
+    Enter the information exactly as it appears on the purchase contract.
+  </p>
+
+  <div class="form-grid two">
+
+    <div class="field">
+      <label>
+        Seller <span class="required">*</span>
+      </label>
+
+      <input
+        id="seller"
+        name="seller"
+        type="text"
+        placeholder="Seller / Homeowner"
+        required>
+    </div>
+
+
+    <div class="field">
+      <label>
+        Buyer <span class="required">*</span>
+      </label>
+
+      <input
+        id="buyer"
+        name="buyer"
+        type="text"
+        placeholder="Buyer / Wholesaler"
+        required>
+    </div>
+
+  </div>
+
+
+  <div class="field" style="margin-top:17px;">
+
+    <label>
+      Property Address <span class="required">*</span>
+    </label>
+
+    <textarea
+      id="propertyAddress"
+      name="propertyAddress"
+      placeholder="Street address, city, state, ZIP"
+      required></textarea>
+
+  </div>
+
+
+  <div class="field" style="margin-top:17px;">
+
+    <label>
+      Offer / Contract Reference Date
+      <span class="required">*</span>
+    </label>
+
+    <input
+      id="referenceDate"
+      name="referenceDate"
+      type="date"
+      required>
+
+  </div>
+
+</section>
+
+
+<!-- CANCELLATION -->
+
+<section class="card">
+
+  <h2>2. Notice of Cancellation</h2>
+
+  <div class="agreement">
+
+    <p>
+      Buyer hereby gives notice of cancellation of the real estate
+      purchase contract with an offer reference date of
+      <strong id="displayReferenceDate">________________</strong>,
+      between Buyer and Seller regarding the above-described property.
+      The cancellation of the contract is based on the following.
+    </p>
+
+  </div>
+
+
+  <h3 style="font-size:16px;margin-top:22px;">
+    Select cancellation reason(s)
+  </h3>
+
+  <div class="reason-list">
+
+    <label class="check-option">
+      <input
+        type="checkbox"
+        name="reason"
+        value="Due Diligence Findings">
+      <span>Due Diligence Findings</span>
+    </label>
+
+
+    <label class="check-option">
+      <input
+        type="checkbox"
+        name="reason"
+        value="Appraisal Findings">
+      <span>Appraisal Findings</span>
+    </label>
+
+
+    <label class="check-option">
+      <input
+        type="checkbox"
+        name="reason"
+        value="Property Inspection Findings">
+      <span>Property Inspection Findings</span>
+    </label>
+
+
+    <label class="check-option">
+      <input
+        type="checkbox"
+        name="reason"
+        value="Partner Denial Upon Review">
+      <span>Partner Denial Upon Review</span>
+    </label>
+
+  </div>
+
+
+  <div class="agreement" style="margin-top:25px;">
+
+    <p>
+      Sincerely,
+    </p>
+
+    <div class="field">
+
+      <label>Buyer Name</label>
+
+      <input
+        id="buyerName"
+        name="buyerName"
+        type="text"
+        placeholder="Buyer name">
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- EARNEST MONEY -->
+
+<section class="card earnest">
+
+  <h2>3. Release of Earnest Money Deposit</h2>
+
+  <p class="card-description">
+    Use this section only if an earnest money deposit was given.
+  </p>
+
+
+  <div class="agreement">
+
+    <p>
+      Release of Earnest Money Deposit. By signing below the Buyer
+      acknowledges that the real estate purchase contract is canceled,
+      and hereby directs the Title Company to release per the terms of
+      the purchase and sales contract, the earnest money deposit of
+      the amount entered below to Buyer or Seller.
+    </p>
+
+  </div>
+
+
+  <div class="form-grid two" style="margin-top:18px;">
+
+    <div class="field">
+
+      <label>Title Company</label>
+
+      <input
+        id="titleCompany"
+        name="titleCompany"
+        type="text"
+        placeholder="Title / Escrow Company">
+
+    </div>
+
+
+    <div class="field">
+
+      <label>Earnest Money Deposit</label>
+
+      <input
+        id="earnestMoney"
+        name="earnestMoney"
+        type="text"
+        inputmode="decimal"
+        placeholder="$0.00">
+
+    </div>
+
+  </div>
+
+
+  <div style="margin-top:20px;">
+
+    <label style="display:block;font-size:13px;font-weight:800;margin-bottom:8px;">
+      Release deposit to:
+    </label>
+
+    <div class="radio-row">
+
+      <label class="radio-option">
+
+        <input
+          type="radio"
+          name="depositTo"
+          value="Buyer">
+
+        Buyer
+
+      </label>
+
+
+      <label class="radio-option">
+
+        <input
+          type="radio"
+          name="depositTo"
+          value="Seller">
+
+        Seller
+
+      </label>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SIGNATURES -->
+
+<section class="card">
+
+  <h2>4. Signatures</h2>
+
+  <p class="card-description">
+    Both parties may draw their signatures using a finger, stylus,
+    or mouse. These signatures can then be printed with the agreement.
+  </p>
+
+
+  <!-- BUYER -->
+
+  <div class="signature-box">
+
+    <div class="signature-title">
+      Buyer Signature
+    </div>
+
+    <div class="signature-canvas-wrap">
+
+      <canvas
+        id="buyerSignature"
+        class="signature-canvas">
+      </canvas>
+
+    </div>
+
+    <div class="signature-help">
+      Draw your signature above.
+    </div>
+
+    <button
+      type="button"
+      class="secondary clear-signature"
+      onclick="clearSignature('buyerSignature')">
+
+      Clear Buyer Signature
+
+    </button>
+
+
+    <div class="field" style="margin-top:15px;">
+
+      <label>Buyer Signature Date</label>
+
+      <input
+        id="buyerSignatureDate"
+        type="date">
+
+    </div>
+
+  </div>
+
+
+  <!-- SELLER -->
+
+  <div class="signature-box">
+
+    <div class="signature-title">
+      Seller / Homeowner Signature
+    </div>
+
+    <div class="signature-canvas-wrap">
+
+      <canvas
+        id="sellerSignature"
+        class="signature-canvas">
+      </canvas>
+
+    </div>
+
+    <div class="signature-help">
+      The homeowner can sign here using a finger, stylus, or mouse.
+    </div>
+
+    <button
+      type="button"
+      class="secondary clear-signature"
+      onclick="clearSignature('sellerSignature')">
+
+      Clear Seller Signature
+
+    </button>
+
+
+    <div class="field" style="margin-top:15px;">
+
+      <label>Seller Signature Date</label>
+
+      <input
+        id="sellerSignatureDate"
+        type="date">
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ACTIONS -->
+
+<section class="card">
+
+  <h2>5. Finish Agreement</h2>
+
+  <p class="card-description">
+    Review everything before printing or preparing the agreement for email.
+  </p>
+
+
+  <div class="actions">
+
+    <button
+      type="button"
+      class="primary"
+      onclick="printAgreement()">
+
+      🖨 PRINT AGREEMENT
+
+    </button>
+
+
+    <button
+      type="button"
+      class="green"
+      onclick="downloadAgreement()">
+
+      ↓ DOWNLOAD COMPLETED FORM
+
+    </button>
+
+
+    <button
+      type="button"
+      class="secondary"
+      onclick="emailAgreement()">
+
+      ✉ EMAIL TO MARKETING
+
+    </button>
+
+
+    <button
+      type="button"
+      class="secondary"
+      onclick="clearForm()">
+
+      CLEAR FORM
+
+    </button>
+
+  </div>
+
+
+  <div class="notice">
+
+    <strong>Important:</strong>
+    This page is a fillable document tool. It does not provide legal advice.
+    Review the agreement and applicable transaction requirements with the
+    appropriate real-estate, title, or legal professional before use.
+
+  </div>
+
+</section>
+
+</form>
+
+
+<footer>
+
+  <strong>STV Radiomeltdown Real Estate</strong>
+  <br>
+  Real Estate Contract Resources
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   SIGNATURE PAD
+============================================================ */
+
+class SignaturePad {
+
+  constructor(canvas) {
+
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");
+
+    this.drawing = false;
+    this.hasSignature = false;
+
+    this.resize();
+
+    window.addEventListener("resize", () => {
+      this.resize();
+    });
+
+    canvas.addEventListener(
+      "pointerdown",
+      e => this.start(e)
+    );
+
+    canvas.addEventListener(
+      "pointermove",
+      e => this.draw(e)
+    );
+
+    canvas.addEventListener(
+      "pointerup",
+      e => this.stop(e)
+    );
+
+    canvas.addEventListener(
+      "pointerleave",
+      e => this.stop(e)
+    );
+
+  }
+
+
+  resize() {
+
+    const rect =
+      this.canvas.getBoundingClientRect();
+
+    const ratio =
+      window.devicePixelRatio || 1;
+
+    const oldImage =
+      this.hasSignature
+        ? this.canvas.toDataURL()
+        : null;
+
+    this.canvas.width =
+      rect.width * ratio;
+
+    this.canvas.height =
+      rect.height * ratio;
+
+    this.ctx.scale(ratio, ratio);
+
+    this.ctx.lineWidth = 2.5;
+    this.ctx.lineCap = "round";
+    this.ctx.lineJoin = "round";
+    this.ctx.strokeStyle = "#111";
+
+    if (oldImage) {
+
+      const image = new Image();
+
+      image.onload = () => {
+
+        this.ctx.drawImage(
+          image,
+          0,
+          0,
+          rect.width,
+          rect.height
+        );
+
+      };
+
+      image.src = oldImage;
+
+    }
+
+  }
+
+
+  position(e) {
+
+    const rect =
+      this.canvas.getBoundingClientRect();
+
+    return {
+
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+
+    };
+
+  }
+
+
+  start(e) {
+
+    e.preventDefault();
+
+    this.drawing = true;
+    this.hasSignature = true;
+
+    const p = this.position(e);
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(p.x, p.y);
+
+  }
+
+
+  draw(e) {
+
+    if (!this.drawing) return;
+
+    e.preventDefault();
+
+    const p = this.position(e);
+
+    this.ctx.lineTo(p.x, p.y);
+    this.ctx.stroke();
+
+  }
+
+
+  stop() {
+
+    this.drawing = false;
+
+  }
+
+
+  clear() {
+
+    const rect =
+      this.canvas.getBoundingClientRect();
+
+    this.ctx.clearRect(
+      0,
+      0,
+      rect.width,
+      rect.height
+    );
+
+    this.hasSignature = false;
+
+  }
+
+
+  dataURL() {
+
+    return this.hasSignature
+      ? this.canvas.toDataURL("image/png")
+      : "";
+
+  }
+
+}
+
+
+const buyerPad =
+  new SignaturePad(
+    document.getElementById("buyerSignature")
+  );
+
+
+const sellerPad =
+  new SignaturePad(
+    document.getElementById("sellerSignature")
+  );
+
+
+function clearSignature(id) {
+
+  if (id === "buyerSignature") {
+    buyerPad.clear();
+  }
+
+  if (id === "sellerSignature") {
+    sellerPad.clear();
+  }
+
+}
+
+
+/* ============================================================
+   DATE DISPLAY
+============================================================ */
+
+const referenceDate =
+  document.getElementById("referenceDate");
+
+const displayReferenceDate =
+  document.getElementById("displayReferenceDate");
+
+
+referenceDate.addEventListener("change", () => {
+
+  if (!referenceDate.value) {
+
+    displayReferenceDate.textContent =
+      "________________";
+
+    return;
+
+  }
+
+  const date =
+    new Date(
+      referenceDate.value + "T00:00:00"
+    );
+
+  displayReferenceDate.textContent =
+    date.toLocaleDateString();
+
+});
+
+
+/* ============================================================
+   VALIDATION
+============================================================ */
+
+function validateForm() {
+
+  const required =
+    document.querySelectorAll(
+      "#cancellationForm [required]"
+    );
+
+  let valid = true;
+
+  required.forEach(field => {
+
+    if (!field.value.trim()) {
+
+      field.style.borderColor =
+        "#ff1744";
+
+      valid = false;
+
+    } else {
+
+      field.style.borderColor =
+        "";
+
+    }
+
+  });
+
+
+  if (!valid) {
+
+    alert(
+      "Please complete the required Seller, Buyer, Property Address, and Contract Reference Date fields."
+    );
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+/* ============================================================
+   COLLECT FORM DATA
+============================================================ */
+
+function getData() {
+
+  const reasons =
+    [...document.querySelectorAll(
+      'input[name="reason"]:checked'
+    )]
+    .map(x => x.value);
+
+
+  const depositTo =
+    document.querySelector(
+      'input[name="depositTo"]:checked'
+    );
+
+
+  return {
+
+    seller:
+      document.getElementById("seller").value,
+
+    buyer:
+      document.getElementById("buyer").value,
+
+    propertyAddress:
+      document.getElementById("propertyAddress").value,
+
+    referenceDate:
+      document.getElementById("referenceDate").value,
+
+    buyerName:
+      document.getElementById("buyerName").value,
+
+    reasons,
+
+    titleCompany:
+      document.getElementById("titleCompany").value,
+
+    earnestMoney:
+      document.getElementById("earnestMoney").value,
+
+    depositTo:
+      depositTo ? depositTo.value : "",
+
+    buyerSignature:
+      buyerPad.dataURL(),
+
+    sellerSignature:
+      sellerPad.dataURL(),
+
+    buyerSignatureDate:
+      document.getElementById(
+        "buyerSignatureDate"
+      ).value,
+
+    sellerSignatureDate:
+      document.getElementById(
+        "sellerSignatureDate"
+      ).value
+
+  };
+
+}
+
+
+/* ============================================================
+   PRINT
+============================================================ */
+
+function printAgreement() {
+
+  if (!validateForm()) return;
+
+  window.print();
+
+}
+
+
+/* ============================================================
+   DOWNLOAD COMPLETED HTML
+============================================================ */
+
+function downloadAgreement() {
+
+  if (!validateForm()) return;
+
+  const data = getData();
+
+  const reasons =
+    data.reasons.length
+      ? data.reasons.join(", ")
+      : "None selected";
+
+
+  const html = `
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Buyer's Notice of Cancellation</title>
+
+<style>
+
+body {
+  font-family: Arial, sans-serif;
+  color: #111;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  line-height: 1.55;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+}
+
+h2 {
+  border-bottom: 1px solid #222;
+  padding-bottom: 5px;
+}
+
+.field {
+  margin: 12px 0;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.signature {
+  max-width: 400px;
+  max-height: 150px;
+  border-bottom: 1px solid #111;
+}
+
+.signature-section {
+  margin-top: 35px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+BUYER'S NOTICE OF CANCELLATION<br>
+OF REAL ESTATE PURCHASE CONTRACT
+</h1>
+
+<h2>Property & Parties</h2>
+
+<div class="field">
+<span class="label">Seller:</span>
+${escapeHTML(data.seller)}
+</div>
+
+<div class="field">
+<span class="label">Buyer:</span>
+${escapeHTML(data.buyer)}
+</div>
+
+<div class="field">
+<span class="label">Property Address:</span>
+${escapeHTML(data.propertyAddress).replace(/\n/g,"<br>")}
+</div>
+
+<div class="field">
+<span class="label">Offer / Contract Reference Date:</span>
+${escapeHTML(data.referenceDate)}
+</div>
+
+<h2>Notice of Cancellation</h2>
+
+<p>
+Buyer hereby gives notice of cancellation of the real estate purchase
+contract with an offer reference date of
+<strong>${escapeHTML(data.referenceDate)}</strong>,
+between Buyer and Seller regarding the above-described property.
+The cancellation of the contract is based on the following.
+</p>
+
+<p>
+<strong>Cancellation Reason(s):</strong><br>
+${escapeHTML(reasons)}
+</p>
+
+<p>
+Sincerely,
+</p>
+
+<p>
+<strong>${escapeHTML(data.buyerName || data.buyer)}</strong>
+</p>
+
+<h2>Release of Earnest Money Deposit</h2>
+
+<p>
+By signing below the Buyer acknowledges that the real estate purchase
+contract is canceled, and hereby directs
+<strong>${escapeHTML(data.titleCompany || "________________")}</strong>
+to release per the terms of the purchase and sales contract,
+the earnest money deposit of
+<strong>${escapeHTML(data.earnestMoney || "________________")}</strong>
+to
+<strong>${escapeHTML(data.depositTo || "________________")}</strong>.
+</p>
+
+<div class="signature-section">
+
+<h2>Buyer Signature</h2>
+
+${
+data.buyerSignature
+? `<img class="signature" src="${data.buyerSignature}">`
+: "<p>________________________________________</p>"
+}
+
+<p>
+Date:
+${escapeHTML(data.buyerSignatureDate || "________________")}
+</p>
+
+</div>
+
+<div class="signature-section">
+
+<h2>Seller Signature</h2>
+
+${
+data.sellerSignature
+? `<img class="signature" src="${data.sellerSignature}">`
+: "<p>________________________________________</p>"
+}
+
+<p>
+Date:
+${escapeHTML(data.sellerSignatureDate || "________________")}
+</p>
+
+</div>
+
+<hr>
+
+<p style="font-size:11px;color:#666;">
+Generated using STV Radiomeltdown Real Estate Contract Resources.
+Review with the appropriate real-estate, title, or legal professional
+before use.
+</p>
+
+</body>
+
+</html>
+`;
+
+
+  const blob =
+    new Blob(
+      [html],
+      {type:"text/html;charset=utf-8"}
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+
+  a.href = url;
+
+  a.download =
+    "Buyers-Notice-of-Cancellation.html";
+
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* ============================================================
+   EMAIL
+============================================================ */
+
+function emailAgreement() {
+
+  if (!validateForm()) return;
+
+  const data = getData();
+
+  const reasons =
+    data.reasons.length
+      ? data.reasons.join(", ")
+      : "None selected";
+
+
+  const body = `
+
+BUYER'S NOTICE OF CANCELLATION
+OF REAL ESTATE PURCHASE CONTRACT
+
+SELLER:
+${data.seller}
+
+BUYER:
+${data.buyer}
+
+PROPERTY ADDRESS:
+${data.propertyAddress}
+
+OFFER / CONTRACT REFERENCE DATE:
+${data.referenceDate}
+
+CANCELLATION REASON(S):
+${reasons}
+
+BUYER NAME:
+${data.buyerName || data.buyer}
+
+RELEASE OF EARNEST MONEY DEPOSIT
+
+TITLE COMPANY:
+${data.titleCompany || "Not provided"}
+
+EARNEST MONEY DEPOSIT:
+${data.earnestMoney || "Not provided"}
+
+RELEASE TO:
+${data.depositTo || "Not selected"}
+
+SIGNATURE STATUS:
+
+Buyer Signature:
+${data.buyerSignature ? "Drawn signature included in completed form." : "Not signed."}
+
+Seller Signature:
+${data.sellerSignature ? "Drawn signature included in completed form." : "Not signed."}
+
+Buyer Signature Date:
+${data.buyerSignatureDate || "Not provided"}
+
+Seller Signature Date:
+${data.sellerSignatureDate || "Not provided"}
+
+--------------------------------------------------
+
+Buyer hereby gives notice of cancellation of the real estate
+purchase contract with the reference date listed above, between
+Buyer and Seller regarding the above-described property.
+
+The cancellation is based on the reason(s) selected above.
+
+--------------------------------------------------
+
+This email was prepared using the STV Radiomeltdown Real Estate
+Contract Resources page.
+
+`;
+
+
+  const subject =
+    `Buyer's Notice of Cancellation - ${data.propertyAddress}`;
+
+
+  const mailto =
+    "mailto:marketing@radiomeltdown.com" +
+    "?subject=" +
+    encodeURIComponent(subject) +
+    "&body=" +
+    encodeURIComponent(body);
+
+
+  window.location.href = mailto;
+
+}
+
+
+/* ============================================================
+   CLEAR FORM
+============================================================ */
+
+function clearForm() {
+
+  const confirmClear =
+    confirm(
+      "Clear the entire agreement and both signatures?"
+    );
+
+
+  if (!confirmClear) return;
+
+
+  document
+    .getElementById("cancellationForm")
+    .reset();
+
+
+  buyerPad.clear();
+
+  sellerPad.clear();
+
+  displayReferenceDate.textContent =
+    "________________";
+
+}
+
+
+/* ============================================================
+   ESCAPE HTML
+============================================================ */
+
+function escapeHTML(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* ============================================================
+   AUTO DATE
+============================================================ */
+
+function todayISO() {
+
+  const date =
+    new Date();
+
+  const offset =
+    date.getTimezoneOffset();
+
+  const local =
+    new Date(
+      date.getTime() -
+      offset * 60000
+    );
+
+  return local
+    .toISOString()
+    .split("T")[0];
+
+}
+
+
+document.getElementById(
+  "buyerSignatureDate"
+).value = todayISO();
+
+
+document.getElementById(
+  "sellerSignatureDate"
+).value = todayISO();
+
+</script>
+
+</body>
+</html>
