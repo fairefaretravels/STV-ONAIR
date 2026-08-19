@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Training 1 | Find Motivated Sellers</title>
+
+  <meta
+    name="description"
+    content="Real Estate Lead Generation Training — Learn how to stand out and find motivated sellers."
+  >
+
+  <style>
+    :root {
+      --bg: #080808;
+      --card: #121212;
+      --card-2: #181818;
+      --line: #292929;
+      --text: #f5f5f5;
+      --muted: #a8a8a8;
+      --accent: #00e676;
+      --accent-dark: #00b85c;
+      --warning: #ffd54f;
+      --radius: 20px;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(
+          circle at 50% -10%,
+          rgba(0,230,118,.12),
+          transparent 35%
+        ),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 0 18px 70px;
+    }
+
+    /* ---------------- TOP BAR ---------------- */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 12px 0;
+      background: rgba(8,8,8,.92);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .topbar-inner {
+      width: min(100%, 900px);
+      margin: auto;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: 999px;
+      background: #1c1c1c;
+      border: 1px solid #333;
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .back-button:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* ---------------- HERO ---------------- */
+
+    .hero {
+      padding: 50px 0 30px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(0,230,118,.25);
+      border-radius: 999px;
+      background: rgba(0,230,118,.06);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 14px var(--accent);
+    }
+
+    h1 {
+      margin: 20px 0 14px;
+      font-size: clamp(42px, 10vw, 76px);
+      line-height: .94;
+      letter-spacing: -.055em;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .hero-description {
+      margin: 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    /* ---------------- MAIN CARD ---------------- */
+
+    .training-card {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .training-card p {
+      margin: 0 0 20px;
+      color: #ddd;
+      font-size: 16px;
+    }
+
+    .training-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ---------------- BIG QUESTION ---------------- */
+
+    .question {
+      margin: 5px 0 28px;
+      padding: 22px;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 15px 15px 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0,230,118,.10),
+          rgba(0,230,118,.02)
+        );
+    }
+
+    .question-label {
+      margin-bottom: 5px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .question-text {
+      font-size: clamp(23px, 5vw, 34px);
+      font-weight: 850;
+      line-height: 1.15;
+    }
+
+    /* ---------------- PROBLEM LIST ---------------- */
+
+    .problem-box {
+      margin: 28px 0;
+      padding: 21px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--card-2);
+    }
+
+    .problem-box h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    .problem-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .problem-list li {
+      position: relative;
+      padding: 12px 14px 12px 42px;
+      border-radius: 12px;
+      background: #0d0d0d;
+      color: #ddd;
+    }
+
+    .problem-list li::before {
+      content: "×";
+      position: absolute;
+      left: 15px;
+      top: 8px;
+      color: #ff5252;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    /* ---------------- HIGHLIGHT ---------------- */
+
+    .highlight {
+      margin: 30px 0;
+      padding: 23px;
+      border-radius: 17px;
+      border: 1px solid rgba(0,230,118,.25);
+      background:
+        radial-gradient(
+          circle at 90% 0%,
+          rgba(0,230,118,.12),
+          transparent 40%
+        ),
+        #101512;
+    }
+
+    .highlight strong {
+      color: var(--accent);
+    }
+
+    .highlight-title {
+      margin-bottom: 10px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    /* ---------------- EXAMPLE ---------------- */
+
+    .example {
+      margin: 30px 0;
+      padding: 25px;
+      border-radius: 18px;
+      background: #050505;
+      border: 1px solid #252525;
+      text-align: center;
+    }
+
+    .example-label {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .example-message {
+      display: inline-block;
+      padding: 20px 27px;
+      border-radius: 12px;
+      background: white;
+      color: #080808;
+      font-size: clamp(22px, 5vw, 34px);
+      font-weight: 950;
+      letter-spacing: -.03em;
+    }
+
+    .example-note {
+      margin-top: 15px;
+      color: #888;
+      font-size: 13px;
+    }
+
+    /* ---------------- RESULT ---------------- */
+
+    .result {
+      margin: 30px 0;
+      padding: 24px;
+      border-radius: 18px;
+      background: #161616;
+      border: 1px solid #303030;
+    }
+
+    .result h2 {
+      margin: 0 0 12px;
+      font-size: 24px;
+    }
+
+    .result ul {
+      margin: 12px 0 0;
+      padding-left: 22px;
+      color: #ddd;
+    }
+
+    .result li {
+      margin: 7px 0;
+    }
+
+    /* ---------------- VIDEO ---------------- */
+
+    .video-section {
+      margin-top: 35px;
+    }
+
+    .video-section h2 {
+      margin: 0 0 8px;
+      font-size: 27px;
+    }
+
+    .video-section > p {
+      margin: 0 0 17px;
+      color: var(--muted);
+    }
+
+    .video-wrap {
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #000;
+      box-shadow: var(--shadow);
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .video-link {
+      display: block;
+      padding: 14px 17px;
+      color: var(--accent);
+      background: #0d0d0d;
+      border-top: 1px solid var(--line);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .video-link:hover {
+      background: #151515;
+    }
+
+    /* ---------------- TAKEAWAY ---------------- */
+
+    .takeaway {
+      margin-top: 30px;
+      padding: 24px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,213,79,.25);
+      background: rgba(255,213,79,.05);
+    }
+
+    .takeaway-title {
+      margin-bottom: 8px;
+      color: var(--warning);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .takeaway h2 {
+      margin: 0 0 8px;
+      font-size: 25px;
+    }
+
+    /* ---------------- BOTTOM BUTTON ---------------- */
+
+    .bottom-action {
+      margin-top: 35px;
+      text-align: center;
+    }
+
+    .dashboard-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: 0 25px;
+      border-radius: 14px;
+      background: var(--accent);
+      color: #000;
+      text-decoration: none;
+      font-weight: 950;
+      box-shadow: 0 10px 30px rgba(0,230,118,.15);
+      transition: .2s ease;
+    }
+
+    .dashboard-button:hover {
+      background: white;
+      transform: translateY(-2px);
+    }
+
+    /* ---------------- FOOTER ---------------- */
+
+    footer {
+      padding: 40px 0 10px;
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+    }
+
+    footer strong {
+      color: #999;
+    }
+
+    /* ---------------- DESKTOP ---------------- */
+
+    @media (min-width: 700px) {
+      .training-card {
+        padding: 35px;
+      }
+
+      .hero {
+        padding-top: 65px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP NAV -->
+  <div class="topbar">
+    <div class="topbar-inner">
+
+      <div class="brand">
+        Real Estate Training
+      </div>
+
+      <a
+        class="back-button"
+        href="https://radiomeltdown.com/RealEstate/"
+      >
+        ← Main Dashboard
+      </a>
+
+    </div>
+  </div>
+
+
+  <main class="page">
+
+    <!-- HERO -->
+    <header class="hero">
+
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Training 01
+      </div>
+
+      <h1>
+        Find<br>
+        <span>Motivated Sellers.</span>
+      </h1>
+
+      <p class="hero-description">
+        Stop looking and sounding like every other wholesaler.
+        The goal isn't simply more marketing. The goal is getting
+        noticed.
+      </p>
+
+    </header>
+
+
+    <!-- TRAINING -->
+    <article class="training-card">
+
+      <div class="question">
+
+        <div class="question-label">
+          The question everyone asks
+        </div>
+
+        <div class="question-text">
+          “How do I find motivated sellers?”
+        </div>
+
+      </div>
+
+
+      <p>
+        But nobody wants to admit the real problem…
+      </p>
+
+
+      <!-- PROBLEM -->
+      <div class="problem-box">
+
+        <h2>
+          Everyone is marketing the exact same way.
+        </h2>
+
+        <ul class="problem-list">
+
+          <li>
+            Texts people ignore
+          </li>
+
+          <li>
+            Calls people don't answer
+          </li>
+
+          <li>
+            Postcards that go straight in the trash
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <p>
+        And then people say:
+      </p>
+
+
+      <div class="highlight">
+
+        <div class="highlight-title">
+          “It's a numbers game.”
+        </div>
+
+        <p>
+          <strong>It's not.</strong>
+        </p>
+
+        <p>
+          It's a <strong>you-look-like-everyone-else problem.</strong>
+        </p>
+
+      </div>
+
+
+      <p>
+        Think about it.
+      </p>
+
+      <p>
+        If a seller is getting hit by <strong>10 wholesalers</strong>…
+      </p>
+
+      <p>
+        and all 10 wholesalers say the same thing…
+      </p>
+
+      <p>
+        why would that seller respond to <strong>you?</strong>
+      </p>
+
+
+      <!-- STRATEGY -->
+      <div class="result">
+
+        <h2>
+          Don't just optimize the same strategy.
+        </h2>
+
+        <p>
+          Instead of trying to optimize the same scripts and channels,
+          you need to be different enough to actually get noticed.
+        </p>
+
+      </div>
+
+
+      <!-- EXAMPLE -->
+      <div class="example">
+
+        <div class="example-label">
+          Simple Example
+        </div>
+
+        <p>
+          Instead of sending a normal postcard,
+          send one that simply says:
+        </p>
+
+        <div class="example-message">
+          “I made a video for you.”
+        </div>
+
+        <div class="example-note">
+          No pitch. No long explanation.
+          Just enough curiosity to make them stop.
+        </div>
+
+      </div>
+
+
+      <p>
+        Now the seller might think:
+      </p>
+
+      <div class="highlight">
+
+        <div class="highlight-title">
+          “Wait… what video?”
+        </div>
+
+        <p>
+          That's the point.
+        </p>
+
+      </div>
+
+
+      <p>
+        Instead of ignoring you, they go check.
+      </p>
+
+      <p>
+        When they do, they land on a simple page with a short video
+        where you introduce yourself and give them a way to reach out.
+      </p>
+
+      <p>
+        <strong>No pressure.</strong>
+      </p>
+
+
+      <!-- WHY IT WORKS -->
+      <div class="result">
+
+        <h2>
+          One small shift can change the response.
+        </h2>
+
+        <p>
+          You don't necessarily need:
+        </p>
+
+        <ul>
+
+          <li>
+            A completely new script
+          </li>
+
+          <li>
+            A bigger list
+          </li>
+
+          <li>
+            More marketing volume
+          </li>
+
+        </ul>
+
+        <p>
+          You need something that makes the seller stop and pay
+          attention.
+        </p>
+
+      </div>
+
+
+      <!-- VIDEO -->
+      <section class="video-section">
+
+        <h2>
+          Watch the Breakdown
+        </h2>
+
+        <p>
+          Here's the full explanation of the strategy and how to
+          set it up.
+        </p>
+
+        <div class="video-wrap">
+
+          <div class="video-frame">
+
+            <iframe
+              src="https://www.youtube.com/embed/CWAN60N4VJE"
+              title="How to Find Motivated Sellers"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+
+          </div>
+
+          <a
+            class="video-link"
+            href="https://www.youtube.com/watch?v=CWAN60N4VJE"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ▶ Open Training Video on YouTube →
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <!-- TAKEAWAY -->
+      <div class="takeaway">
+
+        <div class="takeaway-title">
+          Training Takeaway
+        </div>
+
+        <h2>
+          Don't compete by looking the same.
+        </h2>
+
+        <p>
+          If every wholesaler is sending the same message,
+          your advantage can be the way you get the seller's
+          attention in the first place.
+        </p>
+
+        <p>
+          <strong>
+            Different gets noticed.
+          </strong>
+        </p>
+
+      </div>
+
+
+      <!-- BOTTOM DASHBOARD -->
+      <div class="bottom-action">
+
+        <a
+          class="dashboard-button"
+          href="https://radiomeltdown.com/RealEstate/"
+        >
+          ← BACK TO REAL ESTATE DASHBOARD
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+      <strong>
+        Real Estate Training
+      </strong>
+
+      <br>
+
+      Powered by STV Radiomeltdown
+
+    </footer>
+
+  </main>
+
+</body>
+</html>
