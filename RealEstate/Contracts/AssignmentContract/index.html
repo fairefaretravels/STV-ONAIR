@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assignment of Contract Agreement</title>
+
+<style>
+:root{
+  --bg:#080808;
+  --card:#111;
+  --card2:#171717;
+  --line:#292929;
+  --text:#f5f5f5;
+  --muted:#aaa;
+  --accent:#ff1744;
+  --success:#49d17d;
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(255,23,68,.16),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.5;
+}
+
+.page{
+  width:min(100%,900px);
+  margin:auto;
+  padding:24px 16px 70px;
+}
+
+header{
+  margin-bottom:22px;
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 12px;
+  border:1px solid #333;
+  border-radius:999px;
+  color:#ddd;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+
+h1{
+  margin:18px 0 8px;
+  font-size:clamp(34px,9vw,62px);
+  line-height:.95;
+  letter-spacing:-.05em;
+  text-transform:uppercase;
+}
+
+h1 span{
+  color:var(--accent);
+}
+
+.intro{
+  color:var(--muted);
+  font-size:15px;
+}
+
+.section{
+  margin-top:18px;
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--card);
+}
+
+.section-number{
+  color:var(--accent);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.14em;
+}
+
+h2{
+  margin:5px 0 6px;
+  font-size:23px;
+}
+
+.description{
+  color:var(--muted);
+  font-size:14px;
+  margin:0 0 20px;
+}
+
+.field{
+  margin-top:17px;
+}
+
+.field:first-child{
+  margin-top:0;
+}
+
+label{
+  display:block;
+  margin-bottom:7px;
+  font-size:14px;
+  font-weight:750;
+}
+
+input,
+textarea{
+  width:100%;
+  min-height:50px;
+  padding:13px 14px;
+  border:1px solid #303030;
+  border-radius:13px;
+  background:#0b0b0b;
+  color:#fff;
+  outline:none;
+  font:inherit;
+}
+
+textarea{
+  min-height:110px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(255,23,68,.12);
+}
+
+.grid{
+  display:grid;
+  gap:15px;
+}
+
+.notice{
+  margin-top:15px;
+  padding:14px;
+  border-left:3px solid var(--accent);
+  background:rgba(255,23,68,.06);
+  color:#ccc;
+  font-size:13px;
+  border-radius:0 10px 10px 0;
+}
+
+/* SIGNATURE */
+
+.signature-box{
+  margin-top:20px;
+  padding:16px;
+  border:1px solid #303030;
+  border-radius:15px;
+  background:#0b0b0b;
+}
+
+.signature-box h3{
+  margin:0 0 10px;
+  font-size:17px;
+}
+
+canvas{
+  display:block;
+  width:100%;
+  height:170px;
+  background:#fff;
+  border-radius:10px;
+  touch-action:none;
+}
+
+.signature-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:9px;
+  gap:10px;
+}
+
+.signature-status{
+  color:#777;
+  font-size:12px;
+}
+
+.clear-signature{
+  border:1px solid #444;
+  background:#222;
+  color:#fff;
+  padding:8px 12px;
+  border-radius:9px;
+  cursor:pointer;
+}
+
+/* SUBMIT */
+
+.submit-card{
+  margin-top:22px;
+  padding:22px;
+  border:1px solid rgba(255,23,68,.4);
+  border-radius:var(--radius);
+  background:
+    radial-gradient(circle at 90% 10%,rgba(255,23,68,.13),transparent 35%),
+    var(--card);
+}
+
+.submit-card p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.actions{
+  display:grid;
+  gap:10px;
+  margin-top:18px;
+}
+
+button{
+  min-height:52px;
+  border:0;
+  border-radius:13px;
+  padding:0 18px;
+  font:inherit;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.primary{
+  background:var(--accent);
+  color:white;
+}
+
+.secondary{
+  background:#222;
+  color:#fff;
+  border:1px solid #333;
+}
+
+.success{
+  display:none;
+  margin-top:15px;
+  padding:15px;
+  border-radius:12px;
+  background:rgba(73,209,125,.08);
+  border:1px solid rgba(73,209,125,.3);
+  color:#c9f7da;
+}
+
+.success.show{
+  display:block;
+}
+
+footer{
+  text-align:center;
+  color:#666;
+  font-size:12px;
+  padding-top:35px;
+}
+
+footer a{
+  color:#aaa;
+  text-decoration:none;
+}
+
+@media(min-width:700px){
+  .page{
+    padding-left:24px;
+    padding-right:24px;
+  }
+
+  .grid.two{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .actions{
+    grid-template-columns:1fr 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header>
+  <div class="badge">REAL ESTATE CONTRACTS</div>
+
+  <h1>
+    Assignment<br>
+    <span>Agreement</span>
+  </h1>
+
+  <p class="intro">
+    Complete the information below, review the agreement,
+    and electronically sign where indicated.
+  </p>
+</header>
+
+
+<form id="assignmentForm">
+
+<!-- SECTION 1 -->
+
+<section class="section">
+
+<div class="section-number">01 / ASSIGNMENT DETAILS</div>
+
+<h2>Contract Information</h2>
+
+<p class="description">
+Enter the information exactly as it appears on the original purchase contract.
+</p>
+
+<div class="grid two">
+
+<div class="field">
+<label>Assignment Fee</label>
+<input
+type="text"
+name="assignmentFee"
+placeholder="$0.00">
+</div>
+
+<div class="field">
+<label>Assignor</label>
+<input
+type="text"
+name="assignor"
+placeholder="Assignor name">
+</div>
+
+</div>
+
+<div class="field">
+<label>Assignee</label>
+<input
+type="text"
+name="assignee"
+placeholder="Assignee name">
+</div>
+
+<div class="grid two">
+
+<div class="field">
+<label>Contract Date</label>
+<input
+type="date"
+name="contractDate">
+</div>
+
+<div class="field">
+<label>Contract Year</label>
+<input
+type="text"
+name="contractYear"
+placeholder="20__">
+</div>
+
+</div>
+
+<div class="field">
+<label>Original Contract — Party 1</label>
+<input
+type="text"
+name="contractParty1"
+placeholder="Name">
+</div>
+
+<div class="field">
+<label>Original Contract — Party 2</label>
+<input
+type="text"
+name="contractParty2"
+placeholder="Name">
+</div>
+
+<div class="field">
+<label>Property Address</label>
+<textarea
+name="propertyAddress"
+placeholder="Full property address"></textarea>
+</div>
+
+</section>
+
+
+<!-- SECTION 2 -->
+
+<section class="section">
+
+<div class="section-number">02 / AGREEMENT TERMS</div>
+
+<h2>Assignment Terms</h2>
+
+<p class="description">
+The following is the agreement language provided for the Assignment of Contract.
+</p>
+
+<div class="notice">
+
+<p>
+Assignor warrants and represents that said contract is in full force and effect
+and is fully assignable. Assignor further warrants that it has the full right
+and authority to transfer said contract and that contract rights herein
+transferred are free of lien, encumbrance or adverse claim. Said contract has
+not been modified and remains on the terms contained therein.
+</p>
+
+<p>
+Assignee hereby assumes and agrees to perform all remaining obligations of
+Assignor under the contract and agrees to indemnify and hold Assignor harmless
+from any claim or demand resulting from non-performance by Assignee. Assignee
+shall be entitled to all monies remaining to be paid under the contract,
+which rights are also assigned hereunder.
+</p>
+
+<p>
+The assignment fee shall be paid at the time of closing to Assignor in the
+form of cash, official check or wire transfer, and recorded on the settlement
+statement.
+</p>
+
+<p>
+It is hereby acknowledged by Assignee that this Assignment of Contract
+Agreement and the original contract for Sale and Purchase is not assignable
+by Assignee without the express written authorization of Assignor,
+authorization of which may be withheld for any reason by Assignor.
+</p>
+
+<p>
+This Assignment shall become effective as of the date last executed and shall
+be binding upon and inure to the benefit of the parties, their successors
+and assigns.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- SECTION 3 -->
+
+<section class="section">
+
+<div class="section-number">03 / CLOSING & ESCROW</div>
+
+<h2>Closing Information</h2>
+
+<div class="field">
+<label>Closing Shall Take Place No Later Than</label>
+<input
+type="date"
+name="closingDate">
+</div>
+
+<div class="field">
+<label>Non-Refundable Deposit Amount</label>
+<input
+type="text"
+name="depositAmount"
+placeholder="$0.00">
+</div>
+
+<div class="field">
+<label>Escrow Holder / Company</label>
+<input
+type="text"
+name="escrowHolder"
+placeholder="Escrow company or title company">
+</div>
+
+</section>
+
+
+<!-- SECTION 4 -->
+
+<section class="section">
+
+<div class="section-number">04 / ORIGINAL AGREEMENT</div>
+
+<h2>Assignment Language</h2>
+
+<p class="description">
+This section confirms the assignment terms contained in the agreement.
+</p>
+
+<div class="notice">
+
+<p>
+In consideration of the sum of the Assignment Fee entered above,
+the Assignor hereby assigns and otherwise transfers to the Assignee
+all rights, title, and interest held by Assignor in and to the contract
+described above.
+</p>
+
+<p>
+Assignor warrants that the contract is in full force and effect and is
+fully assignable and that Assignor has full right and authority to transfer
+the contract.
+</p>
+
+<p>
+Assignee assumes and agrees to perform all remaining obligations of Assignor
+under the contract and agrees to indemnify and hold Assignor harmless from
+claims resulting from non-performance by Assignee.
+</p>
+
+<p>
+The assignment fee shall be paid at closing in the form of cash, official
+check or wire transfer and recorded on the settlement statement.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- SECTION 5 -->
+
+<section class="section">
+
+<div class="section-number">05 / SIGNATURES</div>
+
+<h2>Electronic Signatures</h2>
+
+<p class="description">
+Each party should review the information above before signing.
+Draw your signature inside the signature box using your finger,
+stylus, mouse, or trackpad.
+</p>
+
+
+<!-- ASSIGNOR -->
+
+<div class="signature-box">
+
+<h3>Assignor Signature</h3>
+
+<canvas id="assignorSignature"></canvas>
+
+<div class="signature-actions">
+
+<span
+class="signature-status"
+id="assignorStatus">
+Signature required
+</span>
+
+<button
+type="button"
+class="clear-signature"
+onclick="clearSignature('assignor')">
+Clear
+</button>
+
+</div>
+
+<div class="field">
+<label>Assignor Date</label>
+<input
+type="date"
+name="assignorDate">
+</div>
+
+</div>
+
+
+<!-- ASSIGNEE -->
+
+<div class="signature-box">
+
+<h3>Assignee Signature</h3>
+
+<canvas id="assigneeSignature"></canvas>
+
+<div class="signature-actions">
+
+<span
+class="signature-status"
+id="assigneeStatus">
+Signature required
+</span>
+
+<button
+type="button"
+class="clear-signature"
+onclick="clearSignature('assignee')">
+Clear
+</button>
+
+</div>
+
+<div class="field">
+<label>Assignee Date</label>
+<input
+type="date"
+name="assigneeDate">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SUBMIT -->
+
+<div class="submit-card">
+
+<h2>Ready to Submit?</h2>
+
+<p>
+After submitting, your completed agreement will be prepared as an email
+addressed to <strong>marketing@radiomeltdown.com</strong>.
+Your email application will open so you can review the message and press
+<strong>Send</strong>.
+</p>
+
+<div class="actions">
+
+<button
+type="button"
+class="primary"
+id="submitBtn">
+SEND AGREEMENT →
+</button>
+
+<button
+type="button"
+class="secondary"
+id="downloadBtn">
+DOWNLOAD AGREEMENT
+</button>
+
+</div>
+
+<div
+class="success"
+id="successMessage">
+
+Your Assignment of Contract Agreement has been prepared.
+If your email app did not open, use <strong>Download Agreement</strong>
+and send the completed agreement to
+<strong>marketing@radiomeltdown.com</strong>.
+
+</div>
+
+</div>
+
+</form>
+
+
+<footer>
+
+<strong>STV RADIOMELTDOWN</strong><br><br>
+
+<a href="https://radiomeltdown.com/RealEstate/Contracts/">
+← Back to Contracts
+</a>
+
+<br><br>
+
+<a href="https://radiomeltdown.com/RealEstate/">
+Real Estate Main Dashboard
+</a>
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SIGNATURE PAD
+========================================================= */
+
+const signaturePads = {};
+
+function setupSignature(id, statusId){
+
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext("2d");
+
+  let drawing = false;
+
+  function resize(){
+
+    const ratio = window.devicePixelRatio || 1;
+
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+
+    ctx.scale(ratio, ratio);
+
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#111";
+  }
+
+  resize();
+
+  window.addEventListener("resize", resize);
+
+  function position(event){
+
+    const rect = canvas.getBoundingClientRect();
+
+    if(event.touches){
+
+      return {
+        x:event.touches[0].clientX - rect.left,
+        y:event.touches[0].clientY - rect.top
+      };
+
+    }
+
+    return {
+      x:event.clientX - rect.left,
+      y:event.clientY - rect.top
+    };
+
+  }
+
+  function start(event){
+
+    event.preventDefault();
+
+    drawing = true;
+
+    const p = position(event);
+
+    ctx.beginPath();
+    ctx.moveTo(p.x,p.y);
+
+  }
+
+  function draw(event){
+
+    if(!drawing) return;
+
+    event.preventDefault();
+
+    const p = position(event);
+
+    ctx.lineTo(p.x,p.y);
+    ctx.stroke();
+
+    document.getElementById(statusId).textContent =
+      "Signature captured ✓";
+
+  }
+
+  function stop(){
+
+    drawing = false;
+
+  }
+
+  canvas.addEventListener("mousedown",start);
+  canvas.addEventListener("mousemove",draw);
+  canvas.addEventListener("mouseup",stop);
+  canvas.addEventListener("mouseleave",stop);
+
+  canvas.addEventListener("touchstart",start,{passive:false});
+  canvas.addEventListener("touchmove",draw,{passive:false});
+  canvas.addEventListener("touchend",stop);
+
+  signaturePads[id] = {
+    canvas:canvas,
+    ctx:ctx
+  };
+
+}
+
+
+setupSignature(
+  "assignorSignature",
+  "assignorStatus"
+);
+
+setupSignature(
+  "assigneeSignature",
+  "assigneeStatus"
+);
+
+
+/* =========================================================
+   CLEAR SIGNATURE
+========================================================= */
+
+function clearSignature(type){
+
+  const id =
+    type === "assignor"
+      ? "assignorSignature"
+      : "assigneeSignature";
+
+  const status =
+    type === "assignor"
+      ? "assignorStatus"
+      : "assigneeStatus";
+
+  const pad = signaturePads[id];
+
+  const rect =
+    pad.canvas.getBoundingClientRect();
+
+  pad.ctx.clearRect(
+    0,
+    0,
+    rect.width,
+    rect.height
+  );
+
+  document.getElementById(status).textContent =
+    "Signature required";
+
+}
+
+
+/* =========================================================
+   SIGNATURE DATA
+========================================================= */
+
+function signatureData(id){
+
+  const pad = signaturePads[id];
+
+  const blank =
+    document.createElement("canvas");
+
+  blank.width = pad.canvas.width;
+  blank.height = pad.canvas.height;
+
+  if(
+    pad.canvas.toDataURL() ===
+    blank.toDataURL()
+  ){
+
+    return "";
+
+  }
+
+  return pad.canvas.toDataURL("image/png");
+
+}
+
+
+/* =========================================================
+   FORM DATA
+========================================================= */
+
+const form =
+  document.getElementById("assignmentForm");
+
+function value(name){
+
+  const field =
+    form.querySelector(`[name="${name}"]`);
+
+  return field
+    ? field.value.trim()
+    : "";
+
+}
+
+
+/* =========================================================
+   BUILD AGREEMENT
+========================================================= */
+
+function buildAgreement(){
+
+  const assignorSignature =
+    signatureData("assignorSignature");
+
+  const assigneeSignature =
+    signatureData("assigneeSignature");
+
+  const line =
+    "============================================================";
+
+  return `
+
+ASSIGNMENT OF CONTRACT AGREEMENT
+
+${line}
+
+ASSIGNMENT DETAILS
+
+Assignment Fee:
+${value("assignmentFee") || "Not provided"}
+
+Assignor:
+${value("assignor") || "Not provided"}
+
+Assignee:
+${value("assignee") || "Not provided"}
+
+Contract Date:
+${value("contractDate") || "Not provided"}
+
+Contract Year:
+${value("contractYear") || "Not provided"}
+
+Original Contract — Party 1:
+${value("contractParty1") || "Not provided"}
+
+Original Contract — Party 2:
+${value("contractParty2") || "Not provided"}
+
+Property Address:
+${value("propertyAddress") || "Not provided"}
+
+${line}
+
+ASSIGNMENT TERMS
+
+In consideration of the sum of the Assignment Fee entered above,
+
+Assignor hereby assigns and otherwise transfers to Assignee all rights,
+title, and interest held by Assignor in and to the contract described above.
+
+Assignor warrants and represents that said contract is in full force and
+effect and is fully assignable. Assignor further warrants that it has the
+full right and authority to transfer said contract and that contract rights
+herein transferred are free of lien, encumbrance or adverse claim. Said
+contract has not been modified and remains on the terms contained therein.
+
+Assignee hereby assumes and agrees to perform all remaining obligations
+of Assignor under the contract and agrees to indemnify and hold Assignor
+harmless from any claim or demand resulting from non-performance by Assignee.
+
+Assignee shall be entitled to all monies remaining to be paid under the
+contract, which rights are also assigned hereunder.
+
+The assignment fee shall be paid at the time of closing to Assignor in the
+form of cash, official check or wire transfer, and recorded on the settlement
+statement.
+
+${line}
+
+CLOSING
+
+Closing shall take place no later than:
+
+${value("closingDate") || "Not provided"}
+
+ASSIGNEE DEPOSIT
+
+Assignee has given a non-refundable deposit of:
+
+${value("depositAmount") || "Not provided"}
+
+To be held in escrow at:
+
+${value("escrowHolder") || "Not provided"}
+
+${line}
+
+ADDITIONAL TERMS
+
+It is hereby acknowledged by Assignee that this Assignment of Contract
+Agreement and the original contract for Sale and Purchase is not assignable
+by Assignee without the express written authorization of Assignor,
+authorization of which may be withheld for any reason by Assignor.
+
+This Assignment shall become effective as of the date last executed and
+shall be binding upon and inure to the benefit of the parties,
+their successors and assigns.
+
+${line}
+
+ELECTRONIC SIGNATURES
+
+ASSIGNOR
+
+Name:
+${value("assignor") || "Not provided"}
+
+Signature:
+[Electronic signature captured]
+
+Date:
+${value("assignorDate") || "Not provided"}
+
+
+ASSIGNEE
+
+Name:
+${value("assignee") || "Not provided"}
+
+Signature:
+[Electronic signature captured]
+
+Date:
+${value("assigneeDate") || "Not provided"}
+
+${line}
+
+Electronic signatures were captured through the web agreement form.
+
+Submitted:
+${new Date().toLocaleString()}
+
+Send to:
+marketing@radiomeltdown.com
+
+`;
+
+}
+
+
+/* =========================================================
+   VALIDATION
+========================================================= */
+
+function validate(){
+
+  const required = [
+
+    ["assignor","Assignor"],
+    ["assignee","Assignee"],
+    ["propertyAddress","Property Address"],
+    ["assignorDate","Assignor Date"],
+    ["assigneeDate","Assignee Date"]
+
+  ];
+
+  for(const [field,label] of required){
+
+    if(!value(field)){
+
+      alert(
+        `Please complete: ${label}`
+      );
+
+      const el =
+        form.querySelector(`[name="${field}"]`);
+
+      el.focus();
+
+      return false;
+
+    }
+
+  }
+
+  if(!signatureData("assignorSignature")){
+
+    alert("Please capture the Assignor signature.");
+
+    return false;
+
+  }
+
+  if(!signatureData("assigneeSignature")){
+
+    alert("Please capture the Assignee signature.");
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+/* =========================================================
+   SEND EMAIL
+========================================================= */
+
+const EMAIL_TO =
+  "marketing@radiomeltdown.com";
+
+document
+.getElementById("submitBtn")
+.addEventListener("click",()=>{
+
+  if(!validate()) return;
+
+  const agreement =
+    buildAgreement();
+
+  const subject =
+    encodeURIComponent(
+      `Assignment of Contract Agreement — ${value("propertyAddress") || "New Assignment"}`
+    );
+
+  const body =
+    encodeURIComponent(agreement);
+
+  const mailto =
+    `mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
+
+  document
+    .getElementById("successMessage")
+    .classList
+    .add("show");
+
+  window.location.href =
+    mailto;
+
+});
+
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+document
+.getElementById("downloadBtn")
+.addEventListener("click",()=>{
+
+  if(!validate()) return;
+
+  const agreement =
+    buildAgreement();
+
+  const blob =
+    new Blob(
+      [agreement],
+      {
+        type:"text/plain;charset=utf-8"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  const safe =
+    (
+      value("propertyAddress") ||
+      "assignment-contract"
+    )
+    .replace(
+      /[^a-z0-9]/gi,
+      "-"
+    )
+    .toLowerCase();
+
+  a.href = url;
+
+  a.download =
+    `assignment-contract-${safe}.txt`;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+});
+
+</script>
+
+</body>
+</html>
