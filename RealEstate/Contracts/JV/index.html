@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marketing Fee Addendum — JV Agreement</title>
+
+<style>
+:root {
+  --bg: #080808;
+  --card: #121212;
+  --card2: #181818;
+  --line: #303030;
+  --text: #f5f5f5;
+  --muted: #a5a5a5;
+  --accent: #ff1744;
+  --success: #45d483;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top, rgba(255,23,68,.14), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+}
+
+.page {
+  width: min(900px, 100%);
+  margin: auto;
+  padding: 20px 16px 60px;
+}
+
+header {
+  text-align: center;
+  padding: 25px 0 30px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 7px 13px;
+  border: 1px solid #333;
+  border-radius: 999px;
+  background: #111;
+  color: #aaa;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 18px 0 8px;
+  font-size: clamp(30px, 7vw, 52px);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -.04em;
+}
+
+h1 span {
+  color: var(--accent);
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 auto;
+  max-width: 650px;
+}
+
+.form-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.section-title {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.legal-text {
+  color: #ddd;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.field {
+  margin-top: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.required {
+  color: var(--accent);
+}
+
+input,
+textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 13px 14px;
+  border: 1px solid #333;
+  border-radius: 12px;
+  background: #090909;
+  color: white;
+  outline: none;
+  font: inherit;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,23,68,.12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.fee-box {
+  margin-top: 20px;
+  padding: 18px;
+  border-left: 3px solid var(--accent);
+  background: rgba(255,23,68,.06);
+  border-radius: 0 12px 12px 0;
+}
+
+.fee-box strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.signature-section {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+}
+
+.signature-box {
+  margin-top: 15px;
+}
+
+.signature-pad {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  border: 1px solid #444;
+  border-radius: 13px;
+  background: white;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.signature-pad canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
+.signature-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 7px;
+}
+
+.clear-signature {
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: #222;
+  color: white;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.checkbox-row input {
+  width: 18px;
+  min-height: 18px;
+  accent-color: var(--accent);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+button {
+  min-height: 52px;
+  border-radius: 12px;
+  border: 0;
+  padding: 0 18px;
+  font-weight: 900;
+  cursor: pointer;
+  font: inherit;
+}
+
+.primary {
+  background: var(--accent);
+  color: white;
+}
+
+.secondary {
+  background: #242424;
+  border: 1px solid #3a3a3a;
+  color: white;
+}
+
+button:active {
+  transform: scale(.98);
+}
+
+.status {
+  display: none;
+  margin-top: 18px;
+  padding: 15px;
+  border: 1px solid rgba(69,212,131,.35);
+  border-radius: 12px;
+  background: rgba(69,212,131,.08);
+  color: #c9f7da;
+}
+
+.status.show {
+  display: block;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 25px;
+  color: #ff8097;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+footer {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  padding: 30px 0 0;
+}
+
+@media(max-width:650px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-card {
+    padding: 17px;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* PRINT */
+@media print {
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .page {
+    width: 100%;
+    padding: 0;
+  }
+
+  header {
+    padding: 0 0 15px;
+  }
+
+  h1 span {
+    color: black;
+  }
+
+  .subtitle,
+  .badge {
+    color: #555;
+  }
+
+  .form-card {
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+  }
+
+  input,
+  textarea {
+    color: black;
+    background: white;
+    border: 1px solid #999;
+  }
+
+  .actions,
+  .back-link,
+  footer,
+  .signature-controls {
+    display: none !important;
+  }
+
+  .signature-pad {
+    border: 1px solid #777;
+  }
+
+  .section {
+    break-inside: avoid;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header>
+
+  <div class="badge">
+    STV RADIOMELTDOWN • REAL ESTATE
+  </div>
+
+  <h1>
+    Marketing Fee<br>
+    <span>Addendum</span>
+  </h1>
+
+  <p class="subtitle">
+    Joint Venture Agreement — Marketing / End Buyer Fee
+  </p>
+
+</header>
+
+
+<form id="agreementForm">
+
+<div class="form-card">
+
+<!-- DATE -->
+
+<div class="section">
+
+  <div class="section-title">
+    Agreement Information
+  </div>
+
+  <div class="field">
+
+    <label>
+      Date <span class="required">*</span>
+    </label>
+
+    <input
+      type="date"
+      id="agreementDate"
+      required
+    >
+
+  </div>
+
+</div>
+
+
+<!-- PROPERTY -->
+
+<div class="section">
+
+  <div class="section-title">
+    Property & Original Contract
+  </div>
+
+  <div class="field">
+
+    <label>
+      Property Address <span class="required">*</span>
+    </label>
+
+    <textarea
+      id="propertyAddress"
+      required
+      placeholder="Enter complete property address"
+    ></textarea>
+
+  </div>
+
+
+  <div class="grid">
+
+    <div class="field">
+
+      <label>
+        Seller <span class="required">*</span>
+      </label>
+
+      <input
+        type="text"
+        id="seller"
+        required
+        placeholder="Seller name"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Buyer <span class="required">*</span>
+      </label>
+
+      <input
+        type="text"
+        id="buyer"
+        required
+        placeholder="Buyer / Wholesaler name"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Original Contract Date
+    </label>
+
+    <input
+      type="date"
+      id="contractDate"
+    >
+
+  </div>
+
+</div>
+
+
+<!-- FEE -->
+
+<div class="section">
+
+  <div class="section-title">
+    Marketing Fee Agreement
+  </div>
+
+  <div class="fee-box">
+
+    <strong>
+      Buyer agrees to pay the JV Partner / Marketing Partner
+      50% of the total assignment or double-closing fee at closing
+      for finding the end buyer.
+    </strong>
+
+    <div class="field">
+
+      <label>
+        Marketing / JV Partner Name
+        <span class="required">*</span>
+      </label>
+
+      <input
+        type="text"
+        id="jvPartnerName"
+        required
+        placeholder="Name of JV Partner / Wholesaler"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Total Assignment / Double-Closing Fee
+      </label>
+
+      <input
+        type="text"
+        id="totalFee"
+        placeholder="$0.00"
+      >
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- EXPIRATION -->
+
+<div class="section">
+
+  <div class="section-title">
+    End-Buyer Deadline
+  </div>
+
+  <div class="legal-text">
+
+    This agreement expires if no end-buyer has been located
+    and signed the assignment agreement on the above property
+    by the following date:
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Expiration Date <span class="required">*</span>
+    </label>
+
+    <input
+      type="date"
+      id="expirationDate"
+      required
+    >
+
+  </div>
+
+</div>
+
+
+<!-- LEGAL BODY -->
+
+<div class="section">
+
+  <div class="section-title">
+    Agreement Terms
+  </div>
+
+  <div class="legal-text">
+
+    The parties acknowledge and agree that the Marketing / JV
+    Partner is entitled to fifty percent (50%) of the total
+    assignment or double-closing fee received at closing for
+    locating and securing the end buyer for the above-described
+    property.
+
+    <br><br>
+
+    The parties agree that this addendum supplements their
+    joint venture arrangement concerning the above property
+    and becomes effective upon execution by both parties.
+
+    <br><br>
+
+    The parties acknowledge that they should review the
+    underlying purchase contract, applicable state law, and
+    any applicable title, escrow, brokerage, disclosure, or
+    licensing requirements before relying upon this agreement.
+
+  </div>
+
+</div>
+
+
+<!-- BUYER SIGNATURE -->
+
+<div class="signature-section">
+
+  <div class="section-title">
+    Buyer / Wholesaler
+  </div>
+
+  <div class="signature-box">
+
+    <label>
+      Buyer / Wholesaler Signature
+      <span class="required">*</span>
+    </label>
+
+    <div class="signature-pad">
+
+      <canvas id="buyerSignature"></canvas>
+
+    </div>
+
+    <div class="signature-controls">
+
+      <button
+        type="button"
+        class="clear-signature"
+        onclick="clearSignature('buyerSignature')"
+      >
+        Clear Signature
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Print Name <span class="required">*</span>
+    </label>
+
+    <input
+      type="text"
+      id="buyerPrintName"
+      required
+      placeholder="Buyer / Wholesaler printed name"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Signature Date <span class="required">*</span>
+    </label>
+
+    <input
+      type="date"
+      id="buyerDate"
+      required
+    >
+
+  </div>
+
+</div>
+
+
+<!-- JV SIGNATURE -->
+
+<div class="signature-section">
+
+  <div class="section-title">
+    JV Partner / Wholesaler
+  </div>
+
+  <div class="signature-box">
+
+    <label>
+      JV Partner / Wholesaler Signature
+      <span class="required">*</span>
+    </label>
+
+    <div class="signature-pad">
+
+      <canvas id="jvSignature"></canvas>
+
+    </div>
+
+    <div class="signature-controls">
+
+      <button
+        type="button"
+        class="clear-signature"
+        onclick="clearSignature('jvSignature')"
+      >
+        Clear Signature
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Print Name <span class="required">*</span>
+    </label>
+
+    <input
+      type="text"
+      id="jvPrintName"
+      required
+      placeholder="JV Partner / Wholesaler printed name"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label>
+      Signature Date <span class="required">*</span>
+    </label>
+
+    <input
+      type="date"
+      id="jvDate"
+      required
+    >
+
+  </div>
+
+</div>
+
+
+<!-- ACKNOWLEDGEMENT -->
+
+<div class="checkbox-row">
+
+  <input
+    type="checkbox"
+    id="agreementConfirm"
+    required
+  >
+
+  <label for="agreementConfirm">
+    I acknowledge that I have reviewed the information entered
+    above and agree to the terms presented in this addendum.
+  </label>
+
+</div>
+
+
+<!-- ACTIONS -->
+
+<div class="actions">
+
+  <button
+    type="button"
+    class="primary"
+    onclick="submitAgreement()"
+  >
+    SUBMIT AGREEMENT →
+  </button>
+
+
+  <button
+    type="button"
+    class="secondary"
+    onclick="downloadAgreement()"
+  >
+    DOWNLOAD AGREEMENT
+  </button>
+
+</div>
+
+
+<div class="actions">
+
+  <button
+    type="button"
+    class="secondary"
+    onclick="window.print()"
+  >
+    PRINT AGREEMENT
+  </button>
+
+
+  <button
+    type="button"
+    class="secondary"
+    onclick="clearForm()"
+  >
+    CLEAR FORM
+  </button>
+
+</div>
+
+
+<div
+  class="status"
+  id="status"
+>
+  Your agreement has been prepared. Your email application
+  should open with the completed agreement addressed to
+  marketing@radiomeltdown.com.
+</div>
+
+
+</div>
+
+</form>
+
+
+<a
+  class="back-link"
+  href="https://radiomeltdown.com/RealEstate/Contracts/"
+>
+  ← Back to Real Estate Contracts
+</a>
+
+
+<footer>
+
+  <strong>STV RADIOMELTDOWN</strong><br>
+  Real Estate Resources
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   SIGNATURE PAD
+========================================================= */
+
+const signaturePads = {};
+
+function setupSignature(id) {
+
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext("2d");
+
+  let drawing = false;
+  let hasSignature = false;
+
+  function resizeCanvas() {
+
+    const rect = canvas.getBoundingClientRect();
+
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+    const existing = canvas.toDataURL();
+
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+
+    ctx.scale(ratio, ratio);
+
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = "#111";
+
+    if (hasSignature) {
+
+      const image = new Image();
+
+      image.onload = function() {
+        ctx.drawImage(
+          image,
+          0,
+          0,
+          rect.width,
+          rect.height
+        );
+      };
+
+      image.src = existing;
+    }
+  }
+
+  function getPosition(event) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    if (event.touches && event.touches.length) {
+
+      return {
+        x: event.touches[0].clientX - rect.left,
+        y: event.touches[0].clientY - rect.top
+      };
+
+    }
+
+    return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    };
+  }
+
+  function startDrawing(event) {
+
+    event.preventDefault();
+
+    drawing = true;
+    hasSignature = true;
+
+    const pos = getPosition(event);
+
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+  }
+
+  function draw(event) {
+
+    if (!drawing) return;
+
+    event.preventDefault();
+
+    const pos = getPosition(event);
+
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+  }
+
+  function stopDrawing() {
+
+    drawing = false;
+    ctx.closePath();
+
+  }
+
+  canvas.addEventListener("mousedown", startDrawing);
+  canvas.addEventListener("mousemove", draw);
+  canvas.addEventListener("mouseup", stopDrawing);
+  canvas.addEventListener("mouseleave", stopDrawing);
+
+  canvas.addEventListener("touchstart", startDrawing, {
+    passive: false
+  });
+
+  canvas.addEventListener("touchmove", draw, {
+    passive: false
+  });
+
+  canvas.addEventListener("touchend", stopDrawing);
+
+  resizeCanvas();
+
+  window.addEventListener("resize", resizeCanvas);
+
+  signaturePads[id] = {
+
+    canvas: canvas,
+
+    hasSignature: function() {
+      return hasSignature;
+    },
+
+    clear: function() {
+
+      ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      hasSignature = false;
+
+    },
+
+    getData: function() {
+      return canvas.toDataURL("image/png");
+    }
+
+  };
+
+}
+
+
+/* Initialize both signature boxes */
+
+setupSignature("buyerSignature");
+setupSignature("jvSignature");
+
+
+function clearSignature(id) {
+
+  if (signaturePads[id]) {
+    signaturePads[id].clear();
+  }
+
+}
+
+
+/* =========================================================
+   COLLECT DATA
+========================================================= */
+
+function getData() {
+
+  return {
+
+    agreementDate:
+      document.getElementById("agreementDate").value,
+
+    propertyAddress:
+      document.getElementById("propertyAddress").value,
+
+    seller:
+      document.getElementById("seller").value,
+
+    buyer:
+      document.getElementById("buyer").value,
+
+    contractDate:
+      document.getElementById("contractDate").value,
+
+    jvPartnerName:
+      document.getElementById("jvPartnerName").value,
+
+    totalFee:
+      document.getElementById("totalFee").value,
+
+    expirationDate:
+      document.getElementById("expirationDate").value,
+
+    buyerPrintName:
+      document.getElementById("buyerPrintName").value,
+
+    buyerDate:
+      document.getElementById("buyerDate").value,
+
+    jvPrintName:
+      document.getElementById("jvPrintName").value,
+
+    jvDate:
+      document.getElementById("jvDate").value,
+
+    buyerSignature:
+      signaturePads["buyerSignature"].getData(),
+
+    jvSignature:
+      signaturePads["jvSignature"].getData()
+
+  };
+
+}
+
+
+/* =========================================================
+   VALIDATION
+========================================================= */
+
+function validateAgreement() {
+
+  const form =
+    document.getElementById("agreementForm");
+
+  if (!form.checkValidity()) {
+
+    form.reportValidity();
+
+    return false;
+
+  }
+
+  if (
+    !signaturePads["buyerSignature"].hasSignature()
+  ) {
+
+    alert(
+      "Please provide the Buyer / Wholesaler signature."
+    );
+
+    return false;
+
+  }
+
+  if (
+    !signaturePads["jvSignature"].hasSignature()
+  ) {
+
+    alert(
+      "Please provide the JV Partner / Wholesaler signature."
+    );
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+/* =========================================================
+   EMAIL SUBMISSION
+========================================================= */
+
+function submitAgreement() {
+
+  if (!validateAgreement()) return;
+
+  const data = getData();
+
+  const subject =
+    "Marketing Fee Addendum — " +
+    (data.propertyAddress || "New Agreement");
+
+  const body = `
+
+MARKETING FEE ADDENDUM - JV AGREEMENT
+
+Date:
+${data.agreementDate}
+
+PROPERTY
+
+Property Address:
+${data.propertyAddress}
+
+Seller:
+${data.seller}
+
+Buyer:
+${data.buyer}
+
+Original Contract Date:
+${data.contractDate || "Not provided"}
+
+
+MARKETING FEE
+
+JV Partner / Wholesaler:
+${data.jvPartnerName}
+
+Total Assignment / Double-Closing Fee:
+${data.totalFee || "Not provided"}
+
+JV Partner Fee:
+50% of total assignment / double-closing fee at closing.
+
+
+END-BUYER DEADLINE
+
+${data.expirationDate}
+
+
+BUYER / WHOLESALER
+
+Printed Name:
+${data.buyerPrintName}
+
+Signature:
+Electronically signed
+
+Signature Date:
+${data.buyerDate}
+
+
+JV PARTNER / WHOLESALER
+
+Printed Name:
+${data.jvPrintName}
+
+Signature:
+Electronically signed
+
+Signature Date:
+${data.jvDate}
+
+
+This agreement was completed through the STV Radiomeltdown
+Real Estate online agreement form.
+
+NOTE:
+The drawn signatures are stored in the browser-generated
+agreement/download. The email application itself may not
+attach those signature images automatically.
+
+`;
+
+  const mailto =
+    "mailto:marketing@radiomeltdown.com" +
+    "?subject=" +
+    encodeURIComponent(subject) +
+    "&body=" +
+    encodeURIComponent(body);
+
+  document.getElementById("status").classList.add("show");
+
+  window.location.href = mailto;
+
+}
+
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+function downloadAgreement() {
+
+  if (!validateAgreement()) return;
+
+  const data = getData();
+
+  const html = `
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Marketing Fee Addendum - JV Agreement</title>
+
+<style>
+
+body {
+  font-family: Arial, sans-serif;
+  color: #111;
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  border-bottom: 1px solid #999;
+  padding-bottom: 6px;
+}
+
+.field {
+  margin: 15px 0;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.signature {
+  margin-top: 20px;
+}
+
+.signature img {
+  width: 400px;
+  height: 130px;
+  object-fit: contain;
+  border-bottom: 1px solid #111;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+MARKETING FEE ADDENDUM - JV AGREEMENT
+</h1>
+
+<div class="field">
+<span class="label">Date:</span>
+${escapeHTML(data.agreementDate)}
+</div>
+
+<h2>Property & Contract</h2>
+
+<div class="field">
+<span class="label">Property Address:</span><br>
+${escapeHTML(data.propertyAddress)}
+</div>
+
+<div class="field">
+<span class="label">Seller:</span>
+${escapeHTML(data.seller)}
+</div>
+
+<div class="field">
+<span class="label">Buyer:</span>
+${escapeHTML(data.buyer)}
+</div>
+
+<div class="field">
+<span class="label">Contract Date:</span>
+${escapeHTML(data.contractDate)}
+</div>
+
+<h2>Marketing Fee</h2>
+
+<p>
+Buyer agrees to pay
+<strong>
+${escapeHTML(data.jvPartnerName)}
+</strong>
+50% of the total assignment/double closing fee at closing
+for finding the end buyer.
+</p>
+
+<div class="field">
+<span class="label">
+Total Assignment / Double-Closing Fee:
+</span>
+${escapeHTML(data.totalFee)}
+</div>
+
+<h2>Expiration</h2>
+
+<p>
+This agreement expires if no end-buyer has been located
+and signed the assignment agreement on the above property by:
+<strong>
+${escapeHTML(data.expirationDate)}
+</strong>
+</p>
+
+<h2>Buyer / Wholesaler</h2>
+
+<div class="signature">
+
+<img src="${data.buyerSignature}">
+
+<p>
+<strong>Print Name:</strong>
+${escapeHTML(data.buyerPrintName)}
+</p>
+
+<p>
+<strong>Date:</strong>
+${escapeHTML(data.buyerDate)}
+</p>
+
+</div>
+
+<h2>JV Partner / Wholesaler</h2>
+
+<div class="signature">
+
+<img src="${data.jvSignature}">
+
+<p>
+<strong>Print Name:</strong>
+${escapeHTML(data.jvPrintName)}
+</p>
+
+<p>
+<strong>Date:</strong>
+${escapeHTML(data.jvDate)}
+</p>
+
+</div>
+
+<hr>
+
+<p>
+The parties acknowledge and agree to the terms of this
+Marketing Fee Addendum - JV Agreement.
+</p>
+
+<p>
+Generated through STV Radiomeltdown Real Estate.
+</p>
+
+</body>
+
+</html>
+`;
+
+  const blob =
+    new Blob(
+      [html],
+      { type: "text/html;charset=utf-8" }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  const filename =
+    "Marketing-Fee-Addendum-JV-Agreement.html";
+
+  a.href = url;
+  a.download = filename;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHTML(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   CLEAR FORM
+========================================================= */
+
+function clearForm() {
+
+  if (
+    !confirm(
+      "Clear all agreement information and signatures?"
+    )
+  ) return;
+
+  document
+    .getElementById("agreementForm")
+    .reset();
+
+  clearSignature("buyerSignature");
+  clearSignature("jvSignature");
+
+  document
+    .getElementById("status")
+    .classList.remove("show");
+
+}
+
+
+/* =========================================================
+   DEFAULT DATES
+========================================================= */
+
+const today =
+  new Date().toISOString().split("T")[0];
+
+document.getElementById(
+  "agreementDate"
+).value = today;
+
+document.getElementById(
+  "buyerDate"
+).value = today;
+
+document.getElementById(
+  "jvDate"
+).value = today;
+
+</script>
+
+</body>
+</html>
