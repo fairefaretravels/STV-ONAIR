@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standard Purchase and Sale Agreement</title>
+
+<style>
+:root{
+  --bg:#080808;
+  --card:#111;
+  --card2:#171717;
+  --line:#303030;
+  --text:#f5f5f5;
+  --muted:#999;
+  --accent:#ff1744;
+  --accent2:#ff4d6d;
+  --success:#49d17d;
+  --radius:16px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(255,23,68,.18),transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  line-height:1.5;
+}
+
+.page{
+  width:min(100%,1000px);
+  margin:auto;
+  padding:20px 16px 80px;
+}
+
+header{
+  text-align:center;
+  padding:25px 0 30px;
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 12px;
+  border:1px solid #333;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.12em;
+  color:#ddd;
+}
+
+header h1{
+  font-size:clamp(30px,7vw,55px);
+  line-height:1;
+  margin:18px 0 10px;
+  text-transform:uppercase;
+}
+
+header h1 span{
+  color:var(--accent);
+}
+
+header p{
+  max-width:700px;
+  margin:auto;
+  color:var(--muted);
+}
+
+.notice{
+  background:rgba(255,23,68,.07);
+  border:1px solid rgba(255,23,68,.3);
+  padding:16px;
+  border-radius:14px;
+  margin-bottom:20px;
+  font-size:13px;
+}
+
+.section{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:22px;
+  margin-bottom:18px;
+}
+
+.section-title{
+  color:var(--accent);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+h2{
+  margin:5px 0 8px;
+  font-size:23px;
+}
+
+h3{
+  margin-top:25px;
+  font-size:17px;
+}
+
+p.description{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.field{
+  margin-top:16px;
+}
+
+label{
+  display:block;
+  margin-bottom:7px;
+  font-size:13px;
+  font-weight:750;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:12px 13px;
+  background:#0b0b0b;
+  color:white;
+  outline:none;
+  font:inherit;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(255,23,68,.12);
+}
+
+.grid{
+  display:grid;
+  gap:14px;
+}
+
+.two{
+  grid-template-columns:repeat(2,1fr);
+}
+
+.three{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.option{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:12px;
+  background:#0b0b0b;
+  border:1px solid #292929;
+  border-radius:11px;
+  margin-top:8px;
+}
+
+.option input{
+  width:auto;
+  margin-top:4px;
+  accent-color:var(--accent);
+}
+
+.option label{
+  margin:0;
+  font-weight:600;
+}
+
+.clause{
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid #292929;
+}
+
+.clause-number{
+  color:var(--accent);
+  font-weight:900;
+  margin-right:6px;
+}
+
+.clause p{
+  font-size:14px;
+  color:#ddd;
+}
+
+.signature-box{
+  background:#0b0b0b;
+  border:1px solid #333;
+  border-radius:13px;
+  padding:14px;
+}
+
+.signature-canvas{
+  width:100%;
+  height:170px;
+  background:#fff;
+  border-radius:9px;
+  display:block;
+  touch-action:none;
+  cursor:crosshair;
+}
+
+.signature-actions{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+
+.small-btn{
+  border:1px solid #333;
+  background:#222;
+  color:white;
+  border-radius:8px;
+  padding:7px 11px;
+  cursor:pointer;
+}
+
+.review{
+  background:#101010;
+  border:1px solid #333;
+  border-radius:13px;
+  padding:18px;
+  white-space:pre-wrap;
+  font-size:13px;
+  color:#ddd;
+  max-height:500px;
+  overflow:auto;
+}
+
+.actions{
+  position:sticky;
+  bottom:0;
+  z-index:10;
+  background:rgba(8,8,8,.94);
+  backdrop-filter:blur(12px);
+  border-top:1px solid #292929;
+  padding:14px 0;
+  display:flex;
+  gap:10px;
+}
+
+.btn{
+  flex:1;
+  min-height:52px;
+  border:0;
+  border-radius:12px;
+  padding:0 16px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+.primary{
+  background:var(--accent);
+  color:white;
+}
+
+.secondary{
+  background:#222;
+  color:white;
+  border:1px solid #333;
+}
+
+.success{
+  display:none;
+  margin-top:15px;
+  padding:14px;
+  border-radius:12px;
+  background:rgba(73,209,125,.08);
+  border:1px solid rgba(73,209,125,.3);
+  color:#c9f7da;
+}
+
+footer{
+  text-align:center;
+  color:#666;
+  font-size:12px;
+  padding:30px 0;
+}
+
+@media(max-width:700px){
+  .two,
+  .three{
+    grid-template-columns:1fr;
+  }
+
+  .section{
+    padding:17px;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+}
+
+@media print{
+  body{
+    background:white;
+    color:black;
+  }
+
+  .page{
+    width:100%;
+    padding:0;
+  }
+
+  header,
+  .notice,
+  .actions,
+  footer,
+  .review-section{
+    display:none!important;
+  }
+
+  .section{
+    color:black;
+    background:white;
+    border:0;
+    padding:0;
+    margin-bottom:25px;
+    break-inside:avoid;
+  }
+
+  input,
+  textarea,
+  select{
+    color:black;
+    background:white;
+    border:1px solid #777;
+  }
+
+  .clause p{
+    color:black;
+  }
+
+  .signature-canvas{
+    border:1px solid #777;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header>
+  <div class="badge">REAL ESTATE • PURCHASE AGREEMENT</div>
+
+  <h1>
+    Standard Purchase<br>
+    <span>& Sale Agreement</span>
+  </h1>
+
+  <p>
+    Complete all applicable fields. Review the agreement carefully before
+    signing.
+  </p>
+</header>
+
+<div class="notice">
+  <strong>Important:</strong>
+  This form is provided as an electronic form version of the agreement text
+  supplied by the user. Real-estate contract requirements can vary by state.
+  Consider having the completed agreement reviewed by a qualified attorney
+  before execution.
+</div>
+
+<form id="purchaseForm">
+
+<!-- ===================================================== -->
+<!-- BASIC INFORMATION -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="section-title">Agreement Information</div>
+<h2>Contract Details</h2>
+
+<div class="grid three">
+
+<div class="field">
+<label>Agreement Day</label>
+<input type="number" name="agreementDay" min="1" max="31">
+</div>
+
+<div class="field">
+<label>Agreement Month</label>
+<input type="text" name="agreementMonth">
+</div>
+
+<div class="field">
+<label>Agreement Year</label>
+<input type="number" name="agreementYear">
+</div>
+
+</div>
+
+<div class="grid two">
+
+<div class="field">
+<label>Seller(s)</label>
+<input type="text" name="sellerNames">
+</div>
+
+<div class="field">
+<label>Buyer(s)</label>
+<input type="text" name="buyerNames">
+</div>
+
+</div>
+
+<div class="field">
+<label>Street Address</label>
+<input type="text" name="streetAddress">
+</div>
+
+<div class="grid three">
+
+<div class="field">
+<label>City</label>
+<input type="text" name="city">
+</div>
+
+<div class="field">
+<label>State</label>
+<input type="text" name="state">
+</div>
+
+<div class="field">
+<label>ZIP Code</label>
+<input type="text" name="zip">
+</div>
+
+</div>
+
+<div class="field">
+<label>Legal Description</label>
+<textarea name="legalDescription"></textarea>
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- PURCHASE PRICE -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="section-title">Purchase Price</div>
+<h2>Financial Terms</h2>
+
+<div class="grid three">
+
+<div class="field">
+<label>Earnest Money Deposit ($)</label>
+<input type="number" step="0.01" name="earnestMoney">
+</div>
+
+<div class="field">
+<label>Cash to Seller at Closing ($)</label>
+<input type="number" step="0.01" name="cashClosing">
+</div>
+
+<div class="field">
+<label>Total Purchase Price ($)</label>
+<input type="number" step="0.01" name="totalPrice">
+</div>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">1.</span>EARNEST MONEY</strong>
+
+<p>
+Earnest Money to be deposited with a licensed title company or attorney
+within 48 hours of acceptance and ratification of offer. If this contract
+is canceled by buyer pursuant to the terms of this contract, buyer becomes
+entitled to a return of the EMD and escrow agent shall immediately refund
+to buyer all EMD then in escrow.
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- FINANCING -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="section-title">Section 2</div>
+<h2>Financing</h2>
+
+<div class="option">
+<input type="checkbox" name="cashFinancing">
+<label>
+<strong>Cash.</strong>
+“Cash” is defined as capital from buyer’s personal funds and/or buyer’s
+investors, partners and/or unconventional lending sources. This agreement
+is not contingent on buyer securing funds to close.
+</label>
+</div>
+
+<div class="option">
+<input type="checkbox" name="sellerFinancing">
+<label>Seller Financing</label>
+</div>
+
+<div class="field">
+<label>Seller Financing Terms</label>
+<textarea name="sellerFinancingTerms"></textarea>
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- PRORATIONS -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="clause">
+<strong><span class="clause-number">3.</span>PRORATIONS, IMPOUNDS & SECURITY DEPOSITS</strong>
+
+<p>
+Loan interest, property taxes, insurance, and rents shall be prorated as
+of the date of closing. All security deposits shall be transferred to buyer
+at closing. All impound accounts for taxes and insurance are included in
+the purchase price and shall be transferred to buyer at closing. Any
+shortage in these accounts shall be charged to seller at closing.
+</p>
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">4.</span>CLOSING DATE AND TRANSFER OF TITLE</strong>
+
+<p>
+This transaction shall close on or before:
+</p>
+
+<div class="grid two">
+<div class="field">
+<label>Closing Date</label>
+<input type="date" name="closingDate">
+</div>
+
+<div class="field">
+<label>Closing Location</label>
+<input type="text" name="closingLocation">
+</div>
+</div>
+
+<p>
+Seller(s) agree to transfer marketable title free and clear of all
+encumbrances except those listed and pay any required state taxes or stamps
+required to record deed and mortgage. Seller agrees to furnish title
+insurance in the amount of the purchase price, showing no encumbrances or
+exceptions other than previously noted.
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- CLOSING FEES -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="clause">
+
+<strong><span class="clause-number">5.</span>ESCROW AND CLOSING FEES</strong>
+
+<p>
+Closing fees due at close of escrow with the exception of delinquent
+property taxes, mortgage liens, mechanics liens, IRS liens, judgements
+and/or any liens to be paid as follows:
+</p>
+
+<div class="option">
+<input type="radio" name="closingFees" value="respective">
+<label>
+Buyer and Seller shall each pay their respective escrow and closing fees
+according to the usual and customary practices in the state of:
+</label>
+</div>
+
+<input type="text" name="closingFeeState" placeholder="State">
+
+<div class="option">
+<input type="radio" name="closingFees" value="split">
+<label>Buyer and Seller agree to split evenly all escrow and closing costs.</label>
+</div>
+
+<div class="option">
+<input type="radio" name="closingFees" value="buyer">
+<label>Buyer shall pay all escrow and closing fees.</label>
+</div>
+
+<div class="option">
+<input type="radio" name="closingFees" value="seller">
+<label>Seller shall pay all escrow and closing fees.</label>
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- CLAUSES 6-10 -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="clause">
+<strong><span class="clause-number">6.</span>DAMAGE TO PROPERTY</strong>
+<p>
+Seller shall maintain property in its current condition and keep it insured
+against all loss until closing. In the event of destruction covered by
+insurance, buyer may elect to close and collect the insurance proceeds.
+</p>
+</div>
+
+<div class="clause">
+<strong><span class="clause-number">7.</span>INSPECTION PERIOD</strong>
+<p>
+Buyer’s obligations to close this transaction are subject to the
+satisfaction of buyer’s inspections and investigations of the property.
+Buyer shall have until the business day before close of escrow (the
+“inspection period”), during which time Buyer will have the absolute right
+to cancel this contract for any reason whatsoever at buyer’s sole and
+absolute discretion. Upon such cancellation, buyer shall be entitled to
+a return of all earnest money held in escrow. Unless buyer gives written
+notice of cancellation before the expiration date of the inspection
+period, then buyer will be deemed to have elected not to cancel this
+contract.
+</p>
+</div>
+
+<div class="clause">
+<strong><span class="clause-number">8.</span>ACCESS TO PROPERTY</strong>
+
+<p>
+Between contract date and close of escrow, seller grants buyer and/or
+buyer’s employees, inspectors, partners, investors, contractors and/or
+agent(s) full access to the property as follows:
+</p>
+
+<div class="option">
+<input type="checkbox" name="vacantProperty">
+<label>
+<strong>VACANT.</strong>
+If the property is vacant as of the contract date, buyer reserves the right
+to install a lockbox on the property, which will contain a key to the
+property supplied by the seller. Seller acknowledges and agrees that the
+lockbox will permit access to the property, and that it is possible an
+unauthorized person may go into the property. Buyer is not insuring seller
+against theft, loss or vandalism resulting from any unauthorized access.
+</label>
+</div>
+
+<div class="option">
+<input type="checkbox" name="occupiedProperty">
+<label>
+<strong>OCCUPIED.</strong>
+If the property is occupied by seller, tenant or otherwise as of the
+contract date, seller will permit the buyer access with a 24-hour notice.
+</label>
+</div>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">9.</span>TENANT OCCUPIED</strong>
+
+<p>
+If the property is used as a rental property, tenant shall:
+</p>
+
+<div class="option">
+<input type="radio" name="tenantStatus" value="vacate">
+<label>Vacate property before the close of escrow.</label>
+</div>
+
+<div class="option">
+<input type="radio" name="tenantStatus" value="continue">
+<label>
+Continue occupying property according to applicable and current lease
+agreement. Seller shall deliver the following to buyer within five days
+of contract date: (a) current lease(s) of the property; (b) a certified
+rent roll (which seller will update at least five days before close of
+escrow); (c) evidence of security deposits on hand, if any.
+</label>
+</div>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">10.</span>PROPERTY TURNOVER</strong>
+
+<p>
+Seller will provide buyer the keys to the property at closing of escrow.
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- CLAUSES 11-18 -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="clause">
+
+<strong><span class="clause-number">11.</span>DEBRIS/PERSONAL BELONGINGS</strong>
+
+<p>
+At close of escrow, seller shall deliver the property to buyer:
+</p>
+
+<div class="option">
+<input type="radio" name="debris" value="with">
+<label>
+<strong>WITH</strong> debris and/or personal belongings that are currently
+present in the property. Buyer assumes all responsibility for trash-out,
+removal and clean-up of said debris/belongings from the interior/exterior
+of the property.
+</label>
+</div>
+
+<div class="option">
+<input type="radio" name="debris" value="without">
+<label>
+<strong>WITHOUT</strong> debris and/or personal belongings that are currently
+present in the property. Seller assumes all responsibility for trash-out,
+removal and clean-up of said debris/belongings from the interior/exterior
+of the property.
+</label>
+</div>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">12.</span>ADDITIONAL PERSONAL PROPERTY</strong>
+
+<p>
+The following personal property is to be included in the sale herein:
+</p>
+
+<textarea name="personalProperty"></textarea>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">13.</span>INVESTOR DISCLOSURE</strong>
+
+<p>
+Seller acknowledges that buyer is an investor and purchases properties
+with the intent to lease, “flip”, resell, or otherwise make a profit.
+Seller acknowledges that the purchase price may be less than market value,
+and is willingly selling it as such for convenience, to save time, lack of
+funds to renovate/update, and/or other personal reasons. Seller waives any
+claims against any existing equity or added value arising from the property.
+Buyer has not made seller any representations or promises as to the value
+of the property in its “as-is” condition.
+</p>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">14.</span>LEAD BASED PAINT ACKNOWLEDGEMENT</strong>
+
+<p>
+All parties acknowledge that residential dwellings constructed prior to
+1978 are likely to contain lead-based paint which could create a health
+hazard. In the event that the real property which is the subject of this
+agreement consists of or contains a residential unit built prior to 1978,
+the parties agree that each party has received, reviewed, signed and
+annexed hereto a completed disclosure and acknowledgment form regarding
+lead-based paint as required by federal HUD/EPA disclosure regulations.
+</p>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">15.</span>REPRESENTATIONS BY SELLER</strong>
+
+<p>
+Seller represents and warrants to buyer as follows: (a) Seller has no
+actual knowledge and has received no notice that the property is not in
+compliance with all applicable laws governing the use and operation thereof,
+nor, to sellers actual knowledge, does there exist any facts or circumstances
+on the property which notice or the passage of time would constitute such
+violation. (b) As of contract date, seller has not entered into any other
+agreements or contracts to sell the property. (c) Seller has disclosed to
+buyer all material latent defects and any information concerning the
+property known to seller.
+</p>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">16.</span>OTHER AGREEMENTS</strong>
+
+<p>
+Seller shall not enter into an agreement or contract to purchase with anyone
+else concerning the property from and after the contract date. Should seller
+participate in another agreement which will interfere with close of escrow,
+seller will be responsible for any and all costs and losses to buyer.
+</p>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">17.</span>AGENCY</strong>
+
+<p>
+Seller acknowledges they have not been represented by the buyer or by any
+representative of the buyer with respect to the purchase and sale of the
+property. Seller agrees and understands that the buyer and any buyer’s
+representative are not acting as seller’s broker or agent in the transaction
+and have been acting solely for buyer’s own benefit as a principle to this
+agreement. Seller agrees to hold buyer free from any/all liability regarding
+the property and transaction arising from any claims of agency.
+</p>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">18.</span>ASSIGNMENT AND RELEASE</strong>
+
+<p>
+Seller agrees and acknowledges that buyer may assign their rights under
+this agreement to a wholly or partially owned entity of the buyer or third
+party that will close directly with the seller. If such an assignment should
+happen, seller agrees to release buyer from any liability or duties under
+this agreement.
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- CLAUSES 19-20 -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="clause">
+
+<strong><span class="clause-number">19.</span>RIGHT TO COUNSEL</strong>
+
+<p>
+Seller represents and agrees that seller fully understands seller’s rights
+to discuss all aspects of this contract with an attorney, that seller has
+carefully read and fully understands all of the provisions of this contract.
+That seller freely and voluntarily entered into this contract and seller has
+read this document in its entirety and fully understands the meaning, intent
+and consequences of this contract. This representation will survive this
+contract’s termination.
+</p>
+
+</div>
+
+<div class="clause">
+
+<strong><span class="clause-number">20.</span>GOVERNING LAW/JURISDICTION</strong>
+
+<p>
+This agreement shall be governed by, construed and enforced under the laws
+of the state of:
+</p>
+
+<input type="text" name="governingState" placeholder="State">
+
+<p>
+whose courts shall have jurisdiction over any legal proceedings or actions
+arising out of this agreement.
+</p>
+
+<div class="grid two">
+
+<div class="field">
+<label>County</label>
+<input type="text" name="venueCounty">
+</div>
+
+<div class="field">
+<label>State</label>
+<input type="text" name="venueState">
+</div>
+
+</div>
+
+<p>
+shall be the place of venue of any such proceeding or action.
+</p>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- ADDITIONAL TERMS -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="section-title">Additional Terms</div>
+
+<h2>Additional Terms and Conditions</h2>
+
+<p>
+If none, write “none.”
+</p>
+
+<textarea
+name="additionalTerms"
+style="min-height:220px"
+placeholder="Enter additional terms and conditions..."></textarea>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- SIGNATURES -->
+<!-- ===================================================== -->
+
+<section class="section">
+
+<div class="section-title">Execution</div>
+
+<h2>Signatures</h2>
+
+<p class="description">
+The undersigned have read the above information, understand it and verify
+that it is correct.
+</p>
+
+<h3>Seller 1</h3>
+
+<div class="signature-box">
+
+<label>Seller 1 Signature</label>
+
+<canvas
+class="signature-canvas"
+id="seller1Signature">
+</canvas>
+
+<div class="signature-actions">
+<button type="button" class="small-btn" onclick="clearSignature('seller1Signature')">
+Clear Signature
+</button>
+</div>
+
+<div class="grid two">
+
+<div class="field">
+<label>Printed Name</label>
+<input type="text" name="seller1Printed">
+</div>
+
+<div class="field">
+<label>Date</label>
+<input type="date" name="seller1Date">
+</div>
+
+</div>
+
+</div>
+
+
+<h3>Seller 2</h3>
+
+<div class="signature-box">
+
+<label>Seller 2 Signature</label>
+
+<canvas
+class="signature-canvas"
+id="seller2Signature">
+</canvas>
+
+<div class="signature-actions">
+<button type="button" class="small-btn" onclick="clearSignature('seller2Signature')">
+Clear Signature
+</button>
+</div>
+
+<div class="grid two">
+
+<div class="field">
+<label>Printed Name</label>
+<input type="text" name="seller2Printed">
+</div>
+
+<div class="field">
+<label>Date</label>
+<input type="date" name="seller2Date">
+</div>
+
+</div>
+
+</div>
+
+
+<h3>Buyer 1</h3>
+
+<div class="signature-box">
+
+<label>Buyer 1 Signature</label>
+
+<canvas
+class="signature-canvas"
+id="buyer1Signature">
+</canvas>
+
+<div class="signature-actions">
+<button type="button" class="small-btn" onclick="clearSignature('buyer1Signature')">
+Clear Signature
+</button>
+</div>
+
+<div class="grid two">
+
+<div class="field">
+<label>Printed Name</label>
+<input type="text" name="buyer1Printed">
+</div>
+
+<div class="field">
+<label>Date</label>
+<input type="date" name="buyer1Date">
+</div>
+
+</div>
+
+</div>
+
+
+<h3>Buyer 2</h3>
+
+<div class="signature-box">
+
+<label>Buyer 2 Signature</label>
+
+<canvas
+class="signature-canvas"
+id="buyer2Signature">
+</canvas>
+
+<div class="signature-actions">
+<button type="button" class="small-btn" onclick="clearSignature('buyer2Signature')">
+Clear Signature
+</button>
+</div>
+
+<div class="grid two">
+
+<div class="field">
+<label>Printed Name</label>
+<input type="text" name="buyer2Printed">
+</div>
+
+<div class="field">
+<label>Date</label>
+<input type="date" name="buyer2Date">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- REVIEW -->
+<!-- ===================================================== -->
+
+<section class="section review-section">
+
+<div class="section-title">Final Review</div>
+
+<h2>Review Agreement</h2>
+
+<p class="description">
+Review the information below before printing or saving the agreement.
+</p>
+
+<div class="review" id="reviewBox">
+Complete the form above and click “Generate Review.”
+</div>
+
+<br>
+
+<button
+type="button"
+class="btn secondary"
+onclick="generateReview()">
+GENERATE REVIEW
+</button>
+
+</section>
+
+</form>
+
+<!-- ===================================================== -->
+<!-- ACTIONS -->
+<!-- ===================================================== -->
+
+<div class="actions">
+
+<button
+class="btn secondary"
+type="button"
+onclick="window.print()">
+PRINT AGREEMENT
+</button>
+
+<button
+class="btn secondary"
+type="button"
+onclick="downloadHTML()">
+DOWNLOAD FORM
+</button>
+
+<button
+class="btn primary"
+type="button"
+onclick="prepareSubmission()">
+SAVE / PREPARE AGREEMENT
+</button>
+
+</div>
+
+<div class="success" id="successMessage">
+The agreement has been prepared. You can now print it, save it, or send the
+completed agreement through your preferred document-signing service.
+</div>
+
+<footer>
+<strong>STANDARD PURCHASE & SALE AGREEMENT</strong><br>
+Powered by STV Radiomeltdown
+</footer>
+
+</div>
+
+<script>
+
+/* =========================================================
+   SIGNATURE PAD
+========================================================= */
+
+const signaturePads = {};
+
+function setupSignature(id){
+
+  const canvas = document.getElementById(id);
+  const ctx = canvas.getContext("2d");
+
+  function resize(){
+
+    const ratio = window.devicePixelRatio || 1;
+
+    const rect = canvas.getBoundingClientRect();
+
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+
+    ctx.scale(ratio,ratio);
+
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#111";
+  }
+
+  resize();
+
+  window.addEventListener("resize",()=>{
+    /* Signature is intentionally not redrawn on resize. */
+  });
+
+  let drawing=false;
+
+  function position(e){
+
+    const rect=canvas.getBoundingClientRect();
+
+    if(e.touches){
+
+      return {
+        x:e.touches[0].clientX-rect.left,
+        y:e.touches[0].clientY-rect.top
+      };
+
+    }
+
+    return {
+      x:e.clientX-rect.left,
+      y:e.clientY-rect.top
+    };
+  }
+
+  function start(e){
+
+    e.preventDefault();
+
+    drawing=true;
+
+    const p=position(e);
+
+    ctx.beginPath();
+    ctx.moveTo(p.x,p.y);
+  }
+
+  function move(e){
+
+    if(!drawing)return;
+
+    e.preventDefault();
+
+    const p=position(e);
+
+    ctx.lineTo(p.x,p.y);
+    ctx.stroke();
+  }
+
+  function stop(){
+
+    drawing=false;
+  }
+
+  canvas.addEventListener("mousedown",start);
+  canvas.addEventListener("mousemove",move);
+  canvas.addEventListener("mouseup",stop);
+  canvas.addEventListener("mouseleave",stop);
+
+  canvas.addEventListener("touchstart",start,{passive:false});
+  canvas.addEventListener("touchmove",move,{passive:false});
+  canvas.addEventListener("touchend",stop);
+
+  signaturePads[id]=canvas;
+}
+
+setupSignature("seller1Signature");
+setupSignature("seller2Signature");
+setupSignature("buyer1Signature");
+setupSignature("buyer2Signature");
+
+
+function clearSignature(id){
+
+  const canvas=document.getElementById(id);
+
+  const ctx=canvas.getContext("2d");
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+}
+
+
+/* =========================================================
+   FORM DATA
+========================================================= */
+
+function getValue(name){
+
+  const field=document.querySelector(
+    `[name="${name}"]`
+  );
+
+  return field ? field.value.trim() : "";
+}
+
+
+function getChecked(name){
+
+  return [
+    ...document.querySelectorAll(
+      `[name="${name}"]:checked`
+    )
+  ].map(x=>x.value);
+}
+
+
+/* =========================================================
+   AGREEMENT TEXT
+========================================================= */
+
+function buildAgreementText(){
+
+  const data={};
+
+  document.querySelectorAll(
+    "#purchaseForm input, #purchaseForm textarea, #purchaseForm select"
+  ).forEach(field=>{
+
+    if(field.type==="checkbox"){
+
+      if(!data[field.name])
+        data[field.name]=[];
+
+      if(field.checked)
+        data[field.name].push(field.value || "Selected");
+
+    }else if(field.type==="radio"){
+
+      if(field.checked)
+        data[field.name]=field.value;
+
+    }else{
+
+      data[field.name]=field.value;
+
+    }
+
+  });
+
+  const value=(name)=>{
+
+    const v=data[name];
+
+    if(Array.isArray(v))
+      return v.length ? v.join(", ") : "Not selected";
+
+    return v || "Not provided";
+  };
+
+  return `
+STANDARD PURCHASE AND SALE AGREEMENT
+
+AGREEMENT DATE:
+${value("agreementDay")} ${value("agreementMonth")} ${value("agreementYear")}
+
+SELLER(S):
+${value("sellerNames")}
+
+BUYER(S):
+${value("buyerNames")}
+
+PROPERTY
+
+Street Address:
+${value("streetAddress")}
+
+City:
+${value("city")}
+
+State:
+${value("state")}
+
+ZIP:
+${value("zip")}
+
+Legal Description:
+${value("legalDescription")}
+
+PURCHASE PRICE
+
+Earnest Money Deposit:
+$${value("earnestMoney")}
+
+Cash to Seller at Closing:
+$${value("cashClosing")}
+
+Total Purchase Price:
+$${value("totalPrice")}
+
+FINANCING
+
+Cash:
+${value("cashFinancing")}
+
+Seller Financing:
+${value("sellerFinancing")}
+
+Seller Financing Terms:
+${value("sellerFinancingTerms")}
+
+CLOSING
+
+Closing Date:
+${value("closingDate")}
+
+Closing Location:
+${value("closingLocation")}
+
+CLOSING FEES:
+${value("closingFees")}
+
+Closing Fee State:
+${value("closingFeeState")}
+
+PROPERTY ACCESS
+
+Vacant:
+${value("vacantProperty")}
+
+Occupied:
+${value("occupiedProperty")}
+
+TENANT STATUS:
+${value("tenantStatus")}
+
+DEBRIS / PERSONAL BELONGINGS:
+${value("debris")}
+
+ADDITIONAL PERSONAL PROPERTY:
+${value("personalProperty")}
+
+GOVERNING LAW:
+
+State:
+${value("governingState")}
+
+Venue County:
+${value("venueCounty")}
+
+Venue State:
+${value("venueState")}
+
+ADDITIONAL TERMS:
+
+${value("additionalTerms")}
+
+SIGNATURE INFORMATION
+
+SELLER 1:
+Printed Name: ${value("seller1Printed")}
+Date: ${value("seller1Date")}
+
+SELLER 2:
+Printed Name: ${value("seller2Printed")}
+Date: ${value("seller2Date")}
+
+BUYER 1:
+Printed Name: ${value("buyer1Printed")}
+Date: ${value("buyer1Date")}
+
+BUYER 2:
+Printed Name: ${value("buyer2Printed")}
+Date: ${value("buyer2Date")}
+
+The undersigned have read the above information,
+understand it and verify that it is correct.
+
+STANDARD PURCHASE AND SALE AGREEMENT
+Powered by STV Radiomeltdown
+`;
+
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+function generateReview(){
+
+  document.getElementById("reviewBox").textContent=
+    buildAgreementText();
+
+  document
+    .getElementById("reviewBox")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+}
+
+
+/* =========================================================
+   DOWNLOAD
+========================================================= */
+
+function downloadHTML(){
+
+  const clone=document.documentElement.cloneNode(true);
+
+  clone.querySelectorAll(
+    "script"
+  ).forEach(script=>script.remove());
+
+  const html="<!DOCTYPE html>\n"+
+    clone.outerHTML;
+
+  const blob=new Blob(
+    [html],
+    {type:"text/html;charset=utf-8"}
+  );
+
+  const url=URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+
+  a.download=
+    "standard-purchase-sale-agreement.html";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* =========================================================
+   PREPARE SUBMISSION
+========================================================= */
+
+function prepareSubmission(){
+
+  generateReview();
+
+  const success=
+    document.getElementById(
+      "successMessage"
+    );
+
+  success.style.display="block";
+
+  success.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+}
+
+
+/* =========================================================
+   AUTO SAVE
+========================================================= */
+
+const STORAGE_KEY=
+  "standard_purchase_sale_agreement";
+
+function saveProgress(){
+
+  const saved={};
+
+  document.querySelectorAll(
+    "#purchaseForm input, #purchaseForm textarea, #purchaseForm select"
+  ).forEach(field=>{
+
+    if(field.type==="checkbox"){
+
+      if(!saved[field.name])
+        saved[field.name]=[];
+
+      if(field.checked)
+        saved[field.name].push(field.value);
+
+    }else if(field.type==="radio"){
+
+      if(field.checked)
+        saved[field.name]=field.value;
+
+    }else{
+
+      saved[field.name]=field.value;
+
+    }
+
+  });
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(saved)
+  );
+
+}
+
+function restoreProgress(){
+
+  const saved=
+    localStorage.getItem(STORAGE_KEY);
+
+  if(!saved)return;
+
+  try{
+
+    const data=
+      JSON.parse(saved);
+
+    Object.entries(data).forEach(
+      ([name,value])=>{
+
+        const fields=
+          document.querySelectorAll(
+            `[name="${name}"]`
+          );
+
+        fields.forEach(field=>{
+
+          if(field.type==="checkbox"){
+
+            const values=
+              Array.isArray(value)
+                ? value
+                : [value];
+
+            field.checked=
+              values.includes(field.value);
+
+          }else if(field.type==="radio"){
+
+            field.checked=
+              field.value===value;
+
+          }else{
+
+            field.value=value;
+
+          }
+
+        });
+
+      }
+    );
+
+  }catch(error){
+
+    console.warn(
+      "Unable to restore saved form.",
+      error
+    );
+
+  }
+
+}
+
+document
+  .getElementById("purchaseForm")
+  .addEventListener(
+    "input",
+    saveProgress
+  );
+
+document
+  .getElementById("purchaseForm")
+  .addEventListener(
+    "change",
+    saveProgress
+  );
+
+restoreProgress();
+
+
+/* =========================================================
+   PREVENT ENTER FROM ACCIDENTALLY SUBMITTING
+========================================================= */
+
+document
+  .getElementById("purchaseForm")
+  .addEventListener(
+    "submit",
+    function(e){
+      e.preventDefault();
+    }
+  );
+
+</script>
+
+</body>
+</html>
