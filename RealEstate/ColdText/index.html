@@ -440,12 +440,12 @@ footer a {
                 Mobile Phone Number *
             </label>
 
-            <input
-                id="phone"
-                type="tel"
-                inputmode="tel"
-                placeholder="(404) 555-1234">
-
+           <input
+    id="phone"
+    type="tel"
+    inputmode="numeric"
+    autocomplete="tel"
+    placeholder="(404) 555-1234">
         </div>
 
     </div>
@@ -910,93 +910,84 @@ clearBtn.addEventListener(
 
 function cleanPhone(phone) {
 
-    return phone.replace(
-        /[^0-9+]/g,
-        ""
-    );
+    const digits = phone.replace(/\D/g, "");
 
+    if (digits.length === 10) {
+        return "+1" + digits;
+    }
+
+    if (digits.length === 11 && digits.startsWith("1")) {
+        return "+" + digits;
+    }
+
+    return phone.replace(/[^\d+]/g, "");
 }
-
-
 /* =========================================================
-   SEND SMS
+   SEND SMS — iPHONE / ANDROID COMPATIBLE
 ========================================================= */
 
-sendBtn.addEventListener(
-    "click",
-    () => {
+sendBtn.addEventListener("click", () => {
 
-        hideMessages();
+    hideMessages();
 
-        const phone =
-            cleanPhone(phoneInput.value);
+    const phone = cleanPhone(phoneInput.value);
+    const message = messageInput.value.trim();
 
-        const message =
-            messageInput.value.trim();
+    if (!phoneInput.value.trim()) {
 
-        if (!phoneInput.value.trim()) {
-
-            showWarning(
-                "Enter the homeowner's phone number first."
-            );
-
-            phoneInput.focus();
-
-            return;
-        }
-
-
-        if (phone.length < 10) {
-
-            showWarning(
-                "Please enter a valid phone number."
-            );
-
-            phoneInput.focus();
-
-            return;
-        }
-
-
-        if (!message) {
-
-            showWarning(
-                "Choose a text template or enter a message first."
-            );
-
-            messageInput.focus();
-
-            return;
-        }
-
-
-        /*
-          Native SMS link.
-
-          On iPhone:
-          Opens Messages with recipient + message.
-
-          On Android:
-          Opens the available SMS application.
-        */
-
-        const smsURL =
-            "sms:" +
-            phone +
-            "?&body=" +
-            encodeURIComponent(message);
-
-
-        showStatus(
-            "Opening your messaging app..."
+        showWarning(
+            "Enter the homeowner's phone number first."
         );
 
-
-        window.location.href =
-            smsURL;
-
+        phoneInput.focus();
+        return;
     }
-);
+
+    if (phone.length < 10) {
+
+        showWarning(
+            "Please enter a valid phone number."
+        );
+
+        phoneInput.focus();
+        return;
+    }
+
+    if (!message) {
+
+        showWarning(
+            "Choose a text template or enter a message first."
+        );
+
+        messageInput.focus();
+        return;
+    }
+
+    /*
+      iPhone / iOS:
+      sms:number&body=message
+
+      Android:
+      Same format works with most messaging apps.
+    */
+
+    const smsURL = "sms:" + phone + "&body=" + encodeURIComponent(message);
+window.location.href = smsURL;
+
+    showStatus(
+        "Opening your messaging app..."
+    );
+
+    /*
+      Small delay gives the browser time to update
+      the status before leaving the page.
+    */
+
+    setTimeout(() => {
+        window.location.href = smsURL;
+    }, 150);
+
+});
 
 
 /* =========================================================
