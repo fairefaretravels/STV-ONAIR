@@ -382,7 +382,7 @@
    training-guide.pdf, etc). Do not rename this folder or point it at
    /Dispatch — that would break links between the existing pages.
    ========================================================================= */
-const GITHUB_OWNER = "faireefairtravels";
+const GITHUB_OWNER = "fairefairtravels";
 const GITHUB_REPO = "STV-ONAIR";
 const GITHUB_FOLDER = "RealEstate";
 
@@ -1259,9 +1259,9 @@ function renderHowToUse(){
     <main>
       ${DEMO_VIDEO_URL ? `
         <div class="video-frame">
-          ${/\.(mp4|webm)$/i.test(https://youtu.be/BsssmKeRDHI?is=8Q5Et24uovhSWBgc)
-            ? `<video controls src="${https://youtu.be/BsssmKeRDHI?is=8Q5Et24uovhSWBgc}"></video>`
-            : `<iframe src="${toEmbedUrl(https://youtu.be/BsssmKeRDHI?is=8Q5Et24uovhSWBgc)}" allow="autoplay; fullscreen" allowfullscreen></iframe>`}
+          ${/\.(mp4|webm)$/i.test(DEMO_VIDEO_URL)
+  ? `<video controls src="${DEMO_VIDEO_URL}"></video>`
+  : `<iframe src="${toEmbedUrl(DEMO_VIDEO_URL)}" allow="autoplay; fullscreen" allowfullscreen></iframe>`}
         </div>
       ` : `
         <div class="video-placeholder">
