@@ -332,6 +332,16 @@
     gap:8px;margin-bottom:14px;color:var(--text-dim);text-align:center;padding:16px;
   }
   .video-placeholder .icon{font-size:28px;}
+
+  /* ---------- Training Library ---------- */
+  .lib-frame{
+    width:100%;min-height:70vh;border:1px solid var(--line);border-radius:12px;
+    background:#fff;display:block;
+  }
+  select optgroup{
+    background:var(--surface);color:var(--text-dim);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  }
+  select option{background:var(--bg);color:var(--text);font-family:var(--font-body);}
 </style>
 </head>
 <body>
@@ -343,6 +353,33 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
 
 <script>
+/* =========================================================================
+   GITHUB TRAINING LIBRARY SETTINGS
+   ================================
+   These three values control where the "Training Library" tile looks for
+   files. This is the ONLY place you should need to edit to point the
+   library at a different repo or folder.
+
+   GITHUB_OWNER  = the GitHub username or organization that owns the repo
+                   (e.g. "jsmith").
+   GITHUB_REPO   = the name of the repository itself (e.g. "sales-training").
+   GITHUB_FOLDER = the folder/path inside that repo to scan for training
+                   files. Subfolders inside this folder are scanned too, and
+                   shown as categories in the dropdown.
+
+   Requirements:
+   - The repository (and this folder) must be PUBLIC. No GitHub token is
+     used or required — this only calls GitHub's public read-only
+     Contents API.
+   - Only .html, .htm, and .pdf files are picked up. Everything else
+     (images, .css, .js, .git files, etc.) is ignored automatically.
+   - If a file named "index.html" exists directly inside GITHUB_FOLDER, it
+     is treated as the default module and loads automatically.
+   ========================================================================= */
+const GITHUB_OWNER = "YOUR_GITHUB_USERNAME";
+const GITHUB_REPO = "YOUR_REPO_NAME";
+const GITHUB_FOLDER = "RealEstate";
+
 /* =========================================================================
    FIREBASE SETUP
    Swap the values below if you ever need to point this app at a different
@@ -765,7 +802,21 @@ let state = {
   pushbackIdx: 0,
   pushbackOrder: [],
   pushbackScore: {good:0, ok:0, bad:0},
-  pendingLead: null // {service, source}
+  pendingLead: null, // {service, source}
+  library: {
+    status: 'idle',       // idle | loading | ready | empty | error
+    tree: null,
+    flatFiles: [],
+    groups: [],
+    defaultFile: null,
+    selectedPath: null,
+    contentType: null,    // 'html' | 'pdf'
+    htmlContent: null,
+    pdfUrl: null,
+    contentLoading: false,
+    contentError: '',
+    errorMsg: ''
+  }
 };
 
 function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
@@ -831,6 +882,262 @@ async function getAllLeads(){
   }
 }
 
+/* =========================================================================
+   TRAINING LIBRARY — GitHub-powered auto-loading module list.
+   Reads GITHUB_OWNER / GITHUB_REPO / GITHUB_FOLDER (defined at the very top
+   of this script) and turns whatever .html/.htm/.pdf files it finds inside
+   that folder (including subfolders) into a browsable, tappable library.
+   No filenames are hard-coded anywhere below — everything is discovered
+   live from the GitHub Contents API.
+   ========================================================================= */
+
+// Turns "asking-for-price.html" into "Asking For Price".
+function humanizeFilename(filename){
+  let name = filename.replace(/\.(html?|pdf)$/i, '');
+  name = name.replace(/[-_]+/g, ' ').trim().replace(/\s+/g, ' ');
+  if(!name) return filename;
+  return name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+}
+
+// One call to GitHub's public Contents API for a single folder level.
+async function fetchGithubContents(path){
+  const encodedPath = path.split('/').filter(Boolean).map(encodeURIComponent).join('/');
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${encodedPath}`;
+  const res = await fetch(url, { headers: { 'Accept': 'application/vnd.github+json' } });
+  if(!res.ok){
+    if(res.status === 404) throw new Error('NOT_FOUND');
+    if(res.status === 403) throw new Error('RATE_LIMIT');
+    throw new Error('API_ERROR');
+  }
+  const data = await res.json();
+  if(!Array.isArray(data)) throw new Error('NOT_A_FOLDER');
+  return data;
+}
+
+// Recursively walks a folder, collecting .html/.htm/.pdf files and
+// descending into subfolders (which become categories in the dropdown).
+async function scanGithubFolder(path, categoryLabel){
+  const items = await fetchGithubContents(path);
+  const files = [];
+  const subCategories = [];
+  for(const item of items){
+    if(item.type === 'file'){
+      const match = item.name.match(/\.(html?|pdf)$/i);
+      if(!match) continue; // ignore images, .css, .js, .git files, etc.
+      const ext = match[1].toLowerCase() === 'pdf' ? 'pdf' : 'html';
+      files.push({
+        name: item.name,
+        path: item.path,
+        ext: ext,
+        downloadUrl: item.download_url,
+        title: humanizeFilename(item.name),
+        isIndex: /^index\.html?$/i.test(item.name)
+      });
+    } else if(item.type === 'dir'){
+      const sub = await scanGithubFolder(item.path, item.name);
+      subCategories.push(sub);
+    }
+  }
+  files.sort((a,b) => a.title.localeCompare(b.title));
+  return { category: categoryLabel, files: files, subCategories: subCategories };
+}
+
+// Flattens the folder tree into a single array of file objects.
+function collectLibraryFiles(node){
+  let files = node.files ? [...node.files] : [];
+  if(node.subCategories){
+    node.subCategories.forEach(sc => { files = files.concat(collectLibraryFiles(sc)); });
+  }
+  return files;
+}
+
+// Flattens the folder tree into dropdown/list groups, one per category path.
+function flattenLibraryGroups(node, prefix){
+  let groups = [];
+  if(node.files && node.files.length){
+    groups.push({ label: prefix || 'General', files: node.files });
+  }
+  if(node.subCategories){
+    node.subCategories.forEach(sc => {
+      const label = prefix ? `${prefix} / ${sc.category}` : sc.category;
+      groups = groups.concat(flattenLibraryGroups(sc, label));
+    });
+  }
+  return groups;
+}
+
+function libraryErrorMessage(err){
+  const msg = (err && err.message) || '';
+  if(msg === 'NOT_FOUND') return `The folder "${GITHUB_FOLDER}" or repository "${GITHUB_OWNER}/${GITHUB_REPO}" could not be found. Check your GitHub repository settings.`;
+  if(msg === 'RATE_LIMIT') return 'GitHub API rate limit reached. Please wait a few minutes and try again.';
+  if(msg === 'NOT_A_FOLDER') return `"${GITHUB_FOLDER}" doesn't look like a folder in that repository. Check your GitHub repository settings.`;
+  return 'Unable to load the Training Library. Check your GitHub repository settings or internet connection.';
+}
+
+// Re-queries GitHub and rebuilds the dropdown/list. Called on first open of
+// the Training Library screen, and any time "Refresh Library" is tapped.
+async function buildLibrary(){
+  const prevSelected = state.library.selectedPath;
+  state.library.status = 'loading';
+  state.library.errorMsg = '';
+  render();
+  try{
+    const tree = await scanGithubFolder(GITHUB_FOLDER, '');
+    const flatFiles = collectLibraryFiles(tree);
+    state.library.tree = tree;
+    state.library.flatFiles = flatFiles;
+    state.library.groups = flattenLibraryGroups(tree, '');
+    state.library.defaultFile = (tree.files || []).find(f => f.isIndex) || null;
+    state.library.status = flatFiles.length ? 'ready' : 'empty';
+
+    // Keep the current selection if it still exists after refresh, otherwise
+    // fall back to the default (index.html) file if one exists.
+    const stillExists = prevSelected && flatFiles.find(f => f.path === prevSelected);
+    if(stillExists){
+      await openLibraryFile(prevSelected, true);
+    } else if(state.library.defaultFile){
+      await openLibraryFile(state.library.defaultFile.path, true);
+    } else {
+      state.library.selectedPath = null;
+      state.library.htmlContent = null;
+      state.library.pdfUrl = null;
+    }
+  }catch(e){
+    console.error('Training library load failed', e);
+    state.library.status = 'error';
+    state.library.errorMsg = libraryErrorMessage(e);
+  }
+  render();
+}
+
+// Loads one module (HTML or PDF) into the embedded viewer.
+async function openLibraryFile(path, skipRender){
+  const file = state.library.flatFiles.find(f => f.path === path);
+  if(!file) return;
+  state.library.selectedPath = path;
+  state.library.contentLoading = true;
+  state.library.contentError = '';
+  state.library.contentType = file.ext;
+  state.library.htmlContent = null;
+  state.library.pdfUrl = null;
+  if(!skipRender) render();
+  try{
+    if(file.ext === 'pdf'){
+      // PDFs render natively in an iframe using the browser's built-in viewer.
+      state.library.pdfUrl = file.downloadUrl;
+    } else {
+      // Fetch the raw HTML ourselves (rather than pointing an iframe straight
+      // at raw.githubusercontent.com) so we can inject a <base> tag — this
+      // keeps relative links/assets inside the page working correctly.
+      const res = await fetch(file.downloadUrl);
+      if(!res.ok) throw new Error('LOAD_FAILED');
+      let html = await res.text();
+      const baseHref = file.downloadUrl.substring(0, file.downloadUrl.lastIndexOf('/') + 1);
+      if(/<head[^>]*>/i.test(html)){
+        html = html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`);
+      } else {
+        html = `<base href="${baseHref}">` + html;
+      }
+      state.library.htmlContent = html;
+    }
+  }catch(e){
+    console.error('Module load failed', e);
+    state.library.contentError = 'This module could not be loaded. It may have been renamed or removed on GitHub.';
+  }
+  state.library.contentLoading = false;
+  if(!skipRender) render();
+}
+
+// Entry point from the dashboard tile — only fetches from GitHub the first
+// time the library is opened; after that it's cached until Refresh is tapped.
+function openTrainingLibrary(){
+  go('trainingLibrary');
+  if(state.library.status === 'idle'){
+    buildLibrary();
+  }
+}
+
+function renderLibraryGroups(){
+  const groups = state.library.groups || [];
+  return groups.map(g => `
+    <div class="section-title" style="margin-top:18px">${g.label}</div>
+    ${g.files.map(f => `
+      <button class="choice" onclick="openLibraryFile('${f.path.replace(/'/g, "\\'")}')">
+        <span class="qmark">${f.ext === 'pdf' ? 'PDF' : 'DOC'}</span>${f.title}${f.isIndex ? ' ★ Default' : ''}
+      </button>
+    `).join('')}
+  `).join('');
+}
+
+function renderLibrarySelectOptions(){
+  const groups = state.library.groups || [];
+  return groups.map(g => `
+    <optgroup label="${g.label}">
+      ${g.files.map(f => `<option value="${f.path}" ${state.library.selectedPath === f.path ? 'selected' : ''}>${f.title}${f.isIndex ? ' ★' : ''}</option>`).join('')}
+    </optgroup>
+  `).join('');
+}
+
+function renderTrainingLibrary(){
+  const lib = state.library;
+  let inner = '';
+
+  if(lib.status === 'idle' || lib.status === 'loading'){
+    inner = `<div class="empty">📡 Loading Training Library…</div>`;
+  } else if(lib.status === 'error'){
+    inner = `
+      <div class="warn-box" style="border-color:var(--red);background:rgba(193,71,59,.1);color:#F0B9B4;">
+        ⚠️ ${lib.errorMsg || 'Unable to load the Training Library. Check your GitHub repository settings or internet connection.'}
+      </div>
+      <button class="btn secondary" style="margin-top:14px" onclick="buildLibrary()">Try Again</button>
+    `;
+  } else if(lib.status === 'empty'){
+    inner = `<div class="empty">No training files found yet in "${GITHUB_FOLDER}". Add an .html or .pdf file to that GitHub folder, then tap Refresh Library.</div>`;
+  } else {
+    inner = `
+      <label>Training Module</label>
+      <select id="librarySelect" onchange="openLibraryFile(this.value)">
+        <option value="">— Select a module —</option>
+        ${renderLibrarySelectOptions()}
+      </select>
+      ${renderLibraryGroups()}
+      <div class="section-title" style="margin-top:20px">Viewer</div>
+      <div id="libraryViewerWrap">
+        ${lib.contentLoading ? `<div class="empty">⏳ Loading module…</div>` : ''}
+        ${lib.contentError ? `<div class="warn-box" style="border-color:var(--red);background:rgba(193,71,59,.1);color:#F0B9B4;">⚠️ ${lib.contentError}</div>` : ''}
+        ${(!lib.selectedPath && !lib.contentLoading) ? `<div class="empty">Select a training module to begin.</div>` : ''}
+        <div id="libraryViewer"></div>
+      </div>
+    `;
+  }
+
+  return `
+    ${topbar('Training Library', 'RealEstate Modules')}
+    <main>
+      <div class="btn-row" style="margin-bottom:14px">
+        <button class="btn secondary" onclick="buildLibrary()">🔄 Refresh Library</button>
+      </div>
+      <div class="card">${inner}</div>
+    </main>
+  `;
+}
+
+// Mounts the actual iframe via direct DOM access (not template-string HTML)
+// so PDF/HTML content never has to be escaped into an inline attribute.
+function mountLibraryViewer(){
+  const viewer = document.getElementById('libraryViewer');
+  if(!viewer) return;
+  const lib = state.library;
+  if(lib.contentLoading || lib.contentError || !lib.selectedPath) return;
+  if(lib.contentType === 'pdf' && lib.pdfUrl){
+    viewer.innerHTML = `<iframe class="lib-frame" src="${lib.pdfUrl}" title="PDF training module"></iframe>`;
+  } else if(lib.contentType === 'html' && lib.htmlContent){
+    viewer.innerHTML = `<iframe class="lib-frame" id="libraryFrame" title="Training module"></iframe>`;
+    const frame = document.getElementById('libraryFrame');
+    if(frame) frame.srcdoc = lib.htmlContent;
+  }
+}
+
 function go(screen, extra){
   state.screen = screen;
   if(extra) Object.assign(state, extra);
@@ -890,6 +1197,10 @@ function renderDashboard(){
           <div class="label">Handle Pushback</div>
           <div class="sub">22-line drill</div>
         </button>
+        <button class="tile wide" onclick="openTrainingLibrary()">
+          <div class="icon">📚</div>
+          <div><div class="label">Training Library</div><div class="sub">Auto-synced from GitHub · /${GITHUB_FOLDER}</div></div>
+        </button>
         <button class="tile wide" onclick="go('saveLead')">
           <div class="icon">📝</div>
           <div><div class="label">Save a Lead</div><div class="sub">Manual entry / view saved leads</div></div>
@@ -918,6 +1229,7 @@ const TOUR_STEPS = [
   {title:"Practice a Call", desc:"Runs a live branching call simulation against a randomly generated homeowner (name, address, and personality). Pick what Braylen says at each step and get instant feedback on whether it was a good, okay, or bad move."},
   {title:"Lead Qualification (mid-call)", desc:"When a homeowner opens up during a practice call, you'll answer 8 quick yes/no questions about the property. Your answers route the call toward a hot lead, a service opportunity, or a respectful close."},
   {title:"Handle Pushback", desc:"A standalone 22-line drill of common objections (\"I'm not interested\", \"Stop calling me\", etc). Pick the strongest response to each and see why it works."},
+  {title:"Training Library", desc:"Automatically loads every .html and .pdf training file stored in the RealEstate GitHub folder into one dropdown — no manual updates needed. Tap Refresh Library any time new files are added to GitHub."},
   {title:"Save a Lead", desc:"Capture a lead manually, or automatically whenever a practice call ends in interest. All saved leads sync to Firestore and are viewable in this same screen."},
   {title:"My Practice Progress", desc:"Tracks every call you've run — average score and a running history — so you can see improvement over time."}
 ];
@@ -939,7 +1251,7 @@ function renderHowToUse(){
           <div style="font-size:11.5px">Record a quick screen-share walking through the console, host it (Loom, YouTube unlisted, or a direct .mp4 link), then drop the URL into <b>DEMO_VIDEO_URL</b> near the top of the script — it'll show right here automatically.</div>
         </div>
       `}
-      <p class="copy">Six steps, in the order most new callers use them:</p>
+      <p class="copy">Steps, in the order most new callers use them:</p>
       ${TOUR_STEPS.map((s,i)=>`
         <div class="tour-step">
           <div class="tour-num">${i+1}</div>
@@ -1442,6 +1754,7 @@ async function render(){
     case 'saveLead': app.innerHTML = '<main class="empty">Loading…</main>'; app.innerHTML = await renderSaveLead(); break;
     case 'progress': app.innerHTML = renderProgress(); break;
     case 'howToUse': app.innerHTML = renderHowToUse(); break;
+    case 'trainingLibrary': app.innerHTML = renderTrainingLibrary(); mountLibraryViewer(); break;
     default: app.innerHTML = renderDashboard();
   }
   // sync pill lives outside the router-managed #app content
