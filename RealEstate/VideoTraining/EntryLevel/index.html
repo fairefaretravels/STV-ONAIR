@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Entry Level Training | Real Estate Lead Training</title>
+
+<style>
+:root {
+  --bg: #090909;
+  --card: #151515;
+  --card2: #1d1d1d;
+  --line: #303030;
+  --text: #f5f5f5;
+  --muted: #a8a8a8;
+  --accent: #ff1744;
+  --accent2: #ff4d6d;
+  --green: #48d597;
+  --yellow: #ffc857;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(255,23,68,.16), transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+}
+
+button {
+  font: inherit;
+}
+
+.page {
+  width: min(100%, 900px);
+  margin: auto;
+  padding: 18px 16px 70px;
+}
+
+/* HEADER */
+
+.header {
+  padding: 10px 0 25px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  margin-bottom: 25px;
+  border: 1px solid #383838;
+  border-radius: 12px;
+  background: #181818;
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.back-btn:hover {
+  background: #242424;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 11px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  color: #ddd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+h1 {
+  margin: 18px 0 8px;
+  font-size: clamp(38px, 10vw, 68px);
+  line-height: .92;
+  letter-spacing: -.055em;
+  text-transform: uppercase;
+}
+
+h1 span {
+  color: var(--accent);
+}
+
+.subtitle {
+  margin: 0;
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+/* CONFIDENCE CARD */
+
+.confidence-card {
+  margin: 10px 0 25px;
+  padding: 20px;
+  border: 1px solid rgba(255,23,68,.28);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255,23,68,.10), transparent 65%),
+    var(--card);
+}
+
+.confidence-card h2 {
+  margin: 0 0 7px;
+  font-size: 21px;
+}
+
+.confidence-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.confidence-rule {
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 12px;
+  background: #0d0d0d;
+  border: 1px solid #292929;
+  color: #fff;
+  font-weight: 750;
+}
+
+/* SCENARIO NAV */
+
+.scenario-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+
+.scenario-btn {
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid #303030;
+  border-radius: 13px;
+  background: #111;
+  color: #aaa;
+  text-align: left;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.scenario-btn strong {
+  display: block;
+  color: #fff;
+  font-size: 13px;
+}
+
+.scenario-btn small {
+  color: #777;
+}
+
+.scenario-btn:hover {
+  border-color: #555;
+}
+
+.scenario-btn.active {
+  border-color: var(--accent);
+  background: rgba(255,23,68,.09);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* TRAINING CARD */
+
+.training-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--card);
+  box-shadow: 0 18px 50px rgba(0,0,0,.25);
+}
+
+.card-top {
+  padding: 22px;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(255,23,68,.08), transparent 70%),
+    #111;
+}
+
+.scenario-number {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.card-top h2 {
+  margin: 5px 0 5px;
+  font-size: clamp(25px, 7vw, 38px);
+  line-height: 1;
+}
+
+.card-top p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* SITUATION */
+
+.situation {
+  margin: 20px 20px 0;
+  padding: 17px;
+  border-left: 3px solid var(--yellow);
+  border-radius: 0 12px 12px 0;
+  background: rgba(255,200,87,.06);
+}
+
+.situation-label {
+  margin-bottom: 5px;
+  color: var(--yellow);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.situation p {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* SCRIPT */
+
+.script-area {
+  padding: 20px;
+}
+
+.script-label {
+  margin-bottom: 9px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.script-box {
+  padding: 19px;
+  border: 1px solid #333;
+  border-radius: 15px;
+  background: #0c0c0c;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.script-box strong {
+  color: #fff;
+}
+
+.script-note {
+  margin-top: 12px;
+  color: #777;
+  font-size: 12px;
+}
+
+/* WHY */
+
+.why-box {
+  margin: 0 20px 20px;
+  padding: 17px;
+  border-radius: 14px;
+  background: #101010;
+  border: 1px solid #292929;
+}
+
+.why-box h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.why-box ul {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+.why-box li {
+  margin-bottom: 6px;
+}
+
+/* DO NOT */
+
+.dont-box {
+  margin: 0 20px 20px;
+  padding: 17px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,23,68,.22);
+  background: rgba(255,23,68,.05);
+}
+
+.dont-box h3 {
+  margin: 0 0 8px;
+  color: #ff7188;
+  font-size: 15px;
+}
+
+.dont-box p {
+  margin: 0;
+  color: #bbb;
+}
+
+/* PRACTICE */
+
+.practice {
+  margin: 0 20px 20px;
+  padding: 18px;
+  border-radius: 15px;
+  background: #181818;
+  border: 1px solid #303030;
+}
+
+.practice h3 {
+  margin: 0 0 7px;
+}
+
+.practice p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.practice button {
+  width: 100%;
+  margin-top: 13px;
+  min-height: 48px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.bottom-nav button {
+  flex: 1;
+  min-height: 52px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  background: #191919;
+  color: #fff;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.bottom-nav button.primary {
+  border: 0;
+  background: var(--accent);
+}
+
+/* PRACTICE MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  padding: 20px;
+  background: rgba(0,0,0,.82);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-card {
+  width: min(100%, 600px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 22px;
+  border: 1px solid #333;
+  border-radius: 20px;
+  background: #151515;
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
+}
+
+.modal-card h2 {
+  margin-top: 0;
+}
+
+.roleplay {
+  margin: 15px 0;
+  padding: 17px;
+  border-radius: 13px;
+  background: #0d0d0d;
+  border: 1px solid #292929;
+}
+
+.roleplay .homeowner {
+  color: #ffc857;
+  font-weight: 800;
+}
+
+.roleplay .trainee {
+  margin-top: 12px;
+  color: #49d17d;
+  font-weight: 800;
+}
+
+.close-modal {
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-radius: 11px;
+  background: #292929;
+  color: #fff;
+  font-weight: 850;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 35px 0 10px;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+}
+
+footer strong {
+  color: #999;
+}
+
+@media (min-width: 650px) {
+  .scenario-nav {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .page {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<header class="header">
+
+  <a
+    class="back-btn"
+    href="https://radiomeltdown.com/RealEstate/">
+    ← MAIN DASHBOARD
+  </a>
+
+  <div class="badge">
+    <span class="badge-dot"></span>
+    ENTRY LEVEL TRAINING
+  </div>
+
+  <h1>
+    LEARN TO<br>
+    <span>SOUND CONFIDENT.</span>
+  </h1>
+
+  <p class="subtitle">
+    Your job isn't to pressure the homeowner. Your job is to stay calm,
+    ask good questions, listen, and keep the conversation moving.
+  </p>
+
+</header>
+
+<section class="confidence-card">
+
+  <h2>The #1 Rule</h2>
+
+  <p>
+    Don't rush because you're nervous. Slow down. Speak clearly.
+    Let the homeowner finish talking before you respond.
+  </p>
+
+  <div class="confidence-rule">
+    CONFIDENCE = CALM + CLARITY + QUESTIONS
+  </div>
+
+</section>
+
+<!-- SCENARIO BUTTONS -->
+
+<div class="scenario-nav" id="scenarioNav"></div>
+
+<!-- TRAINING -->
+
+<main class="training-card">
+
+  <div class="card-top">
+
+    <div class="scenario-number" id="scenarioNumber">
+      01 / INITIAL CALL
+    </div>
+
+    <h2 id="scenarioTitle">
+      Initial Call
+    </h2>
+
+    <p id="scenarioDescription">
+      Start the conversation without sounding like every other wholesaler.
+    </p>
+
+  </div>
+
+  <div class="situation">
+
+    <div class="situation-label">
+      Homeowner Says
+    </div>
+
+    <p id="situationText"></p>
+
+  </div>
+
+  <div class="script-area">
+
+    <div class="script-label">
+      Your Response
+    </div>
+
+    <div class="script-box" id="scriptText"></div>
+
+    <div class="script-note">
+      Read this naturally. Do not sound like you are reading a script.
+    </div>
+
+  </div>
+
+  <div class="why-box">
+
+    <h3>Why This Works</h3>
+
+    <ul id="whyList"></ul>
+
+  </div>
+
+  <div class="dont-box">
+
+    <h3>Don't Do This</h3>
+
+    <p id="dontText"></p>
+
+  </div>
+
+  <div class="practice">
+
+    <h3>🎙 Practice It Out Loud</h3>
+
+    <p>
+      Pretend the homeowner is standing in front of you.
+      Say your response three times: normal, slower, then confident.
+    </p>
+
+    <button onclick="openPractice()">
+      START ROLEPLAY
+    </button>
+
+  </div>
+
+</main>
+
+<div class="bottom-nav">
+
+  <button id="previousBtn" onclick="previousScenario()">
+    ← Previous
+  </button>
+
+  <button class="primary" id="nextBtn" onclick="nextScenario()">
+    Next Scenario →
+  </button>
+
+</div>
+
+<footer>
+  <strong>REAL ESTATE LEAD TRAINING</strong><br>
+  Powered by STV Radiomeltdown
+</footer>
+
+</div>
+
+
+<!-- ROLEPLAY MODAL -->
+
+<div class="modal" id="practiceModal">
+
+  <div class="modal-card">
+
+    <h2 id="modalTitle">
+      Practice Roleplay
+    </h2>
+
+    <p>
+      Read the homeowner line first. Pause. Then answer using the
+      response you just learned.
+    </p>
+
+    <div class="roleplay">
+
+      <div class="homeowner">
+        🏠 HOMEOWNER:
+      </div>
+
+      <p id="modalHomeowner"></p>
+
+      <div class="trainee">
+        🎙 YOUR RESPONSE:
+      </div>
+
+      <p id="modalResponse"></p>
+
+    </div>
+
+    <button
+      class="close-modal"
+      onclick="closePractice()">
+      I'M READY — CLOSE
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const scenarios = [
+
+  {
+    number: "01",
+    title: "Initial Call",
+    description:
+      "Start the conversation without sounding like every other wholesaler.",
+
+    situation:
+      "Hello? Who is this?",
+
+    script:
+      `“Hi, my name is Braylen. I’m reaching out about the property at [PROPERTY ADDRESS]. I was hoping to ask you a quick question about the house. Do you have a minute?”`,
+
+    why: [
+      "You identify yourself immediately.",
+      "You mention the property so the call has context.",
+      "You ask for a small amount of their time instead of launching into a sales pitch."
+    ],
+
+    dont:
+      "Don't immediately say, “Are you interested in selling your house?” That makes the conversation feel like a sales call before you've built any rapport."
+  },
+
+  {
+    number: "02",
+    title: "Pushback: Not Interested",
+    description:
+      "Don't argue when a homeowner immediately says no.",
+
+    situation:
+      "“I'm not interested in selling.”",
+
+    script:
+      `“I completely understand. I'm not trying to pressure you into anything. I just wanted to see if there was a situation where selling the property would make sense for you. If not, that's completely fine.”`,
+
+    why: [
+      "You don't fight the homeowner.",
+      "You lower the pressure.",
+      "You leave room for the homeowner to explain why they're not interested."
+    ],
+
+    dont:
+      "Don't say, “But why not?” in an aggressive tone. Don't argue with their decision."
+  },
+
+  {
+    number: "03",
+    title: "Asking for the Price",
+    description:
+      "Get comfortable asking what the homeowner wants.",
+
+    situation:
+      "“So how much are you going to give me for the house?”",
+
+    script:
+      `“I can definitely work up some numbers. Before I do that, I'd like to understand the property and what you're looking for. What price would make you comfortable selling it?”`,
+
+    why: [
+      "You don't panic when asked for a price.",
+      "You gather information before making an offer.",
+      "You give the homeowner an opportunity to reveal their expectations."
+    ],
+
+    dont:
+      "Don't throw out a random number just because you're nervous. You need information before you can make a serious offer."
+  },
+
+  {
+    number: "04",
+    title: "Asking for the Agreement",
+    description:
+      "Transition from conversation to paperwork without sounding pushy.",
+
+    situation:
+      "“Okay, what happens if I agree to your offer?”",
+
+    script:
+      `“If the numbers work for both of us, the next step is putting the agreement in writing so everyone knows exactly what they're agreeing to. I'll walk you through what we're signing, and you should feel comfortable reviewing it before you sign anything.”`,
+
+    why: [
+      "You explain the next step clearly.",
+      "You don't pressure them to sign immediately.",
+      "You encourage them to understand the agreement."
+    ],
+
+    dont:
+      "Never tell someone they have to sign immediately or discourage them from reviewing the agreement or getting independent advice."
+  },
+
+  {
+    number: "05",
+    title: "How Did You Get My Number?",
+    description:
+      "Stay calm when the homeowner challenges the call.",
+
+    situation:
+      "“How did you get my phone number?”",
+
+    script:
+      `“That's a fair question. We use property and public-record information to identify properties that may fit what we're looking for. If you'd rather not receive calls from us, I completely understand.”`,
+
+    why: [
+      "You answer instead of getting defensive.",
+      "You respect their choice.",
+      "You keep the conversation professional."
+    ],
+
+    dont:
+      "Don't become defensive or make up a source for their information."
+  },
+
+  {
+    number: "06",
+    title: "Are You an Agent?",
+    description:
+      "Clearly explain your role.",
+
+    situation:
+      "“Are you a real estate agent?”",
+
+    script:
+      `“No, I'm not calling as your real estate agent. I'm reaching out about purchasing the property. I want to be clear about who I am and why I'm calling.”`,
+
+    why: [
+      "You answer directly.",
+      "You don't pretend to be something you're not.",
+      "Transparency creates trust."
+    ],
+
+    dont:
+      "Never imply that you're a licensed agent if you aren't one."
+  },
+
+  {
+    number: "07",
+    title: "I Need to Talk to My Spouse",
+    description:
+      "Don't try to force a decision from one person.",
+
+    situation:
+      "“I need to talk to my husband/wife first.”",
+
+    script:
+      `“Absolutely. You should both be comfortable with the decision. Would it be helpful if we went over the basic numbers together, and then I can follow up when you've had a chance to talk?”`,
+
+    why: [
+      "You respect the other decision-maker.",
+      "You keep the door open.",
+      "You create a logical follow-up."
+    ],
+
+    dont:
+      "Don't say, “You can decide without them.” That can destroy trust."
+  },
+
+  {
+    number: "08",
+    title: "Just Give Me Your Offer",
+    description:
+      "Don't let pressure force you into guessing.",
+
+    situation:
+      "“Just tell me what you'll pay.”",
+
+    script:
+      `“I can give you a number, but I don't want to throw out something without understanding the property. Let me ask you a couple quick questions first so I can make the number make sense.”`,
+
+    why: [
+      "You stay in control of the conversation.",
+      "You explain why questions matter.",
+      "You avoid making an uninformed offer."
+    ],
+
+    dont:
+      "Don't guess at the property's value just to keep the conversation moving."
+  },
+
+  {
+    number: "09",
+    title: "I'm Not Selling",
+    description:
+      "A no today doesn't always mean no forever.",
+
+    situation:
+      "“I'm not selling this house.”",
+
+    script:
+      `“No problem. I appreciate you telling me. Just so I don't bother you unnecessarily, is that because you plan to keep the property long-term, or is the timing just not right?”`,
+
+    why: [
+      "You respect the answer.",
+      "You ask one useful follow-up question.",
+      "You may discover that timing—not price—is the real objection."
+    ],
+
+    dont:
+      "Don't keep pitching after the homeowner has clearly asked you to stop."
+  },
+
+  {
+    number: "10",
+    title: "Send Me Something",
+    description:
+      "Turn a brush-off into an opportunity for follow-up.",
+
+    situation:
+      "“Just send me something.”",
+
+    script:
+      `“Sure. I can do that. What's the best way to reach you, and is there anything specific you'd like me to include? That way I'm not just sending you something generic.”`,
+
+    why: [
+      "You agree instead of resisting.",
+      "You collect a useful follow-up detail.",
+      "You keep the conversation alive."
+    ],
+
+    dont:
+      "Don't immediately hang up without confirming how and when to follow up."
+  },
+
+  {
+    number: "11",
+    title: "How Much Can You Pay?",
+    description:
+      "Don't let a price question make you nervous.",
+
+    situation:
+      "“How much can you pay me?”",
+
+    script:
+      `“It depends on the property, the condition, and what we're looking at for the transaction. If you tell me a little more about the house and what you're hoping to accomplish, I can figure out whether we're in the same ballpark.”`,
+
+    why: [
+      "You avoid making promises too early.",
+      "You identify whether expectations are realistic.",
+      "You move the conversation toward facts."
+    ],
+
+    dont:
+      "Don't promise a specific amount before you've evaluated the property and transaction."
+  },
+
+  {
+    number: "12",
+    title: "I Already Have a Buyer",
+    description:
+      "Don't immediately walk away from a conversation.",
+
+    situation:
+      "“I already have somebody interested in buying it.”",
+
+    script:
+      `“That's good. If you already have a buyer you're comfortable with, you should definitely consider that option. If that deal doesn't work out, would you mind if I stayed in touch as a backup?”`,
+
+    why: [
+      "You don't attack the other buyer.",
+      "You respect their existing opportunity.",
+      "You create a legitimate follow-up opportunity."
+    ],
+
+    dont:
+      "Don't tell the homeowner their buyer is a scam or try to create fear without evidence."
+  }
+
+];
+
+
+/* -----------------------------
+   ELEMENTS
+----------------------------- */
+
+const nav = document.getElementById("scenarioNav");
+
+const numberEl =
+  document.getElementById("scenarioNumber");
+
+const titleEl =
+  document.getElementById("scenarioTitle");
+
+const descriptionEl =
+  document.getElementById("scenarioDescription");
+
+const situationEl =
+  document.getElementById("situationText");
+
+const scriptEl =
+  document.getElementById("scriptText");
+
+const whyList =
+  document.getElementById("whyList");
+
+const dontEl =
+  document.getElementById("dontText");
+
+const previousBtn =
+  document.getElementById("previousBtn");
+
+const nextBtn =
+  document.getElementById("nextBtn");
+
+let current = 0;
+
+
+/* -----------------------------
+   BUILD NAV
+----------------------------- */
+
+function buildNav() {
+
+  nav.innerHTML = "";
+
+  scenarios.forEach((scenario, index) => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "scenario-btn";
+
+    button.innerHTML = `
+      <strong>${scenario.number}. ${scenario.title}</strong>
+      <small>Practice this</small>
+    `;
+
+    button.addEventListener("click", () => {
+      current = index;
+      renderScenario();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    nav.appendChild(button);
+
+  });
+
+}
+
+
+/* -----------------------------
+   RENDER
+----------------------------- */
+
+function renderScenario() {
+
+  const scenario = scenarios[current];
+
+  numberEl.textContent =
+    `${scenario.number} / ${scenario.title}`;
+
+  titleEl.textContent =
+    scenario.title;
+
+  descriptionEl.textContent =
+    scenario.description;
+
+  situationEl.textContent =
+    scenario.situation;
+
+  scriptEl.textContent =
+    scenario.script;
+
+  dontEl.textContent =
+    scenario.dont;
+
+  whyList.innerHTML = "";
+
+  scenario.why.forEach(item => {
+
+    const li =
+      document.createElement("li");
+
+    li.textContent = item;
+
+    whyList.appendChild(li);
+
+  });
+
+  document
+    .querySelectorAll(".scenario-btn")
+    .forEach((button, index) => {
+
+      button.classList.toggle(
+        "active",
+        index === current
+      );
+
+    });
+
+  previousBtn.disabled =
+    current === 0;
+
+  previousBtn.style.opacity =
+    current === 0 ? ".4" : "1";
+
+  if (current === scenarios.length - 1) {
+
+    nextBtn.textContent =
+      "Training Complete ✓";
+
+  } else {
+
+    nextBtn.textContent =
+      "Next Scenario →";
+
+  }
+
+}
+
+
+/* -----------------------------
+   NEXT
+----------------------------- */
+
+function nextScenario() {
+
+  if (current < scenarios.length - 1) {
+
+    current++;
+
+    renderScenario();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  } else {
+
+    alert(
+      "Great job. You've completed the Entry Level scenarios. Repeat the ones that felt difficult until the responses sound natural."
+    );
+
+  }
+
+}
+
+
+/* -----------------------------
+   PREVIOUS
+----------------------------- */
+
+function previousScenario() {
+
+  if (current > 0) {
+
+    current--;
+
+    renderScenario();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+}
+
+
+/* -----------------------------
+   ROLEPLAY
+----------------------------- */
+
+function openPractice() {
+
+  const scenario =
+    scenarios[current];
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent =
+    scenario.title + " — Roleplay";
+
+  document.getElementById(
+    "modalHomeowner"
+  ).textContent =
+    scenario.situation;
+
+  document.getElementById(
+    "modalResponse"
+  ).textContent =
+    scenario.script;
+
+  document
+    .getElementById("practiceModal")
+    .classList.add("show");
+
+}
+
+
+function closePractice() {
+
+  document
+    .getElementById("practiceModal")
+    .classList.remove("show");
+
+}
+
+
+/* Close when clicking outside */
+
+document
+  .getElementById("practiceModal")
+  .addEventListener("click", function(event) {
+
+    if (event.target === this) {
+      closePractice();
+    }
+
+  });
+
+
+/* -----------------------------
+   INITIALIZE
+----------------------------- */
+
+buildNav();
+
+renderScenario();
+
+</script>
+
+</body>
+</html>
