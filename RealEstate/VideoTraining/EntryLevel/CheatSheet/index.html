@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Braylen's Property Lead Training Cheatsheet</title>
 <style>
 @page {
   size: 850px 1100px;
@@ -15,6 +16,7 @@
   --text: #f5f5f5;
   --muted: #a8a8a8;
   --accent: #ff1744;
+  --accent-dark: #c8102e;
   --green: #48d597;
   --yellow: #ffc857;
 }
@@ -84,10 +86,52 @@ h1.section-title {
 }
 
 .section-sub {
-  margin: 0 0 26px;
+  margin: 0 0 20px;
   max-width: 640px;
   color: var(--muted);
   font-size: 15px;
+}
+
+/* VIDEO BUTTON */
+
+.video-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 13px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin-bottom: 28px;
+  box-shadow: 0 6px 18px rgba(255,23,68,.35);
+  border: 1px solid rgba(255,255,255,.15);
+}
+
+.video-btn .play {
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid #fff;
+  flex-shrink: 0;
+}
+
+.video-btn .label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.video-btn .label small {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.75);
 }
 
 /* CARD */
@@ -182,6 +226,11 @@ h1.section-title {
   <h1 class="section-title">Initial Call</h1>
   <p class="section-sub">Start the conversation without sounding like every other wholesaler. Say your name, mention the property, and ask for a minute of their time.</p>
 
+  <a class="video-btn" href="https://www.youtube.com/watch?v=Upkzbk1m1-c" target="_blank" rel="noopener">
+    <span class="play"></span>
+    <span class="label"><small>Watch the Training Video</small>Initial Call</span>
+  </a>
+
   <div class="card">
     <div class="card-head">
       <div><div class="num">Scenario 01</div><h3>What to Say</h3></div>
@@ -213,18 +262,23 @@ h1.section-title {
 
 </div>
 
-<!-- ============ SECTION 2: PUSHBACK ============ -->
+<!-- ============ SECTION 2: THEY SAID NO ============ -->
 <div class="sheet">
 
   <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
 
   <div class="section-number">02 / OBJECTION</div>
-  <h1 class="section-title">Pushback</h1>
-  <p class="section-sub">Don't argue when a homeowner immediately says no. Lower the pressure and leave the door open.</p>
+  <h1 class="section-title">They Said No</h1>
+  <p class="section-sub">Don't argue when a homeowner immediately says no. Lower the pressure, stay respectful, and leave the door open for later.</p>
+
+  <a class="video-btn" href="https://www.youtube.com/watch?v=heCGJWt_89c" target="_blank" rel="noopener">
+    <span class="play"></span>
+    <span class="label"><small>Watch the Training Video</small>They Said No</span>
+  </a>
 
   <div class="card">
     <div class="card-head">
-      <div><div class="num">Scenario 02</div><h3>Homeowner Objection</h3></div>
+      <div><div class="num">Scenario 02</div><h3>Flat-Out Decline</h3></div>
     </div>
     <div class="row homeowner">
       <div class="label yellow">Homeowner Says</div>
@@ -242,7 +296,39 @@ h1.section-title {
 
   <div class="card">
     <div class="card-head">
-      <div><div class="num">Bonus</div><h3>"Just Send Me Something"</h3></div>
+      <div><div class="num">Bonus</div><h3>"Take Me Off Your List"</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"Please don't call me again."</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Confident Response</div>
+      <p>"Understood, I'll make sure you're taken off the list. Have a good one." Then follow through — remove them, no exceptions.</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer">REAL ESTATE LEAD TRAINING — Powered by STV Radiomeltdown</div>
+
+</div>
+
+<!-- ============ SECTION 3: PUSH BACK ============ -->
+<div class="sheet">
+
+  <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
+
+  <div class="section-number">03 / RESISTANCE</div>
+  <h1 class="section-title">Push Back</h1>
+  <p class="section-sub">A "no" is final — pushback isn't. This is the homeowner testing you, stalling, or being vague. Stay steady and keep the conversation moving.</p>
+
+  <a class="video-btn" href="https://www.youtube.com/watch?v=9JUapraRiD4" target="_blank" rel="noopener">
+    <span class="play"></span>
+    <span class="label"><small>Watch the Training Video</small>Push Back</span>
+  </a>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Scenario 03</div><h3>"Just Send Me Something"</h3></div>
     </div>
     <div class="row homeowner">
       <div class="label yellow">Homeowner Says</div>
@@ -252,24 +338,92 @@ h1.section-title {
       <div class="label green">Confident Response</div>
       <p>"Sure, I can do that. What's the best way to reach you, and is there anything specific you'd like me to include?"</p>
     </div>
+    <div class="row tip">
+      <div class="label green">Confidence Tip</div>
+      <p>"Send me something" is often a soft stall, not a real objection. Get contact info and a reason to follow up before you let them go.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Bonus</div><h3>"I've Heard That Before"</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"You people call all the time, I'm not doing this."</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Confident Response</div>
+      <p>"Fair enough, I get that a lot of people reach out. I'll only take a minute — if it's not a fit, I'll leave it there."</p>
+    </div>
   </div>
 
   <div class="sheet-footer">REAL ESTATE LEAD TRAINING — Powered by STV Radiomeltdown</div>
 
 </div>
 
-<!-- ============ SECTION 3: PRICE ============ -->
+<!-- ============ SECTION 4: RIGHT QUESTIONS ============ -->
 <div class="sheet">
 
   <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
 
-  <div class="section-number">03 / NUMBERS</div>
-  <h1 class="section-title">Asking for Price</h1>
-  <p class="section-sub">Get comfortable asking what the homeowner wants before you make an offer.</p>
+  <div class="section-number">04 / DISCOVERY</div>
+  <h1 class="section-title">Right Questions</h1>
+  <p class="section-sub">Whoever asks the questions leads the conversation. Get the property's condition, the homeowner's motivation, and their timeline before you ever talk numbers.</p>
+
+  <a class="video-btn" href="https://www.youtube.com/watch?v=mDVoc9sZINs" target="_blank" rel="noopener">
+    <span class="play"></span>
+    <span class="label"><small>Watch the Training Video</small>Right Questions</span>
+  </a>
 
   <div class="card">
     <div class="card-head">
-      <div><div class="num">Scenario 03</div><h3>Question</h3></div>
+      <div><div class="num">Scenario 04</div><h3>Why Are You Asking?</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"Why do you need to know all this?"</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Confident Response</div>
+      <p>"Great question — the more I understand about the property and your situation, the more accurate and fair my number can be. I'm not trying to pry, just trying to get this right for both of us."</p>
+    </div>
+    <div class="row tip">
+      <div class="label green">Confidence Tip</div>
+      <p>Ask about condition, timeline, and motivation in that order. Numbers come last, never first.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Reference</div><h3>Key Questions to Always Ask</h3></div>
+    </div>
+    <div class="row response">
+      <p>Condition: "How would you describe the condition of the property right now?" • Motivation: "What's the main reason you're thinking about selling?" • Timeline: "Is there a timeframe you're hoping to have this wrapped up by?" • Occupancy: "Is anyone currently living in the property?" • Repairs: "Are there any repairs you know it needs?"</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer">REAL ESTATE LEAD TRAINING — Powered by STV Radiomeltdown</div>
+
+</div>
+
+<!-- ============ SECTION 5: PRICE ============ -->
+<div class="sheet">
+
+  <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
+
+  <div class="section-number">05 / NUMBERS</div>
+  <h1 class="section-title">Asking for Price</h1>
+  <p class="section-sub">Get comfortable asking what the homeowner wants before you make an offer.</p>
+
+  <a class="video-btn" href="https://www.youtube.com/watch?v=KaA_4bA4pWM" target="_blank" rel="noopener">
+    <span class="play"></span>
+    <span class="label"><small>Watch the Training Video</small>Price</span>
+  </a>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Scenario 05</div><h3>Question</h3></div>
     </div>
     <div class="row homeowner">
       <div class="label yellow">Homeowner Says</div>
@@ -303,18 +457,23 @@ h1.section-title {
 
 </div>
 
-<!-- ============ SECTION 4: AGREEMENT ============ -->
+<!-- ============ SECTION 6: AGREEMENT ============ -->
 <div class="sheet">
 
   <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
 
-  <div class="section-number">04 / NEXT STEP</div>
+  <div class="section-number">06 / NEXT STEP</div>
   <h1 class="section-title">Asking for Agreement</h1>
   <p class="section-sub">Transition from conversation to paperwork without sounding pushy.</p>
 
+  <a class="video-btn" href="https://www.youtube.com/watch?v=2zk18U9G7EE" target="_blank" rel="noopener">
+    <span class="play"></span>
+    <span class="label"><small>Watch the Training Video</small>Agreement</span>
+  </a>
+
   <div class="card">
     <div class="card-head">
-      <div><div class="num">Scenario 04</div><h3>Transition Into Paperwork</h3></div>
+      <div><div class="num">Scenario 06</div><h3>Transition Into Paperwork</h3></div>
     </div>
     <div class="row homeowner">
       <div class="label yellow">Homeowner Says</div>
@@ -334,14 +493,19 @@ h1.section-title {
 
 </div>
 
-<!-- ============ SECTION 5: INTIMIDATING MOMENTS ============ -->
+<!-- ============ SECTION 7: INTIMIDATING MOMENTS ============ -->
 <div class="sheet">
 
   <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
 
-  <div class="section-number">05 / STAY STEADY</div>
+  <div class="section-number">07 / STAY STEADY</div>
   <h1 class="section-title">Intimidating Moments</h1>
   <p class="section-sub">Five moments that catch new callers off guard. Stay calm, answer plainly, and keep moving.</p>
+
+  <a class="video-btn" href="https://www.youtube.com/watch?v=H6ijUcLMExY" target="_blank" rel="noopener">
+    <span class="play"></span>
+    <span class="label"><small>Watch the Training Video</small>Intimidating Moments</span>
+  </a>
 
   <div class="grid">
 
