@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+@page {
+  size: 850px 1100px;
+  margin: 0;
+}
+
+:root {
+  --bg: #090909;
+  --card: #151515;
+  --line: #303030;
+  --text: #f5f5f5;
+  --muted: #a8a8a8;
+  --accent: #ff1744;
+  --green: #48d597;
+  --yellow: #ffc857;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.sheet {
+  width: 850px;
+  min-height: 1100px;
+  padding: 50px 55px 40px;
+  page-break-after: always;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(255,23,68,.16), transparent 35%),
+    var(--bg);
+}
+
+.sheet:last-child {
+  page-break-after: avoid;
+}
+
+/* HEADER */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  color: #ddd;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.section-number {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  margin-top: 22px;
+}
+
+h1.section-title {
+  margin: 6px 0 10px;
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: -.03em;
+  text-transform: uppercase;
+}
+
+.section-sub {
+  margin: 0 0 26px;
+  max-width: 640px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* CARD */
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--card);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.card-head {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg, rgba(255,23,68,.09), transparent 70%), #111;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.card-head .num {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.card-head h3 {
+  margin: 3px 0 0;
+  font-size: 20px;
+}
+
+.row {
+  padding: 14px 20px;
+  border-bottom: 1px solid #232323;
+}
+
+.row:last-child { border-bottom: none; }
+
+.label {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.label.yellow { color: var(--yellow); }
+.label.green { color: var(--green); }
+
+.row p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.row.homeowner { background: rgba(255,200,87,.04); }
+.row.response  { background: #0c0c0c; }
+.row.tip       { background: rgba(72,213,151,.05); }
+
+/* TWO-UP GRID for intimidating moments (5 short cards) */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.grid .card { margin-bottom: 0; }
+
+/* FOOTER */
+
+.sheet-footer {
+  margin-top: 24px;
+  text-align: center;
+  color: #555;
+  font-size: 11px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============ SECTION 1: INITIAL CALL ============ -->
+<div class="sheet">
+
+  <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
+
+  <div class="section-number">01 / OPENING</div>
+  <h1 class="section-title">Initial Call</h1>
+  <p class="section-sub">Start the conversation without sounding like every other wholesaler. Say your name, mention the property, and ask for a minute of their time.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Scenario 01</div><h3>What to Say</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"Hello? Who is this?"</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Your Response</div>
+      <p>"Hi, my name is Braylen. I'm reaching out about the property at [PROPERTY ADDRESS]. I was hoping to ask you a quick question about the house. Do you have a minute?"</p>
+    </div>
+    <div class="row tip">
+      <div class="label green">Confidence Tip</div>
+      <p>Say your name and the address first. A slow, clear intro sounds more confident than a fast one.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Avoid</div><h3>What Not to Say</h3></div>
+    </div>
+    <div class="row response">
+      <p>Don't immediately ask, "Are you interested in selling your house?" That turns the call into a sales pitch before you've built any rapport. Lead with who you are and why you're calling — not the ask.</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer">REAL ESTATE LEAD TRAINING — Powered by STV Radiomeltdown</div>
+
+</div>
+
+<!-- ============ SECTION 2: PUSHBACK ============ -->
+<div class="sheet">
+
+  <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
+
+  <div class="section-number">02 / OBJECTION</div>
+  <h1 class="section-title">Pushback</h1>
+  <p class="section-sub">Don't argue when a homeowner immediately says no. Lower the pressure and leave the door open.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Scenario 02</div><h3>Homeowner Objection</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"I'm not interested in selling."</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Confident Response</div>
+      <p>"I completely understand. I'm not trying to pressure you into anything. I just wanted to see if there was a situation where selling the property would make sense for you. If not, that's completely fine."</p>
+    </div>
+    <div class="row tip">
+      <div class="label green">Confidence Tip</div>
+      <p>A calm, unbothered tone tells the homeowner you're not desperate. Desperation is what pushes people away.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Bonus</div><h3>"Just Send Me Something"</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"Just send me something."</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Confident Response</div>
+      <p>"Sure, I can do that. What's the best way to reach you, and is there anything specific you'd like me to include?"</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer">REAL ESTATE LEAD TRAINING — Powered by STV Radiomeltdown</div>
+
+</div>
+
+<!-- ============ SECTION 3: PRICE ============ -->
+<div class="sheet">
+
+  <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
+
+  <div class="section-number">03 / NUMBERS</div>
+  <h1 class="section-title">Asking for Price</h1>
+  <p class="section-sub">Get comfortable asking what the homeowner wants before you make an offer.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Scenario 03</div><h3>Question</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"So how much are you going to give me for the house?"</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Response</div>
+      <p>"I can definitely work up some numbers. Before I do that, I'd like to understand the property and what you're looking for. What price would make you comfortable selling it?"</p>
+    </div>
+    <div class="row tip">
+      <div class="label green">Confidence Tip</div>
+      <p>Never let the fear of an awkward pause push you into a number you haven't earned yet. Ask first.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Bonus</div><h3>"How Much Can You Pay?"</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"How much can you pay me?"</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Response</div>
+      <p>"It depends on the property and the condition. Tell me a little more about the house and what you're hoping to accomplish, and I can figure out whether we're in the same ballpark."</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer">REAL ESTATE LEAD TRAINING — Powered by STV Radiomeltdown</div>
+
+</div>
+
+<!-- ============ SECTION 4: AGREEMENT ============ -->
+<div class="sheet">
+
+  <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
+
+  <div class="section-number">04 / NEXT STEP</div>
+  <h1 class="section-title">Asking for Agreement</h1>
+  <p class="section-sub">Transition from conversation to paperwork without sounding pushy.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <div><div class="num">Scenario 04</div><h3>Transition Into Paperwork</h3></div>
+    </div>
+    <div class="row homeowner">
+      <div class="label yellow">Homeowner Says</div>
+      <p>"Okay, what happens if I agree to your offer?"</p>
+    </div>
+    <div class="row response">
+      <div class="label green">Response</div>
+      <p>"If the numbers work for both of us, the next step is putting the agreement in writing so everyone knows exactly what they're agreeing to. I'll walk you through what we're signing, and you should feel comfortable reviewing it before you sign anything."</p>
+    </div>
+    <div class="row tip">
+      <div class="label green">Confidence Reminder</div>
+      <p>Paperwork feels less scary when you explain it before you present it. Narrate the next step — never ambush them with it, and never pressure anyone to sign on the spot.</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer">REAL ESTATE LEAD TRAINING — Powered by STV Radiomeltdown</div>
+
+</div>
+
+<!-- ============ SECTION 5: INTIMIDATING MOMENTS ============ -->
+<div class="sheet">
+
+  <div class="badge"><span class="badge-dot"></span>REAL ESTATE LEAD TRAINING</div>
+
+  <div class="section-number">05 / STAY STEADY</div>
+  <h1 class="section-title">Intimidating Moments</h1>
+  <p class="section-sub">Five moments that catch new callers off guard. Stay calm, answer plainly, and keep moving.</p>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-head"><div><div class="num">05</div><h3>"How did you get my number?"</h3></div></div>
+      <div class="row response"><p>"That's a fair question. We use property and public-record information to identify properties that may fit what we're looking for. If you'd rather not receive calls from us, I completely understand."</p></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div><div class="num">06</div><h3>"Are you an agent?"</h3></div></div>
+      <div class="row response"><p>"No, I'm not calling as your real estate agent. I'm reaching out about purchasing the property. I want to be clear about who I am and why I'm calling."</p></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div><div class="num">08</div><h3>"Just give me your offer."</h3></div></div>
+      <div class="row response"><p>"I can give you a number, but I don't want to throw out something without understanding the property. Let me ask a couple quick questions first so the number makes sense."</p></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div><div class="num">07</div><h3>"I need to talk to my spouse."</h3></div></div>
+      <div class="row response"><p>"Absolutely, you should both be comfortable. Would it help to go over the basic numbers together, then I follow up once you've had a chance to talk?"</p></div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-head"><div><div class="num">12</div><h3>"I already have a buyer."</h3></div></div>
+    <div class="row response"><p>"That's good — if you're comfortable with that buyer, you should consider it. If that deal doesn't work out, would you mind if I stayed in touch as a backup?"</p></div>
+  </div>
+
+  <div class="card" style="margin-top:16px; border-color: rgba(72,213,151,.28); background: rgba(72,213,151,.06);">
+    <div class="row tip">
+      <div class="label green">Confidence Reminder</div>
+      <p>None of these are attacks. They're tests. Answer plainly, don't get defensive, and let your calm do the convincing.</p>
+    </div>
+  </div>
+
+  <div class="sheet-footer">REAL ESTATE LEAD TRAINING — Powered by STV Radiomeltdown</div>
+
+</div>
+
+</body>
+</html>
