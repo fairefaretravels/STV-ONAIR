@@ -177,6 +177,153 @@
     box-shadow:0 4px 14px rgba(0,0,0,.5);cursor:pointer;z-index:45;line-height:1;
   }
   .fab:active{transform:scale(.94);}
+
+  /* ===== FREE PROBATE LEAD SOURCES ===== */
+
+.lead-sources{
+  margin-top:28px;
+  padding:18px;
+  background:var(--black-2);
+  border:1px solid var(--line);
+  border-radius:3px;
+}
+
+.sources-header{
+  margin-bottom:16px;
+}
+
+.sources-label,
+.method-label{
+  font-family:'Courier Prime',monospace;
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--gold-dim);
+  text-transform:uppercase;
+}
+
+.sources-header h2{
+  margin:3px 0 4px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:27px;
+  letter-spacing:1px;
+  color:var(--gold);
+}
+
+.sources-header p{
+  margin:0;
+  color:var(--grey);
+  font-size:13.5px;
+  line-height:1.4;
+}
+
+.source-grid{
+  display:grid;
+  gap:8px;
+}
+
+.source-card{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-height:62px;
+  padding:10px 12px;
+  background:var(--black);
+  border:1px solid var(--line);
+  border-radius:2px;
+  text-decoration:none;
+  transition:.15s ease;
+}
+
+.source-card:hover{
+  border-color:var(--gold);
+  background:var(--black-3);
+  transform:translateY(-1px);
+}
+
+.source-icon{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--black-3);
+  border:1px solid var(--line);
+  border-radius:2px;
+  font-size:18px;
+}
+
+.source-info{
+  min-width:0;
+  flex:1;
+}
+
+.source-info strong{
+  display:block;
+  color:var(--paper);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:17px;
+  letter-spacing:.7px;
+}
+
+.source-info small{
+  display:block;
+  color:var(--grey);
+  font-size:11.5px;
+}
+
+.source-arrow{
+  color:var(--gold);
+  font-size:19px;
+  font-weight:700;
+}
+
+.lead-method{
+  margin-top:18px;
+  padding:15px;
+  background:rgba(200,150,62,.06);
+  border:1px solid var(--gold-dim);
+  border-radius:2px;
+}
+
+.lead-method h3{
+  margin:3px 0 13px;
+  font-family:'Bebas Neue',sans-serif;
+  color:var(--gold-2);
+  font-size:21px;
+  letter-spacing:.8px;
+}
+
+.lead-method ol{
+  margin:0;
+  padding-left:22px;
+}
+
+.lead-method li{
+  margin:9px 0;
+  padding-left:3px;
+  color:#aaa69a;
+  font-size:13.5px;
+  line-height:1.4;
+}
+
+.lead-method li strong{
+  color:var(--paper);
+}
+
+.source-note{
+  margin-top:12px;
+  padding:11px 12px;
+  border-left:3px solid var(--gold-dim);
+  background:rgba(200,150,62,.05);
+  color:var(--grey);
+  font-size:12px;
+  line-height:1.45;
+}
+
+.source-note strong{
+  color:var(--gold-2);
+}
 </style>
 </head>
 <body>
@@ -328,188 +475,1118 @@
     </div>
   </section>
 
+  <!-- ===== FREE PROBATE LEAD SOURCES ===== -->
+
+<section class="lead-sources">
+
+  <div class="sources-header">
+    <div class="sources-label">FREE LEAD SOURCES</div>
+
+    <h2>
+      FIND PROBATE LEADS
+    </h2>
+
+    <p>
+      Use public county records to find potential probate
+      properties without buying a lead list.
+    </p>
+  </div>
+
+
+  <div class="source-grid">
+
+    <a
+      class="source-card"
+      href="https://dekalbprobatega.com/services/records/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="source-icon">⚖️</span>
+
+      <span class="source-info">
+        <strong>DeKalb County</strong>
+        <small>Probate Court Records</small>
+      </span>
+
+      <span class="source-arrow">→</span>
+    </a>
+
+
+    <a
+      class="source-card"
+      href="https://rockdalecoprobatecourt.gov/estates/probate-public-records"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="source-icon">⚖️</span>
+
+      <span class="source-info">
+        <strong>Rockdale County</strong>
+        <small>Probate Public Records</small>
+      </span>
+
+      <span class="source-arrow">→</span>
+    </a>
+
+
+    <a
+      class="source-card"
+      href="https://www.henrycountyga.gov/courts-1"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="source-icon">⚖️</span>
+
+      <span class="source-info">
+        <strong>Henry County</strong>
+        <small>Probate Court</small>
+      </span>
+
+      <span class="source-arrow">→</span>
+    </a>
+
+
+    <a
+      class="source-card"
+      href="https://fultoncountyga.gov/probate-court"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="source-icon">⚖️</span>
+
+      <span class="source-info">
+        <strong>Fulton County</strong>
+        <small>Probate Court</small>
+      </span>
+
+      <span class="source-arrow">→</span>
+    </a>
+
+  </div>
+
+
+  <div class="lead-method">
+
+    <div class="method-label">
+      THE BASIC METHOD
+    </div>
+
+    <h3>
+      Turn a probate filing into a real estate lead.
+    </h3>
+
+    <ol>
+      <li>
+        <strong>Find the estate.</strong>
+        Search recent probate filings.
+      </li>
+
+      <li>
+        <strong>Identify the property.</strong>
+        Determine whether the deceased owned real estate.
+      </li>
+
+      <li>
+        <strong>Find the representative.</strong>
+        Locate the executor, administrator, or personal representative.
+      </li>
+
+      <li>
+        <strong>Research the property.</strong>
+        Check ownership, estimated value, liens, mortgage information,
+        condition, and equity.
+      </li>
+
+      <li>
+        <strong>Qualify the opportunity.</strong>
+        Look for properties where selling, cleanout, repairs,
+        landscaping, or management may be needed.
+      </li>
+
+      <li>
+        <strong>Add it to your docket.</strong>
+        Use the <strong>NEW FILE</strong> tab above to track the lead.
+      </li>
+    </ol>
+
+  </div>
+
+
+  <div class="source-note">
+
+    <strong>IMPORTANT:</strong>
+
+    Probate records are public records, but information and
+    availability vary by county. Verify the property, ownership,
+    representative, and contact information before outreach.
+
+  </div>
+
+</section>
+
 </main>
 
 <button class="fab" id="quickAdd" title="Add lead">+</button>
 
 <div class="crosslink">
   <a href="Training1">← Back to Property Lead Trainer</a>
-
-  <div style="margin-top: 12px;">
-    <strong>🆓 Free Probate Leads</strong><br>
-
-    <a href="https://www.georgiaprobaterecords.com/" target="_blank" rel="noopener">
-      Georgia Probate Records — Free Search
-    </a><br>
-
-    <a href="https://fultonprobatega.org/227/Records-Division" target="_blank" rel="noopener">
-      Fulton County Probate Records
-    </a><br>
-
-    <a href="https://rockdalecoprobatecourt.gov/estates/probate-public-records" target="_blank" rel="noopener">
-      Rockdale County Probate Records
-    </a><br>
-
-    <a href="https://gwinnettcourts.com/probate/Records" target="_blank" rel="noopener">
-      Gwinnett County Probate Records
-    </a><br>
-
-    <a href="https://claytoncounty.courtgeorgia.us/probate-records.html" target="_blank" rel="noopener">
-      Clayton County Probate Estate Search
-    </a>
-  </div>
 </div>
 
 <script>
 (function(){
-  const leads = [];
+
+  /* =========================================================
+     PROBATE DOCKET
+     Persistent localStorage lead tracker
+     ========================================================= */
+
+  const STORAGE_KEY = 'probateDocketLeads';
+
+  let leads = loadLeads();
   let activeFilter = 'all';
   let selectedScore = null;
 
-  const scoreLabel = {hot:'HOT', warm:'WARM', service:'SERVICE OPP', cold:'NOT INTERESTED', dnc:'DO NOT CONTACT'};
+  const scoreLabel = {
+    hot: 'HOT',
+    warm: 'WARM',
+    service: 'SERVICE OPP',
+    cold: 'NOT INTERESTED',
+    dnc: 'DO NOT CONTACT'
+  };
 
-  // ---- Tabs ----
-  document.querySelectorAll('.tab').forEach(tab=>{
-    tab.addEventListener('click', ()=>switchView(tab.dataset.view));
-  });
-  function switchView(name){
-    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.view===name));
-    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-    document.getElementById('view-'+name).classList.add('active');
+
+  /* =========================================================
+     STORAGE
+     ========================================================= */
+
+  function loadLeads(){
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+
+      if(!saved){
+        return [];
+      }
+
+      const parsed = JSON.parse(saved);
+
+      return Array.isArray(parsed) ? parsed : [];
+
+    } catch(error){
+
+      console.error('Unable to load probate leads:', error);
+
+      return [];
+    }
   }
-  document.getElementById('quickAdd').addEventListener('click', ()=>switchView('add'));
 
-  // ---- Filters ----
-  document.getElementById('filterRow').addEventListener('click', e=>{
-    const chip = e.target.closest('.chip');
-    if(!chip) return;
-    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-    chip.classList.add('active');
-    activeFilter = chip.dataset.filter;
-    renderList();
+
+  function saveLeads(){
+
+    try {
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(leads)
+      );
+
+    } catch(error){
+
+      console.error('Unable to save probate leads:', error);
+
+      alert(
+        'Your browser could not save the docket. ' +
+        'Make sure storage is enabled.'
+      );
+    }
+  }
+
+
+  /* =========================================================
+     TABS
+     ========================================================= */
+
+  document.querySelectorAll('.tab').forEach(tab => {
+
+    tab.addEventListener('click', () => {
+
+      switchView(tab.dataset.view);
+
+    });
+
   });
 
-  // ---- Score picker ----
-  document.getElementById('scoreGrid').addEventListener('click', e=>{
-    const opt = e.target.closest('.score-opt');
-    if(!opt) return;
-    document.querySelectorAll('.score-opt').forEach(o=>o.className='score-opt');
-    opt.classList.add('sel-'+opt.dataset.score);
-    selectedScore = opt.dataset.score;
-  });
 
-  // ---- Save lead ----
-  document.getElementById('saveLeadBtn').addEventListener('click', ()=>{
-    const caseNum = document.getElementById('f-case').value.trim();
-    const decedent = document.getElementById('f-decedent').value.trim();
-    const address = document.getElementById('f-address').value.trim();
+  function switchView(name){
+
+    document
+      .querySelectorAll('.tab')
+      .forEach(tab => {
+
+        tab.classList.toggle(
+          'active',
+          tab.dataset.view === name
+        );
+
+      });
+
+
+    document
+      .querySelectorAll('.view')
+      .forEach(view => {
+
+        view.classList.remove('active');
+
+      });
+
+
+    const target = document.getElementById(
+      'view-' + name
+    );
+
+
+    if(target){
+
+      target.classList.add('active');
+
+    }
+
+  }
+
+
+  /* =========================================================
+     QUICK ADD BUTTON
+     ========================================================= */
+
+  const quickAdd = document.getElementById('quickAdd');
+
+  if(quickAdd){
+
+    quickAdd.addEventListener('click', () => {
+
+      switchView('add');
+
+      const firstField =
+        document.getElementById('f-decedent');
+
+      if(firstField){
+
+        setTimeout(() => {
+          firstField.focus();
+        }, 100);
+
+      }
+
+    });
+
+  }
+
+
+  /* =========================================================
+     FILTERS
+     ========================================================= */
+
+  const filterRow =
+    document.getElementById('filterRow');
+
+
+  if(filterRow){
+
+    filterRow.addEventListener('click', event => {
+
+      const chip =
+        event.target.closest('.chip');
+
+      if(!chip){
+        return;
+      }
+
+
+      document
+        .querySelectorAll('.chip')
+        .forEach(button => {
+
+          button.classList.remove('active');
+
+        });
+
+
+      chip.classList.add('active');
+
+
+      activeFilter =
+        chip.dataset.filter;
+
+
+      renderList();
+
+    });
+
+  }
+
+
+  /* =========================================================
+     LEAD SCORE PICKER
+     ========================================================= */
+
+  const scoreGrid =
+    document.getElementById('scoreGrid');
+
+
+  if(scoreGrid){
+
+    scoreGrid.addEventListener('click', event => {
+
+      const option =
+        event.target.closest('.score-opt');
+
+      if(!option){
+        return;
+      }
+
+
+      document
+        .querySelectorAll('.score-opt')
+        .forEach(item => {
+
+          item.className = 'score-opt';
+
+        });
+
+
+      option.classList.add(
+        'sel-' + option.dataset.score
+      );
+
+
+      selectedScore =
+        option.dataset.score;
+
+    });
+
+  }
+
+
+  /* =========================================================
+     SAVE NEW LEAD
+     ========================================================= */
+
+  const saveLeadBtn =
+    document.getElementById('saveLeadBtn');
+
+
+  if(saveLeadBtn){
+
+    saveLeadBtn.addEventListener(
+      'click',
+      saveNewLead
+    );
+
+  }
+
+
+  function saveNewLead(){
+
+    const caseNum =
+      getValue('f-case');
+
+    const decedent =
+      getValue('f-decedent');
+
+    const address =
+      getValue('f-address');
+
+    const county =
+      getValue('f-county');
+
+    const contactName =
+      getValue('f-contact-name');
+
+    const contactPhone =
+      getValue('f-contact-phone');
+
+    const dateFiled =
+      getValue('f-date');
+
+    const relationship =
+      getValue('f-relationship');
+
+    const notes =
+      getValue('f-notes');
+
+
+    /* Required fields */
 
     if(!decedent || !address){
-      alert('Add at least a decedent name and property address before saving.');
-      return;
-    }
-    if(!selectedScore){
-      alert('Pick a lead score before saving.');
+
+      alert(
+        'Add at least a decedent name and property address before saving.'
+      );
+
       return;
     }
 
-    leads.unshift({
-      id: Date.now(),
-      caseNum, decedent, address,
-      county: document.getElementById('f-county').value.trim(),
-      contactName: document.getElementById('f-contact-name').value.trim(),
-      contactPhone: document.getElementById('f-contact-phone').value.trim(),
-      dateFiled: document.getElementById('f-date').value.trim(),
-      relationship: document.getElementById('f-relationship').value,
-      score: selectedScore,
-      notes: document.getElementById('f-notes').value.trim()
-    });
+
+    if(!selectedScore){
+
+      alert(
+        'Pick a lead score before saving.'
+      );
+
+      return;
+    }
+
+
+    /* Create lead */
+
+    const newLead = {
+
+      id:
+        Date.now() +
+        Math.floor(Math.random() * 1000),
+
+      caseNum,
+
+      decedent,
+
+      address,
+
+      county,
+
+      contactName,
+
+      contactPhone,
+
+      dateFiled,
+
+      relationship,
+
+      score:
+        selectedScore,
+
+      notes,
+
+      createdAt:
+        new Date().toISOString()
+
+    };
+
+
+    /* Add newest lead to beginning */
+
+    leads.unshift(newLead);
+
+
+    /* Persist */
+
+    saveLeads();
+
+
+    /* Reset form */
 
     clearForm();
-    renderList();
-    switchView('list');
-  });
 
-  function clearForm(){
-    ['f-case','f-decedent','f-county','f-address','f-contact-name','f-contact-phone','f-date','f-notes'].forEach(id=>{
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('f-relationship').value = '';
-    document.querySelectorAll('.score-opt').forEach(o=>o.className='score-opt');
-    selectedScore = null;
+
+    /* Refresh list */
+
+    renderList();
+
+
+    /* Return to leads */
+
+    switchView('list');
+
+
+    /* Confirmation */
+
+    showSaveMessage();
+
   }
 
-  // ---- Render list ----
-  function renderList(){
-    const wrap = document.getElementById('leadList');
-    const filtered = activeFilter==='all' ? leads : leads.filter(l=>l.score===activeFilter);
-    document.getElementById('caseCount').textContent = leads.length + (leads.length===1?' FILE':' FILES');
 
-    if(filtered.length===0){
-      wrap.innerHTML = '<div class="empty"><div class="big">NO FILES</div>No leads match this filter yet — open a new file to start the docket.</div>';
+  /* =========================================================
+     GET FORM VALUE
+     ========================================================= */
+
+  function getValue(id){
+
+    const element =
+      document.getElementById(id);
+
+    return element
+      ? element.value.trim()
+      : '';
+
+  }
+
+
+  /* =========================================================
+     CLEAR FORM
+     ========================================================= */
+
+  function clearForm(){
+
+    const fields = [
+
+      'f-case',
+      'f-decedent',
+      'f-county',
+      'f-address',
+      'f-contact-name',
+      'f-contact-phone',
+      'f-date',
+      'f-notes'
+
+    ];
+
+
+    fields.forEach(id => {
+
+      const element =
+        document.getElementById(id);
+
+      if(element){
+
+        element.value = '';
+
+      }
+
+    });
+
+
+    const relationship =
+      document.getElementById(
+        'f-relationship'
+      );
+
+
+    if(relationship){
+
+      relationship.value = '';
+
+    }
+
+
+    document
+      .querySelectorAll('.score-opt')
+      .forEach(option => {
+
+        option.className =
+          'score-opt';
+
+      });
+
+
+    selectedScore = null;
+
+  }
+
+
+  /* =========================================================
+     SAVE CONFIRMATION
+     ========================================================= */
+
+  function showSaveMessage(){
+
+    const message =
+      document.createElement('div');
+
+
+    message.textContent =
+      '✓ FILE SAVED TO DOCKET';
+
+
+    message.style.position =
+      'fixed';
+
+    message.style.top =
+      '85px';
+
+    message.style.left =
+      '50%';
+
+    message.style.transform =
+      'translateX(-50%)';
+
+    message.style.zIndex =
+      '999';
+
+    message.style.padding =
+      '10px 16px';
+
+    message.style.background =
+      '#C8963E';
+
+    message.style.color =
+      '#141005';
+
+    message.style.fontFamily =
+      'Courier Prime, monospace';
+
+    message.style.fontSize =
+      '11px';
+
+    message.style.fontWeight =
+      '700';
+
+    message.style.borderRadius =
+      '2px';
+
+    message.style.boxShadow =
+      '0 4px 15px rgba(0,0,0,.4)';
+
+
+    document.body.appendChild(message);
+
+
+    setTimeout(() => {
+
+      message.remove();
+
+    }, 1800);
+
+  }
+
+
+  /* =========================================================
+     RENDER LEAD LIST
+     ========================================================= */
+
+  function renderList(){
+
+    const wrap =
+      document.getElementById(
+        'leadList'
+      );
+
+
+    if(!wrap){
       return;
     }
 
-    wrap.innerHTML = filtered.map(l=>`
-      <div class="lead-card ${l.score}">
-        <div class="lead-top">
-          <div>
-            <div class="lead-name">${escapeHtml(l.decedent)}</div>
-            <div class="lead-addr">${escapeHtml(l.address)}</div>
-          </div>
-          <div class="status-badge ${l.score}">${scoreLabel[l.score]}</div>
-        </div>
-        <div class="lead-meta">
-          ${l.caseNum ? `<div><b>Case #</b>${escapeHtml(l.caseNum)}</div>`:''}
-          ${l.county ? `<div><b>County</b>${escapeHtml(l.county)}</div>`:''}
-          ${l.contactName ? `<div><b>Contact</b>${escapeHtml(l.contactName)}</div>`:''}
-          ${l.contactPhone ? `<div><b>Phone</b>${escapeHtml(l.contactPhone)}</div>`:''}
-          ${l.relationship ? `<div><b>Relation</b>${escapeHtml(l.relationship)}</div>`:''}
-          ${l.dateFiled ? `<div><b>Filed</b>${escapeHtml(l.dateFiled)}</div>`:''}
-        </div>
-        ${l.notes ? `<div class="lead-notes">${escapeHtml(l.notes)}</div>` : ''}
-        <div class="lead-actions">
-          <button class="mini-btn gold" onclick="window.__editScore(${l.id})">Change Status</button>
-          <button class="mini-btn" onclick="window.__deleteLead(${l.id})">Remove</button>
-        </div>
-      </div>
-    `).join('');
-  }
 
-  window.__deleteLead = function(id){
-    const idx = leads.findIndex(l=>l.id===id);
-    if(idx>-1 && confirm('Remove this file from the docket?')){
-      leads.splice(idx,1);
-      renderList();
+    const filtered =
+      activeFilter === 'all'
+        ? leads
+        : leads.filter(
+            lead =>
+              lead.score === activeFilter
+          );
+
+
+    /* Case counter */
+
+    const caseCount =
+      document.getElementById(
+        'caseCount'
+      );
+
+
+    if(caseCount){
+
+      caseCount.textContent =
+        leads.length +
+        (
+          leads.length === 1
+            ? ' FILE'
+            : ' FILES'
+        );
+
     }
-  };
 
-  window.__editScore = function(id){
-    const lead = leads.find(l=>l.id===id);
-    if(!lead) return;
-    const order = ['hot','warm','service','cold','dnc'];
-    const next = order[(order.indexOf(lead.score)+1) % order.length];
-    lead.score = next;
-    renderList();
-  };
 
-  function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    /* Empty state */
+
+    if(filtered.length === 0){
+
+      wrap.innerHTML = `
+        <div class="empty">
+          <div class="big">NO FILES</div>
+          No leads match this filter yet —
+          open a new file to start the docket.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    /* Build cards */
+
+    wrap.innerHTML =
+      filtered.map(lead => {
+
+        const score =
+          scoreLabel[lead.score]
+          || 'UNKNOWN';
+
+
+        return `
+
+          <div class="lead-card ${escapeHtml(lead.score)}">
+
+            <div class="lead-top">
+
+              <div>
+
+                <div class="lead-name">
+                  ${escapeHtml(lead.decedent)}
+                </div>
+
+                <div class="lead-addr">
+                  ${escapeHtml(lead.address)}
+                </div>
+
+              </div>
+
+
+              <div class="status-badge ${escapeHtml(lead.score)}">
+                ${score}
+              </div>
+
+            </div>
+
+
+            <div class="lead-meta">
+
+              ${
+                lead.caseNum
+                  ? `
+                    <div>
+                      <b>Case #</b>
+                      ${escapeHtml(lead.caseNum)}
+                    </div>
+                  `
+                  : ''
+              }
+
+
+              ${
+                lead.county
+                  ? `
+                    <div>
+                      <b>County</b>
+                      ${escapeHtml(lead.county)}
+                    </div>
+                  `
+                  : ''
+              }
+
+
+              ${
+                lead.contactName
+                  ? `
+                    <div>
+                      <b>Contact</b>
+                      ${escapeHtml(lead.contactName)}
+                    </div>
+                  `
+                  : ''
+              }
+
+
+              ${
+                lead.contactPhone
+                  ? `
+                    <div>
+                      <b>Phone</b>
+                      ${escapeHtml(lead.contactPhone)}
+                    </div>
+                  `
+                  : ''
+              }
+
+
+              ${
+                lead.relationship
+                  ? `
+                    <div>
+                      <b>Relation</b>
+                      ${escapeHtml(lead.relationship)}
+                    </div>
+                  `
+                  : ''
+              }
+
+
+              ${
+                lead.dateFiled
+                  ? `
+                    <div>
+                      <b>Filed</b>
+                      ${escapeHtml(lead.dateFiled)}
+                    </div>
+                  `
+                  : ''
+              }
+
+            </div>
+
+
+            ${
+              lead.notes
+                ? `
+                  <div class="lead-notes">
+                    ${escapeHtml(lead.notes)}
+                  </div>
+                `
+                : ''
+            }
+
+
+            <div class="lead-actions">
+
+              <button
+                class="mini-btn gold"
+                onclick="window.__editScore(${lead.id})"
+              >
+                Change Status
+              </button>
+
+
+              <button
+                class="mini-btn"
+                onclick="window.__deleteLead(${lead.id})"
+              >
+                Remove
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join('');
+
   }
 
-  // ---- Script accordion ----
-  document.querySelectorAll('.script-head').forEach(head=>{
-    head.addEventListener('click', ()=>{
-      const body = document.getElementById(head.dataset.open);
-      const isOpen = body.classList.contains('open');
-      body.classList.toggle('open', !isOpen);
-      head.classList.toggle('open', !isOpen);
+
+  /* =========================================================
+     DELETE LEAD
+     ========================================================= */
+
+  window.__deleteLead =
+    function(id){
+
+      const index =
+        leads.findIndex(
+          lead => lead.id === id
+        );
+
+
+      if(index === -1){
+        return;
+      }
+
+
+      const lead =
+        leads[index];
+
+
+      const confirmed =
+        confirm(
+          'Remove ' +
+          lead.decedent +
+          ' from the docket?'
+        );
+
+
+      if(!confirmed){
+        return;
+      }
+
+
+      leads.splice(index, 1);
+
+
+      saveLeads();
+
+
+      renderList();
+
+    };
+
+
+  /* =========================================================
+     CHANGE STATUS
+     ========================================================= */
+
+  window.__editScore =
+    function(id){
+
+      const lead =
+        leads.find(
+          item => item.id === id
+        );
+
+
+      if(!lead){
+        return;
+      }
+
+
+      const choice =
+        prompt(
+
+          'CHANGE LEAD STATUS\n\n' +
+
+          '1 = HOT\n' +
+
+          '2 = WARM\n' +
+
+          '3 = SERVICE OPP\n' +
+
+          '4 = NOT INTERESTED\n' +
+
+          '5 = DO NOT CONTACT\n\n' +
+
+          'Enter 1-5:',
+
+          ''
+
+        );
+
+
+      if(choice === null){
+        return;
+      }
+
+
+      const statusMap = {
+
+        '1': 'hot',
+
+        '2': 'warm',
+
+        '3': 'service',
+
+        '4': 'cold',
+
+        '5': 'dnc'
+
+      };
+
+
+      const newStatus =
+        statusMap[
+          choice.trim()
+        ];
+
+
+      if(!newStatus){
+
+        alert(
+          'Please enter a number from 1 to 5.'
+        );
+
+        return;
+
+      }
+
+
+      lead.score =
+        newStatus;
+
+
+      saveLeads();
+
+
+      renderList();
+
+    };
+
+
+  /* =========================================================
+     HTML ESCAPE
+     ========================================================= */
+
+  function escapeHtml(value){
+
+    return String(value ?? '')
+      .replace(
+        /[&<>"']/g,
+        character => ({
+
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+
+        })[character]
+      );
+
+  }
+
+
+  /* =========================================================
+     SCRIPT ACCORDION
+     ========================================================= */
+
+  document
+    .querySelectorAll('.script-head')
+    .forEach(head => {
+
+      head.addEventListener(
+        'click',
+        () => {
+
+          const body =
+            document.getElementById(
+              head.dataset.open
+            );
+
+
+          if(!body){
+            return;
+          }
+
+
+          const isOpen =
+            body.classList.contains(
+              'open'
+            );
+
+
+          body.classList.toggle(
+            'open',
+            !isOpen
+          );
+
+
+          head.classList.toggle(
+            'open',
+            !isOpen
+          );
+
+        }
+      );
+
     });
-  });
-  // open first script block by default
-  document.querySelector('.script-head').click();
+
+
+  /* Open first script automatically */
+
+  const firstScript =
+    document.querySelector(
+      '.script-head'
+    );
+
+
+  if(firstScript){
+
+    firstScript.click();
+
+  }
+
+
+  /* =========================================================
+     INITIAL LOAD
+     ========================================================= */
 
   renderList();
+
 })();
 </script>
 
