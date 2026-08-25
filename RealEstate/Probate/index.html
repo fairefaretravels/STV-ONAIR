@@ -636,81 +636,80 @@
 (function(){
 
   /* =========================================================
-     PROBATE DOCKET
-     Persistent localStorage lead tracker
+     FIREBASE CONFIG
+     Uses the existing H4H Walkie Firebase project
      ========================================================= */
 
-  const STORAGE_KEY = 'probateDocketLeads';
-
-  let leads = loadLeads();
-  let activeFilter = 'all';
-  let selectedScore = null;
-
-  const scoreLabel = {
-    hot: 'HOT',
-    warm: 'WARM',
-    service: 'SERVICE OPP',
-    cold: 'NOT INTERESTED',
-    dnc: 'DO NOT CONTACT'
+  const firebaseConfig = {
+    apiKey: "AIzaSyCNdyRTEynhQTm4BqspOxpOaC8twHeod6w",
+    authDomain: "h4h-walkie.firebaseapp.com",
+    databaseURL: "https://h4h-walkie-default-rtdb.firebaseio.com",
+    projectId: "h4h-walkie",
+    storageBucket: "h4h-walkie.firebasestorage.app",
+    messagingSenderId: "253773392789",
+    appId: "1:253773392789:web:27b1141ffa1f1b7815a49c",
+    measurementId: "G-HHNFJF23JW"
   };
+
+  let db = null;
+  let auth = null;
+  let fbReady = false;
+
+  try {
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    db = firebase.firestore();
+    auth = firebase.auth();
+    fbReady = true;
+
+    console.log("Firebase connected.");
+
+  } catch(error) {
+
+    console.error("Firebase initialization failed:", error);
+
+  }
 
 
   /* =========================================================
-     STORAGE
+     PROBATE COLLECTION
+     Separate from dispatch_leads
      ========================================================= */
 
-  function loadLeads(){
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-
-      if(!saved){
-        return [];
-      }
-
-      const parsed = JSON.parse(saved);
-
-      return Array.isArray(parsed) ? parsed : [];
-
-    } catch(error){
-
-      console.error('Unable to load probate leads:', error);
-
-      return [];
-    }
-  }
+  const PROBATE_COL = db
+    ? db.collection("probate_leads")
+    : null;
 
 
-  function saveLeads(){
+  /* =========================================================
+     APP STATE
+     ========================================================= */
 
-    try {
+  let leads = [];
+  let activeFilter = "all";
+  let selectedScore = null;
 
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(leads)
-      );
 
-    } catch(error){
-
-      console.error('Unable to save probate leads:', error);
-
-      alert(
-        'Your browser could not save the docket. ' +
-        'Make sure storage is enabled.'
-      );
-    }
-  }
+  const scoreLabel = {
+    hot: "HOT",
+    warm: "WARM",
+    service: "SERVICE OPP",
+    cold: "NOT INTERESTED",
+    dnc: "DO NOT CONTACT"
+  };
 
 
   /* =========================================================
      TABS
      ========================================================= */
 
-  document.querySelectorAll('.tab').forEach(tab => {
+  document.querySelectorAll(".tab").forEach(tab => {
 
-    tab.addEventListener('click', () => {
-
+    tab.addEventListener("click", () => {
       switchView(tab.dataset.view);
-
     });
 
   });
@@ -718,36 +717,25 @@
 
   function switchView(name){
 
-    document
-      .querySelectorAll('.tab')
-      .forEach(tab => {
+    document.querySelectorAll(".tab").forEach(tab => {
 
-        tab.classList.toggle(
-          'active',
-          tab.dataset.view === name
-        );
+      tab.classList.toggle(
+        "active",
+        tab.dataset.view === name
+      );
 
-      });
+    });
 
 
-    document
-      .querySelectorAll('.view')
-      .forEach(view => {
-
-        view.classList.remove('active');
-
-      });
+    document.querySelectorAll(".view").forEach(view => {
+      view.classList.remove("active");
+    });
 
 
-    const target = document.getElementById(
-      'view-' + name
-    );
-
+    const target = document.getElementById("view-" + name);
 
     if(target){
-
-      target.classList.add('active');
-
+      target.classList.add("active");
     }
 
   }
@@ -757,23 +745,17 @@
      QUICK ADD BUTTON
      ========================================================= */
 
-  const quickAdd = document.getElementById('quickAdd');
+  const quickAdd = document.getElementById("quickAdd");
 
   if(quickAdd){
 
-    quickAdd.addEventListener('click', () => {
+    quickAdd.addEventListener("click", () => {
+      switchView("add");
 
-      switchView('add');
-
-      const firstField =
-        document.getElementById('f-decedent');
+      const firstField = document.getElementById("f-case");
 
       if(firstField){
-
-        setTimeout(() => {
-          firstField.focus();
-        }, 100);
-
+        setTimeout(() => firstField.focus(), 150);
       }
 
     });
@@ -785,37 +767,23 @@
      FILTERS
      ========================================================= */
 
-  const filterRow =
-    document.getElementById('filterRow');
-
+  const filterRow = document.getElementById("filterRow");
 
   if(filterRow){
 
-    filterRow.addEventListener('click', event => {
+    filterRow.addEventListener("click", event => {
 
-      const chip =
-        event.target.closest('.chip');
+      const chip = event.target.closest(".chip");
 
-      if(!chip){
-        return;
-      }
+      if(!chip) return;
 
+      document.querySelectorAll(".chip").forEach(c => {
+        c.classList.remove("active");
+      });
 
-      document
-        .querySelectorAll('.chip')
-        .forEach(button => {
+      chip.classList.add("active");
 
-          button.classList.remove('active');
-
-        });
-
-
-      chip.classList.add('active');
-
-
-      activeFilter =
-        chip.dataset.filter;
-
+      activeFilter = chip.dataset.filter;
 
       renderList();
 
@@ -825,41 +793,28 @@
 
 
   /* =========================================================
-     LEAD SCORE PICKER
+     SCORE PICKER
      ========================================================= */
 
-  const scoreGrid =
-    document.getElementById('scoreGrid');
-
+  const scoreGrid = document.getElementById("scoreGrid");
 
   if(scoreGrid){
 
-    scoreGrid.addEventListener('click', event => {
+    scoreGrid.addEventListener("click", event => {
 
-      const option =
-        event.target.closest('.score-opt');
+      const option = event.target.closest(".score-opt");
 
-      if(!option){
-        return;
-      }
+      if(!option) return;
 
-
-      document
-        .querySelectorAll('.score-opt')
-        .forEach(item => {
-
-          item.className = 'score-opt';
-
-        });
-
+      document.querySelectorAll(".score-opt").forEach(opt => {
+        opt.className = "score-opt";
+      });
 
       option.classList.add(
-        'sel-' + option.dataset.score
+        "sel-" + option.dataset.score
       );
 
-
-      selectedScore =
-        option.dataset.score;
+      selectedScore = option.dataset.score;
 
     });
 
@@ -867,154 +822,149 @@
 
 
   /* =========================================================
-     SAVE NEW LEAD
+     SAVE NEW PROBATE LEAD
      ========================================================= */
 
-  const saveLeadBtn =
-    document.getElementById('saveLeadBtn');
-
+  const saveLeadBtn = document.getElementById("saveLeadBtn");
 
   if(saveLeadBtn){
 
-    saveLeadBtn.addEventListener(
-      'click',
-      saveNewLead
-    );
+    saveLeadBtn.addEventListener("click", async () => {
 
-  }
+      const caseNum =
+        document.getElementById("f-case").value.trim();
 
+      const decedent =
+        document.getElementById("f-decedent").value.trim();
 
-  function saveNewLead(){
+      const address =
+        document.getElementById("f-address").value.trim();
 
-    const caseNum =
-      getValue('f-case');
+      const county =
+        document.getElementById("f-county").value.trim();
 
-    const decedent =
-      getValue('f-decedent');
+      const contactName =
+        document.getElementById("f-contact-name").value.trim();
 
-    const address =
-      getValue('f-address');
+      const contactPhone =
+        document.getElementById("f-contact-phone").value.trim();
 
-    const county =
-      getValue('f-county');
+      const dateFiled =
+        document.getElementById("f-date").value.trim();
 
-    const contactName =
-      getValue('f-contact-name');
+      const relationship =
+        document.getElementById("f-relationship").value;
 
-    const contactPhone =
-      getValue('f-contact-phone');
-
-    const dateFiled =
-      getValue('f-date');
-
-    const relationship =
-      getValue('f-relationship');
-
-    const notes =
-      getValue('f-notes');
+      const notes =
+        document.getElementById("f-notes").value.trim();
 
 
-    /* Required fields */
+      /* Required fields */
 
-    if(!decedent || !address){
+      if(!decedent || !address){
 
-      alert(
-        'Add at least a decedent name and property address before saving.'
-      );
+        alert(
+          "Add at least a decedent name and property address before saving."
+        );
 
-      return;
-    }
+        return;
 
-
-    if(!selectedScore){
-
-      alert(
-        'Pick a lead score before saving.'
-      );
-
-      return;
-    }
+      }
 
 
-    /* Create lead */
+      if(!selectedScore){
 
-    const newLead = {
+        alert("Pick a lead score before saving.");
 
-      id:
-        Date.now() +
-        Math.floor(Math.random() * 1000),
+        return;
 
-      caseNum,
-
-      decedent,
-
-      address,
-
-      county,
-
-      contactName,
-
-      contactPhone,
-
-      dateFiled,
-
-      relationship,
-
-      score:
-        selectedScore,
-
-      notes,
-
-      createdAt:
-        new Date().toISOString()
-
-    };
+      }
 
 
-    /* Add newest lead to beginning */
+      if(!PROBATE_COL){
 
-    leads.unshift(newLead);
+        alert(
+          "Firebase is not connected. The lead was not saved."
+        );
 
+        return;
 
-    /* Persist */
-
-    saveLeads();
-
-
-    /* Reset form */
-
-    clearForm();
+      }
 
 
-    /* Refresh list */
+      /* Disable button while saving */
 
-    renderList();
-
-
-    /* Return to leads */
-
-    switchView('list');
+      saveLeadBtn.disabled = true;
+      saveLeadBtn.textContent = "SAVING...";
 
 
-    /* Confirmation */
+      try {
 
-    showSaveMessage();
+        const leadData = {
 
-  }
+          caseNum,
+          decedent,
+          address,
+          county,
+          contactName,
+          contactPhone,
+          dateFiled,
+          relationship,
+          score: selectedScore,
+          notes,
+
+          createdAt:
+            firebase.firestore.FieldValue.serverTimestamp(),
+
+          updatedAt:
+            firebase.firestore.FieldValue.serverTimestamp()
+
+        };
 
 
-  /* =========================================================
-     GET FORM VALUE
-     ========================================================= */
+        const docRef =
+          await PROBATE_COL.add(leadData);
 
-  function getValue(id){
 
-    const element =
-      document.getElementById(id);
+        console.log(
+          "Probate lead saved:",
+          docRef.id
+        );
 
-    return element
-      ? element.value.trim()
-      : '';
+
+        /* Clear form */
+
+        clearForm();
+
+
+        /* Return to leads */
+
+        switchView("list");
+
+
+        alert("PROBATE FILE SAVED.");
+
+
+      } catch(error){
+
+        console.error(
+          "Error saving probate lead:",
+          error
+        );
+
+        alert(
+          "Unable to save the probate lead.\n\n" +
+          error.message
+        );
+
+      } finally {
+
+        saveLeadBtn.disabled = false;
+        saveLeadBtn.textContent = "SAVE TO DOCKET";
+
+      }
+
+    });
 
   }
 
@@ -1025,55 +975,38 @@
 
   function clearForm(){
 
-    const fields = [
+    [
+      "f-case",
+      "f-decedent",
+      "f-county",
+      "f-address",
+      "f-contact-name",
+      "f-contact-phone",
+      "f-date",
+      "f-notes"
 
-      'f-case',
-      'f-decedent',
-      'f-county',
-      'f-address',
-      'f-contact-name',
-      'f-contact-phone',
-      'f-date',
-      'f-notes'
+    ].forEach(id => {
 
-    ];
+      const field = document.getElementById(id);
 
-
-    fields.forEach(id => {
-
-      const element =
-        document.getElementById(id);
-
-      if(element){
-
-        element.value = '';
-
+      if(field){
+        field.value = "";
       }
 
     });
 
 
     const relationship =
-      document.getElementById(
-        'f-relationship'
-      );
-
+      document.getElementById("f-relationship");
 
     if(relationship){
-
-      relationship.value = '';
-
+      relationship.value = "";
     }
 
 
-    document
-      .querySelectorAll('.score-opt')
-      .forEach(option => {
-
-        option.className =
-          'score-opt';
-
-      });
+    document.querySelectorAll(".score-opt").forEach(opt => {
+      opt.className = "score-opt";
+    });
 
 
     selectedScore = null;
@@ -1082,67 +1015,175 @@
 
 
   /* =========================================================
-     SAVE CONFIRMATION
+     LOAD LEADS FROM FIRESTORE
      ========================================================= */
 
-  function showSaveMessage(){
+  async function loadLeads(){
 
-    const message =
-      document.createElement('div');
-
-
-    message.textContent =
-      '✓ FILE SAVED TO DOCKET';
+    const wrap =
+      document.getElementById("leadList");
 
 
-    message.style.position =
-      'fixed';
+    if(!PROBATE_COL){
 
-    message.style.top =
-      '85px';
+      if(wrap){
 
-    message.style.left =
-      '50%';
+        wrap.innerHTML = `
+          <div class="empty">
 
-    message.style.transform =
-      'translateX(-50%)';
+            <div class="big">
+              FIREBASE OFFLINE
+            </div>
 
-    message.style.zIndex =
-      '999';
+            Firebase could not be initialized.
+            Check your Firebase scripts and configuration.
 
-    message.style.padding =
-      '10px 16px';
+          </div>
+        `;
 
-    message.style.background =
-      '#C8963E';
+      }
 
-    message.style.color =
-      '#141005';
+      return;
 
-    message.style.fontFamily =
-      'Courier Prime, monospace';
-
-    message.style.fontSize =
-      '11px';
-
-    message.style.fontWeight =
-      '700';
-
-    message.style.borderRadius =
-      '2px';
-
-    message.style.boxShadow =
-      '0 4px 15px rgba(0,0,0,.4)';
+    }
 
 
-    document.body.appendChild(message);
+    try {
+
+      /*
+       * Load newest files first.
+       *
+       * We intentionally don't use orderBy() here.
+       * That means the collection can work immediately
+       * without requiring a Firestore composite/index setup.
+       */
+
+      const snapshot =
+        await PROBATE_COL.get();
 
 
-    setTimeout(() => {
+      leads = snapshot.docs.map(doc => ({
 
-      message.remove();
+        id: doc.id,
 
-    }, 1800);
+        ...doc.data()
+
+      }));
+
+
+      /* Sort newest first */
+
+      leads.sort((a,b) => {
+
+        const aTime =
+          a.createdAt && a.createdAt.toMillis
+            ? a.createdAt.toMillis()
+            : 0;
+
+        const bTime =
+          b.createdAt && b.createdAt.toMillis
+            ? b.createdAt.toMillis()
+            : 0;
+
+        return bTime - aTime;
+
+      });
+
+
+      renderList();
+
+
+      console.log(
+        "Loaded",
+        leads.length,
+        "probate files."
+      );
+
+
+    } catch(error){
+
+      console.error(
+        "Error loading probate leads:",
+        error
+      );
+
+
+      if(wrap){
+
+        wrap.innerHTML = `
+          <div class="empty">
+
+            <div class="big">
+              DATABASE ERROR
+            </div>
+
+            ${escapeHtml(error.message)}
+
+          </div>
+        `;
+
+      }
+
+    }
+
+  }
+
+
+  /* =========================================================
+     REAL-TIME FIRESTORE LISTENER
+     
+     This means if another device changes a lead,
+     this page updates automatically.
+     ========================================================= */
+
+  function listenForLeadChanges(){
+
+    if(!PROBATE_COL) return;
+
+
+    PROBATE_COL.onSnapshot(
+      snapshot => {
+
+        leads = snapshot.docs.map(doc => ({
+
+          id: doc.id,
+
+          ...doc.data()
+
+        }));
+
+
+        leads.sort((a,b) => {
+
+          const aTime =
+            a.createdAt && a.createdAt.toMillis
+              ? a.createdAt.toMillis()
+              : 0;
+
+          const bTime =
+            b.createdAt && b.createdAt.toMillis
+              ? b.createdAt.toMillis()
+              : 0;
+
+          return bTime - aTime;
+
+        });
+
+
+        renderList();
+
+      },
+
+      error => {
+
+        console.error(
+          "Probate real-time listener error:",
+          error
+        );
+
+      }
+
+    );
 
   }
 
@@ -1154,55 +1195,48 @@
   function renderList(){
 
     const wrap =
-      document.getElementById(
-        'leadList'
-      );
+      document.getElementById("leadList");
 
-
-    if(!wrap){
-      return;
-    }
+    if(!wrap) return;
 
 
     const filtered =
-      activeFilter === 'all'
+      activeFilter === "all"
+
         ? leads
+
         : leads.filter(
-            lead =>
-              lead.score === activeFilter
+            lead => lead.score === activeFilter
           );
 
 
-    /* Case counter */
-
     const caseCount =
-      document.getElementById(
-        'caseCount'
-      );
+      document.getElementById("caseCount");
 
 
     if(caseCount){
 
       caseCount.textContent =
         leads.length +
-        (
-          leads.length === 1
-            ? ' FILE'
-            : ' FILES'
-        );
+        (leads.length === 1
+          ? " FILE"
+          : " FILES");
 
     }
 
-
-    /* Empty state */
 
     if(filtered.length === 0){
 
       wrap.innerHTML = `
         <div class="empty">
-          <div class="big">NO FILES</div>
+
+          <div class="big">
+            NO FILES
+          </div>
+
           No leads match this filter yet —
           open a new file to start the docket.
+
         </div>
       `;
 
@@ -1211,37 +1245,38 @@
     }
 
 
-    /* Build cards */
-
     wrap.innerHTML =
       filtered.map(lead => {
 
         const score =
-          scoreLabel[lead.score]
-          || 'UNKNOWN';
+          lead.score || "cold";
 
 
         return `
 
-          <div class="lead-card ${escapeHtml(lead.score)}">
+          <div class="lead-card ${escapeHtml(score)}">
 
             <div class="lead-top">
 
               <div>
 
                 <div class="lead-name">
-                  ${escapeHtml(lead.decedent)}
+                  ${escapeHtml(lead.decedent || "Unnamed Estate")}
                 </div>
 
                 <div class="lead-addr">
-                  ${escapeHtml(lead.address)}
+                  ${escapeHtml(lead.address || "")}
                 </div>
 
               </div>
 
 
-              <div class="status-badge ${escapeHtml(lead.score)}">
-                ${score}
+              <div class="status-badge ${escapeHtml(score)}">
+
+                ${escapeHtml(
+                  scoreLabel[score] || score
+                )}
+
               </div>
 
             </div>
@@ -1257,7 +1292,7 @@
                       ${escapeHtml(lead.caseNum)}
                     </div>
                   `
-                  : ''
+                  : ""
               }
 
 
@@ -1269,7 +1304,7 @@
                       ${escapeHtml(lead.county)}
                     </div>
                   `
-                  : ''
+                  : ""
               }
 
 
@@ -1281,7 +1316,7 @@
                       ${escapeHtml(lead.contactName)}
                     </div>
                   `
-                  : ''
+                  : ""
               }
 
 
@@ -1293,7 +1328,7 @@
                       ${escapeHtml(lead.contactPhone)}
                     </div>
                   `
-                  : ''
+                  : ""
               }
 
 
@@ -1305,7 +1340,7 @@
                       ${escapeHtml(lead.relationship)}
                     </div>
                   `
-                  : ''
+                  : ""
               }
 
 
@@ -1317,7 +1352,7 @@
                       ${escapeHtml(lead.dateFiled)}
                     </div>
                   `
-                  : ''
+                  : ""
               }
 
             </div>
@@ -1330,15 +1365,29 @@
                     ${escapeHtml(lead.notes)}
                   </div>
                 `
-                : ''
+                : ""
             }
 
 
             <div class="lead-actions">
 
+              ${
+                lead.contactPhone
+                  ? `
+                    <button
+                      class="mini-btn gold"
+                      onclick="window.__callLead('${lead.id}')"
+                    >
+                      Call
+                    </button>
+                  `
+                  : ""
+              }
+
+
               <button
                 class="mini-btn gold"
-                onclick="window.__editScore(${lead.id})"
+                onclick="window.__editScore('${lead.id}')"
               >
                 Change Status
               </button>
@@ -1346,7 +1395,7 @@
 
               <button
                 class="mini-btn"
-                onclick="window.__deleteLead(${lead.id})"
+                onclick="window.__deleteLead('${lead.id}')"
               >
                 Remove
               </button>
@@ -1357,165 +1406,207 @@
 
         `;
 
-      }).join('');
+      }).join("");
 
   }
 
 
   /* =========================================================
-     DELETE LEAD
+     CALL LEAD
      ========================================================= */
 
-  window.__deleteLead =
-    function(id){
+  window.__callLead = function(id){
 
-      const index =
-        leads.findIndex(
-          lead => lead.id === id
-        );
+    const lead =
+      leads.find(item => item.id === id);
 
-
-      if(index === -1){
-        return;
-      }
+    if(!lead || !lead.contactPhone) return;
 
 
-      const lead =
-        leads[index];
+    const phone =
+      String(lead.contactPhone)
+        .replace(/[^\d+]/g, "");
 
 
-      const confirmed =
-        confirm(
-          'Remove ' +
-          lead.decedent +
-          ' from the docket?'
-        );
+    window.location.href =
+      "tel:" + phone;
 
-
-      if(!confirmed){
-        return;
-      }
-
-
-      leads.splice(index, 1);
-
-
-      saveLeads();
-
-
-      renderList();
-
-    };
+  };
 
 
   /* =========================================================
      CHANGE STATUS
      ========================================================= */
 
-  window.__editScore =
-    function(id){
+  window.__editScore = async function(id){
 
-      const lead =
-        leads.find(
-          item => item.id === id
-        );
+    const lead =
+      leads.find(item => item.id === id);
 
-
-      if(!lead){
-        return;
-      }
+    if(!lead) return;
 
 
-      const choice =
-        prompt(
+    const choice = prompt(
 
-          'CHANGE LEAD STATUS\n\n' +
+      "CHANGE LEAD STATUS:\n\n" +
 
-          '1 = HOT\n' +
+      "1 = HOT\n" +
+      "2 = WARM\n" +
+      "3 = SERVICE OPP\n" +
+      "4 = NOT INTERESTED\n" +
+      "5 = DO NOT CONTACT\n\n" +
 
-          '2 = WARM\n' +
+      "Enter 1-5:",
 
-          '3 = SERVICE OPP\n' +
+      ""
 
-          '4 = NOT INTERESTED\n' +
-
-          '5 = DO NOT CONTACT\n\n' +
-
-          'Enter 1-5:',
-
-          ''
-
-        );
+    );
 
 
-      if(choice === null){
-        return;
-      }
+    const statusMap = {
 
-
-      const statusMap = {
-
-        '1': 'hot',
-
-        '2': 'warm',
-
-        '3': 'service',
-
-        '4': 'cold',
-
-        '5': 'dnc'
-
-      };
-
-
-      const newStatus =
-        statusMap[
-          choice.trim()
-        ];
-
-
-      if(!newStatus){
-
-        alert(
-          'Please enter a number from 1 to 5.'
-        );
-
-        return;
-
-      }
-
-
-      lead.score =
-        newStatus;
-
-
-      saveLeads();
-
-
-      renderList();
+      "1": "hot",
+      "2": "warm",
+      "3": "service",
+      "4": "cold",
+      "5": "dnc"
 
     };
 
 
+    const newStatus =
+      statusMap[choice];
+
+
+    if(!newStatus) return;
+
+
+    if(!PROBATE_COL){
+
+      alert("Firebase is not connected.");
+
+      return;
+
+    }
+
+
+    try {
+
+      await PROBATE_COL
+        .doc(id)
+        .update({
+
+          score: newStatus,
+
+          updatedAt:
+            firebase.firestore.FieldValue.serverTimestamp()
+
+        });
+
+
+      /*
+       * onSnapshot() will update the UI automatically.
+       */
+
+    } catch(error){
+
+      console.error(
+        "Status update failed:",
+        error
+      );
+
+
+      alert(
+        "Unable to update status.\n\n" +
+        error.message
+      );
+
+    }
+
+  };
+
+
   /* =========================================================
-     HTML ESCAPE
+     DELETE LEAD
      ========================================================= */
 
-  function escapeHtml(value){
+  window.__deleteLead = async function(id){
 
-    return String(value ?? '')
-      .replace(
-        /[&<>"']/g,
-        character => ({
+    const lead =
+      leads.find(item => item.id === id);
 
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          '"': '&quot;',
-          "'": '&#39;'
+    if(!lead) return;
 
-        })[character]
+
+    if(!confirm(
+      "Remove this file from the docket?\n\n" +
+      "This will permanently delete the cloud record."
+    )){
+
+      return;
+
+    }
+
+
+    if(!PROBATE_COL){
+
+      alert("Firebase is not connected.");
+
+      return;
+
+    }
+
+
+    try {
+
+      await PROBATE_COL
+        .doc(id)
+        .delete();
+
+
+      /*
+       * onSnapshot() automatically removes it
+       * from the screen.
+       */
+
+    } catch(error){
+
+      console.error(
+        "Delete failed:",
+        error
       );
+
+
+      alert(
+        "Unable to delete this file.\n\n" +
+        error.message
+      );
+
+    }
+
+  };
+
+
+  /* =========================================================
+     HTML ESCAPING
+     ========================================================= */
+
+  function escapeHtml(str){
+
+    return String(str ?? "").replace(
+      /[&<>"']/g,
+
+      character => ({
+
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+
+      }[character])
+
+    );
 
   }
 
@@ -1524,68 +1615,55 @@
      SCRIPT ACCORDION
      ========================================================= */
 
-  document
-    .querySelectorAll('.script-head')
-    .forEach(head => {
+  document.querySelectorAll(".script-head").forEach(head => {
 
-      head.addEventListener(
-        'click',
-        () => {
+    head.addEventListener("click", () => {
 
-          const body =
-            document.getElementById(
-              head.dataset.open
-            );
+      const body =
+        document.getElementById(
+          head.dataset.open
+        );
+
+      if(!body) return;
 
 
-          if(!body){
-            return;
-          }
+      const isOpen =
+        body.classList.contains("open");
 
 
-          const isOpen =
-            body.classList.contains(
-              'open'
-            );
+      body.classList.toggle(
+        "open",
+        !isOpen
+      );
 
 
-          body.classList.toggle(
-            'open',
-            !isOpen
-          );
-
-
-          head.classList.toggle(
-            'open',
-            !isOpen
-          );
-
-        }
+      head.classList.toggle(
+        "open",
+        !isOpen
       );
 
     });
 
+  });
 
-  /* Open first script automatically */
+
+  /* Open first script block */
 
   const firstScript =
-    document.querySelector(
-      '.script-head'
-    );
-
+    document.querySelector(".script-head");
 
   if(firstScript){
-
     firstScript.click();
-
   }
 
 
   /* =========================================================
-     INITIAL LOAD
+     START APPLICATION
      ========================================================= */
 
-  renderList();
+  loadLeads();
+
+  listenForLeadChanges();
 
 })();
 </script>
