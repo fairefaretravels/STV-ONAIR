@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Probate Docket — Lead Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --black-2:#141414;
+    --black-3:#1c1c1c;
+    --gold:#C8963E;
+    --gold-2:#c8a96e;
+    --gold-dim:#8a6b34;
+    --paper:#e9e2d0;
+    --line:#33302a;
+    --red:#8a3a2f;
+    --green:#3a6b45;
+    --amber:#a3781f;
+    --grey:#6b6862;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;background:var(--black);color:var(--paper);font-family:'Barlow Condensed',sans-serif;}
+  ::selection{background:var(--gold);color:#000;}
+
+  /* ===== Docket header ===== */
+  .stamp-band{
+    position:sticky;top:0;z-index:50;
+    background:var(--black);
+    border-bottom:1px solid var(--line);
+    padding:14px 18px 0;
+  }
+  .stamp-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+  h1.title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:34px;letter-spacing:2px;color:var(--paper);margin:0;line-height:1;
+  }
+  h1.title span{color:var(--gold);}
+  .case-count{
+    font-family:'Courier Prime',monospace;font-size:11px;color:var(--gold-dim);
+    border:1px solid var(--gold-dim);padding:3px 8px;border-radius:2px;white-space:nowrap;
+  }
+  .subtitle{font-size:13px;color:var(--grey);letter-spacing:.5px;margin:2px 0 12px;text-transform:uppercase;}
+
+  .tabs{display:flex;gap:0;border-top:1px solid var(--line);}
+  .tab{
+    flex:1;text-align:center;padding:12px 4px;font-family:'Bebas Neue',sans-serif;
+    font-size:16px;letter-spacing:1.5px;color:var(--grey);background:none;border:none;
+    border-bottom:3px solid transparent;cursor:pointer;
+  }
+  .tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+
+  main{max-width:640px;margin:0 auto;padding:16px 16px 90px;}
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ===== Filter chips ===== */
+  .filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:12px;margin-bottom:8px;}
+  .filters::-webkit-scrollbar{display:none;}
+  .chip{
+    flex:0 0 auto;font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.5px;
+    padding:6px 11px;border-radius:2px;border:1px solid var(--line);color:var(--grey);
+    background:var(--black-2);cursor:pointer;white-space:nowrap;text-transform:uppercase;
+  }
+  .chip.active{border-color:var(--gold);color:var(--gold);background:rgba(200,150,62,.08);}
+
+  /* ===== Lead card ===== */
+  .lead-card{
+    background:var(--black-2);border:1px solid var(--line);border-radius:3px;
+    padding:14px 14px 12px;margin-bottom:10px;position:relative;overflow:hidden;
+  }
+  .lead-card::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  }
+  .lead-card.hot::before{background:var(--red);}
+  .lead-card.warm::before{background:var(--amber);}
+  .lead-card.service::before{background:var(--gold-2);}
+  .lead-card.cold::before{background:var(--grey);}
+  .lead-card.dnc::before{background:#3a3a3a;}
+
+  .lead-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+  .lead-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--paper);line-height:1.1;}
+  .lead-addr{font-size:14px;color:var(--gold-2);margin-top:1px;}
+  .status-badge{
+    font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.5px;
+    padding:4px 7px;border-radius:2px;white-space:nowrap;border:1px solid;text-transform:uppercase;
+    transform:rotate(-2deg);
+  }
+  .status-badge.hot{color:var(--red);border-color:var(--red);}
+  .status-badge.warm{color:var(--amber);border-color:var(--amber);}
+  .status-badge.service{color:var(--gold-2);border-color:var(--gold-2);}
+  .status-badge.cold{color:var(--grey);border-color:var(--grey);}
+  .status-badge.dnc{color:#666;border-color:#3a3a3a;}
+
+  .lead-meta{
+    display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;margin-top:10px;
+    font-family:'Courier Prime',monospace;font-size:11.5px;color:#9a9689;
+  }
+  .lead-meta div b{color:var(--grey);font-weight:400;display:block;font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:1px;}
+  .lead-notes{margin-top:10px;font-size:13.5px;color:#b8b2a0;line-height:1.35;border-top:1px dashed var(--line);padding-top:8px;}
+  .lead-actions{display:flex;gap:8px;margin-top:10px;}
+  .mini-btn{
+    flex:1;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;
+    padding:8px 6px;border-radius:2px;border:1px solid var(--line);background:transparent;
+    color:var(--grey);cursor:pointer;letter-spacing:.3px;
+  }
+  .mini-btn.gold{border-color:var(--gold-dim);color:var(--gold);}
+  .mini-btn:active{transform:scale(.97);}
+
+  .empty{text-align:center;padding:50px 20px;color:var(--grey);}
+  .empty .big{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold-dim);letter-spacing:1px;}
+
+  /* ===== Add Lead form ===== */
+  .field{margin-bottom:14px;}
+  .field label{
+    display:block;font-family:'Courier Prime',monospace;font-size:10.5px;letter-spacing:.6px;
+    color:var(--gold-dim);text-transform:uppercase;margin-bottom:5px;
+  }
+  .field input,.field select,.field textarea{
+    width:100%;background:var(--black-2);border:1px solid var(--line);color:var(--paper);
+    padding:10px 11px;font-family:'Barlow Condensed',sans-serif;font-size:15px;border-radius:2px;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);}
+  .field textarea{resize:vertical;min-height:60px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .score-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+  .score-opt{
+    padding:10px 8px;text-align:center;border:1px solid var(--line);border-radius:2px;
+    font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;cursor:pointer;color:var(--grey);
+  }
+  .score-opt.sel-hot{border-color:var(--red);color:var(--red);background:rgba(138,58,47,.12);}
+  .score-opt.sel-warm{border-color:var(--amber);color:var(--amber);background:rgba(163,120,31,.12);}
+  .score-opt.sel-service{border-color:var(--gold-2);color:var(--gold-2);background:rgba(200,169,110,.1);}
+  .score-opt.sel-cold{border-color:var(--grey);color:var(--paper);background:rgba(255,255,255,.05);}
+  .score-opt.sel-dnc{border-color:#3a3a3a;color:#777;background:rgba(255,255,255,.02);}
+
+  .submit-btn{
+    width:100%;background:var(--gold);color:#141005;border:none;padding:14px;
+    font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;border-radius:2px;
+    cursor:pointer;margin-top:6px;
+  }
+  .submit-btn:active{transform:scale(.98);}
+
+  /* ===== Script view ===== */
+  .script-block{background:var(--black-2);border:1px solid var(--line);border-radius:3px;margin-bottom:12px;overflow:hidden;}
+  .script-head{
+    padding:11px 14px;background:var(--black-3);cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .script-head h3{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;margin:0;color:var(--gold-2);}
+  .script-head .arrow{color:var(--gold-dim);font-size:12px;transition:transform .15s;}
+  .script-head.open .arrow{transform:rotate(90deg);}
+  .script-body{padding:0 14px;max-height:0;overflow:hidden;transition:max-height .2s ease;}
+  .script-body.open{padding:2px 14px 14px;max-height:600px;}
+  .line{margin-bottom:9px;font-size:14.5px;line-height:1.4;}
+  .line .who{font-family:'Courier Prime',monospace;font-size:10px;color:var(--gold-dim);letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:1px;}
+  .line.you{color:var(--paper);}
+  .line.them{color:#8a877d;padding-left:10px;border-left:2px solid var(--line);}
+  .note-box{background:rgba(200,150,62,.08);border:1px solid var(--gold-dim);border-radius:2px;padding:10px 12px;font-size:13px;color:var(--gold-2);margin-top:8px;line-height:1.4;}
+
+  /* ===== Bottom nav to Braylen trainer ===== */
+  .crosslink{
+    position:fixed;bottom:0;left:0;right:0;background:var(--black-3);border-top:1px solid var(--gold-dim);
+    padding:11px 16px;text-align:center;z-index:40;
+  }
+  .crosslink a{
+    color:var(--gold);text-decoration:none;font-family:'Bebas Neue',sans-serif;
+    font-size:15px;letter-spacing:1px;
+  }
+  .crosslink a::before{content:"← ";}
+
+  .fab{
+    position:fixed;bottom:66px;right:18px;width:52px;height:52px;border-radius:50%;
+    background:var(--gold);color:#141005;border:none;font-size:26px;font-weight:700;
+    box-shadow:0 4px 14px rgba(0,0,0,.5);cursor:pointer;z-index:45;line-height:1;
+  }
+  .fab:active{transform:scale(.94);}
+</style>
+</head>
+<body>
+
+<div class="stamp-band">
+  <div class="stamp-row">
+    <h1 class="title">PROBATE <span>DOCKET</span></h1>
+    <div class="case-count" id="caseCount">0 FILES</div>
+  </div>
+  <div class="subtitle">Pre-probate &amp; probate lead tracker</div>
+  <div class="tabs">
+    <button class="tab active" data-view="list">Leads</button>
+    <button class="tab" data-view="add">New File</button>
+    <button class="tab" data-view="script">Call Script</button>
+  </div>
+</div>
+
+<main>
+
+  <!-- ===== LIST VIEW ===== -->
+  <section class="view active" id="view-list">
+    <div class="filters" id="filterRow">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="hot">Hot</button>
+      <button class="chip" data-filter="warm">Warm</button>
+      <button class="chip" data-filter="service">Service Opp</button>
+      <button class="chip" data-filter="cold">Not Interested</button>
+      <button class="chip" data-filter="dnc">Do Not Contact</button>
+    </div>
+    <div id="leadList"></div>
+  </section>
+
+  <!-- ===== ADD VIEW ===== -->
+  <section class="view" id="view-add">
+    <div class="field">
+      <label>Case / File Number</label>
+      <input type="text" id="f-case" placeholder="e.g. 2026-PR-0447">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Decedent Name</label>
+        <input type="text" id="f-decedent" placeholder="Full name">
+      </div>
+      <div class="field">
+        <label>County</label>
+        <input type="text" id="f-county" placeholder="e.g. DeKalb">
+      </div>
+    </div>
+    <div class="field">
+      <label>Property Address</label>
+      <input type="text" id="f-address" placeholder="Street, city, ZIP">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Executor / Heir Name</label>
+        <input type="text" id="f-contact-name" placeholder="Who you'll call">
+      </div>
+      <div class="field">
+        <label>Contact Phone</label>
+        <input type="text" id="f-contact-phone" placeholder="(xxx) xxx-xxxx">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Date Filed / Opened</label>
+        <input type="text" id="f-date" placeholder="e.g. 06/2026">
+      </div>
+      <div class="field">
+        <label>Relationship</label>
+        <select id="f-relationship">
+          <option value="">Select</option>
+          <option>Spouse</option>
+          <option>Adult Child</option>
+          <option>Sibling</option>
+          <option>Other Heir</option>
+          <option>Court-Appointed Executor</option>
+          <option>Unknown</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Lead Score</label>
+      <div class="score-grid" id="scoreGrid">
+        <div class="score-opt" data-score="hot">HOT</div>
+        <div class="score-opt" data-score="warm">WARM</div>
+        <div class="score-opt" data-score="service">SERVICE OPP</div>
+        <div class="score-opt" data-score="cold">NOT INTERESTED</div>
+        <div class="score-opt" data-score="dnc" style="grid-column:1/3;">DO NOT CONTACT</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Notes</label>
+      <textarea id="f-notes" placeholder="Call outcome, objections, condition of property, next follow-up date..."></textarea>
+    </div>
+    <button class="submit-btn" id="saveLeadBtn">SAVE TO DOCKET</button>
+  </section>
+
+  <!-- ===== SCRIPT VIEW ===== -->
+  <section class="view" id="view-script">
+    <div class="note-box" style="margin-bottom:14px;">
+      Probate calls are slower and softer than a standard wholesale cold call. You're talking to someone who may be grieving. Lead with condolences, not offers.
+    </div>
+
+    <div class="script-block">
+      <div class="script-head" data-open="s1"><h3>1 · Opening &amp; Condolence</h3><span class="arrow">▶</span></div>
+      <div class="script-body" id="s1">
+        <div class="line you"><span class="who">You</span>Hi, is this [Executor/Heir Name]? My name is [Your Name] — I'm sorry to bother you, and I want to say I'm sorry for your loss.</div>
+        <div class="line them"><span class="who">Them</span>Thank you... who is this?</div>
+        <div class="line you"><span class="who">You</span>I work with local families going through probate on [Property Address]. I wasn't sure if the property was something the family planned to keep, sell, or needed help managing — no pressure either way, I just wanted to reach out.</div>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-head" data-open="s2"><h3>2 · If Open to Selling</h3><span class="arrow">▶</span></div>
+      <div class="script-body" id="s2">
+        <div class="line them"><span class="who">Them</span>We have talked about selling it, honestly.</div>
+        <div class="line you"><span class="who">You</span>That makes sense — a lot of families don't want to deal with repairs or listing during probate. I buy houses as-is, so there's no cleaning out, no repairs, no realtor fees. Would it help if I gave you a no-obligation offer once you have a minute to think it over?</div>
+        <div class="line you"><span class="who">You</span>What's the timeline looking like on the estate — are you past the court process, or still early?</div>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-head" data-open="s3"><h3>3 · Common Pushback</h3><span class="arrow">▶</span></div>
+      <div class="script-body" id="s3">
+        <div class="line them"><span class="who">Them</span>It's too soon, we haven't decided anything.</div>
+        <div class="line you"><span class="who">You</span>Totally understand — no rush at all. Would it be alright if I checked back in a few weeks, once things have settled a bit?</div>
+        <div class="line them"><span class="who">Them</span>How did you get this information?</div>
+        <div class="line you"><span class="who">You</span>Probate filings are public record through the county court — I reach out respectfully in case it's helpful, not to pressure anyone.</div>
+        <div class="line them"><span class="who">Them</span>We're planning to keep it in the family.</div>
+        <div class="line you"><span class="who">You</span>That's great to hear. If it ever needs cleanup, repairs, or upkeep before anyone moves in, I also work with a cleaning/landscaping crew — happy to leave my number just in case.</div>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-head" data-open="s4"><h3>4 · Pivot to Service Opportunity</h3><span class="arrow">▶</span></div>
+      <div class="script-body" id="s4">
+        <div class="line you"><span class="who">You</span>No problem at all if selling isn't the plan. A lot of families in probate just need the property cleaned out or the yard maintained before it's sold, rented, or moved into — is that something that would be useful right now?</div>
+        <div class="line them"><span class="who">Them</span>Actually yeah, it's been sitting empty and the yard's a mess.</div>
+        <div class="line you"><span class="who">You</span>I can get you a quote for a cleanout or landscaping this week, no obligation. Should I text or email you the details?</div>
+      </div>
+    </div>
+
+    <div class="script-block">
+      <div class="script-head" data-open="s5"><h3>5 · Closing / Do Not Contact</h3><span class="arrow">▶</span></div>
+      <div class="script-body" id="s5">
+        <div class="line you"><span class="who">You</span>Thanks so much for your time, and again, I'm sorry for your loss. I'll leave you my number in case anything changes.</div>
+        <div class="note-box">If they ask to be removed from contact — mark the file "Do Not Contact" immediately in the docket and end the call politely. Never call back a DNC lead.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<button class="fab" id="quickAdd" title="Add lead">+</button>
+
+<div class="crosslink">
+  <a href="Training1">Back to Property Lead Trainer</a>
+</div>
+
+<script>
+(function(){
+  const leads = [];
+  let activeFilter = 'all';
+  let selectedScore = null;
+
+  const scoreLabel = {hot:'HOT', warm:'WARM', service:'SERVICE OPP', cold:'NOT INTERESTED', dnc:'DO NOT CONTACT'};
+
+  // ---- Tabs ----
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>switchView(tab.dataset.view));
+  });
+  function switchView(name){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.view===name));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.getElementById('view-'+name).classList.add('active');
+  }
+  document.getElementById('quickAdd').addEventListener('click', ()=>switchView('add'));
+
+  // ---- Filters ----
+  document.getElementById('filterRow').addEventListener('click', e=>{
+    const chip = e.target.closest('.chip');
+    if(!chip) return;
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    activeFilter = chip.dataset.filter;
+    renderList();
+  });
+
+  // ---- Score picker ----
+  document.getElementById('scoreGrid').addEventListener('click', e=>{
+    const opt = e.target.closest('.score-opt');
+    if(!opt) return;
+    document.querySelectorAll('.score-opt').forEach(o=>o.className='score-opt');
+    opt.classList.add('sel-'+opt.dataset.score);
+    selectedScore = opt.dataset.score;
+  });
+
+  // ---- Save lead ----
+  document.getElementById('saveLeadBtn').addEventListener('click', ()=>{
+    const caseNum = document.getElementById('f-case').value.trim();
+    const decedent = document.getElementById('f-decedent').value.trim();
+    const address = document.getElementById('f-address').value.trim();
+
+    if(!decedent || !address){
+      alert('Add at least a decedent name and property address before saving.');
+      return;
+    }
+    if(!selectedScore){
+      alert('Pick a lead score before saving.');
+      return;
+    }
+
+    leads.unshift({
+      id: Date.now(),
+      caseNum, decedent, address,
+      county: document.getElementById('f-county').value.trim(),
+      contactName: document.getElementById('f-contact-name').value.trim(),
+      contactPhone: document.getElementById('f-contact-phone').value.trim(),
+      dateFiled: document.getElementById('f-date').value.trim(),
+      relationship: document.getElementById('f-relationship').value,
+      score: selectedScore,
+      notes: document.getElementById('f-notes').value.trim()
+    });
+
+    clearForm();
+    renderList();
+    switchView('list');
+  });
+
+  function clearForm(){
+    ['f-case','f-decedent','f-county','f-address','f-contact-name','f-contact-phone','f-date','f-notes'].forEach(id=>{
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('f-relationship').value = '';
+    document.querySelectorAll('.score-opt').forEach(o=>o.className='score-opt');
+    selectedScore = null;
+  }
+
+  // ---- Render list ----
+  function renderList(){
+    const wrap = document.getElementById('leadList');
+    const filtered = activeFilter==='all' ? leads : leads.filter(l=>l.score===activeFilter);
+    document.getElementById('caseCount').textContent = leads.length + (leads.length===1?' FILE':' FILES');
+
+    if(filtered.length===0){
+      wrap.innerHTML = '<div class="empty"><div class="big">NO FILES</div>No leads match this filter yet — open a new file to start the docket.</div>';
+      return;
+    }
+
+    wrap.innerHTML = filtered.map(l=>`
+      <div class="lead-card ${l.score}">
+        <div class="lead-top">
+          <div>
+            <div class="lead-name">${escapeHtml(l.decedent)}</div>
+            <div class="lead-addr">${escapeHtml(l.address)}</div>
+          </div>
+          <div class="status-badge ${l.score}">${scoreLabel[l.score]}</div>
+        </div>
+        <div class="lead-meta">
+          ${l.caseNum ? `<div><b>Case #</b>${escapeHtml(l.caseNum)}</div>`:''}
+          ${l.county ? `<div><b>County</b>${escapeHtml(l.county)}</div>`:''}
+          ${l.contactName ? `<div><b>Contact</b>${escapeHtml(l.contactName)}</div>`:''}
+          ${l.contactPhone ? `<div><b>Phone</b>${escapeHtml(l.contactPhone)}</div>`:''}
+          ${l.relationship ? `<div><b>Relation</b>${escapeHtml(l.relationship)}</div>`:''}
+          ${l.dateFiled ? `<div><b>Filed</b>${escapeHtml(l.dateFiled)}</div>`:''}
+        </div>
+        ${l.notes ? `<div class="lead-notes">${escapeHtml(l.notes)}</div>` : ''}
+        <div class="lead-actions">
+          <button class="mini-btn gold" onclick="window.__editScore(${l.id})">Change Status</button>
+          <button class="mini-btn" onclick="window.__deleteLead(${l.id})">Remove</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.__deleteLead = function(id){
+    const idx = leads.findIndex(l=>l.id===id);
+    if(idx>-1 && confirm('Remove this file from the docket?')){
+      leads.splice(idx,1);
+      renderList();
+    }
+  };
+
+  window.__editScore = function(id){
+    const lead = leads.find(l=>l.id===id);
+    if(!lead) return;
+    const order = ['hot','warm','service','cold','dnc'];
+    const next = order[(order.indexOf(lead.score)+1) % order.length];
+    lead.score = next;
+    renderList();
+  };
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  // ---- Script accordion ----
+  document.querySelectorAll('.script-head').forEach(head=>{
+    head.addEventListener('click', ()=>{
+      const body = document.getElementById(head.dataset.open);
+      const isOpen = body.classList.contains('open');
+      body.classList.toggle('open', !isOpen);
+      head.classList.toggle('open', !isOpen);
+    });
+  });
+  // open first script block by default
+  document.querySelector('.script-head').click();
+
+  renderList();
+})();
+</script>
+
+</body>
+</html>
