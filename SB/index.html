@@ -1,1 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STV-ONAIR | Control Deck</title>
+<style>
+:root{
+  --bg:#07080b;
+  --panel:#101218;
+  --panel2:#171922;
+  --text:#f4f4f5;
+  --muted:#9297a5;
+  --line:#292d38;
+  --accent:#e21d2f;
+  --accent2:#ff4657;
+  --green:#24d17e;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% -10%,#242832 0,transparent 38%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+header{
+  padding:22px 18px 16px;
+  border-bottom:1px solid var(--line);
+  background:rgba(7,8,11,.92);
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(14px);
+}
+.brand{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+.title{font-size:clamp(24px,5vw,38px);font-weight:900;letter-spacing:-1.5px}
+.subtitle{color:var(--muted);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.live{
+  display:flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:800;letter-spacing:1.5px;
+  padding:9px 12px;border:1px solid #4a2027;border-radius:999px;
+  background:#180b0e;
+}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+main{max-width:1100px;margin:auto;padding:22px 18px 45px}
+.deck{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.card{
+  min-height:120px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:linear-gradient(145deg,var(--panel2),var(--panel));
+  color:var(--text);
+  text-decoration:none;
+  padding:17px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:.18s ease;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+}
+.card:hover{transform:translateY(-2px);border-color:#484d5b;background:#1b1e28}
+.card:active{transform:scale(.98)}
+.icon{font-size:27px}
+.name{font-weight:850;font-size:16px}
+.desc{font-size:11px;color:var(--muted);margin-top:3px}
+.section{
+  display:flex;align-items:center;gap:10px;
+  margin:28px 0 12px;
+  color:#cfd2da;font-size:11px;font-weight:900;
+  letter-spacing:2px;text-transform:uppercase;
+}
+.section:after{content:"";height:1px;background:var(--line);flex:1}
+.back{display:none}
+.subdeck{display:none}
+.subdeck.active{display:grid}
+.main.hidden{display:none}
+.back.active{display:flex}
+.back{
+  align-items:center;justify-content:center;
+  margin-bottom:14px;padding:11px 14px;
+  border:1px solid var(--line);border-radius:12px;
+  background:#0d0f14;color:#ddd;text-decoration:none;font-weight:800;
+}
+@media(max-width:800px){.deck{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){
+  header{padding:18px 14px 14px}
+  main{padding:18px 14px 35px}
+  .deck{gap:9px}
+  .card{min-height:105px;padding:13px;border-radius:15px}
+  .name{font-size:14px}.icon{font-size:23px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div>
+      <div class="title">🔴 STV-ONAIR</div>
+      <div class="subtitle">Saneca TV • Broadcast Control Deck</div>
+    </div>
+    <div class="live"><span class="dot"></span> CONTROL</div>
+  </div>
+</header>
 
+<main>
+  <a href="#" class="back" id="back">← MAIN DECK</a>
+
+  <div id="mainDeck" class="main">
+    <div class="section">Broadcast</div>
+    <div class="deck">
+      <a class="card" href="radio/"><span class="icon">📡</span><div><div class="name">RADIO</div><div class="desc">STV Radio control</div></div></a>
+      <a class="card" href="STUDIO/"><span class="icon">📺</span><div><div class="name">STUDIO</div><div class="desc">Studio operations</div></div></a>
+      <a class="card" href="playtv/"><span class="icon">▶️</span><div><div class="name">PLAY TV</div><div class="desc">TV playback</div></div></a>
+      <a class="card" href="watch/"><span class="icon">👁️</span><div><div class="name">WATCH</div><div class="desc">Watch STV</div></div></a>
+      <a class="card" href="Ch1/"><span class="icon">1️⃣</span><div><div class="name">CHANNEL 1</div><div class="desc">Channel 1</div></div></a>
+      <a class="card" href="Ch4/"><span class="icon">4️⃣</span><div><div class="name">CHANNEL 4</div><div class="desc">Channel 4</div></div></a>
+      <a class="card" href="247/"><span class="icon">🎚️</span><div><div class="name">STV SWITCHBOARD</div><div class="desc">247 broadcast hub</div></div></a>
+    </div>
+
+    <div class="section">Departments</div>
+    <div class="deck">
+      <a class="card nav" href="#talent"><span class="icon">🎤</span><div><div class="name">TALENT</div><div class="desc">Artists, guests & bookings</div></div></a>
+      <a class="card nav" href="#news"><span class="icon">📰</span><div><div class="name">NEWSROOM</div><div class="desc">News & stories</div></div></a>
+      <a class="card nav" href="#productions"><span class="icon">🎬</span><div><div class="name">PRODUCTIONS</div><div class="desc">Shows, films & features</div></div></a>
+      <a class="card nav" href="#social"><span class="icon">📱</span><div><div class="name">SOCIAL / PUBLIC</div><div class="desc">Public-facing channels</div></div></a>
+      <a class="card nav" href="#education"><span class="icon">🎓</span><div><div class="name">EDUCATION</div><div class="desc">Courses, books & planning</div></div></a>
+      <a class="card nav" href="#admin"><span class="icon">⚙️</span><div><div class="name">ADMIN</div><div class="desc">Dashboard & agent portal</div></div></a>
+    </div>
+  </div>
+
+  <section id="talent" class="subdeck">
+    <div class="section">Talent / Artists</div>
+    <div class="deck">
+      <a class="card" href="artists/"><span class="icon">⭐</span><div><div class="name">ARTISTS</div></div></a>
+      <a class="card" href="HireMe/"><span class="icon">🎙️</span><div><div class="name">HIRE ME</div></div></a>
+      <a class="card" href="Guest%20portal/"><span class="icon">🚪</span><div><div class="name">GUEST PORTAL</div></div></a>
+      <a class="card" href="interview-confirmation/"><span class="icon">📝</span><div><div class="name">INTERVIEW CONFIRMATION</div></div></a>
+      <a class="card" href="nya/"><span class="icon">🎤</span><div><div class="name">NYA</div></div></a>
+      <a class="card" href="XOCOstudios/"><span class="icon">🎥</span><div><div class="name">XOCO STUDIOS</div></div></a>
+    </div>
+  </section>
+
+  <section id="news" class="subdeck">
+    <div class="section">News / Stories</div>
+    <div class="deck">
+      <a class="card" href="News/"><span class="icon">📰</span><div><div class="name">NEWSROOM</div></div></a>
+      <a class="card" href="NewsStory/"><span class="icon">✍🏾</span><div><div class="name">NEWS STORY</div></div></a>
+      <a class="card" href="TheSwitchblades-Article/"><span class="icon">🎸</span><div><div class="name">SWITCHBLADES ARTICLE</div></div></a>
+      <a class="card" href="RealEstate/"><span class="icon">🏢</span><div><div class="name">REAL ESTATE</div></div></a>
+    </div>
+  </section>
+
+  <section id="productions" class="subdeck">
+    <div class="section">Productions</div>
+    <div class="deck">
+      <a class="card" href="film-packages/"><span class="icon">🎞️</span><div><div class="name">FILM PACKAGES</div></div></a>
+      <a class="card" href="wiseman-film/"><span class="icon">🎬</span><div><div class="name">WISEMAN FILM</div></div></a>
+      <a class="card" href="Stv-switchbladoku/"><span class="icon">🎸</span><div><div class="name">THE SWITCHBLADES</div></div></a>
+      <a class="card" href="TheStatic-Griff/"><span class="icon">⚡</span><div><div class="name">THE STATIC — GRIFF</div></div></a>
+      <a class="card" href="TheStatic-emilgordonsr/"><span class="icon">⚡</span><div><div class="name">THE STATIC — EMIL GORDON SR.</div></div></a>
+      <a class="card" href="emilgordonsr/"><span class="icon">🎸</span><div><div class="name">EMIL GORDON SR.</div></div></a>
+      <a class="card" href="emilgordonsr-static/"><span class="icon">⚡</span><div><div class="name">EMIL GORDON SR. — STATIC</div></div></a>
+    </div>
+  </section>
+
+  <section id="social" class="subdeck">
+    <div class="section">Social / Public</div>
+    <div class="deck">
+      <a class="card" href="social/"><span class="icon">📱</span><div><div class="name">SOCIAL</div></div></a>
+      <a class="card" href="public/"><span class="icon">🌐</span><div><div class="name">PUBLIC</div></div></a>
+      <a class="card" href="playtv/"><span class="icon">📺</span><div><div class="name">PLAY TV</div></div></a>
+      <a class="card" href="watch/"><span class="icon">👁️</span><div><div class="name">WATCH</div></div></a>
+    </div>
+  </section>
+
+  <section id="education" class="subdeck">
+    <div class="section">Education / Products</div>
+    <div class="deck">
+      <a class="card" href="edu/"><span class="icon">🎓</span><div><div class="name">EDU</div></div></a>
+      <a class="card" href="course/"><span class="icon">📚</span><div><div class="name">COURSES</div></div></a>
+      <a class="card" href="book/"><span class="icon">📖</span><div><div class="name">BOOK</div></div></a>
+      <a class="card" href="group-planner/"><span class="icon">👥</span><div><div class="name">GROUP PLANNER</div></div></a>
+    </div>
+  </section>
+
+  <section id="admin" class="subdeck">
+    <div class="section">Admin / Back Office</div>
+    <div class="deck">
+      <a class="card" href="dashboard/"><span class="icon">🖥️</span><div><div class="name">DASHBOARD</div></div></a>
+      <a class="card" href="agent-sanecamack/"><span class="icon">👤</span><div><div class="name">AGENT — SANECA MACK</div></div></a>
+    </div>
+  </section>
+</main>
+
+<script>
+const main = document.getElementById('mainDeck');
+const back = document.getElementById('back');
+const sections = [...document.querySelectorAll('.subdeck')];
+
+function show(id){
+  main.classList.add('hidden');
+  sections.forEach(s => s.classList.toggle('active', s.id === id));
+  back.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function home(){
+  sections.forEach(s => s.classList.remove('active'));
+  main.classList.remove('hidden');
+  back.classList.remove('active');
+  history.replaceState(null,'',location.pathname);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.nav').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    show(a.getAttribute('href').slice(1));
+    history.replaceState(null,'','#'+a.getAttribute('href').slice(1));
+  });
+});
+back.addEventListener('click',e=>{e.preventDefault();home()});
+if(location.hash) show(location.hash.slice(1));
+</script>
+</body>
+</html>
