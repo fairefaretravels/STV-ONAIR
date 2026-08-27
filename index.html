@@ -2343,6 +2343,22 @@ setInterval(() => {
     navigator.serviceWorker.controller.postMessage({ type: 'KEEP_ALIVE' });
   }
 }, 20000);
+
+  <!-- Koalendar Popup Widget Start -->
+<script>window.Koalendar = window.Koalendar || function(){(Koalendar.props = Koalendar.props || []).push(arguments)};</script>
+<script async src="https://koalendar.com/assets/widget.js"></script>
+<script>
+  Koalendar('widget', {
+    "url": "https://koalendar.com/e/Meet-With-Mack",
+    "text": "Schedule a meeting",
+    "shape": "rounded-full",
+    "backgroundColor": "#5145CD",
+    "textColor": "#FFFFFF",
+    "position": "bottom-right",
+    "icon": "calendar"
+  });
+</script>
+<!-- Koalendar Popup Widget End -->
 </script>
 </body>
 </html>
