@@ -1611,6 +1611,22 @@
     deferredPrompt = null;
     document.getElementById('pwa-banner').classList.remove('show');
   });
+
+  <!-- Koalendar Popup Widget Start -->
+<script>window.Koalendar = window.Koalendar || function(){(Koalendar.props = Koalendar.props || []).push(arguments)};</script>
+<script async src="https://koalendar.com/assets/widget.js"></script>
+<script>
+  Koalendar('widget', {
+    "url": "https://koalendar.com/e/Meet-With-Mack",
+    "text": "Schedule a meeting",
+    "shape": "rounded-full",
+    "backgroundColor": "#5145CD",
+    "textColor": "#FFFFFF",
+    "position": "bottom-right",
+    "icon": "calendar"
+  });
+</script>
+<!-- Koalendar Popup Widget End -->
 </script>
 </body>
 </html>
