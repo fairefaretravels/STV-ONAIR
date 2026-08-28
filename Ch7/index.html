@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moments In Music — STV Ch7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#d8b25a;
+  --gold2:#f3d889;
+  --black:#030507;
+  --dark:#080d14;
+  --card:#0d1520;
+  --text:#f5f5f5;
+  --muted:#9ca3af;
+  --border:rgba(255,255,255,.09);
+}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+html{
+  scroll-behavior:smooth;
+}
+body{
+  background:var(--black);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+/* BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(
+      rgba(3,5,7,.82),
+      rgba(3,5,7,.97)
+    ),
+    url("TheStatic-Griff/Griff.JPG") center/cover no-repeat;
+  filter:blur(18px);
+  transform:scale(1.1);
+  z-index:-2;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(216,178,90,.12),
+      transparent 45%
+    );
+  z-index:-1;
+  pointer-events:none;
+}
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 34px;
+  background:rgba(3,5,7,.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  color:white;
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+.logo img{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  object-fit:cover;
+}
+.channel{
+  color:var(--gold2);
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+}
+/* HERO */
+.hero{
+  min-height:78vh;
+  display:flex;
+  align-items:center;
+  padding:90px 7%;
+  position:relative;
+}
+.hero-grid{
+  width:100%;
+  max-width:1250px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+/* IMAGE */
+.hero-image{
+  position:relative;
+  aspect-ratio:4 / 5;
+  max-width:560px;
+  margin:auto;
+  overflow:hidden;
+  border-radius:8px;
+  border:1px solid rgba(216,178,90,.3);
+  box-shadow:
+    0 40px 100px rgba(0,0,0,.7),
+    0 0 50px rgba(216,178,90,.08);
+}
+.hero-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 8s ease;
+}
+.hero-image:hover img{
+  transform:scale(1.04);
+}
+.image-label{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  padding:8px 14px;
+  background:rgba(0,0,0,.72);
+  border:1px solid rgba(216,178,90,.45);
+  color:var(--gold2);
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  backdrop-filter:blur(10px);
+}
+/* HERO COPY */
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:var(--gold2);
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.35em;
+  text-transform:uppercase;
+  margin-bottom:22px;
+}
+.eyebrow::before{
+  content:"";
+  width:38px;
+  height:2px;
+  background:var(--gold);
+}
+h1{
+  font-family:"Bebas Neue",sans-serif;
+  font-size:clamp(4.5rem,9vw,8rem);
+  line-height:.85;
+  letter-spacing:.04em;
+  margin-bottom:24px;
+}
+h1 span{
+  display:block;
+  color:var(--gold);
+}
+.tagline{
+  max-width:600px;
+  color:#d4d4d4;
+  font-size:1.15rem;
+  line-height:1.75;
+  margin-bottom:30px;
+}
+.feature-tag{
+  display:inline-block;
+  padding:8px 14px;
+  border:1px solid rgba(216,178,90,.35);
+  background:rgba(216,178,90,.08);
+  color:var(--gold2);
+  border-radius:100px;
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  margin-bottom:25px;
+}
+/* AUDIO PLAYER */
+.audio-card{
+  max-width:600px;
+  padding:24px;
+  background:rgba(13,21,32,.8);
+  border:1px solid var(--border);
+  border-radius:14px;
+  backdrop-filter:blur(15px);
+  box-shadow:0 25px 60px rgba(0,0,0,.35);
+}
+.audio-title{
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.18em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.audio-card h2{
+  font-family:"Bebas Neue",sans-serif;
+  font-size:2rem;
+  letter-spacing:.04em;
+  margin-bottom:16px;
+}
+audio{
+  width:100%;
+  height:46px;
+}
+/* SECTION */
+.section{
+  padding:90px 7%;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3,5,7,.2),
+      rgba(8,13,20,.96)
+    );
+}
+.section-inner{
+  max-width:1250px;
+  margin:auto;
+}
+.section-label{
+  color:var(--gold);
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.35em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.section h2{
+  font-family:"Bebas Neue",sans-serif;
+  font-size:clamp(3rem,6vw,5rem);
+  letter-spacing:.04em;
+  margin-bottom:45px;
+}
+/* INTERVIEW GRID */
+.interview-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(3,1fr);
+  gap:22px;
+}
+.interview-card{
+  position:relative;
+  min-height:310px;
+  padding:28px;
+  border-radius:14px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.07),
+      rgba(255,255,255,.02)
+    );
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:.35s;
+}
+.interview-card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(216,178,90,.45);
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.4);
+}
+.interview-card.featured{
+  background:
+    linear-gradient(
+      145deg,
+      rgba(216,178,90,.13),
+      rgba(255,255,255,.025)
+    );
+}
+.card-number{
+  font-family:"Bebas Neue",sans-serif;
+  font-size:5rem;
+  color:rgba(255,255,255,.05);
+  line-height:.8;
+  margin-bottom:35px;
+}
+.card-status{
+  display:inline-block;
+  font-size:.65rem;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold2);
+  margin-bottom:14px;
+}
+.interview-card h3{
+  font-family:"Bebas Neue",sans-serif;
+  font-size:2.3rem;
+  letter-spacing:.03em;
+  margin-bottom:8px;
+}
+.interview-card p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:.9rem;
+}
+.card-button{
+  position:absolute;
+  bottom:25px;
+  left:28px;
+  color:var(--gold2);
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+/* COMING SOON */
+.coming-soon{
+  opacity:.65;
+  border-style:dashed;
+}
+.coming-soon .card-number{
+  color:rgba(216,178,90,.08);
+}
+.coming-soon .card-status{
+  color:#888;
+}
+/* ABOUT */
+.about{
+  padding:90px 7%;
+  background:#070b11;
+  border-top:1px solid var(--border);
+}
+.about-inner{
+  max-width:850px;
+  margin:auto;
+  text-align:center;
+}
+.about h2{
+  font-family:"Bebas Neue",sans-serif;
+  font-size:4rem;
+  letter-spacing:.04em;
+  margin-bottom:20px;
+}
+.about p{
+  color:#b9bec7;
+  font-size:1.05rem;
+  line-height:1.9;
+}
+/* FOOTER */
+footer{
+  padding:35px 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  background:#020304;
+  border-top:2px solid var(--gold);
+}
+.footer-logo{
+  color:var(--gold);
+  font-size:1.3rem;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.footer-copy{
+  color:#666;
+  font-size:.7rem;
+  letter-spacing:.08em;
+}
+/* MOBILE */
+@media(max-width:850px){
+  header{
+    padding:0 16px;
+  }
+  .logo span{
+    display:none;
+  }
+  .hero{
+    padding:70px 25px;
+  }
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:45px;
+  }
+  .hero-image{
+    max-width:440px;
+    order:1;
+  }
+  .hero-copy{
+    order:2;
+  }
+  .interview-grid{
+    grid-template-columns:1fr;
+  }
+  .section,
+  .about{
+    padding:70px 25px;
+  }
+  footer{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+@media(max-width:500px){
+  h1{
+    font-size:4rem;
+  }
+  .tagline{
+    font-size:1rem;
+  }
+  .hero-image{
+    aspect-ratio:1 / 1.15;
+  }
+}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header>
+  <a class="logo" href="/watch/">
+    <img
+      src="../stvlogo1.jpg"
+      alt="Saneca TV">
+    <span>SANECA TV</span>
+  </a>
+  <div class="channel">
+    CH7 · MOMENTS IN MUSIC
+  </div>
+</header>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-image">
+      <img
+        src="TheStatic-Griff/Griff.JPG"
+        alt="Professor Griff">
+      <div class="image-label">
+        Featured Interview
+      </div>
+    </div>
+    <div class="hero-copy">
+      <div class="eyebrow">
+        STV Audio Documentary Series
+      </div>
+      <div class="feature-tag">
+        Episode 01
+      </div>
+      <h1>
+        MOMENTS
+        <span>IN MUSIC</span>
+      </h1>
+      <p class="tagline">
+        Conversations with the artists, voices, and
+        cultural figures who have helped shape music,
+        history, and the communities surrounding it.
+      </p>
+      <div class="audio-card">
+        <div class="audio-title">
+          Now Playing
+        </div>
+        <h2>
+          Professor Griff
+        </h2>
+        <audio
+          controls
+          preload="metadata">
+          <source
+            src="https://drive.google.com/uc?export=download&id=1VHuvCQRRmHQgtnXCHFC4ZlI_rz1F1pwL"
+            type="audio/mpeg">
+          Your browser does not support the audio player.
+        </audio>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- INTERVIEWS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label">
+      The Interview Archive
+    </div>
+    <h2>
+      MOMENTS & CONVERSATIONS
+    </h2>
+    <div class="interview-grid">
+      <!-- PROFESSOR GRIFF -->
+      <article class="interview-card featured">
+        <div class="card-number">
+          01
+        </div>
+        <div class="card-status">
+          Available Now
+        </div>
+        <h3>
+          Professor Griff
+        </h3>
+        <p>
+          An STV conversation exploring music,
+          culture, history, and the ideas behind
+          the artist's work.
+        </p>
+        <div class="card-button">
+          ▶ Listen Now
+        </div>
+      </article>
+      <!-- DAVID TOLLIVER -->
+      <article class="interview-card coming-soon">
+        <div class="card-number">
+          02
+        </div>
+        <div class="card-status">
+          Coming Soon
+        </div>
+        <h3>
+          David Tolliver
+        </h3>
+        <p>
+          The next Moments in Music conversation
+          is being prepared for the STV audience.
+        </p>
+        <div class="card-button">
+          Interview Coming Soon
+        </div>
+      </article>
+      <!-- FUTURE INTERVIEW -->
+      <article class="interview-card coming-soon">
+        <div class="card-number">
+          03
+        </div>
+        <div class="card-status">
+          Coming Soon
+        </div>
+        <h3>
+          More Voices
+        </h3>
+        <p>
+          Additional artist interviews,
+          conversations, and music stories
+          will be added to the archive.
+        </p>
+        <div class="card-button">
+          Stay Tuned
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-inner">
+    <div class="section-label">
+      About The Series
+    </div>
+    <h2>
+      PRESERVING THE MOMENT
+    </h2>
+    <p>
+      Moments in Music is an STV interview series
+      created to preserve conversations that deserve
+      to be heard. Each interview gives artists and
+      cultural voices room to tell their stories in
+      their own words — beyond the headline and beyond
+      the song.
+    </p>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    STV · CH7
+  </div>
+  <div class="footer-copy">
+    Saneca TV · Moments in Music · 2026
+  </div>
+</footer>
+</body>
+</html>
