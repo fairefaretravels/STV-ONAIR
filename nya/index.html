@@ -400,6 +400,456 @@
         display: none;
       }
     }
+
+    /* =========================================================
+   PREMIUM CONTACT + FOOTER
+   ========================================================= */
+.contact {
+  position: relative;
+  padding: 110px 50px 90px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(212,175,55,0.12),
+      transparent 45%
+    ),
+    linear-gradient(
+      180deg,
+      #1a1410 0%,
+      #100d0a 100%
+    );
+  color: var(--cream);
+  text-align: center;
+  overflow: hidden;
+}
+/* subtle gold divider */
+.contact::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 80px;
+  height: 2px;
+  transform: translateX(-50%);
+  background: var(--gold);
+  box-shadow: 0 0 20px rgba(212,175,55,0.35);
+}
+.contact-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.contact-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.contact .section-title {
+  color: var(--cream);
+  font-size: clamp(40px, 6vw, 62px);
+  margin-bottom: 16px;
+}
+.contact-intro {
+  max-width: 650px;
+  margin: 0 auto 55px;
+  color: rgba(245,241,232,0.72);
+  font-size: 16px;
+  line-height: 1.8;
+}
+/* CONTACT CARDS */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 auto;
+}
+.contact-card {
+  position: relative;
+  padding: 30px 20px;
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(212,175,55,0.20);
+  border-radius: 8px;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+.contact-card:hover {
+  transform: translateY(-5px);
+  background: rgba(212,175,55,0.06);
+  border-color: rgba(212,175,55,0.55);
+}
+.contact-card-label {
+  display: block;
+  margin-bottom: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.contact-card-value {
+  display: block;
+  color: var(--cream);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.contact-card a {
+  color: var(--cream);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.contact-card a:hover {
+  color: var(--gold);
+}
+/* MAIN CTA */
+.contact-action {
+  margin-top: 55px;
+}
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 230px;
+  padding: 17px 42px;
+  background: var(--gold);
+  color: var(--dark);
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.contact-btn:hover {
+  background: transparent;
+  color: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  position: relative;
+  padding: 45px 50px 30px;
+  background: #0b0907;
+  color: #777;
+  border-top: 1px solid rgba(212,175,55,0.18);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+/* top footer row */
+.footer-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding-bottom: 30px;
+}
+.footer-brand {
+  text-align: left;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  margin-bottom: 7px;
+}
+.footer-tagline {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #777;
+}
+/* footer navigation */
+.footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.footer-nav a {
+  color: #999;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+.footer-nav a:hover {
+  color: var(--gold);
+}
+/* divider */
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212,175,55,0.25),
+    transparent
+  );
+}
+/* bottom copyright */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 25px;
+}
+.footer-bottom p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #666;
+}
+.footer-bottom .crafted {
+  color: #777;
+}
+.footer-bottom .crafted span {
+  color: var(--gold);
+}
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 900px) {
+  .contact {
+    padding: 80px 25px 70px;
+  }
+  .contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-main {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-brand {
+    text-align: center;
+  }
+  .footer-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+@media (max-width: 600px) {
+  .contact {
+    padding: 70px 20px 60px;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .contact-card {
+    padding: 24px 18px;
+  }
+  .contact-action {
+    margin-top: 40px;
+  }
+  .contact-btn {
+    width: 100%;
+    max-width: 320px;
+  }
+  .footer {
+    padding: 40px 20px 25px;
+  }
+  .footer-nav {
+    gap: 18px;
+  }
+}
+
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-eyebrow">
+      Let's Create Something Special
+    </div>
+    <h2 class="section-title">
+      Plan Your Next Event
+    </h2>
+    <p class="contact-intro">
+      From intimate gatherings to large celebrations, let Chef Tamika
+      Gillard bring authentic soul food and Southern hospitality to your table.
+    </p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="contact-card-label">Phone</span>
+        <span class="contact-card-value">
+          <a href="tel:7708734950">
+            (770) 873-4950
+          </a>
+        </span>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-label">Email</span>
+        <span class="contact-card-value">
+          <a href="mailto:nyasoulfood@gmail.com">
+            nyasoulfood@gmail.com
+          </a>
+        </span>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-label">Service Area</span>
+        <span class="contact-card-value">
+          Available for Catering Citywide
+        </span>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-label">Hours</span>
+        <span class="contact-card-value">
+          Monday – Sunday<br>
+          10:00 AM – 8:00 PM
+        </span>
+      </div>
+    </div>
+    <div class="contact-action">
+      <a
+        href="mailto:nyasoulfood@gmail.com"
+        class="contact-btn"
+      >
+        Request a Catering Quote
+      </a>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          Not Your Average Soulfood
+        </div>
+        <div class="footer-tagline">
+          Authentic Soul Food • Catering Excellence
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="#services">Services</a>
+        <a href="#video">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p>
+        © 2012 Not Your Average Soulfood.
+        All rights reserved.
+      </p>
+      <p class="crafted">
+        Authentic food. Exceptional service.
+        <span>Made with purpose.</span>
+      </p>
+    </div>
+  </div>
+</footer>
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-eyebrow">
+      Let's Create Something Special
+    </div>
+    <h2 class="section-title">
+      Plan Your Next Event
+    </h2>
+    <p class="contact-intro">
+      From intimate gatherings to large celebrations, let Chef Tamika
+      Gillard bring authentic soul food and Southern hospitality to your table.
+    </p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="contact-card-label">Phone</span>
+        <span class="contact-card-value">
+          <a href="tel:7708734950">
+            (770) 873-4950
+          </a>
+        </span>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-label">Email</span>
+        <span class="contact-card-value">
+          <a href="mailto:nyasoulfood@gmail.com">
+            nyasoulfood@gmail.com
+          </a>
+        </span>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-label">Service Area</span>
+        <span class="contact-card-value">
+          Available for Catering Citywide
+        </span>
+      </div>
+      <div class="contact-card">
+        <span class="contact-card-label">Hours</span>
+        <span class="contact-card-value">
+          Monday – Sunday<br>
+          10:00 AM – 8:00 PM
+        </span>
+      </div>
+    </div>
+    <div class="contact-action">
+      <a
+        href="mailto:nyasoulfood@gmail.com"
+        class="contact-btn"
+      >
+        Request a Catering Quote
+      </a>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          Not Your Average Soulfood
+        </div>
+        <div class="footer-tagline">
+          Authentic Soul Food • Catering Excellence
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="#services">Services</a>
+        <a href="#video">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p>
+        © 2012 Not Your Average Soulfood.
+        All rights reserved.
+      </p>
+      <p class="crafted">
+        Authentic food. Exceptional service.
+        <span>Made with purpose.</span>
+      </p>
+    </div>
+  </div>
+</footer>
   </style>
 </head>
 <body>
@@ -459,22 +909,17 @@
 
   <!-- VIDEO -->
   <section class="video-section" id="video">
-    <h2 class="section-title">Behind the Kitchen</h2>
-    <div class="video-container">
-      <div class="video-placeholder">
-        <div class="play-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="5 3 19 12 5 21"></polygon>
-          </svg>
-        </div>
-        <iframe
-  src="https://www.youtube.com/embed/BVSRbKRdGqg"
-  title="YouTube Short"
-  allow="autoplay; encrypted-media; picture-in-picture"
-  allowfullscreen>
-</iframe>
-      </div>
-  </section>
+  <h2 class="section-title">Behind the Kitchen</h2>
+
+  <div class="video-container">
+    <iframe
+      src="https://www.youtube.com/embed/BVSRbKRdGqg"
+      title="Chef Tamika Gillard — Behind the Kitchen"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
 
   <!-- ABOUT -->
   <section class="about" id="about">
@@ -491,34 +936,93 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <h2 class="section-title">Get in Touch</h2>
-    <div class="contact-info">
-      <div class="info-item">
-        <strong>📞 Phone</strong>
-        (770) 873-4950
+  
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-eyebrow">
+      Let's Create Something Special
+    </div>
+    <h2 class="section-title">
+      Plan Your Next Event
+    </h2>
+    <p class="contact-intro">
+      From intimate gatherings to large celebrations, let Chef Tamika
+      Gillard bring authentic soul food and Southern hospitality to your table.
+    </p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="contact-card-label">Phone</span>
+        <span class="contact-card-value">
+          <a href="tel:7708734950">
+            (770) 873-4950
+          </a>
+        </span>
       </div>
-      <div class="info-item">
-        <strong>📧 Email</strong>
-        chef@soulkitchen.com
+      <div class="contact-card">
+        <span class="contact-card-label">Email</span>
+        <span class="contact-card-value">
+          <a href="mailto:nyasoulfood@gmail.com">
+            nyasoulfood@gmail.com
+          </a>
+        </span>
       </div>
-      <div class="info-item">
-        <strong>📍 Location</strong>
-        Available for Catering Citywide
+      <div class="contact-card">
+        <span class="contact-card-label">Service Area</span>
+        <span class="contact-card-value">
+          Available for Catering Citywide
+        </span>
       </div>
-      <div class="info-item">
-        <strong>⏰ Hours</strong>
-        Monday - Sunday: 10am - 8pm
+      <div class="contact-card">
+        <span class="contact-card-label">Hours</span>
+        <span class="contact-card-value">
+          Monday – Sunday<br>
+          10:00 AM – 8:00 PM
+        </span>
       </div>
     </div>
-    <a href="mailto:nyasoulfood@gmail.com" class="contact-btn">Request a Quote</a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>&copy; 2012 Not Your Average Soulfood. All rights reserved. | Crafted with love and flavor.</p>
-  </footer>
+    <div class="contact-action">
+      <a
+        href="mailto:nyasoulfood@gmail.com"
+        class="contact-btn"
+      >
+        Request a Catering Quote
+      </a>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          Not Your Average Soulfood
+        </div>
+        <div class="footer-tagline">
+          Authentic Soul Food • Catering Excellence
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a href="#services">Services</a>
+        <a href="#video">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+      <p>
+        © 2012 Not Your Average Soulfood.
+        All rights reserved.
+      </p>
+      <p class="crafted">
+        Authentic food. Exceptional service.
+        <span>Made with purpose.</span>
+      </p>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
