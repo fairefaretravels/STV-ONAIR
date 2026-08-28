@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>STV ON AIR · Guest</title>
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+:root{
+  --bg:#06080d;
+  --surface:#0c1018;
+  --surface2:#111620;
+  --border:#1c2438;
+  --gold:#C9A84C;
+  --gold-dim:#8a6e2a;
+  --red:#e03535;
+  --green:#3fb950;
+  --blue:#58a6ff;
+  --text:#f0ede8;
+  --muted:#6a7a9a;
+  --dim:#3a4a6a;
+}
+html{
+  scroll-behavior:smooth;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100dvh;
+}
+/* =========================
+   HEADER
+========================= */
+header{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.brand{
+  display:flex;
+  flex-direction:column;
+}
+.brand-eye{
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:2px;
+}
+.brand-name{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:-.5px;
+}
+.brand-name span{
+  color:var(--red);
+}
+.guest-pill{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:#101827;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:6px 11px;
+  font-size:10px;
+  font-weight:800;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+/* =========================
+   HERO
+========================= */
+.hero{
+  padding:30px 20px 24px;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+}
+.hero-label{
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.hero-title{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:-.6px;
+  line-height:1.2;
+  margin-bottom:8px;
+}
+.hero-title em{
+  color:var(--gold);
+  font-style:normal;
+}
+.hero-sub{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+  max-width:360px;
+  margin:0 auto;
+}
+/* =========================
+   MAIN
+========================= */
+.main{
+  max-width:760px;
+  margin:0 auto;
+  padding:24px 16px 100px;
+}
+.section{
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--dim);
+  margin:0 0 14px 4px;
+}
+.section + .cards{
+  margin-bottom:28px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+/* =========================
+   CARD
+========================= */
+.card{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:150px;
+  padding:18px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  text-decoration:none;
+  transition:
+    transform .15s ease,
+    border-color .15s ease,
+    background .15s ease;
+}
+.card:hover{
+  border-color:var(--gold-dim);
+  background:var(--surface2);
+}
+.card:active{
+  transform:scale(.97);
+}
+.card-icon{
+  width:42px;
+  height:42px;
+  border-radius:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+  margin-bottom:18px;
+}
+.card.gold{
+  border-color:var(--gold-dim);
+}
+.card.gold .card-icon{
+  background:#211c0e;
+  border:1px solid var(--gold-dim);
+}
+.card.red .card-icon{
+  background:#250d10;
+  border:1px solid #5b171b;
+}
+.card.blue .card-icon{
+  background:#0c1b2e;
+  border:1px solid #1d426f;
+}
+.card.green .card-icon{
+  background:#0c2115;
+  border:1px solid #205c30;
+}
+.card.purple .card-icon{
+  background:#1b1730;
+  border:1px solid #403477;
+}
+.card-title{
+  font-size:15px;
+  font-weight:800;
+  margin-bottom:5px;
+  line-height:1.2;
+}
+.card-desc{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.45;
+}
+.card-arrow{
+  margin-top:15px;
+  font-size:12px;
+  font-weight:800;
+  color:var(--dim);
+}
+.card.gold .card-arrow{
+  color:var(--gold);
+}
+.card.red .card-arrow{
+  color:var(--red);
+}
+.card.blue .card-arrow{
+  color:var(--blue);
+}
+.card.green .card-arrow{
+  color:var(--green);
+}
+.card.purple .card-arrow{
+  color:#9b8cf7;
+}
+/* =========================
+   STREAMYARD
+========================= */
+.stream-section{
+  margin-top:4px;
+}
+.stream-card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  width:100%;
+  padding:17px;
+  border-radius:15px;
+  border:1px solid #641b20;
+  background:#180b0d;
+  color:var(--text);
+  text-decoration:none;
+  transition:
+    transform .15s ease,
+    background .15s ease;
+}
+.stream-card:hover{
+  background:#211012;
+}
+.stream-card:active{
+  transform:scale(.98);
+}
+.stream-icon{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#2b0e11;
+  border:1px solid #6d2025;
+  font-size:22px;
+  flex-shrink:0;
+}
+.stream-text{
+  flex:1;
+}
+.stream-title{
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:3px;
+}
+.stream-desc{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.4;
+}
+.stream-arrow{
+  font-size:20px;
+  color:var(--red);
+}
+/* =========================
+   INTERVIEW QUESTIONS
+========================= */
+.questions-section{
+  margin-top:28px;
+}
+.questions-card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:17px;
+  border-radius:15px;
+  border:1px solid #403477;
+  background:#11101d;
+  text-decoration:none;
+  color:var(--text);
+  transition:
+    transform .15s ease,
+    background .15s ease;
+}
+.questions-card:active{
+  transform:scale(.98);
+}
+.questions-icon{
+  width:46px;
+  height:46px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#1c1731;
+  border:1px solid #403477;
+  font-size:22px;
+  flex-shrink:0;
+}
+.questions-text{
+  flex:1;
+}
+.questions-title{
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:3px;
+}
+.questions-desc{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.4;
+}
+.questions-arrow{
+  font-size:20px;
+  color:#9b8cf7;
+}
+/* =========================
+   FOOTER
+========================= */
+footer{
+  border-top:1px solid var(--border);
+  margin-top:20px;
+  padding:26px 16px 40px;
+  text-align:center;
+}
+.footer-title{
+  font-size:12px;
+  font-weight:800;
+  color:var(--text);
+  margin-bottom:6px;
+}
+.footer-text{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.5;
+  max-width:430px;
+  margin:0 auto 18px;
+}
+.control-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:10px 16px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--dim);
+  text-decoration:none;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  transition:
+    color .15s ease,
+    border-color .15s ease;
+}
+.control-btn:hover{
+  color:var(--gold);
+  border-color:var(--gold-dim);
+}
+/* =========================
+   MOBILE
+========================= */
+@media(max-width:520px){
+  header{
+    padding:14px 16px;
+  }
+  .brand-name{
+    font-size:18px;
+  }
+  .guest-pill{
+    font-size:9px;
+    padding:5px 9px;
+  }
+  .hero{
+    padding:27px 18px 22px;
+  }
+  .hero-title{
+    font-size:26px;
+  }
+  .hero-sub{
+    font-size:12px;
+  }
+  .main{
+    padding:22px 14px 80px;
+  }
+  .cards{
+    gap:10px;
+  }
+  .card{
+    min-height:145px;
+    padding:15px;
+  }
+  .card-title{
+    font-size:14px;
+  }
+  .card-desc{
+    font-size:10px;
+  }
+  .stream-card,
+  .questions-card{
+    padding:15px;
+  }
+}
+@media(max-width:360px){
+  .cards{
+    grid-template-columns:1fr;
+  }
+  .card{
+    min-height:125px;
+  }
+}
+</style>
+</head>
+<body>
+<!-- =========================
+     HEADER
+========================= -->
+<header>
+  <div class="brand">
+    <div class="brand-eye">
+      📡 Entertainment Talk Radio
+    </div>
+<div class="brand-name">
+  STV <span>ON AIR</span>
+</div>
+  </div>
+  <div class="guest-pill">
+    Guest Portal
+  </div>
+</header>
+<!-- =========================
+     HERO
+========================= -->
+<section class="hero">
+  <div class="hero-label">
+    Saneca TV Productions
+  </div>
+  <h1 class="hero-title">
+    You're <em>on air.</em>
+  </h1>
+  <p class="hero-sub">
+    Everything you need for your STV ON AIR appearance is below.
+    Complete your waiver, review your materials, and join the show.
+  </p>
+</section>
+<!-- =========================
+     MAIN
+========================= -->
+<main class="main">
+  <!-- GUEST REQUIREMENTS -->
+  <div class="section">
+    Guest Requirements
+  </div>
+  <div class="cards">
+<!-- WAIVER -->
+<a
+  class="card gold"
+  href="/waiver"
+>
+  <div>
+    <div class="card-icon">
+      📋
+    </div>
+    <div class="card-title">
+      Media Release
+    </div>
+    <div class="card-desc">
+      Complete your media release and consent before going on air.
+    </div>
+  </div>
+  <div class="card-arrow">
+    Open Waiver →
+  </div>
+</a>
+<!-- TOST -->
+<a
+  class="card orange"
+  href="/tost"
+  style="border-color:#6b3d18;"
+>
+  <div>
+    <div
+      class="card-icon"
+      style="background:#241a10;border:1px solid #6b3d18;"
+    >
+      🎯
+    </div>
+    <div class="card-title">
+      TOST
+    </div>
+    <div class="card-desc">
+      Open the TOST activity for your appearance.
+    </div>
+  </div>
+  <div
+    class="card-arrow"
+    style="color:#f0883e;"
+  >
+    Open TOST →
+  </div>
+</a>
+  </div>
+  <!-- PRODUCTION -->
+  <div class="section">
+    Production
+  </div>
+  <div class="cards">
+<!-- PLAY TV -->
+<a
+  class="card blue"
+  href="/STV-ONAIR/playtv"
+>
+  <div>
+    <div class="card-icon">
+      📺
+    </div>
+    <div class="card-title">
+      PLAY TV
+    </div>
+    <div class="card-desc">
+      Access STV programming and production playback.
+    </div>
+  </div>
+  <div class="card-arrow">
+    Open Play TV →
+  </div>
+</a>
+<!-- SWITCHBLADOKU -->
+<a
+  class="card purple"
+  href="/STV-ONAIR/Stv-switchbladoku"
+>
+  <div>
+    <div class="card-icon">
+      🎬
+    </div>
+    <div class="card-title">
+      STV Switchbladoku
+    </div>
+    <div class="card-desc">
+      Open the STV production and entertainment experience.
+    </div>
+  </div>
+  <div class="card-arrow">
+    Open →
+  </div>
+</a>
+  </div>
+  <!-- JOIN SHOW -->
+  <div class="section">
+    Join the Show
+  </div>
+  <div class="stream-section">
+<a
+  class="stream-card"
+  href="https://streamyard.com/5he6j575ue"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <div class="stream-icon">
+    🔴
+  </div>
+  <div class="stream-text">
+    <div class="stream-title">
+      JOIN STREAMYARD
+    </div>
+    <div class="stream-desc">
+      Tap here when you're ready to join the live session.
+      No download required.
+    </div>
+  </div>
+  <div class="stream-arrow">
+    →
+  </div>
+</a>
+  </div>
+  <!-- QUESTIONS -->
+  <div class="questions-section">
+<div class="section">
+  Interview
+</div>
+<a
+  class="questions-card"
+  href="/Questions/"
+>
+  <div class="questions-icon">
+    🎤
+  </div>
+  <div class="questions-text">
+    <div class="questions-title">
+      Interview Questions
+    </div>
+    <div class="questions-desc">
+      Review the questions prepared for your interview.
+    </div>
+  </div>
+  <div class="questions-arrow">
+    →
+  </div>
+</a>
+  </div>
+</main>
+<!-- =========================
+     FOOTER
+========================= -->
+<footer>
+  <div class="footer-title">
+    Saneca TV Productions
+  </div>
+  <div class="footer-text">
+    Guest portal for STV ON AIR.
+    Complete your required materials before joining the show.
+  </div>
+  <!-- BACK TO CONTROL CENTER -->
+
+<a
+class=“control-btn”
+href=”/SB”
+
+← STV Control Center
+  </a>
+</footer>
+</body>
+</html>
