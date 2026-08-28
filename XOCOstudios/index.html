@@ -685,11 +685,6 @@ body {
     onclick="showScreen('waiver')">
     Read &amp; Sign Waiver
   </button>
-  <button
-    class="host-bypass"
-    onclick="openHostModal('landing')">
-    Host Access
-  </button>
 </div>
 <!-- =====================================================
      SCREEN 2 — WAIVER
@@ -895,32 +890,6 @@ body {
           Join Session
         </div>
       </a>
-      <a
-        href="https://riverside.com/studio/xocos-studio-RJS63"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="studio-card"
-        style="border-color:var(--blue-border);">
-        <div class="tag tag-guest">
-          Higher Quality
-        </div>
-        <div
-          class="card-icon"
-          style="background:var(--blue-bg);">
-        </div>
-        <div class="card-title">
-          Riverside
-        </div>
-        <div class="card-desc">
-          Records locally for high-quality audio and video.
-          Download the app before joining if required.
-        </div>
-        <div
-          class="card-cta"
-          style="color:var(--blue);">
-          Join Riverside
-        </div>
-      </a>
     </div>
   </div>
   <!-- GUEST MATERIALS -->
@@ -930,7 +899,7 @@ body {
     </div>
     <div class="studio-grid">
       <a
-        href="https://radiomeltdown.com/XOCO-studios/Questions"
+        href="https://radiomeltdown.com/XOCO-studios/questions"
         target="_blank"
         rel="noopener noreferrer"
         class="studio-card"
@@ -956,7 +925,7 @@ body {
         </div>
       </a>
       <a
-        href="https://fairefaretravels.github.io/tost-trivia/"
+        href="https://radiomeltdown.com/XOCO-studios/tost"
         target="_blank"
         rel="noopener noreferrer"
         class="studio-card"
@@ -983,92 +952,7 @@ body {
       </a>
     </div>
   </div>
-  <!-- HOST TOOLS -->
-  <div
-    class="studio-section host-tools fade-in"
-    id="hostToolsSection">
-    <div class="section-label">
-      Host Tools
-    </div>
-    <div class="studio-grid">
-      <a
-        href="https://fairefaretravels.github.io/STV-Interview-Central/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="studio-card"
-        style="border-color:var(--purple-border);">
-        <div class="tag tag-host">
-          Host Only
-        </div>
-        <div
-          class="card-icon"
-          style="background:var(--purple-bg);">
-        </div>
-        <div class="card-title">
-          Interview Conductor
-        </div>
-        <div class="card-desc">
-          Question manager, media cues, live notes,
-          music controls, and production tools.
-        </div>
-        <div
-          class="card-cta"
-          style="color:var(--purple);">
-          Open
-        </div>
-      </a>
-      <a
-        href="https://fairefaretravels.github.io/stv-hosthub/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="studio-card"
-        style="border-color:var(--green-border);">
-        <div class="tag tag-host">
-          Host Only
-        </div>
-        <div
-          class="card-icon"
-          style="background:var(--green-bg);">
-        </div>
-        <div class="card-title">
-          Host Hub
-        </div>
-        <div class="card-desc">
-          Monitor guest responses, trivia results,
-          polls, charts, and live show activity.
-        </div>
-        <div
-          class="card-cta"
-          style="color:var(--green);">
-          Open
-        </div>
-      </a>
-      <a
-        href="https://radiomeltdown.com/griff-prep/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="studio-card"
-        style="border-color:var(--teal-border);">
-        <div class="tag tag-host">
-          Host Only
-        </div>
-        <div
-          class="card-icon"
-          style="background:var(--teal-bg);">
-        </div>
-        <div class="card-title">
-          Synopsis / Quick Notes
-        </div>
-        <div class="card-desc">
-          Episode preparation, background information,
-          show notes, and production details.
-        </div>
-        <div
-          class="card-cta"
-          style="color:var(--teal);">
-          Open
-        </div>
-      </a>
+  
     </div>
   </div>
   <!-- POLISHED BOTTOM -->
@@ -1088,11 +972,6 @@ body {
       Contact Production
     </a>
   </footer>
-  <button
-    class="studio-bypass"
-    onclick="openHostModal('studio')">
-    Host Access
-  </button>
 </div>
 <!-- =====================================================
      SCREEN 5 — DECLINED
@@ -1123,45 +1002,7 @@ body {
     </button>
   </div>
 </div>
-<!-- =====================================================
-     HOST PASSWORD MODAL
-===================================================== -->
-<div
-  class="modal-bg"
-  id="hostModal">
-  <div class="modal">
-    <div class="modal-title">
-      Host Access
-    </div>
-    <div class="modal-sub">
-      Enter the host password to continue.
-    </div>
-    <input
-      type="password"
-      id="hostPwd"
-      placeholder="Enter host password"
-      autocomplete="off"
-      onkeydown="if(event.key==='Enter') checkHostPwd()"
-    >
-    <div
-      class="modal-error"
-      id="modalError">
-    </div>
-    <div class="modal-btn-row">
-      <button
-        class="btn-modal-confirm"
-        onclick="checkHostPwd()">
-        Unlock
-      </button>
-      <button
-        class="btn-modal-cancel"
-        onclick="closeHostModal()">
-        Cancel
-      </button>
-    </div>
-  </div>
-</div>
-<script>
+</script>
 /* =========================================
    STATE
 ========================================= */
