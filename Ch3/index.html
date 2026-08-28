@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STV Ch3 — Coming Soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#d8b25a;
+  --gold2:#f3d889;
+  --bg:#04070d;
+  --card:#0b1220;
+  --text:#f5f5f5;
+  --muted:#9ca3af;
+  --border:rgba(255,255,255,.09);
+}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+html,
+body{
+  width:100%;
+  min-height:100%;
+}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow:hidden;
+}
+/* BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("../stv-gif.gif") center/cover no-repeat;
+  filter:blur(25px) brightness(.25) saturate(1.2);
+  transform:scale(1.15);
+  z-index:-3;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at center,
+      rgba(216,178,90,.12),
+      transparent 40%),
+    linear-gradient(
+      180deg,
+      rgba(4,7,13,.55),
+      rgba(4,7,13,.92)
+    );
+  z-index:-2;
+}
+/* HEADER */
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 34px;
+  background:rgba(4,7,13,.7);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  z-index:10;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+.logo img{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+}
+.live{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:var(--gold2);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:3px;
+}
+.live-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--gold2);
+  box-shadow:0 0 18px var(--gold2);
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+  50%{
+    opacity:.35;
+    transform:scale(.75);
+  }
+}
+/* MAIN */
+main{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:100px 25px 50px;
+  text-align:center;
+}
+.content{
+  width:min(850px,100%);
+}
+/* CHANNEL NUMBER */
+.channel-number{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(7rem,22vw,15rem);
+  line-height:.75;
+  color:rgba(216,178,90,.08);
+  letter-spacing:.03em;
+  margin-bottom:-35px;
+}
+/* EYEBROW */
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  color:var(--gold2);
+  font-size:.8rem;
+  font-weight:800;
+  letter-spacing:.35em;
+  text-transform:uppercase;
+  margin-bottom:22px;
+}
+.eyebrow::before,
+.eyebrow::after{
+  content:"";
+  width:35px;
+  height:2px;
+  background:var(--gold);
+}
+/* TITLE */
+h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,10vw,8rem);
+  line-height:.9;
+  letter-spacing:.04em;
+  margin-bottom:20px;
+}
+h1 span{
+  color:var(--gold);
+}
+/* MESSAGE */
+.message{
+  max-width:650px;
+  margin:0 auto 35px;
+  color:#d0d0d0;
+  font-size:clamp(1rem,2vw,1.3rem);
+  line-height:1.7;
+}
+/* STATUS */
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 18px;
+  border:1px solid rgba(216,178,90,.35);
+  background:rgba(216,178,90,.08);
+  border-radius:100px;
+  color:var(--gold2);
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:35px;
+}
+.status-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 12px var(--gold);
+}
+/* BUTTONS */
+.buttons{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px 30px;
+  border-radius:100px;
+  text-decoration:none;
+  font-size:.9rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:.3s;
+}
+.btn-primary{
+  background:linear-gradient(
+    135deg,
+    var(--gold2),
+    var(--gold)
+  );
+  color:#050505;
+  box-shadow:
+    0 0 25px rgba(216,178,90,.25);
+}
+.btn-primary:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:
+    0 0 40px rgba(216,178,90,.5);
+}
+.btn-outline{
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.05);
+  color:white;
+  backdrop-filter:blur(10px);
+}
+.btn-outline:hover{
+  background:white;
+  color:black;
+  transform:translateY(-4px);
+}
+/* FOOTER */
+footer{
+  position:fixed;
+  bottom:20px;
+  left:0;
+  right:0;
+  text-align:center;
+  color:rgba(255,255,255,.4);
+  font-size:.7rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+/* MOBILE */
+@media(max-width:600px){
+  .header{
+    padding:0 16px;
+  }
+  .logo span{
+    display:none;
+  }
+  .live{
+    font-size:10px;
+  }
+  .channel-number{
+    margin-bottom:-20px;
+  }
+  h1{
+    font-size:clamp(4rem,18vw,6rem);
+  }
+  .message{
+    font-size:1rem;
+  }
+  .buttons{
+    flex-direction:column;
+  }
+  .btn{
+    width:100%;
+  }
+  footer{
+    padding:0 20px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .live-dot{
+    animation:none;
+  }
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">
+    <img src="../stvlogo1.jpg" alt="Saneca TV">
+    <span>SANECA TV</span>
+  </div>
+  <div class="live">
+    <div class="live-dot"></div>
+    CH3
+  </div>
+</header>
+<main>
+  <div class="content">
+    <div class="channel-number">
+      03
+    </div>
+    <div class="eyebrow">
+      STV Television Network
+    </div>
+    <div class="status">
+      <div class="status-dot"></div>
+      Channel In Development
+    </div>
+    <h1>
+      CH<span>3</span>
+      <br>
+      COMING SOON
+    </h1>
+    <p class="message">
+      Something new is being built for Channel 3.
+      STV is preparing original programming, stories,
+      music, interviews, and programming designed to
+      give independent voices a place on television.
+    </p>
+    <div class="buttons">
+      <a class="btn btn-primary" href="/watch/">
+        ← Back To Channels
+      </a>
+      <a class="btn btn-outline" href="/radio">
+        Listen To STV Radio
+      </a>
+    </div>
+  </div>
+</main>
+<footer>
+  Saneca TV · STV Broadcast Network · Channel 3
+</footer>
+</body>
+</html>
