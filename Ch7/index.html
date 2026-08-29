@@ -200,7 +200,7 @@ h1 span{
   text-transform:uppercase;
   margin-bottom:25px;
 }
-/* AUDIO PLAYER */
+/* GOOGLE DRIVE PLAYER */
 .audio-card{
   max-width:600px;
   padding:24px;
@@ -224,9 +224,13 @@ h1 span{
   letter-spacing:.04em;
   margin-bottom:16px;
 }
-audio{
+.drive-player{
   width:100%;
-  height:46px;
+  height:100px;
+  border:none;
+  border-radius:10px;
+  background:#000;
+  display:block;
 }
 /* SECTION */
 .section{
@@ -259,8 +263,7 @@ audio{
 /* INTERVIEW GRID */
 .interview-grid{
   display:grid;
-  grid-template-columns:
-    repeat(3,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:22px;
 }
 .interview-card{
@@ -435,10 +438,10 @@ footer{
 <!-- HEADER -->
 <header>
   <a class="logo" href="/watch/">
-    <img
-      src="../stvlogo1.jpg"
-      alt="Saneca TV">
-    <span>SANECA TV</span>
+<img
+  src="../stvlogo1.jpg"
+  alt="Saneca TV">
+<span>SANECA TV</span>
   </a>
   <div class="channel">
     CH7 · MOMENTS IN MUSIC
@@ -447,138 +450,137 @@ footer{
 <!-- HERO -->
 <section class="hero">
   <div class="hero-grid">
-    <div class="hero-image">
-      <img
-        src="TheStatic-Griff/Griff.JPG"
-        alt="Professor Griff">
-      <div class="image-label">
-        Featured Interview
-      </div>
+<div class="hero-image">
+  <img
+    src="TheStatic-Griff/Griff.JPG"
+    alt="Professor Griff">
+  <div class="image-label">
+    Featured Interview
+  </div>
+</div>
+<div class="hero-copy">
+  <div class="eyebrow">
+    STV Audio Documentary Series
+  </div>
+  <div class="feature-tag">
+    Episode 01
+  </div>
+  <h1>
+    MOMENTS
+    <span>IN MUSIC</span>
+  </h1>
+  <p class="tagline">
+    Conversations with the artists, voices, and
+    cultural figures who have helped shape music,
+    history, and the communities surrounding it.
+  </p>
+  <!-- GOOGLE DRIVE AUDIO -->
+  <div class="audio-card">
+    <div class="audio-title">
+      Now Playing
     </div>
-    <div class="hero-copy">
-      <div class="eyebrow">
-        STV Audio Documentary Series
-      </div>
-      <div class="feature-tag">
-        Episode 01
-      </div>
-      <h1>
-        MOMENTS
-        <span>IN MUSIC</span>
-      </h1>
-      <p class="tagline">
-        Conversations with the artists, voices, and
-        cultural figures who have helped shape music,
-        history, and the communities surrounding it.
-      </p>
-      <div class="audio-card">
-        <div class="audio-title">
-          Now Playing
-        </div>
-        <h2>
-          Professor Griff
-        </h2>
-        <audio
-          controls
-          preload="metadata">
-          <source
-            src="https://drive.google.com/uc?export=download&id=1VHuvCQRRmHQgtnXCHFC4ZlI_rz1F1pwL"
-            type="audio/mpeg">
-          Your browser does not support the audio player.
-        </audio>
-      </div>
-    </div>
+    <h2>
+      Professor Griff
+    </h2>
+    <iframe
+      class="drive-player"
+      src="https://drive.google.com/file/d/1VHuvCQRRmHQgtnXCHFC4ZlI_rz1F1pwL/preview"
+      allow="autoplay"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
   </div>
 </section>
 <!-- INTERVIEWS -->
 <section class="section">
   <div class="section-inner">
-    <div class="section-label">
-      The Interview Archive
+<div class="section-label">
+  The Interview Archive
+</div>
+<h2>
+  MOMENTS & CONVERSATIONS
+</h2>
+<div class="interview-grid">
+  <!-- PROFESSOR GRIFF -->
+  <article class="interview-card featured">
+    <div class="card-number">
+      01
     </div>
-    <h2>
-      MOMENTS & CONVERSATIONS
-    </h2>
-    <div class="interview-grid">
-      <!-- PROFESSOR GRIFF -->
-      <article class="interview-card featured">
-        <div class="card-number">
-          01
-        </div>
-        <div class="card-status">
-          Available Now
-        </div>
-        <h3>
-          Professor Griff
-        </h3>
-        <p>
-          An STV conversation exploring music,
-          culture, history, and the ideas behind
-          the artist's work.
-        </p>
-        <div class="card-button">
-          ▶ Listen Now
-        </div>
-      </article>
-      <!-- DAVID TOLLIVER -->
-      <article class="interview-card coming-soon">
-        <div class="card-number">
-          02
-        </div>
-        <div class="card-status">
-          Coming Soon
-        </div>
-        <h3>
-          David Tolliver
-        </h3>
-        <p>
-          The next Moments in Music conversation
-          is being prepared for the STV audience.
-        </p>
-        <div class="card-button">
-          Interview Coming Soon
-        </div>
-      </article>
-      <!-- FUTURE INTERVIEW -->
-      <article class="interview-card coming-soon">
-        <div class="card-number">
-          03
-        </div>
-        <div class="card-status">
-          Coming Soon
-        </div>
-        <h3>
-          More Voices
-        </h3>
-        <p>
-          Additional artist interviews,
-          conversations, and music stories
-          will be added to the archive.
-        </p>
-        <div class="card-button">
-          Stay Tuned
-        </div>
-      </article>
+    <div class="card-status">
+      Available Now
     </div>
+    <h3>
+      Professor Griff
+    </h3>
+    <p>
+      An STV conversation exploring music,
+      culture, history, and the ideas behind
+      the artist's work.
+    </p>
+    <div class="card-button">
+      ▶ Listen Now
+    </div>
+  </article>
+  <!-- DAVID TOLLIVER -->
+  <article class="interview-card coming-soon">
+    <div class="card-number">
+      02
+    </div>
+    <div class="card-status">
+      Coming Soon
+    </div>
+    <h3>
+      David Tolliver
+    </h3>
+    <p>
+      The next Moments in Music conversation
+      is being prepared for the STV audience.
+    </p>
+    <div class="card-button">
+      Interview Coming Soon
+    </div>
+  </article>
+  <!-- FUTURE INTERVIEW -->
+  <article class="interview-card coming-soon">
+    <div class="card-number">
+      03
+    </div>
+    <div class="card-status">
+      Coming Soon
+    </div>
+    <h3>
+      More Voices
+    </h3>
+    <p>
+      Additional artist interviews,
+      conversations, and music stories
+      will be added to the archive.
+    </p>
+    <div class="card-button">
+      Stay Tuned
+    </div>
+  </article>
+</div>
   </div>
 </section>
 <!-- ABOUT -->
 <section class="about">
   <div class="about-inner">
-    <div class="section-label">
-      About The Series
-    </div>
-    <h2>
-      PRESERVING THE MOMENT
-    </h2>
-    <p>
-      Moments in Music is an STV interview series
-      created to preserve conversations that deserve
-      to be heard. Each interview gives artists and
-      cultural voices room to tell their stories in
-      their own words — beyond the headline and beyond
-      the song.
-    </p>
+<div class="section-label">
+  About The Series
+</div>
+<h2>
+  PRESERVING THE MOMENT
+</h2>
+<p>
+  Moments in Music is an STV interview series
+  created to preserve conversations that deserve
+  to be heard. Each interview gives artists and
+  cultural voices room to tell their stories in
+  their own words — beyond the headline and beyond
+  the song.
+</p>
   </div>
 </section>
 <!-- FOOTER -->
