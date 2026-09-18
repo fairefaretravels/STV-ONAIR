@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Seneca Mack — Listen Now</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #000;
+}
+
+/* =========================
+   MOVING BACKGROUND
+========================= */
+
+.background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("Mitdvid.gif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+}
+
+/* dark overlay */
+.background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 10%,
+      rgba(0,0,0,.55) 100%
+    );
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  padding: 30px 20px;
+}
+
+.hero-image {
+  width: min(650px, 92vw);
+  max-height: 75vh;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 25px 50px rgba(0,0,0,.9));
+
+  animation: heroIn 1.4s ease forwards;
+}
+
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: scale(.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   SCROLL BUTTON
+========================= */
+
+.enter {
+  position: absolute;
+  bottom: 35px;
+
+  color: #fff;
+  text-decoration: none;
+
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  opacity: .8;
+}
+
+.enter:hover {
+  opacity: 1;
+}
+
+.arrow {
+  width: 24px;
+  height: 24px;
+
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+
+  transform: rotate(45deg);
+
+  animation: arrowMove 1.5s infinite;
+}
+
+@keyframes arrowMove {
+
+  0%,100% {
+    transform: translateY(0) rotate(45deg);
+  }
+
+  50% {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+}
+
+/* =========================
+   MUSIC SECTION
+========================= */
+
+.music {
+  min-height: 100vh;
+
+  padding: 80px 20px 100px;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,.88),
+      rgba(0,0,0,.97)
+    );
+}
+
+.music-inner {
+  width: min(1000px, 100%);
+  margin: auto;
+}
+
+.section-label {
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+
+  color: #999;
+
+  margin-bottom: 14px;
+}
+
+h1 {
+  font-size: clamp(45px, 9vw, 95px);
+  line-height: .85;
+  letter-spacing: -5px;
+  text-transform: uppercase;
+  font-weight: 900;
+
+  margin-bottom: 25px;
+}
+
+h1 span {
+  display: block;
+}
+
+.outline {
+  color: transparent;
+  -webkit-text-stroke: 1px #fff;
+}
+
+.intro {
+  max-width: 550px;
+
+  color: #aaa;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  margin-bottom: 45px;
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.player {
+  background: rgba(12,12,12,.95);
+
+  border: 1px solid rgba(255,255,255,.18);
+
+  padding: 25px;
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.7);
+}
+
+.now-playing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid rgba(255,255,255,.12);
+
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.now-playing strong {
+  color: #fff;
+}
+
+#currentTrack {
+  color: #999;
+}
+
+/* =========================
+   AUDIO
+========================= */
+
+audio {
+  width: 100%;
+  height: 48px;
+  margin-bottom: 25px;
+}
+
+/* =========================
+   TRACKLIST
+========================= */
+
+.tracklist {
+  list-style: none;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 17px 10px;
+
+  border-bottom: 1px solid rgba(255,255,255,.09);
+
+  cursor: pointer;
+
+  transition:
+    background .2s ease,
+    padding-left .2s ease;
+}
+
+.track:hover {
+  background: rgba(255,255,255,.05);
+  padding-left: 16px;
+}
+
+.track.active {
+  background: rgba(255,255,255,.08);
+}
+
+.number {
+  width: 28px;
+
+  color: #666;
+
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.track-name {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.track-type {
+  margin-left: auto;
+
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: #666;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+  padding: 110px 20px;
+
+  background: #050505;
+
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+
+.about-inner {
+  width: min(850px, 100%);
+  margin: auto;
+}
+
+.about-label {
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: #777;
+  text-transform: uppercase;
+
+  margin-bottom: 30px;
+}
+
+.about h2 {
+  font-size: clamp(40px, 7vw, 75px);
+
+  line-height: .9;
+
+  letter-spacing: -3px;
+
+  text-transform: uppercase;
+
+  margin-bottom: 40px;
+}
+
+.about p {
+  color: #aaa;
+
+  font-size: 15px;
+
+  line-height: 1.9;
+
+  margin-bottom: 22px;
+}
+
+.about strong {
+  color: #fff;
+}
+
+.signature {
+  margin-top: 45px;
+
+  color: #fff !important;
+
+  font-size: 18px !important;
+
+  font-style: italic;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  padding: 35px 20px;
+
+  background: #000;
+
+  text-align: center;
+
+  color: #555;
+
+  font-size: 8px;
+
+  letter-spacing: 4px;
+
+  text-transform: uppercase;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px) {
+
+  .hero-image {
+    width: 95vw;
+  }
+
+  .music {
+    padding-top: 70px;
+  }
+
+  .player {
+    padding: 15px;
+  }
+
+  .track {
+    padding: 16px 5px;
+  }
+
+  .track-name {
+    font-size: 11px;
+  }
+
+  .track-type {
+    display: none;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- MOVING GIF BACKGROUND -->
+<div class="background"></div>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="hero">
+
+  <img
+    src="Mitd.PNG"
+    alt="MACKINTHEDARK"
+    class="hero-image"
+  >
+
+  <a href="#music" class="enter">
+    ENTER
+    <span class="arrow"></span>
+  </a>
+
+</section>
+
+
+<!-- =========================
+     MUSIC
+========================= -->
+
+<section class="music" id="music">
+
+  <div class="music-inner">
+
+    <div class="section-label">
+      SANECA vs SENECA PRESENTS
+    </div>
+
+    <h1>
+      <span>PLAY</span>
+      <span class="outline">IT</span>
+      <span>LOUD.</span>
+    </h1>
+
+    <p class="intro">
+      Press play. Turn it up. Stay with it.
+      This is MACKINTHEDARK.
+    </p>
+
+
+    <div class="player">
+
+      <div class="now-playing">
+
+        <strong>NOW PLAYING</strong>
+
+        <span id="currentTrack">
+          SELECT A TRACK
+        </span>
+
+      </div>
+
+
+      <!-- REAL LOCAL AUDIO PLAYER -->
+
+      <audio
+        id="audioPlayer"
+        controls
+        preload="metadata">
+      </audio>
+
+
+      <!-- TRACKS -->
+
+      <ul class="tracklist">
+
+        <li
+          class="track"
+          data-file=" Lavelle feat The Switchblades - Collect The Vibe.mp3 "
+          data-title="Collect The Vibe">
+          <span class="number">01</span>
+          <span class="track-name">Collect The Vibe</span>
+          <span class="track-type">Track</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="AL LUV FT SWITCHBLADES  - THROWBACK.mp3"
+          data-title="Throwback">
+          <span class="number">02</span>
+          <span class="track-name">Throwback</span>
+          <span class="track-type">Track</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="Deuce feat Seneca Mack - D Flow.mp3"
+          data-title="Dflow">
+          <span class="number">03</span>
+          <span class="track-name">Dflow</span>
+          <span class="track-type">Track</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="FINAL DESTINATION SONG2.mp3"
+          data-title="Final Destination">
+          <span class="number">04</span>
+          <span class="track-name">Final Destination</span>
+          <span class="track-type">Track</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="Go Crazy by. Ogtuka ft Seneca Mack.mp3"
+          data-title="Go Crazy">
+          <span class="number">05</span>
+          <span class="track-name">Go Crazy</span>
+          <span class="track-type">Track</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="Seneca Mack - Comeback.m4a"
+          data-title="Comeback">
+          <span class="number">06</span>
+          <span class="track-name">Comeback Get High</span>
+          <span class="track-type">M4A</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="GetHigh.m4a"
+          data-title="Get Eye">
+          <span class="number">07</span>
+          <span class="track-name">Get Eye</span>
+          <span class="track-type">Solo</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="Seneca Mack - See It Hurt.mp3"
+          data-title="See It Hurt">
+          <span class="number">08</span>
+          <span class="track-name">See It Hurt</span>
+          <span class="track-type">Solo</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="Seneca Mack - So In Love.mp3"
+          data-title="So In Love">
+          <span class="number">09</span>
+          <span class="track-name">So In Love</span>
+          <span class="track-type">Solo</span>
+        </li>
+
+
+        <li
+          class="track"
+          data-file="Seneca Mack - Kinda Horny.mp3"
+          data-title="Kinda *****">
+          <span class="number">10</span>
+          <span class="track-name">Kinda *****</span>
+          <span class="track-type">Solo</span>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="about">
+
+  <div class="about-inner">
+
+    <div class="about-label">
+      About MACKINTHEDARK
+    </div>
+
+    <h2>
+      The woman<br>
+      behind the music.
+    </h2>
+
+    <p>
+      Saneca Mack has never been interested in staying in one lane.
+    </p>
+
+    <p>
+      Long before MACKINTHEDARK became a name, Mack was building a
+      life around music, creativity, technology, and independent
+      culture. A Detroit native with deep roots in the city's
+      underground creative scene, she came up making music,
+      performing, collaborating, and creating outside of the
+      traditional industry machine.
+    </p>
+
+    <p>
+      That journey included <strong>The Switchblades</strong>,
+      the genre-bending Detroit collective Mack created alongside
+      <strong>Liah Lazer</strong>, whose energy, chemistry, and
+      creative partnership became an important part of Mack's
+      musical history. The two are still connected creatively,
+      carrying that history forward while stepping into a new
+      chapter.
+    </p>
+
+    <p>
+      Now, years later, Mack is returning to that world with a
+      different perspective — and a lot more life behind the music.
+    </p>
+
+    <p>
+      <strong>MACKINTHEDARK</strong> is the latest chapter.
+    </p>
+
+    <p>
+      The name says something about the music, but it also speaks
+      to the woman behind it. Mack's work lives in the space between
+      what people see and what they don't. The confidence. The chaos.
+      The relationships. The ambition. The nights spent figuring
+      things out. The moments when starting over becomes less of a
+      setback and more of a creative reset.
+    </p>
+
+    <p>
+      Her sound refuses to be boxed into one category. R&B, hip-hop,
+      alternative influences, melodic records, street records,
+      intimate records — the common thread is <strong>Mack herself.</strong>
+    </p>
+
+    <p>
+      And that independence extends beyond the music.
+    </p>
+
+    <p>
+      Mack has built digital platforms, developed creative technology,
+      produced live experiences, and continued finding ways to put
+      the infrastructure in her own hands. For her, being an
+      independent artist isn't simply about releasing music without
+      a major label. It's about understanding the entire ecosystem
+      around the music — and creating her own.
+    </p>
+
+    <p>
+      <strong>MACKINTHEDARK is not a nostalgia trip.</strong>
+    </p>
+
+    <p>
+      It's what happens when an artist takes everything she's lived
+      through, everything she's learned, and everything she still
+      wants to say — and presses play.
+    </p>
+
+    <p class="signature">
+      Mack, in the dark.
+    </p>
+
+  </div>
+
+</section>
+
+
+<footer>
+  HOUSE OF MEDIA • SANECA MACK • MACKINTHEDARK
+</footer>
+
+
+<script>
+
+/* =========================
+   LOCAL MUSIC PLAYER
+========================= */
+
+const audio = document.getElementById("audioPlayer");
+const currentTrack = document.getElementById("currentTrack");
+const tracks = document.querySelectorAll(".track");
+
+let currentIndex = -1;
+
+
+/*
+  When someone clicks a song:
+  1. Get the filename from data-file
+  2. Load that file from the ROOT
+  3. Play it
+*/
+
+tracks.forEach((track, index) => {
+
+  track.addEventListener("click", () => {
+
+    const file = track.dataset.file;
+    const title = track.dataset.title;
+
+    currentIndex = index;
+
+    audio.src = file;
+
+    currentTrack.textContent = title;
+
+    tracks.forEach(t => {
+      t.classList.remove("active");
+    });
+
+    track.classList.add("active");
+
+    audio.play().catch(error => {
+
+      console.log("Playback could not start:", error);
+
+      currentTrack.textContent =
+        "TAP PLAY TO START";
+
+    });
+
+  });
+
+});
+
+
+/* =========================
+   WHEN SONG ENDS
+   AUTOMATICALLY PLAY NEXT
+========================= */
+
+audio.addEventListener("ended", () => {
+
+  if (currentIndex < tracks.length - 1) {
+
+    currentIndex++;
+
+    const nextTrack = tracks[currentIndex];
+
+    const file = nextTrack.dataset.file;
+    const title = nextTrack.dataset.title;
+
+    audio.src = file;
+
+    currentTrack.textContent = title;
+
+    tracks.forEach(t => {
+      t.classList.remove("active");
+    });
+
+    nextTrack.classList.add("active");
+
+    audio.play();
+
+  }
+
+});
+
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+audio.addEventListener("error", () => {
+
+  currentTrack.textContent =
+    "AUDIO FILE NOT FOUND";
+
+  console.log(
+    "The browser could not load:",
+    audio.src
+  );
+
+});
+
+</script>
+
+</body>
+</html>
