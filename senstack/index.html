@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SENSTACK — Business Problem Solver</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #050505;
+  --dark: #0d0d0d;
+  --panel: #151515;
+  --white: #f5f5f5;
+  --muted: #999;
+  --red: #e50914;
+  --red-dark: #8f0008;
+  --line: rgba(255,255,255,.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+/* NAVIGATION */
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 6%;
+  background: rgba(5,5,5,.94);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 7px;
+}
+
+.logo span {
+  color: var(--red);
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover {
+  color: var(--red);
+}
+
+/* HERO */
+
+.hero {
+  min-height: 88vh;
+
+  display: flex;
+  align-items: center;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.96) 0%,
+      rgba(0,0,0,.78) 42%,
+      rgba(0,0,0,.2) 100%
+    ),
+    url("ps1.PNG") center/cover no-repeat;
+
+  position: relative;
+}
+
+.hero-content {
+  width: min(850px, 90%);
+  margin-left: 7%;
+  padding: 80px 0;
+}
+
+.eyebrow {
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 8vw, 105px);
+  line-height: .9;
+  text-transform: uppercase;
+  font-weight: 950;
+  letter-spacing: -4px;
+}
+
+.hero h1 span {
+  color: var(--red);
+}
+
+.hero p {
+  max-width: 650px;
+  margin-top: 28px;
+
+  color: #ddd;
+  font-size: clamp(17px, 2vw, 22px);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 35px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 24px;
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+
+  border: 1px solid white;
+  color: white;
+
+  transition: .2s ease;
+}
+
+.btn-primary {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  background: white;
+  color: black;
+}
+
+/* SECTIONS */
+
+section {
+  padding: 100px 7%;
+}
+
+.section-label {
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: clamp(36px, 6vw, 70px);
+  line-height: .95;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.section-intro {
+  max-width: 720px;
+  color: #aaa;
+  font-size: 18px;
+  margin-bottom: 50px;
+}
+
+/* PROBLEM */
+
+.problem {
+  background: #090909;
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--line);
+}
+
+.problem-card {
+  background: var(--panel);
+  padding: 30px;
+  min-height: 200px;
+}
+
+.problem-number {
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.problem-card h3 {
+  margin-top: 35px;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.problem-card p {
+  margin-top: 12px;
+  color: #999;
+  font-size: 14px;
+}
+
+/* MEMBERSHIP */
+
+.membership {
+  background:
+    radial-gradient(circle at 80% 30%, rgba(229,9,20,.15), transparent 35%),
+    #050505;
+}
+
+.membership-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.membership-card {
+  border: 1px solid var(--line);
+  padding: 35px;
+  background: rgba(255,255,255,.025);
+  position: relative;
+}
+
+.membership-card.featured {
+  border-color: var(--red);
+}
+
+.membership-card h3 {
+  font-size: 28px;
+  text-transform: uppercase;
+}
+
+.membership-card .price {
+  margin: 15px 0 25px;
+  color: var(--red);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.membership-card ul {
+  list-style: none;
+}
+
+.membership-card li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  color: #bbb;
+  font-size: 14px;
+}
+
+.membership-card li::before {
+  content: "✓";
+  color: var(--red);
+  margin-right: 10px;
+}
+
+/* CASE STUDIES */
+
+.case-studies {
+  background: #0b0b0b;
+}
+
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.case-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+
+  background: #111;
+  border: 1px solid var(--line);
+
+  text-decoration: none;
+  color: white;
+
+  overflow: hidden;
+  transition: .25s ease;
+}
+
+.case-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--red);
+}
+
+.case-image {
+  height: 180px;
+
+  background:
+    linear-gradient(135deg, rgba(229,9,20,.8), rgba(0,0,0,.9)),
+    radial-gradient(circle at center, #444, #090909);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+
+.case-content {
+  padding: 25px;
+}
+
+.case-tag {
+  color: var(--red);
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.case-content h3 {
+  margin-top: 10px;
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.case-content p {
+  margin-top: 10px;
+  color: #999;
+  font-size: 14px;
+}
+
+.case-link {
+  margin-top: 20px;
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* YOUTUBE */
+
+.youtube-section {
+  background: #050505;
+}
+
+.video-box {
+  max-width: 1100px;
+  aspect-ratio: 16 / 9;
+
+  margin: 40px auto 0;
+
+  background:
+    linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.8)),
+    radial-gradient(circle, #333, #050505);
+
+  border: 1px solid var(--line);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.video-placeholder {
+  text-align: center;
+}
+
+.youtube-icon {
+  width: 75px;
+  height: 52px;
+
+  margin: 0 auto 20px;
+
+  background: var(--red);
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+}
+
+.video-placeholder h3 {
+  font-size: 26px;
+  text-transform: uppercase;
+}
+
+.video-placeholder p {
+  color: #888;
+  margin-top: 8px;
+}
+
+/* PROCESS */
+
+.process {
+  background: #0b0b0b;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.process-step {
+  border-top: 3px solid var(--red);
+  padding: 25px 10px;
+}
+
+.process-step span {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.process-step h3 {
+  margin-top: 15px;
+  text-transform: uppercase;
+  font-size: 23px;
+}
+
+.process-step p {
+  margin-top: 8px;
+  color: #888;
+  font-size: 14px;
+}
+
+/* CTA */
+
+.cta {
+  text-align: center;
+  background:
+    linear-gradient(rgba(0,0,0,.86), rgba(0,0,0,.95)),
+    url("ps1.PNG") center/cover no-repeat;
+}
+
+.cta h2 {
+  max-width: 900px;
+  margin: auto;
+
+  font-size: clamp(40px, 7vw, 80px);
+  line-height: .95;
+  text-transform: uppercase;
+}
+
+.cta h2 span {
+  color: var(--red);
+}
+
+.cta p {
+  max-width: 650px;
+  margin: 25px auto;
+  color: #aaa;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 40px 7%;
+  border-top: 1px solid var(--line);
+
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  color: #666;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+footer strong {
+  color: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  nav {
+    padding: 16px 5%;
+  }
+
+  .logo {
+    font-size: 20px;
+    letter-spacing: 4px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .hero {
+    min-height: 82vh;
+    background-position: 65% center;
+  }
+
+  .hero-content {
+    margin-left: 5%;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+
+  section {
+    padding: 70px 5%;
+  }
+
+  .problem-grid,
+  .membership-grid,
+  .case-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-card {
+    min-height: auto;
+  }
+
+  .membership-card {
+    padding: 28px;
+  }
+
+  .video-box {
+    aspect-ratio: 16 / 10;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+
+<nav>
+
+  <div class="logo">
+    SEN<span>STACK</span>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#membership">Membership</a></li>
+    <li><a href="#cases">Case Studies</a></li>
+    <li><a href="#youtube">YouTube</a></li>
+    <li><a href="#contact">Start</a></li>
+  </ul>
+
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      Strategy. Execution. Network.
+    </div>
+
+    <h1>
+      Business<br>
+      <span>Problem Solver.</span>
+    </h1>
+
+    <p>
+      Real businesses have real problems.
+      SENSTACK finds what's not working, builds the system,
+      and turns the solution into something that can actually run.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="#cases" class="btn btn-primary">
+        See Case Studies
+      </a>
+
+      <a href="#membership" class="btn">
+        Explore Membership
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- PROBLEM -->
+
+<section class="problem">
+
+  <div class="section-label">
+    The Problem
+  </div>
+
+  <h2 class="section-title">
+    Your business<br>
+    shouldn't feel like<br>
+    a constant emergency.
+  </h2>
+
+  <p class="section-intro">
+    We look at the problems underneath the problem:
+    operations, customers, revenue, systems, technology,
+    marketing, and execution.
+  </p>
+
+  <div class="problem-grid">
+
+    <div class="problem-card">
+      <div class="problem-number">01</div>
+      <h3>Customers</h3>
+      <p>
+        You're getting attention but not enough conversions,
+        repeat customers, or referrals.
+      </p>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-number">02</div>
+      <h3>Systems</h3>
+      <p>
+        Everything lives in your head and you're constantly
+        putting out fires.
+      </p>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-number">03</div>
+      <h3>Revenue</h3>
+      <p>
+        You're working, but the business model isn't capturing
+        all the value you're creating.
+      </p>
+    </div>
+
+    <div class="problem-card">
+      <div class="problem-number">04</div>
+      <h3>Growth</h3>
+      <p>
+        You know the business can become bigger, but you don't
+        have the structure to get there.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MEMBERSHIP -->
+
+<section class="membership" id="membership">
+
+  <div class="section-label">
+    SENSTACK Membership
+  </div>
+
+  <h2 class="section-title">
+    Don't just get<br>
+    advice. Build.
+  </h2>
+
+  <p class="section-intro">
+    A working relationship for business owners who need
+    strategy, systems, accountability, and execution.
+  </p>
+
+  <div class="membership-grid">
+
+    <div class="membership-card">
+
+      <h3>Clarity</h3>
+
+      <div class="price">
+        DIAGNOSE THE PROBLEM
+      </div>
+
+      <ul>
+        <li>Business problem audit</li>
+        <li>Identify bottlenecks</li>
+        <li>Revenue opportunity review</li>
+        <li>Prioritized action plan</li>
+        <li>Strategy session</li>
+      </ul>
+
+    </div>
+
+
+    <div class="membership-card featured">
+
+      <h3>Build</h3>
+
+      <div class="price">
+        BUILD THE SYSTEM
+      </div>
+
+      <ul>
+        <li>System design</li>
+        <li>Digital workflows</li>
+        <li>Customer experience</li>
+        <li>Automation opportunities</li>
+        <li>Implementation support</li>
+      </ul>
+
+    </div>
+
+
+    <div class="membership-card">
+
+      <h3>Execute</h3>
+
+      <div class="price">
+        MAKE IT RUN
+      </div>
+
+      <ul>
+        <li>Implementation</li>
+        <li>Optimization</li>
+        <li>Accountability</li>
+        <li>Performance review</li>
+        <li>Ongoing strategic support</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PROCESS -->
+
+<section class="process">
+
+  <div class="section-label">
+    The SENSTACK Method
+  </div>
+
+  <h2 class="section-title">
+    Problem → System → Proof
+  </h2>
+
+  <div class="process-grid">
+
+    <div class="process-step">
+      <span>01 / AUDIT</span>
+      <h3>Find It</h3>
+      <p>
+        Find the actual problem instead of treating symptoms.
+      </p>
+    </div>
+
+    <div class="process-step">
+      <span>02 / STRATEGY</span>
+      <h3>Design It</h3>
+      <p>
+        Build a practical solution around the business.
+      </p>
+    </div>
+
+    <div class="process-step">
+      <span>03 / EXECUTION</span>
+      <h3>Build It</h3>
+      <p>
+        Turn the strategy into a working system.
+      </p>
+    </div>
+
+    <div class="process-step">
+      <span>04 / PROOF</span>
+      <h3>Document It</h3>
+      <p>
+        Measure what changed and turn the result into proof.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CASE STUDIES -->
+
+<section class="case-studies" id="cases">
+
+  <div class="section-label">
+    Case Studies & Experiments
+  </div>
+
+  <h2 class="section-title">
+    Real problems.<br>
+    Real builds.
+  </h2>
+
+  <p class="section-intro">
+    SENSTACK documents problems, experiments, systems,
+    and working solutions across business, technology,
+    media, and personal development.
+  </p>
+
+
+  <div class="case-grid">
+
+
+    <!-- RITUAL APP -->
+
+    <a
+      class="case-card"
+      href="https://fairefaretravels.github.io/RitualApp/Simulator/"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="case-image">
+        01
+      </div>
+
+      <div class="case-content">
+
+        <div class="case-tag">
+          PRODUCT / SYSTEM
+        </div>
+
+        <h3>
+          Ritual App
+        </h3>
+
+        <p>
+          A digital system built around daily progression,
+          structure, accountability, and personal development.
+        </p>
+
+        <div class="case-link">
+          Explore Build →
+        </div>
+
+      </div>
+
+    </a>
+
+
+    <!-- STATIC -->
+
+    <a
+      class="case-card"
+      href="https://radiomeltdown.com/the-static-publication/"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="case-image">
+        02
+      </div>
+
+      <div class="case-content">
+
+        <div class="case-tag">
+          MEDIA / BRAND
+        </div>
+
+        <h3>
+          The Static
+        </h3>
+
+        <p>
+          A digital publication concept showing how media,
+          storytelling, artist development, and brand systems
+          can connect.
+        </p>
+
+        <div class="case-link">
+          View Publication →
+        </div>
+
+      </div>
+
+    </a>
+
+
+    <!-- ACADEMY -->
+
+    <a
+      class="case-card"
+      href="https://academy-live-beige.vercel.app/COACHING/index.html"
+      target="_blank"
+      rel="noopener"
+    >
+
+      <div class="case-image">
+        03
+      </div>
+
+      <div class="case-content">
+
+        <div class="case-tag">
+          EDUCATION / AI
+        </div>
+
+        <h3>
+          Academy Live
+        </h3>
+
+        <p>
+          A coaching and learning environment designed to
+          turn information into guided action.
+        </p>
+
+        <div class="case-link">
+          Explore Academy →
+        </div>
+
+      </div>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+
+<!-- YOUTUBE -->
+
+<section class="youtube-section" id="youtube">
+
+  <div class="section-label">
+    SENSTACK YouTube
+  </div>
+
+  <h2 class="section-title">
+    We solve the<br>
+    problem in public.
+  </h2>
+
+  <p class="section-intro">
+    Business problems. Real examples. Systems.
+    Breakdowns. Experiments. What worked and what didn't.
+  </p>
+
+
+  <div class="video-box">
+
+    <!--
+      REPLACE THIS ENTIRE PLACEHOLDER
+      WITH YOUR YOUTUBE IFRAME.
+
+      Example:
+
+      <iframe
+        src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+        title="SENSTACK"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    -->
+
+    <div class="video-placeholder">
+
+      <div class="youtube-icon">
+        ▶
+      </div>
+
+      <h3>
+        SENSTACK
+      </h3>
+
+      <p>
+        Business problems. Systems. Solutions.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta" id="contact">
+
+  <h2>
+    Your business doesn't<br>
+    need another <span>idea.</span>
+  </h2>
+
+  <p>
+    It may need a better system.
+  </p>
+
+  <a href="mailto:press@radiomeltdown.com" class="btn btn-primary">
+    Start With The Problem
+  </a>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div>
+    <strong>SENSTACK</strong>
+    — Strategy. Execution. Network.
+  </div>
+
+  <div>
+    BUSINESS PROBLEM SOLVER
+  </div>
+
+</footer>
+
+</body>
+</html>
