@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SENSTACK — Join the Network</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #050505;
+  --dark: #0b0b0b;
+  --panel: #111;
+  --white: #f5f5f5;
+  --muted: #999;
+  --red: #e50914;
+  --line: rgba(255,255,255,.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+/* NAV */
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 6%;
+
+  background: rgba(5,5,5,.95);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  color: white;
+  text-decoration: none;
+
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 7px;
+}
+
+.logo span {
+  color: var(--red);
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-links a:hover {
+  color: var(--red);
+}
+
+
+/* HERO */
+
+.hero {
+  min-height: 82vh;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.97) 0%,
+      rgba(0,0,0,.82) 45%,
+      rgba(0,0,0,.3) 100%
+    ),
+    radial-gradient(
+      circle at 80% 40%,
+      rgba(229,9,20,.3),
+      transparent 35%
+    );
+}
+
+.hero-content {
+  width: min(900px, 90%);
+  margin-left: 7%;
+  padding: 90px 0;
+}
+
+.eyebrow {
+  color: var(--red);
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: clamp(55px, 9vw, 110px);
+  line-height: .85;
+  letter-spacing: -5px;
+  text-transform: uppercase;
+}
+
+.hero h1 span {
+  color: var(--red);
+}
+
+.hero p {
+  max-width: 720px;
+
+  margin-top: 30px;
+
+  color: #bbb;
+  font-size: clamp(17px, 2vw, 22px);
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-top: 35px;
+}
+
+
+/* BUTTON */
+
+.btn {
+  display: inline-block;
+
+  padding: 15px 24px;
+
+  border: 1px solid white;
+
+  color: white;
+  text-decoration: none;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  transition: .2s ease;
+}
+
+.btn:hover {
+  background: white;
+  color: black;
+  transform: translateY(-2px);
+}
+
+.btn-red {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+
+/* SECTIONS */
+
+section {
+  padding: 100px 7%;
+}
+
+.section-label {
+  color: var(--red);
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  margin-bottom: 15px;
+}
+
+.section-title {
+  max-width: 900px;
+
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: .9;
+
+  text-transform: uppercase;
+}
+
+.section-intro {
+  max-width: 750px;
+
+  margin-top: 25px;
+
+  color: #999;
+  font-size: 18px;
+}
+
+
+/* WHY */
+
+.why {
+  background: #090909;
+}
+
+.why-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 2px;
+
+  margin-top: 55px;
+
+  background: var(--line);
+}
+
+.why-card {
+  padding: 35px;
+
+  background: var(--panel);
+}
+
+.number {
+  color: var(--red);
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.why-card h3 {
+  margin-top: 20px;
+
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.why-card p {
+  margin-top: 10px;
+
+  color: #888;
+  font-size: 14px;
+}
+
+
+/* BENEFITS */
+
+.benefits {
+  background: #050505;
+}
+
+.benefit-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 15px;
+
+  margin-top: 55px;
+}
+
+.benefit-card {
+  min-height: 230px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 28px;
+
+  border: 1px solid var(--line);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.035),
+      rgba(255,255,255,.01)
+    );
+
+  transition: .2s ease;
+}
+
+.benefit-card:hover {
+  border-color: var(--red);
+  transform: translateY(-4px);
+}
+
+.benefit-icon {
+  color: var(--red);
+
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.benefit-card h3 {
+  margin-top: 20px;
+
+  font-size: 21px;
+  text-transform: uppercase;
+}
+
+.benefit-card p {
+  margin-top: 9px;
+
+  color: #888;
+  font-size: 13px;
+}
+
+
+/* FEATURED PLATFORMS */
+
+.platforms {
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(229,9,20,.13),
+      transparent 40%
+    ),
+    #090909;
+}
+
+.platform-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+
+  margin-top: 55px;
+}
+
+.platform {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 310px;
+
+  padding: 32px;
+
+  border: 1px solid var(--line);
+
+  background: #111;
+
+  text-decoration: none;
+  color: white;
+
+  transition: .25s ease;
+}
+
+.platform:hover {
+  transform: translateY(-6px);
+  border-color: var(--red);
+}
+
+.platform-label {
+  color: var(--red);
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.platform h3 {
+  margin-top: 20px;
+
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.platform p {
+  margin-top: 12px;
+
+  color: #999;
+  font-size: 14px;
+}
+
+.platform-link {
+  margin-top: auto;
+  padding-top: 25px;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+
+/* NETWORK PATH */
+
+.path {
+  background: #0b0b0b;
+}
+
+.path-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  margin-top: 55px;
+
+  border-top: 2px solid var(--red);
+}
+
+.path-step {
+  padding: 30px 20px;
+
+  border-right: 1px solid var(--line);
+}
+
+.path-step:last-child {
+  border-right: 0;
+}
+
+.path-step span {
+  color: var(--red);
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.path-step h3 {
+  margin-top: 15px;
+
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+.path-step p {
+  margin-top: 8px;
+
+  color: #888;
+  font-size: 13px;
+}
+
+
+/* WHO */
+
+.who {
+  background: #050505;
+}
+
+.who-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 50px;
+
+  margin-top: 50px;
+}
+
+.who-list {
+  list-style: none;
+}
+
+.who-list li {
+  padding: 15px 0;
+
+  border-bottom: 1px solid var(--line);
+
+  color: #aaa;
+}
+
+.who-list li::before {
+  content: "→";
+
+  color: var(--red);
+
+  margin-right: 12px;
+}
+
+.who-box {
+  padding: 35px;
+
+  background: var(--panel);
+
+  border-left: 3px solid var(--red);
+}
+
+.who-box h3 {
+  font-size: 27px;
+  text-transform: uppercase;
+}
+
+.who-box p {
+  margin-top: 15px;
+
+  color: #999;
+}
+
+
+/* CTA */
+
+.cta {
+  text-align: center;
+
+  padding: 120px 7%;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,.9),
+      rgba(0,0,0,.96)
+    ),
+    radial-gradient(
+      circle at center,
+      #3a0000,
+      #050505 60%
+    );
+}
+
+.cta h2 {
+  max-width: 950px;
+
+  margin: auto;
+
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: .9;
+
+  text-transform: uppercase;
+}
+
+.cta h2 span {
+  color: var(--red);
+}
+
+.cta p {
+  max-width: 650px;
+
+  margin: 25px auto;
+
+  color: #999;
+}
+
+
+/* FOOTER */
+
+footer {
+  padding: 35px 7%;
+
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  border-top: 1px solid var(--line);
+
+  color: #666;
+
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+footer strong {
+  color: white;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  nav {
+    padding: 15px 5%;
+  }
+
+  .logo {
+    font-size: 20px;
+    letter-spacing: 4px;
+  }
+
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-links a {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .hero-content {
+    margin-left: 5%;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+
+  section {
+    padding: 70px 5%;
+  }
+
+  .why-grid,
+  .benefit-grid,
+  .platform-grid,
+  .path-grid,
+  .who-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .path-step {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .path-step:last-child {
+    border-bottom: 0;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+<body>
+
+
+<!-- NAV -->
+
+<nav>
+
+  <a href="index.html" class="logo">
+    SEN<span>STACK</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#platforms">Platforms</a></li>
+    <li><a href="#who">Who It's For</a></li>
+    <li><a href="#join">Join</a></li>
+  </ul>
+
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      SENSTACK / NETWORK MEMBERSHIP
+    </div>
+
+    <h1>
+      Join The<br>
+      <span>Network.</span>
+    </h1>
+
+    <p>
+      Your business shouldn't have to build its audience,
+      visibility, and connections alone.
+      Join a growing network of creators, entrepreneurs,
+      artists, brands, and community builders.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="#join" class="btn btn-red">
+        Join The Network
+      </a>
+
+      <a href="#benefits" class="btn">
+        See Benefits
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- WHY -->
+
+<section class="why">
+
+  <div class="section-label">
+    Why Join?
+  </div>
+
+  <h2 class="section-title">
+    One network.<br>
+    Multiple ways<br>
+    to be seen.
+  </h2>
+
+  <p class="section-intro">
+    SENSTACK membership connects your brand to a broader
+    media, creative, technology, and community ecosystem.
+  </p>
+
+
+  <div class="why-grid">
+
+    <div class="why-card">
+
+      <div class="number">01 / VISIBILITY</div>
+
+      <h3>
+        Get Seen
+      </h3>
+
+      <p>
+        Create more opportunities for your work, business,
+        music, project, or community initiative to be discovered.
+      </p>
+
+    </div>
+
+
+    <div class="why-card">
+
+      <div class="number">02 / CONNECTION</div>
+
+      <h3>
+        Get Connected
+      </h3>
+
+      <p>
+        Become part of a network where creators, entrepreneurs,
+        media, artists, and collaborators can find each other.
+      </p>
+
+    </div>
+
+
+    <div class="why-card">
+
+      <div class="number">03 / GROWTH</div>
+
+      <h3>
+        Keep Building
+      </h3>
+
+      <p>
+        Membership is designed around continued exposure,
+        collaboration, resources, and opportunities.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- BENEFITS -->
+
+<section class="benefits" id="benefits">
+
+  <div class="section-label">
+    Membership Benefits
+  </div>
+
+  <h2 class="section-title">
+    More than<br>
+    promotion.
+  </h2>
+
+  <p class="section-intro">
+    Membership gives you access to a network of platforms,
+    media opportunities, creative resources, and people
+    working on things worth seeing.
+  </p>
+
+
+  <div class="benefit-grid">
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">01</div>
+
+      <div>
+        <h3>
+          Network Promotion
+        </h3>
+
+        <p>
+          Opportunities to promote your business, music,
+          project, event, or brand through participating
+          network platforms.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">02</div>
+
+      <div>
+        <h3>
+          Watch Page Exposure
+        </h3>
+
+        <p>
+          Opportunities for visibility through the
+          SanecaTV watch and programming ecosystem.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">03</div>
+
+      <div>
+        <h3>
+          Radio Promotion
+        </h3>
+
+        <p>
+          Eligible members can be considered for radio,
+          music, sponsor, or programming opportunities.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">04</div>
+
+      <div>
+        <h3>
+          Community Spotlight
+        </h3>
+
+        <p>
+          Opportunities to tell your story and introduce
+          your work to a broader community audience.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">05</div>
+
+      <div>
+        <h3>
+          Media Features
+        </h3>
+
+        <p>
+          Opportunities for consideration in editorial,
+          interview, video, publication, and spotlight content.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">06</div>
+
+      <div>
+        <h3>
+          Event Promotion
+        </h3>
+
+        <p>
+          Promote releases, events, launches, showcases,
+          community projects, and other activities.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">07</div>
+
+      <div>
+        <h3>
+          Digital Profile
+        </h3>
+
+        <p>
+          Build a central digital presence that can connect
+          your audience to your brand, project, music, or business.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">08</div>
+
+      <div>
+        <h3>
+          Collaboration
+        </h3>
+
+        <p>
+          Discover opportunities to collaborate with artists,
+          entrepreneurs, creators, media, and community builders.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefit-card">
+
+      <div class="benefit-icon">09</div>
+
+      <div>
+        <h3>
+          Build With Us
+        </h3>
+
+        <p>
+          Members can become contributors, hosts, featured
+          businesses, creators, guests, or programming partners
+          when opportunities fit.
+        </p>
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- PLATFORMS -->
+
+<section class="platforms" id="platforms">
+
+  <div class="section-label">
+    Network Platforms
+  </div>
+
+  <h2 class="section-title">
+    Your membership<br>
+    has places to go.
+  </h2>
+
+  <p class="section-intro">
+    These are some of the existing platforms that make
+    the network bigger than a single website.
+  </p>
+
+
+  <div class="platform-grid">
+
+
+    <!-- SANECATV -->
+
+    <a
+      href="https://radiomeltdown.com/watch/"
+      target="_blank"
+      rel="noopener"
+      class="platform"
+    >
+
+      <div>
+
+        <div class="platform-label">
+          TELEVISION / MEDIA
+        </div>
+
+        <h3>
+          SanecaTV
+        </h3>
+
+        <p>
+          Live channels, originals, interviews, music,
+          community programming, performances, and features.
+        </p>
+
+      </div>
+
+      <div class="platform-link">
+        Explore Watch → 
+      </div>
+
+    </a>
+
+
+    <!-- ISLAND SPICE -->
+
+    <a
+      href="https://v0-islandspiceradio.vercel.app/#top"
+      target="_blank"
+      rel="noopener"
+      class="platform"
+    >
+
+      <div>
+
+        <div class="platform-label">
+          RADIO / AUDIO
+        </div>
+
+        <h3>
+          Island Spice
+        </h3>
+
+        <p>
+          A 24/7 browser-based radio experience with
+          scheduled dayparts and sponsor opportunities.
+        </p>
+
+      </div>
+
+      <div class="platform-link">
+        Listen Now →
+      </div>
+
+    </a>
+
+
+    <!-- SLAMIN -->
+
+    <a
+      href="https://slaminfatbeatzmedia.com/"
+      target="_blank"
+      rel="noopener"
+      class="platform"
+    >
+
+      <div>
+
+        <div class="platform-label">
+          COMMUNITY / MEDIA
+        </div>
+
+        <h3>
+          Slamin Fatbeatz
+        </h3>
+
+        <p>
+          An additional community media outlet for
+          spotlighting people, projects, and culture.
+        </p>
+
+      </div>
+
+      <div class="platform-link">
+        Visit Platform →
+      </div>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+
+<!-- PATH -->
+
+<section class="path">
+
+  <div class="section-label">
+    The Network Path
+  </div>
+
+  <h2 class="section-title">
+    Join. Build.<br>
+    Get Seen.
+  </h2>
+
+
+  <div class="path-grid">
+
+    <div class="path-step">
+
+      <span>01</span>
+
+      <h3>
+        Join
+      </h3>
+
+      <p>
+        Become part of the network.
+      </p>
+
+    </div>
+
+
+    <div class="path-step">
+
+      <span>02</span>
+
+      <h3>
+        Connect
+      </h3>
+
+      <p>
+        Tell us what you're building and what
+        kind of exposure or connections you need.
+      </p>
+
+    </div>
+
+
+    <div class="path-step">
+
+      <span>03</span>
+
+      <h3>
+        Participate
+      </h3>
+
+      <p>
+        Take advantage of relevant media,
+        promotion, events, and collaboration opportunities.
+      </p>
+
+    </div>
+
+
+    <div class="path-step">
+
+      <span>04</span>
+
+      <h3>
+        Grow
+      </h3>
+
+      <p>
+        Build relationships that can continue
+        beyond a single promotion.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHO -->
+
+<section class="who" id="who">
+
+  <div class="section-label">
+    Who Should Join?
+  </div>
+
+  <h2 class="section-title">
+    If you're<br>
+    building something,<br>
+    you're invited.
+  </h2>
+
+
+  <div class="who-grid">
+
+    <ul class="who-list">
+
+      <li>Small business owners</li>
+
+      <li>Artists & musicians</li>
+
+      <li>Independent creators</li>
+
+      <li>Beauty professionals</li>
+
+      <li>Entrepreneurs & startups</li>
+
+      <li>Event producers</li>
+
+      <li>Community organizations</li>
+
+      <li>Media creators</li>
+
+      <li>Coaches & educators</li>
+
+      <li>People launching something new</li>
+
+    </ul>
+
+
+    <div class="who-box">
+
+      <h3>
+        Not just another directory.
+      </h3>
+
+      <p>
+        The goal is to create an active network where
+        membership can lead to visibility, collaboration,
+        media opportunities, and new relationships.
+      </p>
+
+      <p>
+        Not every opportunity is guaranteed or available
+        to every member. Features and placements depend
+        on programming, audience fit, availability, and
+        editorial or production decisions.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta" id="join">
+
+  <h2>
+    Don't just<br>
+    build alone.<br>
+    <span>Join the network.</span>
+  </h2>
+
+  <p>
+    Tell us what you're building, who you are, and
+    where you want to go.
+  </p>
+
+  <a
+    href="mailto:press@radiomeltdown.com?subject=SENSTACK%20Network%20Membership"
+    class="btn btn-red"
+  >
+    Apply To Join
+  </a>
+
+</section>
+
+<!-- MEMBERSHIP PRICING -->
+<section class="pricing-section" id="membership-pricing">
+  <div class="section-kicker">CHOOSE YOUR LEVEL</div>
+
+  <h2>Join the Network.</h2>
+
+  <p class="pricing-intro">
+    You aren't buying a listing. You're joining a network built around
+    visibility, collaboration, media opportunities, and business growth.
+  </p>
+
+  <div class="pricing-grid">
+
+    <!-- NETWORK -->
+    <article class="price-card">
+      <div class="plan-label">NETWORK</div>
+
+      <h3>$49<span>/mo</span></h3>
+
+      <p class="plan-description">
+        Get connected and start building your presence inside the network.
+      </p>
+
+      <ul>
+        <li>Member profile / listing</li>
+        <li>Network directory placement</li>
+        <li>Community spotlight consideration</li>
+        <li>SanecaTV promotion opportunities</li>
+        <li>Island Spice Radio consideration</li>
+        <li>Member-only opportunities</li>
+        <li>Networking & collaboration opportunities</li>
+      </ul>
+
+      <!-- PAYPAL PLACEHOLDER -->
+      <a href="#" class="paypal-button">
+        JOIN — $49/MONTH
+      </a>
+
+      <div class="paypal-note">
+        PayPal button goes here
+      </div>
+    </article>
+
+
+    <!-- GROWTH -->
+    <article class="price-card featured">
+      <div class="featured-tag">MOST POPULAR</div>
+
+      <div class="plan-label">GROWTH</div>
+
+      <h3>$99<span>/mo</span></h3>
+
+      <p class="plan-description">
+        For businesses, artists, and creators ready to actively build
+        visibility.
+      </p>
+
+      <ul>
+        <li>Everything in Network</li>
+        <li>Monthly promotional feature</li>
+        <li>Social / media promotion</li>
+        <li>Radio promotion consideration</li>
+        <li>Featured placement opportunities</li>
+        <li>Business or artist spotlight</li>
+        <li>Monthly strategy consultation</li>
+      </ul>
+
+      <!-- PAYPAL PLACEHOLDER -->
+      <a href="#" class="paypal-button">
+        JOIN — $99/MONTH
+      </a>
+
+      <div class="paypal-note">
+        PayPal button goes here
+      </div>
+    </article>
+
+
+    <!-- PARTNER -->
+    <article class="price-card">
+      <div class="plan-label">PARTNER</div>
+
+      <h3>$199<span>/mo</span></h3>
+
+      <p class="plan-description">
+        A deeper relationship for businesses ready for media,
+        strategy, and network support.
+      </p>
+
+      <ul>
+        <li>Everything in Growth</li>
+        <li>Priority feature consideration</li>
+        <li>Custom promotional campaign</li>
+        <li>Media & content strategy</li>
+        <li>Website / business system review</li>
+        <li>Collaboration opportunities</li>
+        <li>Quarterly strategy session</li>
+        <li>Direct SENSTACK support</li>
+      </ul>
+
+      <!-- PAYPAL PLACEHOLDER -->
+      <a href="#" class="paypal-button">
+        JOIN — $199/MONTH
+      </a>
+
+      <div class="paypal-note">
+        PayPal button goes here
+      </div>
+    </article>
+
+  </div>
+
+
+  <!-- FOUNDING MEMBER -->
+  <div class="founding-member">
+    <div>
+      <div class="section-kicker">FOUNDING MEMBERS</div>
+
+      <h3>$49/MONTH — LOCKED IN</h3>
+
+      <p>
+        Be one of the first 25–50 members and lock in the founding
+        membership rate while the network grows.
+      </p>
+    </div>
+
+    <!-- PAYPAL PLACEHOLDER -->
+    <a href="#" class="founder-button">
+      BECOME A FOUNDING MEMBER
+    </a>
+  </div>
+
+
+  <!-- IMPORTANT TERMS -->
+  <div class="membership-note">
+    <strong>How membership works</strong>
+
+    <p>
+      Membership provides access to the SENSTACK network and creates
+      opportunities for promotion, features, collaboration, and business
+      development across participating platforms. Placement is based on
+      programming, fit, availability, and editorial or production decisions.
+      Membership does not guarantee airtime, publication, interviews,
+      sponsorships, or specific promotional placement.
+    </p>
+  </div>
+
+</section>
+
+
+<style>
+/* =========================
+   MEMBERSHIP PRICING
+========================= */
+
+.pricing-section {
+  padding: 100px 6vw;
+  background: #050505;
+  color: #fff;
+}
+
+.pricing-section .section-kicker {
+  font-size: 11px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  color: #aaa;
+  margin-bottom: 15px;
+}
+
+.pricing-section h2 {
+  font-size: clamp(42px, 7vw, 80px);
+  line-height: .95;
+  margin: 0 0 20px;
+  letter-spacing: -2px;
+}
+
+.pricing-intro {
+  max-width: 650px;
+  color: #aaa;
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 55px;
+}
+
+
+/* GRID */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+
+/* CARDS */
+
+.price-card {
+  position: relative;
+  background: #101010;
+  border: 1px solid #2b2b2b;
+  padding: 38px 30px 32px;
+  display: flex;
+  flex-direction: column;
+  min-height: 620px;
+}
+
+.price-card.featured {
+  border: 1px solid #fff;
+  transform: translateY(-12px);
+}
+
+
+.plan-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #aaa;
+}
+
+
+.price-card h3 {
+  font-size: 52px;
+  margin: 0 0 15px;
+  letter-spacing: -2px;
+}
+
+.price-card h3 span {
+  font-size: 15px;
+  letter-spacing: 0;
+  color: #888;
+  font-weight: 400;
+}
+
+
+.plan-description {
+  color: #aaa;
+  line-height: 1.6;
+  min-height: 75px;
+  margin-bottom: 25px;
+}
+
+
+.price-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+.price-card li {
+  padding: 11px 0;
+  border-bottom: 1px solid #222;
+  color: #ddd;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.price-card li::before {
+  content: "✓";
+  margin-right: 10px;
+  color: #fff;
+}
+
+
+/* FEATURED */
+
+.featured-tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #fff;
+  color: #000;
+  padding: 8px 14px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+
+/* BUTTON */
+
+.paypal-button,
+.founder-button {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  padding: 17px 20px;
+  background: #fff;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  transition: .2s ease;
+}
+
+.paypal-button:hover,
+.founder-button:hover {
+  background: #ddd;
+  transform: translateY(-2px);
+}
+
+
+.paypal-note {
+  text-align: center;
+  color: #666;
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+
+
+/* FOUNDING MEMBER */
+
+.founding-member {
+  max-width: 1250px;
+  margin: 70px auto 0;
+  padding: 35px;
+  border: 1px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.founding-member h3 {
+  font-size: 28px;
+  margin: 5px 0 10px;
+}
+
+.founding-member p {
+  color: #999;
+  line-height: 1.6;
+  max-width: 650px;
+  margin: 0;
+}
+
+.founder-button {
+  min-width: 260px;
+  width: auto;
+  margin: 0;
+}
+
+
+/* TERMS */
+
+.membership-note {
+  max-width: 900px;
+  margin: 55px auto 0;
+  padding-top: 30px;
+  border-top: 1px solid #222;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.membership-note strong {
+  display: block;
+  color: #ddd;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+  .pricing-section {
+    padding: 70px 20px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .price-card {
+    min-height: auto;
+  }
+
+  .price-card.featured {
+    transform: none;
+  }
+
+  .plan-description {
+    min-height: auto;
+  }
+
+  .founding-member {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .founder-button {
+    width: 100%;
+  }
+}
+</style>
+<!-- FOOTER -->
+
+<footer>
+
+  <div>
+    <strong>SENSTACK</strong>
+    — Strategy. Execution. Network.
+  </div>
+
+  <div>
+    JOIN THE NETWORK
+  </div>
+
+</footer>
+
+
+</body>
+</html>
