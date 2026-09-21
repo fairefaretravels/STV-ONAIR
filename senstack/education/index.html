@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SENSTACK — Education Directory</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      padding: 28px 6vw;
+      border-bottom: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .back {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #999;
+    }
+
+    .back:hover {
+      color: #fff;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      padding: 100px 6vw 80px;
+      max-width: 1100px;
+    }
+
+    .kicker {
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: #999;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      font-size: clamp(50px, 9vw, 105px);
+      line-height: .88;
+      letter-spacing: -5px;
+      max-width: 900px;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 span {
+      color: #888;
+    }
+
+    .hero p {
+      max-width: 680px;
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+
+    /* =========================
+       DIRECTORY
+    ========================= */
+
+    .directory {
+      padding: 30px 6vw 100px;
+    }
+
+    .section-title {
+      max-width: 1100px;
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      font-size: 38px;
+      letter-spacing: -1px;
+    }
+
+    .section-title p {
+      color: #777;
+      margin-top: 8px;
+    }
+
+    .directory-grid {
+      max-width: 1250px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .education-card {
+      background: #101010;
+      border: 1px solid #292929;
+      padding: 30px;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      transition: .2s ease;
+    }
+
+    .education-card:hover {
+      border-color: #777;
+      transform: translateY(-3px);
+    }
+
+    .card-number {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .education-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .education-card p {
+      color: #999;
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .card-link {
+      margin-top: auto;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      border-bottom: 1px solid #555;
+      padding-bottom: 8px;
+      width: fit-content;
+    }
+
+    .card-link:hover {
+      border-color: #fff;
+    }
+
+
+    /* =========================
+       DISCOUNT CODE
+    ========================= */
+
+    .discount {
+      margin: 0 6vw 100px;
+      max-width: 1250px;
+      border: 1px solid #444;
+      background: #0d0d0d;
+      padding: 45px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .discount .kicker {
+      margin-bottom: 10px;
+    }
+
+    .discount h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .discount p {
+      color: #999;
+      max-width: 650px;
+    }
+
+    .code-box {
+      border: 1px solid #555;
+      padding: 18px 25px;
+      min-width: 230px;
+      text-align: center;
+      background: #050505;
+    }
+
+    .code-label {
+      display: block;
+      font-size: 9px;
+      color: #777;
+      letter-spacing: 3px;
+      margin-bottom: 7px;
+    }
+
+    .discount-code {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+
+    /* =========================
+       YOUTUBE
+    ========================= */
+
+    .video-section {
+      padding: 0 6vw 110px;
+    }
+
+    .video-wrap {
+      max-width: 1100px;
+      margin-top: 30px;
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      padding: 15px;
+    }
+
+    .video-placeholder {
+      aspect-ratio: 16 / 9;
+      background: #181818;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border: 1px solid #292929;
+    }
+
+    .youtube-icon {
+      width: 60px;
+      height: 42px;
+      background: #fff;
+      color: #000;
+      border-radius: 9px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    .video-placeholder h3 {
+      font-size: 22px;
+      margin-bottom: 7px;
+    }
+
+    .video-placeholder p {
+      color: #777;
+      font-size: 13px;
+    }
+
+    /*
+      WHEN YOU CREATE YOUR PLAYLIST:
+
+      Replace the placeholder above with:
+
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID"
+        title="SENSTACK Education"
+        allow="accelerometer; autoplay; clipboard-write;
+        encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    */
+
+    .video-wrap iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      display: block;
+    }
+
+
+    /* =========================
+       MEMBER CTA
+    ========================= */
+
+    .education-cta {
+      margin: 0 6vw 100px;
+      padding: 70px 40px;
+      background: #fff;
+      color: #000;
+      text-align: center;
+    }
+
+    .education-cta .kicker {
+      color: #666;
+    }
+
+    .education-cta h2 {
+      font-size: clamp(35px, 6vw, 65px);
+      letter-spacing: -3px;
+      margin-bottom: 15px;
+    }
+
+    .education-cta p {
+      max-width: 650px;
+      margin: 0 auto 30px;
+      color: #555;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 16px 28px;
+      background: #000;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid #222;
+      padding: 35px 6vw;
+      color: #666;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 850px) {
+
+      .hero {
+        padding-top: 70px;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .directory-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .discount {
+        grid-template-columns: 1fr;
+        padding: 30px;
+      }
+
+      .code-box {
+        width: 100%;
+      }
+
+      .education-cta {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 55px 25px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+<header>
+  <div class="logo">SENSTACK</div>
+
+  <a href="index.html" class="back">
+    ← BACK TO SENSTACK
+  </a>
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="kicker">
+    EDUCATION DIRECTORY
+  </div>
+
+  <h1>
+    Learn.<br>
+    Build.<br>
+    <span>Execute.</span>
+  </h1>
+
+  <p>
+    A growing directory of education, training, tools, tutorials,
+    and resources for people building businesses, careers, creative
+    projects, and new skills.
+  </p>
+
+</section>
+
+
+<!-- DIRECTORY -->
+
+<section class="directory">
+
+  <div class="section-title">
+    <div class="kicker">THE DIRECTORY</div>
+
+    <h2>Resources worth knowing.</h2>
+
+    <p>
+      We'll continue adding schools, programs, tools, creators,
+      tutorials, and learning resources to the network.
+    </p>
+  </div>
+
+
+  <div class="directory-grid">
+
+
+    <!-- CARD 01 -->
+
+    <article class="education-card">
+
+      <div class="card-number">01 / CAREER</div>
+
+      <h3>Technology & IT</h3>
+
+      <p>
+        Training resources for IT, data centers, cybersecurity,
+        software, AI, networking, and technical careers.
+      </p>
+
+      <a href="#" class="card-link">
+        EXPLORE RESOURCES →
+      </a>
+
+    </article>
+
+
+    <!-- CARD 02 -->
+
+    <article class="education-card">
+
+      <div class="card-number">02 / BUSINESS</div>
+
+      <h3>Business & Entrepreneurship</h3>
+
+      <p>
+        Programs and resources for starting, structuring,
+        marketing, and growing a business.
+      </p>
+
+      <a href="#" class="card-link">
+        EXPLORE RESOURCES →
+      </a>
+
+    </article>
+
+
+    <!-- CARD 03 -->
+
+    <article class="education-card">
+
+      <div class="card-number">03 / CREATIVE</div>
+
+      <h3>Creative Industries</h3>
+
+      <p>
+        Music, media, design, photography, production,
+        content creation, and independent creative careers.
+      </p>
+
+      <a href="#" class="card-link">
+        EXPLORE RESOURCES →
+      </a>
+
+    </article>
+
+
+    <!-- CARD 04 -->
+
+    <article class="education-card">
+
+      <div class="card-number">04 / BEAUTY</div>
+
+      <h3>Beauty & Personal Services</h3>
+
+      <p>
+        Education and business resources for stylists,
+        barbers, beauty professionals, and service providers.
+      </p>
+
+      <a href="#" class="card-link">
+        EXPLORE RESOURCES →
+      </a>
+
+    </article>
+
+
+    <!-- CARD 05 -->
+
+    <article class="education-card">
+
+      <div class="card-number">05 / AI</div>
+
+      <h3>AI & Digital Tools</h3>
+
+      <p>
+        Learn how to use AI and digital tools to work faster,
+        build products, automate tasks, and create new opportunities.
+      </p>
+
+      <a href="#" class="card-link">
+        EXPLORE RESOURCES →
+      </a>
+
+    </article>
+
+
+    <!-- CARD 06 -->
+
+    <article class="education-card">
+
+      <div class="card-number">06 / LIFE & WORK</div>
+
+      <h3>Professional Development</h3>
+
+      <p>
+        Career preparation, communication, leadership,
+        productivity, financial literacy, and workplace skills.
+      </p>
+
+      <a href="#" class="card-link">
+        EXPLORE RESOURCES →
+      </a>
+
+    </article>
+
+
+  </div>
+
+</section>
+
+
+<!-- DISCOUNT CODE -->
+
+<section class="discount">
+
+  <div>
+
+    <div class="kicker">
+      MEMBER DISCOUNT
+    </div>
+
+    <h2>Learn for less.</h2>
+
+    <p>
+      SENSTACK members may receive access to special education,
+      training, software, or program discounts through participating
+      partners.
+    </p>
+
+  </div>
+
+
+  <div class="code-box">
+
+    <span class="code-label">
+      YOUR DISCOUNT CODE
+    </span>
+
+    <!-- REPLACE THIS -->
+    <div class="discount-code">
+      YOURCODE
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- YOUTUBE PLAYLIST -->
+
+<section class="video-section">
+
+  <div class="kicker">
+    SENSTACK EDUCATION
+  </div>
+
+  <div class="section-title">
+    <h2>Watch & Learn.</h2>
+
+    <p>
+      Tutorials, walkthroughs, lessons, interviews, and
+      practical education from the network.
+    </p>
+  </div>
+
+
+  <div class="video-wrap">
+
+    <!--
+      YOUTUBE PLAYLIST PLACEHOLDER
+
+      Once your playlist exists, replace this entire
+      .video-placeholder with the iframe below.
+
+      Example:
+
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=YOUR_PLAYLIST_ID"
+        title="SENSTACK Education Playlist"
+        allow="accelerometer; autoplay; clipboard-write;
+        encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    -->
+
+    <div class="video-placeholder">
+
+      <div class="youtube-icon">
+        ▶
+      </div>
+
+      <h3>SENSTACK Education Playlist</h3>
+
+      <p>
+        Your YouTube playlist will appear here.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="education-cta">
+
+  <div class="kicker">
+    JOIN THE NETWORK
+  </div>
+
+  <h2>Education is part of the system.</h2>
+
+  <p>
+    Join SENSTACK and get connected to a growing network
+    of people, resources, opportunities, and tools.
+  </p>
+
+  <a href="membership.html" class="cta-button">
+    VIEW MEMBERSHIP →
+  </a>
+
+</section>
+
+
+<footer>
+  SENSTACK — STRATEGY. EXECUTION. NETWORK.
+</footer>
+
+
+</body>
+</html>
