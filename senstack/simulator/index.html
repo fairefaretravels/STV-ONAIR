@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SENSTACK OS — Business Operations Simulator</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap');
+
+  :root {
+    --black: #0a0a0a;
+    --black2: #111111;
+    --black3: #1a1a1a;
+    --black4: #242424;
+    --black5: #2a2a2a;
+    --gold: #c9a84c;
+    --gold2: #e8c96a;
+    --gold3: #8a6f2e;
+    --bronze: #7a5c3a;
+    --cream: #f0ead8;
+    --cream2: #d4c9aa;
+    --muted: #6a6057;
+    --green: #4a8a6a;
+    --green2: #2d5c46;
+    --green3: #1a3a2c;
+    --danger: #c46a2a;
+    --danger2: #8a3a1a;
+    --warning: #a8884a;
+    --red: #d63a3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  #particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  .particle {
+    position: absolute; width: 2px; height: 2px;
+    background: var(--gold); border-radius: 50%;
+    animation: float linear infinite; opacity: 0;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh); opacity: 0; }
+    10% { opacity: 0.5; }
+    90% { opacity: 0.1; }
+    100% { transform: translateY(-10vh); opacity: 0; }
+  }
+
+  .app { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 0 100px; }
+
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px;
+    background: rgba(10,10,10,0.97);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .topbar-logo { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 3px; }
+  .topbar-sub { font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+  .topbar-time { font-size: 11px; color: var(--gold3); font-family: 'Space Mono', monospace; }
+
+  /* TAB NAVIGATION */
+  .tabs {
+    display: flex; gap: 0; padding: 0 20px; border-bottom: 1px solid rgba(201,168,76,0.1);
+    background: rgba(10,10,10,0.6);
+    position: sticky; top: 55px; z-index: 99;
+  }
+  .tab-btn {
+    background: transparent; color: var(--muted); border: none;
+    padding: 12px 16px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Space Mono', monospace; cursor: pointer;
+    border-bottom: 2px solid transparent; transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--gold); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* FLASH ALERTS */
+  #flashAlert {
+    position: fixed; top: 130px; left: 50%; transform: translateX(-50%) translateY(-30px);
+    background: var(--green3); border: 1px solid var(--green);
+    color: var(--cream); padding: 12px 20px; border-radius: 30px;
+    font-size: 13px; font-family: 'Space Mono', monospace; letter-spacing: 1px;
+    z-index: 999; opacity: 0; transition: all 0.35s;
+    white-space: nowrap; pointer-events: none; max-width: 90vw;
+  }
+  #flashAlert.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  #flashAlert.danger { background: var(--danger2); border-color: var(--danger); }
+  #flashAlert.warning { background: rgba(168,136,74,0.1); border-color: var(--warning); color: var(--warning); }
+
+  /* STAT CARDS */
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px; padding: 20px; background: rgba(10,10,10,0.4);
+  }
+  .stat-card {
+    background: var(--black3);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 12px; padding: 16px;
+  }
+  .stat-label { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .stat-val { font-family: 'Space Mono', monospace; font-size: 28px; color: var(--green); }
+  .stat-val.white { color: var(--cream); font-size: 20px; }
+  .stat-val.gold { color: var(--gold); font-size: 20px; }
+  .stat-val.danger { color: var(--danger); }
+  .stat-subtext { font-size: 11px; color: var(--muted); margin-top: 6px; font-family: 'Space Mono', monospace; }
+
+  /* CONTROLS */
+  .controls { padding: 20px; display: flex; flex-direction: column; gap: 12px; background: rgba(10,10,10,0.4); }
+  .control-row { display: flex; align-items: center; gap: 10px; }
+  .control-label { font-size: 11px; color: var(--muted); white-space: nowrap; letter-spacing: 1px; min-width: 120px; }
+  .speed-slider { flex: 1; accent-color: var(--gold); }
+  .speed-val { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--gold); min-width: 120px; text-align: right; }
+
+  .btn {
+    padding: 12px 16px; border-radius: 12px;
+    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s; border: 1px solid;
+  }
+  .btn-primary {
+    background: var(--green3); border-color: var(--green); color: var(--cream);
+  }
+  .btn-primary:hover { background: rgba(74,138,106,0.3); }
+  .btn-primary.active { background: rgba(196,106,42,0.15); border-color: var(--danger); }
+  .btn-secondary {
+    background: transparent; border-color: var(--muted); color: var(--muted);
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* EMPLOYEE ROSTER */
+  .roster-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px; padding: 20px;
+  }
+  .employee-card {
+    background: var(--black3); border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 12px; padding: 16px; transition: all 0.2s;
+  }
+  .employee-card:hover { border-color: rgba(201,168,76,0.25); }
+  .emp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .emp-name { font-weight: 600; font-size: 14px; }
+  .emp-status-badge {
+    display: inline-block; padding: 3px 8px; border-radius: 20px;
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+    font-family: 'Space Mono', monospace; border: 1px solid;
+  }
+  .emp-status-badge.full { background: rgba(74,138,106,0.1); border-color: var(--green); color: var(--green); }
+  .emp-status-badge.half { background: rgba(168,136,74,0.1); border-color: var(--warning); color: var(--warning); }
+  .emp-status-badge.warning { background: rgba(196,106,42,0.1); border-color: var(--danger); color: var(--danger); }
+
+  .emp-metric { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 1px solid rgba(201,168,76,0.05); font-size: 12px; }
+  .emp-metric-label { color: var(--muted); }
+  .emp-metric-val { font-family: 'Space Mono', monospace; color: var(--cream); }
+  .emp-metric-val.danger { color: var(--danger); }
+  .emp-metric-val.warning { color: var(--warning); }
+
+  .emp-warning-bar {
+    display: flex; gap: 3px; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(201,168,76,0.05);
+  }
+  .warning-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--black4); border: 1px solid var(--muted); }
+  .warning-dot.active { background: var(--danger); border-color: var(--danger); }
+
+  .emp-action-btn {
+    width: 100%; margin-top: 12px; padding: 10px;
+    background: var(--black4); border: 1px solid rgba(201,168,76,0.15);
+    color: var(--cream); border-radius: 8px; cursor: pointer; font-size: 11px;
+    font-family: 'Space Mono', monospace; letter-spacing: 1px; transition: all 0.2s;
+  }
+  .emp-action-btn:hover { border-color: var(--gold); background: var(--black5); }
+
+  /* SCAN MODAL */
+  .modal {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal.show { display: flex; }
+  .modal-content {
+    background: var(--black2); border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 16px; padding: 32px; max-width: 400px; width: 90vw;
+    text-align: center;
+  }
+  .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+  .scan-animation {
+    width: 120px; height: 120px; margin: 24px auto;
+    border: 2px solid var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 48px;
+    animation: scanPulse 1.5s ease-out;
+  }
+  @keyframes scanPulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.3); opacity: 0; }
+  }
+  .scan-result {
+    margin: 20px 0; padding: 16px; border-radius: 12px;
+    background: var(--black3); border: 1px solid rgba(201,168,76,0.2);
+  }
+  .scan-energy { font-size: 28px; font-weight: 600; color: var(--gold); margin-bottom: 8px; }
+  .scan-outcome { font-size: 14px; margin-bottom: 12px; }
+  .scan-outcome.full { color: var(--green); }
+  .scan-outcome.half { color: var(--warning); }
+  .modal-close {
+    background: transparent; border: 1px solid var(--muted); color: var(--muted);
+    padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 16px;
+    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 1px;
+  }
+
+  /* BOARD ROOM ALERTS */
+  .alerts-feed {
+    display: flex; flex-direction: column; gap: 8px; padding: 20px;
+  }
+  .alert-item {
+    background: var(--black3); border: 1px solid rgba(201,168,76,0.12);
+    border-left: 3px solid var(--gold); border-radius: 0 12px 12px 0;
+    padding: 12px 14px; animation: slideDown 0.3s ease;
+  }
+  .alert-item.danger { border-left-color: var(--danger); background: rgba(214,58,58,0.05); }
+  .alert-item.warning { border-left-color: var(--warning); background: rgba(168,136,74,0.05); }
+  .alert-item.success { border-left-color: var(--green); background: rgba(74,138,106,0.05); }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .alert-time { font-size: 9px; color: var(--muted); font-family: 'Space Mono', monospace; margin-bottom: 4px; }
+  .alert-msg { font-size: 13px; line-height: 1.5; }
+
+  .empty-state {
+    text-align: center; padding: 40px 20px;
+    color: var(--muted); font-size: 12px; line-height: 1.8;
+  }
+  .empty-state span { display: block; font-size: 32px; margin-bottom: 12px; }
+
+  /* P&L STATEMENT */
+  .pl-statement { padding: 20px; background: var(--black3); border: 1px solid rgba(201,168,76,0.12); border-radius: 12px; margin: 20px; }
+  .pl-header { font-size: 14px; font-weight: 600; margin-bottom: 16px; border-bottom: 1px solid rgba(201,168,76,0.2); padding-bottom: 12px; }
+  .pl-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 12px; border-bottom: 1px solid rgba(201,168,76,0.05); }
+  .pl-row.section { margin-top: 8px; padding-top: 12px; border-top: 1px solid rgba(201,168,76,0.2); font-weight: 600; }
+  .pl-row.total { border-top: 2px solid rgba(201,168,76,0.3); margin-top: 12px; padding-top: 12px; font-weight: 700; font-size: 14px; }
+  .pl-label { color: var(--muted); }
+  .pl-val { font-family: 'Space Mono', monospace; text-align: right; }
+  .pl-val.positive { color: var(--green); }
+  .pl-val.negative { color: var(--danger); }
+
+  /* DEPOSIT FEED */
+  .feed { display: flex; flex-direction: column; gap: 6px; padding: 20px; }
+  .deposit-card {
+    background: var(--black2);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-left: 3px solid var(--green);
+    border-radius: 0 12px 12px 0;
+    padding: 12px 14px;
+    animation: slideDown 0.3s ease;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .dep-icon { font-size: 18px; flex-shrink: 0; }
+  .dep-body { flex: 1; }
+  .dep-top { display: flex; justify-content: space-between; align-items: baseline; }
+  .dep-amount { font-family: 'Space Mono', monospace; font-size: 16px; color: var(--green); }
+  .dep-time { font-size: 10px; color: var(--muted); }
+  .dep-desc { font-size: 11px; color: var(--cream2); margin-top: 3px; }
+  .dep-biz { font-size: 9px; color: var(--muted); margin-top: 2px; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .roster-grid { grid-template-columns: 1fr; }
+    .stat-val { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+<div id="flashAlert"></div>
+
+<div class="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <div class="topbar-logo">SENSTACK OS</div>
+      <div class="topbar-sub">BUSINESS OPERATIONS SIMULATOR</div>
+    </div>
+    <div class="topbar-time">SIM DAY <span id="simDay">1</span> | <span id="simTime">00:00</span></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+    <button class="tab-btn" onclick="switchTab('staff')">👥 Staff</button>
+    <button class="tab-btn" onclick="switchTab('revenue')">💳 Revenue</button>
+    <button class="tab-btn" onclick="switchTab('boardroom')">🏛️ Boardroom</button>
+    <button class="tab-btn" onclick="switchTab('quarterly')">📈 Quarterly</button>
+  </div>
+
+  <!-- ============ DASHBOARD TAB ============ -->
+  <div id="dashboard" class="tab-content active">
+    
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Revenue (This Quarter)</div>
+        <div class="stat-val" id="statRevenue">$0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Costs</div>
+        <div class="stat-val danger" id="statCosts">$0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Net Profit</div>
+        <div class="stat-val" id="statProfit">$0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Staff on Duty (Full Days)</div>
+        <div class="stat-val white" id="statFullStaff">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Warnings</div>
+        <div class="stat-val white" id="statWarnings">0</div>
+        <div class="stat-subtext" id="statWarningsDetail">No issues</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Health Insurance (Monthly)</div>
+        <div class="stat-val gold" id="statInsurance">$0</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="control-row">
+        <span class="control-label">Order Speed</span>
+        <input type="range" class="speed-slider" id="speedSlider" min="1" max="5" value="2" oninput="updateSpeedLabel()">
+        <span class="speed-val" id="speedVal">Medium</span>
+      </div>
+      <button class="btn btn-primary" id="runBtn" onclick="toggleSim()">▶ START SIMULATION</button>
+    </div>
+
+  </div>
+
+  <!-- ============ STAFF TAB ============ -->
+  <div id="staff" class="tab-content">
+    
+    <div class="roster-grid" id="rosterGrid"></div>
+
+  </div>
+
+  <!-- ============ REVENUE TAB ============ -->
+  <div id="revenue" class="tab-content">
+    
+    <div style="padding: 12px 20px 0; display: flex; align-items: center; justify-content: space-between;">
+      <div style="font-size: 10px; color: var(--gold3); letter-spacing: 3px; text-transform: uppercase;">Live Deposit Feed</div>
+      <button class="btn btn-secondary" onclick="clearFeed()">RESET</button>
+    </div>
+    <div class="feed" id="feed">
+      <div class="empty-state"><span>💳</span>Start the simulation to see deposits.</div>
+    </div>
+
+  </div>
+
+  <!-- ============ BOARDROOM TAB ============ -->
+  <div id="boardroom" class="tab-content">
+    
+    <div class="alerts-feed" id="alertsFeed">
+      <div class="empty-state"><span>🏛️</span>No alerts yet. Keep monitoring.</div>
+    </div>
+
+  </div>
+
+  <!-- ============ QUARTERLY TAB ============ -->
+  <div id="quarterly" class="tab-content">
+    
+    <div class="pl-statement" id="plStatement"></div>
+
+  </div>
+
+</div>
+
+<!-- SCAN MODAL -->
+<div class="modal" id="scanModal">
+  <div class="modal-content">
+    <div class="modal-title" id="scanTitle">Scanning Energy...</div>
+    <div class="scan-animation" id="scanAnimation">🔍</div>
+    <div class="scan-result" id="scanResult" style="display:none;">
+      <div class="scan-energy" id="scanEnergy">—</div>
+      <div class="scan-outcome" id="scanOutcome">—</div>
+    </div>
+    <button class="modal-close" onclick="closeScanModal()">DONE</button>
+  </div>
+</div>
+
+<script>
+// ============ DATA & CONFIG ============
+const BUSINESSES = [
+  {
+    id: 'mack', name: 'Mack Magic Mobile Bar', icon: '🍹',
+    range: [150, 1400],
+    orders: ['4hr bartending event','6hr open bar package','wedding bar service','corporate cocktail hour','birthday party bar','2hr mixology setup','anniversary event bar','graduation party package'],
+    prefix: 'Booking deposit'
+  },
+  {
+    id: 'stv', name: 'STV / Radio Meltdown', icon: '🎙',
+    range: [75, 900],
+    orders: ['podcast production','interview segment edit','station ad placement','broadcast sponsorship','promo video edit','radio show package','artist feature slot','voiceover production'],
+    prefix: 'Payment received'
+  },
+  {
+    id: 'xoco', name: 'XOCO Designs', icon: '🛋',
+    range: [300, 4500],
+    orders: ['living room package','bedroom furnishing','design consultation','dining room set','home office setup','staging package','commercial space design','room refresh package'],
+    prefix: 'Invoice paid'
+  },
+  {
+    id: 'anim', name: 'Animation Prep', icon: '🎨',
+    range: [50, 600],
+    orders: ['school workshop','curriculum license','student enrollment','grant milestone','after-school program','summer camp slot','teacher training','district partnership'],
+    prefix: 'Funds received'
+  }
+];
+
+const EMPLOYEES = [
+  { id: 'emp1', name: 'Alex', title: 'Operations Manager', biz: 'mack' },
+  { id: 'emp2', name: 'Jordan', title: 'Client Services', biz: 'stv' },
+  { id: 'emp3', name: 'Casey', title: 'Project Lead', biz: 'xoco' },
+  { id: 'emp4', name: 'Taylor', title: 'Coordinator', biz: 'anim' },
+  { id: 'emp5', name: 'Morgan', title: 'Support Specialist', biz: 'mack' }
+];
+
+const SPEEDS = { 1: 9000, 2: 4500, 3: 2000, 4: 900, 5: 350 };
+const SPEED_LABELS = { 1: 'Slow & steady', 2: 'Medium', 3: 'Fast', 4: 'Very fast', 5: 'Flood mode 🌊' };
+const MONTHLY_INSURANCE = 420;
+const COUNSELING_COST = 300;
+const REPLACEMENT_COST = 3200;
+
+let employees = EMPLOYEES.map(e => ({
+  ...e,
+  energy: 100,
+  lastEnergy: 100,
+  shiftStatus: 'full',
+  warningCount: 0,
+  lowEnergyDays: [],
+  separated: false,
+  rehireDate: null,
+  payrollToday: 0,
+}));
+
+let active = { mack: true, stv: true, xoco: false, anim: false };
+let running = false;
+let timer = null;
+let simDay = 1;
+let simHour = 0;
+let simMinute = 0;
+
+let quarterlyData = {
+  revenue: 0,
+  deposits: [],
+  payrollCosts: 0,
+  insuranceCosts: 0,
+  counselingCosts: 0,
+  replacementCosts: 0,
+  marketingCosts: 0,
+  refunds: 0,
+  separations: [],
+  alerts: [],
+};
+
+let alerts = [];
+
+const PARTICLES_COUNT = 25;
+const DEPOSIT_INTERVAL_MS = 3000;
+const MORNING_CHECK_INTERVAL_MS = 86400000; // 1 simulated day
+
+// ============ UTILITIES ============
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+function rand(min, max) {
+  return Math.round(min + Math.random() * (max - min));
+}
+
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+  document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+}
+
+function showFlash(msg, type = 'success') {
+  const el = document.getElementById('flashAlert');
+  el.textContent = msg;
+  el.classList.remove('danger', 'warning');
+  if (type === 'danger') el.classList.add('danger');
+  if (type === 'warning') el.classList.add('warning');
+  el.classList.add('show');
+  clearTimeout(el._timer);
+  el._timer = setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+function updateSpeedLabel() {
+  const speed = parseInt(document.getElementById('speedSlider').value);
+  document.getElementById('speedVal').textContent = SPEED_LABELS[speed];
+}
+
+// ============ PARTICLES ============
+function initParticles() {
+  const particlesEl = document.getElementById('particles');
+  for (let i = 0; i < PARTICLES_COUNT; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `left:${Math.random()*100}%;width:${Math.random()*3+1}px;height:${Math.random()*3+1}px;animation-duration:${Math.random()*18+12}s;animation-delay:${Math.random()*20}s;`;
+    particlesEl.appendChild(p);
+  }
+}
+
+// ============ MORNING CHECK-IN / ENERGY MECHANICS ============
+function performMorningCheckin() {
+  // Reset low-energy day tracking window
+  employees.forEach(emp => {
+    if (!emp.separated) {
+      emp.energy = rand(30, 100);
+      emp.lastEnergy = emp.energy;
+      
+      // Determine shift status
+      if (emp.energy >= 70) {
+        emp.shiftStatus = 'full';
+      } else {
+        emp.shiftStatus = 'half';
+      }
+
+      // Track low-energy days (< 70)
+      if (emp.energy < 70) {
+        emp.lowEnergyDays.push(simDay);
+      }
+
+      // Check for 2 low-energy days in 3-day window → counseling trigger
+      const recentLowDays = emp.lowEnergyDays.filter(d => simDay - d <= 3);
+      if (recentLowDays.length >= 2 && !emp.counselingTriggered) {
+        emp.counselingTriggered = true;
+        emp.warningCount++;
+        quarterlyData.counselingCosts += COUNSELING_COST;
+        addAlert(`⚠️  ${emp.name} referred to counseling (2 low-energy days in 3 days)`, 'warning');
+        showFlash(`${emp.name} → Counseling referral ($${COUNSELING_COST})`, 'warning');
+      }
+
+      // Warning progression
+      if (emp.warningCount >= 5) {
+        emp.separated = true;
+        emp.rehireDate = simDay + rand(3, 7); // Rehire after 3-7 days
+        quarterlyData.separations.push({ name: emp.name, day: simDay, reason: 'Multiple violations' });
+        quarterlyData.replacementCosts += REPLACEMENT_COST;
+        addAlert(`🚨 ${emp.name} separated. Replacement cost: $${REPLACEMENT_COST}`, 'danger');
+        showFlash(`${emp.name} separated. Hiring replacement...`, 'danger');
+      }
+    }
+
+    // Rehire check
+    if (emp.separated && emp.rehireDate && simDay >= emp.rehireDate) {
+      emp.separated = false;
+      emp.rehireDate = null;
+      emp.warningCount = 0;
+      emp.lowEnergyDays = [];
+      emp.counselingTriggered = false;
+      addAlert(`✅ ${emp.name} rehired and back on schedule`, 'success');
+      showFlash(`${emp.name} back on schedule`, 'success');
+    }
+  });
+
+  updateRoster();
+}
+
+function scanEmployee(empId) {
+  const emp = employees.find(e => e.id === empId);
+  if (!emp) return;
+
+  document.getElementById('scanModal').classList.add('show');
+  document.getElementById('scanTitle').textContent = `Scanning ${emp.name}...`;
+  document.getElementById('scanAnimation').textContent = '🔍';
+  document.getElementById('scanResult').style.display = 'none';
+
+  setTimeout(() => {
+    emp.energy = rand(30, 100);
+    emp.lastEnergy = emp.energy;
+    emp.shiftStatus = emp.energy >= 70 ? 'full' : 'half';
+
+    // Low energy day tracking
+    if (emp.energy < 70) {
+      emp.lowEnergyDays.push(simDay);
+    }
+
+    const recentLowDays = emp.lowEnergyDays.filter(d => simDay - d <= 3);
+    if (recentLowDays.length >= 2 && !emp.counselingTriggered) {
+      emp.counselingTriggered = true;
+      emp.warningCount++;
+      quarterlyData.counselingCosts += COUNSELING_COST;
+      addAlert(`⚠️  ${emp.name} referred to counseling`, 'warning');
+    }
+
+    document.getElementById('scanAnimation').style.display = 'none';
+    document.getElementById('scanResult').style.display = 'block';
+    document.getElementById('scanEnergy').textContent = emp.energy + '% Energy';
+    const outcome = emp.shiftStatus === 'full' ? 'FULL DAY ✓' : 'HALF DAY (Limited availability)';
+    const outcomeEl = document.getElementById('scanOutcome');
+    outcomeEl.textContent = outcome;
+    outcomeEl.className = `scan-outcome ${emp.shiftStatus}`;
+
+    updateRoster();
+  }, 800);
+}
+
+function closeScanModal() {
+  document.getElementById('scanModal').classList.remove('show');
+}
+
+// ============ REVENUE MECHANICS ============
+function getActiveBizzes() {
+  return BUSINESSES.filter(b => active[b.id]);
+}
+
+function calculateRevenueMultiplier() {
+  // Count full-day staff
+  const fullDayCount = employees.filter(e => !e.separated && e.shiftStatus === 'full').length;
+  const totalCount = employees.filter(e => !e.separated).length;
+  
+  // Skeleton crew penalty
+  if (totalCount === 0) return 0;
+  const staffing = fullDayCount / totalCount;
+  return staffing * 1.2; // 120% at full, down to 0% at no staff
+}
+
+function dropDeposit(biz) {
+  let amount = rand(biz.range[0], biz.range[1]);
+  const multiplier = calculateRevenueMultiplier();
+  amount = Math.round(amount * multiplier);
+
+  const order = biz.orders[Math.floor(Math.random() * biz.orders.length)];
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+  quarterlyData.revenue += amount;
+  quarterlyData.deposits.push({ biz: biz.name, amount, time: simDay, order });
+
+  // 6% refund rate
+  if (Math.random() < 0.06) {
+    const refund = Math.round(amount * 0.5);
+    quarterlyData.revenue -= refund;
+    quarterlyData.refunds += refund;
+    addDepositCard(biz, -refund, `REFUND: ${order}`, timeStr, true);
+    showFlash(`⚠️  Refund on ${biz.name}: $${refund}`, 'warning');
+  } else {
+    addDepositCard(biz, amount, `${biz.prefix}: ${order}`, timeStr, false);
+    showFlash(`${biz.icon} ${fmt(amount)} deposited`, 'success');
+  }
+
+  updateStats();
+
+  // Random marketing events (10% chance per deposit)
+  if (Math.random() < 0.1) {
+    triggerMarketingEvent();
+  }
+}
+
+function addDepositCard(biz, amount, desc, timeStr, isRefund = false) {
+  const feed = document.getElementById('feed');
+  const empty = feed.querySelector('.empty-state');
+  if (empty) empty.remove();
+
+  const card = document.createElement('div');
+  card.className = 'deposit-card';
+  if (isRefund) card.style.borderLeftColor = 'var(--danger)';
+  card.innerHTML = `
+    <div class="dep-icon">${biz.icon}</div>
+    <div class="dep-body">
+      <div class="dep-top">
+        <div class="dep-amount" style="${isRefund ? 'color: var(--danger)' : ''}">${isRefund ? '−' : '+'}${fmt(amount)}</div>
+        <div class="dep-time">${timeStr}</div>
+      </div>
+      <div class="dep-desc">${desc}</div>
+      <div class="dep-biz">${biz.name}</div>
+    </div>`;
+  feed.insertBefore(card, feed.firstChild);
+  if (feed.children.length > 50) feed.removeChild(feed.lastChild);
+}
+
+function triggerMarketingEvent() {
+  const events = [
+    { name: 'Social media collab boost', revenue: rand(800, 2000), cost: 200 },
+    { name: 'Newsletter ad campaign', revenue: rand(500, 1500), cost: 150 },
+    { name: 'Pop-up event promotion', revenue: rand(1200, 3000), cost: 300 },
+    { name: 'Influencer partnership', revenue: rand(900, 2500), cost: 250 },
+  ];
+  const event = events[Math.floor(Math.random() * events.length)];
+  quarterlyData.revenue += event.revenue;
+  quarterlyData.marketingCosts += event.cost;
+  addAlert(`📢 ${event.name}: +${fmt(event.revenue)}, costs ${fmt(event.cost)}`, 'success');
+}
+
+// ============ PAYROLL ============
+function processPayroll() {
+  const dailyRate = 200; // per full day
+  const halfDailyRate = 100; // per half day
+
+  employees.forEach(emp => {
+    if (emp.separated) {
+      emp.payrollToday = 0;
+    } else if (emp.shiftStatus === 'full') {
+      emp.payrollToday = dailyRate;
+    } else {
+      emp.payrollToday = halfDailyRate;
+    }
+    quarterlyData.payrollCosts += emp.payrollToday;
+  });
+
+  updateStats();
+}
+
+// ============ STATS & UI ============
+function updateStats() {
+  const totalCosts = quarterlyData.payrollCosts + quarterlyData.insuranceCosts + 
+                     quarterlyData.counselingCosts + quarterlyData.replacementCosts + 
+                     quarterlyData.marketingCosts + quarterlyData.refunds;
+  const netProfit = quarterlyData.revenue - totalCosts;
+  const fullStaff = employees.filter(e => !e.separated && e.shiftStatus === 'full').length;
+  const activeWarnings = employees.reduce((sum, e) => sum + (e.warningCount > 0 ? 1 : 0), 0);
+
+  document.getElementById('statRevenue').textContent = fmt(quarterlyData.revenue);
+  document.getElementById('statCosts').textContent = fmt(totalCosts);
+  document.getElementById('statProfit').textContent = fmt(netProfit);
+  document.getElementById('statProfit').style.color = netProfit >= 0 ? 'var(--green)' : 'var(--danger)';
+  document.getElementById('statFullStaff').textContent = fullStaff;
+  document.getElementById('statWarnings').textContent = activeWarnings;
+  document.getElementById('statWarningsDetail').textContent = activeWarnings > 0 
+    ? `${activeWarnings} employee${activeWarnings > 1 ? 's' : ''} under review`
+    : 'No issues';
+  document.getElementById('statInsurance').textContent = fmt(MONTHLY_INSURANCE * employees.filter(e => !e.separated).length);
+}
+
+function updateRoster() {
+  const grid = document.getElementById('rosterGrid');
+  grid.innerHTML = '';
+
+  employees.forEach(emp => {
+    const d = document.createElement('div');
+    d.className = 'employee-card';
+    if (emp.separated) d.style.opacity = '0.5';
+
+    let statusClass = 'full';
+    let statusText = 'Full Day';
+    if (emp.separated) {
+      statusClass = 'warning';
+      statusText = 'Separated';
+    } else if (emp.shiftStatus === 'half') {
+      statusClass = 'half';
+      statusText = 'Half Day';
+    }
+
+    let warningDots = '';
+    for (let i = 0; i < 5; i++) {
+      warningDots += `<div class="warning-dot ${i < emp.warningCount ? 'active' : ''}"></div>`;
+    }
+
+    d.innerHTML = `
+      <div class="emp-header">
+        <div>
+          <div class="emp-name">${emp.name}</div>
+          <div style="font-size: 11px; color: var(--muted);">${emp.title}</div>
+        </div>
+        <div class="emp-status-badge ${statusClass}">${statusText}</div>
+      </div>
+      <div class="emp-metric">
+        <span class="emp-metric-label">Energy Level</span>
+        <span class="emp-metric-val">${emp.lastEnergy}%</span>
+      </div>
+      <div class="emp-metric">
+        <span class="emp-metric-label">Today's Payroll</span>
+        <span class="emp-metric-val">$${emp.payrollToday}</span>
+      </div>
+      <div class="emp-metric">
+        <span class="emp-metric-label">Low-Energy Days (3-day)</span>
+        <span class="emp-metric-val">${emp.lowEnergyDays.filter(d => simDay - d <= 3).length}</span>
+      </div>
+      <div class="emp-warning-bar">${warningDots}</div>
+      <button class="emp-action-btn" onclick="scanEmployee('${emp.id}')">🔍 SCAN ENERGY</button>
+    `;
+    grid.appendChild(d);
+  });
+}
+
+function buildQuarterlyPL() {
+  const totalCosts = quarterlyData.payrollCosts + quarterlyData.insuranceCosts + 
+                     quarterlyData.counselingCosts + quarterlyData.replacementCosts + 
+                     quarterlyData.marketingCosts + quarterlyData.refunds;
+  const netProfit = quarterlyData.revenue - totalCosts;
+
+  let html = `
+    <div class="pl-header">Q1 PROFIT & LOSS STATEMENT</div>
+    <div class="pl-row section">
+      <span class="pl-label">REVENUE</span>
+      <span class="pl-val positive">${fmt(quarterlyData.revenue)}</span>
+    </div>
+    <div class="pl-row">
+      <span class="pl-label">&nbsp;&nbsp;Deposits</span>
+      <span class="pl-val">${quarterlyData.deposits.length} transactions</span>
+    </div>
+    <div class="pl-row section">
+      <span class="pl-label">COSTS</span>
+    </div>
+    <div class="pl-row">
+      <span class="pl-label">&nbsp;&nbsp;Payroll</span>
+      <span class="pl-val negative">${fmt(quarterlyData.payrollCosts)}</span>
+    </div>
+    <div class="pl-row">
+      <span class="pl-label">&nbsp;&nbsp;Health Insurance (${employees.filter(e => !e.separated).length} emp)</span>
+      <span class="pl-val negative">${fmt(quarterlyData.insuranceCosts)}</span>
+    </div>
+    <div class="pl-row">
+      <span class="pl-label">&nbsp;&nbsp;Counseling Referrals</span>
+      <span class="pl-val negative">${fmt(quarterlyData.counselingCosts)}</span>
+    </div>
+    <div class="pl-row">
+      <span class="pl-label">&nbsp;&nbsp;Staff Replacement</span>
+      <span class="pl-val negative">${fmt(quarterlyData.replacementCosts)}</span>
+    </div>
+    <div class="pl-row">
+      <span class="pl-label">&nbsp;&nbsp;Marketing & Events</span>
+      <span class="pl-val negative">${fmt(quarterlyData.marketingCosts)}</span>
+    </div>
+    <div class="pl-row">
+      <span class="pl-label">&nbsp;&nbsp;Refunds</span>
+      <span class="pl-val negative">${fmt(quarterlyData.refunds)}</span>
+    </div>
+    <div class="pl-row total">
+      <span class="pl-label">NET PROFIT</span>
+      <span class="pl-val ${netProfit >= 0 ? 'positive' : 'negative'}">${fmt(netProfit)}</span>
+    </div>
+  `;
+
+  if (quarterlyData.separations.length > 0) {
+    html += `<div class="pl-row section" style="margin-top: 20px;">
+      <span class="pl-label">SEPARATIONS</span>
+    </div>`;
+    quarterlyData.separations.forEach(sep => {
+      html += `<div class="pl-row"><span class="pl-label">&nbsp;&nbsp;${sep.name} (Day ${sep.day})</span></div>`;
+    });
+  }
+
+  document.getElementById('plStatement').innerHTML = html;
+}
+
+function addAlert(msg, type = 'info') {
+  const time = `Day ${simDay} | ${String(Math.floor(simHour)).padStart(2, '0')}:${String(simMinute).padStart(2, '0')}`;
+  alerts.unshift({ msg, type, time });
+  if (alerts.length > 30) alerts.pop();
+
+  updateAlertsFeed();
+}
+
+function updateAlertsFeed() {
+  const feed = document.getElementById('alertsFeed');
+  if (alerts.length === 0) {
+    feed.innerHTML = '<div class="empty-state"><span>🏛️</span>No alerts yet. Keep monitoring.</div>';
+    return;
+  }
+
+  feed.innerHTML = alerts.map(a => `
+    <div class="alert-item ${a.type}">
+      <div class="alert-time">${a.time}</div>
+      <div class="alert-msg">${a.msg}</div>
+    </div>
+  `).join('');
+}
+
+// ============ SIMULATION LOOP ============
+function scheduleDrop() {
+  const bizzes = getActiveBizzes();
+  if (!bizzes.length || !running) return;
+
+  const speed = parseInt(document.getElementById('speedSlider').value);
+  const base = SPEEDS[speed];
+  const jitter = rand(-base * 0.35, base * 0.35);
+
+  timer = setTimeout(() => {
+    if (!running) return;
+    const biz = bizzes[Math.floor(Math.random() * bizzes.length)];
+    dropDeposit(biz);
+    scheduleDrop();
+  }, Math.max(250, base + jitter));
+}
+
+function updateSimTime() {
+  simMinute += 15;
+  if (simMinute >= 60) {
+    simMinute = 0;
+    simHour += 1;
+    if (simHour >= 24) {
+      simHour = 0;
+      simDay += 1;
+      performMorningCheckin();
+      processPayroll();
+      quarterlyData.insuranceCosts += MONTHLY_INSURANCE * employees.filter(e => !e.separated).length;
+      updateStats();
+
+      // Board room triggers
+      const avgDailyRevenue = quarterlyData.revenue / simDay;
+      const dailyRevenue = quarterlyData.deposits
+        .filter(d => d.time === simDay - 1)
+        .reduce((sum, d) => sum + d.amount, 0);
+      
+      if (simDay % 10 === 0) {
+        addAlert(`📊 10-day checkpoint: Avg daily revenue ${fmt(avgDailyRevenue)}`, 'info');
+      }
+    }
+  }
+  document.getElementById('simDay').textContent = simDay;
+  document.getElementById('simTime').textContent = `${String(Math.floor(simHour)).padStart(2, '0')}:${String(simMinute).padStart(2, '0')}`;
+}
+
+function toggleSim() {
+  if (!getActiveBizzes().length) {
+    showFlash('⚠️  Activate at least one business first', 'warning');
+    return;
+  }
+  running = !running;
+  const btn = document.getElementById('runBtn');
+  if (running) {
+    btn.textContent = '⏸ PAUSE SIMULATION';
+    btn.classList.add('active');
+    scheduleSimTime();
+    scheduleDrop();
+  } else {
+    btn.textContent = '▶ START SIMULATION';
+    btn.classList.remove('active');
+  }
+}
+
+function scheduleSimTime() {
+  if (!running) return;
+  setTimeout(() => {
+    updateSimTime();
+    buildQuarterlyPL();
+    scheduleSimTime();
+  }, 200); // 200ms real time = 15 min sim time (accelerated)
+}
+
+function clearFeed() {
+  running = false;
+  clearTimeout(timer);
+  quarterlyData = {
+    revenue: 0,
+    deposits: [],
+    payrollCosts: 0,
+    insuranceCosts: 0,
+    counselingCosts: 0,
+    replacementCosts: 0,
+    marketingCosts: 0,
+    refunds: 0,
+    separations: [],
+    alerts: [],
+  };
+  simDay = 1;
+  simHour = 0;
+  simMinute = 0;
+  alerts = [];
+  employees = EMPLOYEES.map(e => ({
+    ...e,
+    energy: 100,
+    lastEnergy: 100,
+    shiftStatus: 'full',
+    warningCount: 0,
+    lowEnergyDays: [],
+    separated: false,
+    rehireDate: null,
+    payrollToday: 0,
+  }));
+  updateStats();
+  updateRoster();
+  updateAlertsFeed();
+  buildQuarterlyPL();
+  document.getElementById('feed').innerHTML = '<div class="empty-state"><span>💳</span>Start the simulation to see deposits.</div>';
+  const btn = document.getElementById('runBtn');
+  btn.textContent = '▶ START SIMULATION';
+  btn.classList.remove('active');
+}
+
+// ============ INIT ============
+initParticles();
+updateSpeedLabel();
+updateStats();
+updateRoster();
+updateAlertsFeed();
+buildQuarterlyPL();
+</script>
+
+</body>
+</html>
