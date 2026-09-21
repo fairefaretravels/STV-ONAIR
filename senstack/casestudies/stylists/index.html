@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SENSTACK — Stylist Accelerator Case Study</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #050505;
+  --panel: #111;
+  --white: #f5f5f5;
+  --muted: #999;
+  --red: #e50914;
+  --line: rgba(255,255,255,.13);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+/* NAV */
+
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 6%;
+
+  background: rgba(5,5,5,.95);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid var(--line);
+}
+
+.logo {
+  color: white;
+  text-decoration: none;
+
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: 7px;
+}
+
+.logo span {
+  color: var(--red);
+}
+
+.back {
+  color: white;
+  text-decoration: none;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.back:hover {
+  color: var(--red);
+}
+
+
+/* HERO */
+
+.hero {
+  min-height: 88vh;
+
+  display: flex;
+  align-items: flex-end;
+
+  position: relative;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.9) 0%,
+      rgba(0,0,0,.35) 55%,
+      rgba(0,0,0,.8) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(0,0,0,.9) 0%,
+      transparent 55%
+    ),
+    url("psstylist.PNG") center/cover no-repeat;
+}
+
+.hero-content {
+  width: min(900px, 90%);
+  padding: 80px 0;
+  margin-left: 7%;
+}
+
+.case-label {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(50px, 8vw, 105px);
+  line-height: .86;
+  letter-spacing: -4px;
+  text-transform: uppercase;
+  font-weight: 950;
+}
+
+.hero h1 span {
+  color: var(--red);
+}
+
+.hero-subtitle {
+  margin-top: 28px;
+
+  max-width: 700px;
+
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 600;
+}
+
+.hero-description {
+  max-width: 700px;
+  margin-top: 18px;
+
+  color: #ccc;
+  font-size: 16px;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-top: 32px;
+}
+
+
+/* BUTTONS */
+
+.btn {
+  display: inline-block;
+
+  padding: 15px 21px;
+
+  border: 1px solid white;
+
+  color: white;
+  text-decoration: none;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  transition: .2s ease;
+}
+
+.btn:hover {
+  background: white;
+  color: black;
+  transform: translateY(-2px);
+}
+
+.btn-red {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+
+/* SECTIONS */
+
+section {
+  padding: 100px 7%;
+}
+
+.section-label {
+  color: var(--red);
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+
+  margin-bottom: 15px;
+}
+
+.section-title {
+  max-width: 900px;
+
+  font-size: clamp(38px, 6vw, 70px);
+  line-height: .95;
+
+  text-transform: uppercase;
+}
+
+.section-intro {
+  max-width: 750px;
+
+  margin-top: 25px;
+
+  color: #aaa;
+  font-size: 18px;
+}
+
+
+/* PROBLEM */
+
+.problem {
+  background: #090909;
+}
+
+.problem-box {
+  max-width: 950px;
+
+  margin-top: 55px;
+
+  padding: 40px;
+
+  background: var(--panel);
+
+  border-left: 4px solid var(--red);
+}
+
+.problem-box blockquote {
+  font-size: clamp(24px, 4vw, 42px);
+  line-height: 1.1;
+  font-weight: 800;
+}
+
+.problem-box p {
+  margin-top: 20px;
+  color: #999;
+}
+
+
+/* SOLUTION */
+
+.solution {
+  background: #050505;
+}
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+
+  margin-top: 55px;
+
+  background: var(--line);
+}
+
+.solution-card {
+  background: var(--panel);
+  padding: 35px;
+}
+
+.solution-number {
+  color: var(--red);
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.solution-card h3 {
+  margin-top: 20px;
+
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+.solution-card p {
+  margin-top: 10px;
+
+  color: #999;
+  font-size: 14px;
+}
+
+
+/* SYSTEM */
+
+.system {
+  background: #0b0b0b;
+}
+
+.system-flow {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  margin-top: 55px;
+
+  border-top: 2px solid var(--red);
+}
+
+.system-step {
+  padding: 28px 15px;
+
+  border-right: 1px solid var(--line);
+}
+
+.system-step:last-child {
+  border-right: 0;
+}
+
+.system-step span {
+  color: var(--red);
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.system-step h3 {
+  margin-top: 15px;
+
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.system-step p {
+  margin-top: 8px;
+
+  color: #888;
+  font-size: 13px;
+}
+
+
+/* BUTTON HUB */
+
+.resources {
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(229,9,20,.12),
+      transparent 40%
+    ),
+    #050505;
+}
+
+.resource-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 15px;
+
+  margin-top: 50px;
+}
+
+.resource-card {
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 25px;
+
+  border: 1px solid var(--line);
+
+  background: rgba(255,255,255,.025);
+
+  text-decoration: none;
+  color: white;
+
+  transition: .2s ease;
+}
+
+.resource-card:hover {
+  border-color: var(--red);
+  transform: translateY(-5px);
+}
+
+.resource-tag {
+  color: var(--red);
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.resource-card h3 {
+  margin-top: 15px;
+
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+.resource-card p {
+  margin-top: 8px;
+
+  color: #888;
+  font-size: 13px;
+}
+
+.resource-arrow {
+  margin-top: 25px;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+
+/* CTA */
+
+.cta {
+  text-align: center;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,.85),
+      rgba(0,0,0,.95)
+    ),
+    url("psstylist.PNG") center/cover no-repeat;
+}
+
+.cta h2 {
+  max-width: 900px;
+
+  margin: auto;
+
+  font-size: clamp(40px, 7vw, 80px);
+  line-height: .9;
+
+  text-transform: uppercase;
+}
+
+.cta h2 span {
+  color: var(--red);
+}
+
+.cta p {
+  max-width: 650px;
+
+  margin: 25px auto;
+
+  color: #aaa;
+}
+
+
+/* FOOTER */
+
+footer {
+  padding: 35px 7%;
+
+  border-top: 1px solid var(--line);
+
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+
+  color: #666;
+
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+footer strong {
+  color: white;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  nav {
+    padding: 15px 5%;
+  }
+
+  .logo {
+    font-size: 20px;
+    letter-spacing: 4px;
+  }
+
+  .back {
+    font-size: 9px;
+  }
+
+  .hero {
+    min-height: 90vh;
+    background-position: 58% center;
+  }
+
+  .hero-content {
+    margin-left: 5%;
+    padding-bottom: 60px;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+
+  section {
+    padding: 70px 5%;
+  }
+
+  .problem-box {
+    padding: 25px;
+  }
+
+  .solution-grid,
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .system-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .system-step {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .system-step:last-child {
+    border-bottom: 0;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- NAV -->
+
+<nav>
+
+  <a href="index.html" class="logo">
+    SEN<span>STACK</span>
+  </a>
+
+  <a href="index.html#cases" class="back">
+    ← Back to Case Studies
+  </a>
+
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+  <div class="hero-content">
+
+    <div class="case-label">
+      SENSTACK / CASE STUDY 04
+    </div>
+
+    <h1>
+      Stylist<br>
+      <span>Accelerator</span>
+    </h1>
+
+    <div class="hero-subtitle">
+      Turning stylist turnover into a revenue model.
+    </div>
+
+    <p class="hero-description">
+      A salon owner has a familiar problem:
+      stylists build their clientele inside the shop,
+      become successful, and eventually leave.
+      Instead of fighting that cycle, SENSTACK redesigns it.
+    </p>
+
+    <div class="hero-buttons">
+
+      <a href="#problem" class="btn btn-red">
+        Explore Case Study
+      </a>
+
+      <a href="#resources" class="btn">
+        Explore System
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- PROBLEM -->
+
+<section class="problem" id="problem">
+
+  <div class="section-label">
+    The Pain Point
+  </div>
+
+  <h2 class="section-title">
+    What if your<br>
+    stylist leaving<br>
+    wasn't the loss?
+  </h2>
+
+  <div class="problem-box">
+
+    <blockquote>
+      “I help stylists build their clientele,
+      then they leave me once they're established.
+      How do I stop losing them—and benefit from it?”
+    </blockquote>
+
+    <p>
+      Instead of designing the business around keeping every
+      stylist forever, we redesign the relationship around
+      the stylist's entire journey.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- SOLUTION -->
+
+<section class="solution">
+
+  <div class="section-label">
+    The Strategic Shift
+  </div>
+
+  <h2 class="section-title">
+    Don't just rent<br>
+    them a chair.
+  </h2>
+
+  <p class="section-intro">
+    Build a pathway from stylist to business owner—and create
+    revenue opportunities at every stage.
+  </p>
+
+
+  <div class="solution-grid">
+
+    <div class="solution-card">
+
+      <div class="solution-number">
+        01 / MEMBERSHIP
+      </div>
+
+      <h3>
+        Workspace
+      </h3>
+
+      <p>
+        Create a recurring membership model around workspace,
+        salon access, resources, and community.
+      </p>
+
+    </div>
+
+
+    <div class="solution-card">
+
+      <div class="solution-number">
+        02 / EDUCATION
+      </div>
+
+      <h3>
+        Business Training
+      </h3>
+
+      <p>
+        Teach stylists the business side of becoming independent:
+        pricing, branding, marketing, booking, and operations.
+      </p>
+
+    </div>
+
+
+    <div class="solution-card">
+
+      <div class="solution-number">
+        03 / STARTUP
+      </div>
+
+      <h3>
+        Launch Bundles
+      </h3>
+
+      <p>
+        Give new stylists access to startup resources,
+        products, templates, tools, and systems.
+      </p>
+
+    </div>
+
+
+    <div class="solution-card">
+
+      <div class="solution-number">
+        04 / ALUMNI
+      </div>
+
+      <h3>
+        Keep The Relationship
+      </h3>
+
+      <p>
+        When a stylist graduates, the relationship doesn't have
+        to end. Alumni can continue through education,
+        products, services, and community.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SYSTEM -->
+
+<section class="system">
+
+  <div class="section-label">
+    The New Lifecycle
+  </div>
+
+  <h2 class="section-title">
+    Build the business<br>
+    around the journey.
+  </h2>
+
+
+  <div class="system-flow">
+
+    <div class="system-step">
+      <span>01</span>
+      <h3>Enter</h3>
+      <p>
+        Student or newly licensed stylist enters the ecosystem.
+      </p>
+    </div>
+
+    <div class="system-step">
+      <span>02</span>
+      <h3>Build</h3>
+      <p>
+        They develop skills, clientele, confidence, and business knowledge.
+      </p>
+    </div>
+
+    <div class="system-step">
+      <span>03</span>
+      <h3>Launch</h3>
+      <p>
+        They prepare to operate their own independent business.
+      </p>
+    </div>
+
+    <div class="system-step">
+      <span>04</span>
+      <h3>Graduate</h3>
+      <p>
+        They leave with a business instead of simply leaving a chair.
+      </p>
+    </div>
+
+    <div class="system-step">
+      <span>05</span>
+      <h3>Alumni</h3>
+      <p>
+        The salon continues providing value after graduation.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- RESOURCE BUTTONS -->
+
+<section class="resources" id="resources">
+
+  <div class="section-label">
+    Explore The Ecosystem
+  </div>
+
+  <h2 class="section-title">
+    Four ways<br>
+    to build.
+  </h2>
+
+  <p class="section-intro">
+    These connected experiences demonstrate how the
+    stylist-development model can extend beyond the chair.
+  </p>
+
+
+  <div class="resource-grid">
+
+
+    <!-- BEAUTY -->
+
+    <a
+      href="https://beautymanager-alpha.vercel.app/"
+      target="_blank"
+      rel="noopener"
+      class="resource-card"
+    >
+
+      <div>
+        <div class="resource-tag">
+          BEAUTY
+        </div>
+
+        <h3>
+          Glam Hub
+        </h3>
+
+        <p>
+          Explore the beauty-management environment.
+        </p>
+      </div>
+
+      <div class="resource-arrow">
+        Visit Glam Hub →
+      </div>
+
+    </a>
+
+
+    <!-- MEMBERSHIP -->
+
+    <a
+      href="membership.html"
+      class="resource-card"
+    >
+
+      <div>
+        <div class="resource-tag">
+          MEMBERSHIP
+        </div>
+
+        <h3>
+          Membership
+        </h3>
+
+        <p>
+          Explore the future membership model for
+          stylists and beauty professionals.
+        </p>
+      </div>
+
+      <div class="resource-arrow">
+        Coming Soon →
+      </div>
+
+    </a>
+
+
+    <!-- EDUCATION -->
+
+    <a
+      href="education.html"
+      class="resource-card"
+    >
+
+      <div>
+        <div class="resource-tag">
+          EDUCATION
+        </div>
+
+        <h3>
+          Education
+        </h3>
+
+        <p>
+          Business education and resources for
+          emerging beauty professionals.
+        </p>
+      </div>
+
+      <div class="resource-arrow">
+        Coming Soon →
+      </div>
+
+    </a>
+
+
+    <!-- REVENUE -->
+
+    <a
+      href="https://radiomeltdown.com/simulator/"
+      target="_blank"
+      rel="noopener"
+      class="resource-card"
+    >
+
+      <div>
+        <div class="resource-tag">
+          REVENUE
+        </div>
+
+        <h3>
+          Revenue
+        </h3>
+
+        <p>
+          Explore the simulator and see how a
+          digital experience can support the model.
+        </p>
+      </div>
+
+      <div class="resource-arrow">
+        Open Simulator →
+      </div>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+  <h2>
+    Don't fight<br>
+    the <span>problem.</span><br>
+    Redesign it.
+  </h2>
+
+  <p>
+    The Stylist Accelerator is one example of how
+    SENSTACK approaches business problems:
+    find the pain, redesign the system, and create new value.
+  </p>
+
+  <a href="index.html#contact" class="btn btn-red">
+    Work With SENSTACK
+  </a>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div>
+    <strong>SENSTACK</strong>
+    — Strategy. Execution. Network.
+  </div>
+
+  <div>
+    STYLIST ACCELERATOR / CASE STUDY 04
+  </div>
+
+</footer>
+
+
+</body>
+</html>
