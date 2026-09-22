@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STV-ONAIR | Control Deck</title>
+<style>
+:root{
+  --bg:#07080b;
+  --panel:#101218;
+  --panel2:#171922;
+  --text:#f4f4f5;
+  --muted:#9297a5;
+  --line:#292d38;
+  --accent:#e21d2f;
+  --accent2:#ff4657;
+  --green:#24d17e;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% -10%,#242832 0,transparent 38%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+header{
+  padding:22px 18px 16px;
+  border-bottom:1px solid var(--line);
+  background:rgba(7,8,11,.92);
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(14px);
+}
+.brand{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+.title{
+  font-size:clamp(24px,5vw,38px);
+  font-weight:900;
+  letter-spacing:-1.5px;
+}
+.subtitle{
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-top:3px;
+}
+.live{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  padding:9px 12px;
+  border:1px solid #4a2027;
+  border-radius:999px;
+  background:#180b0e;
+}
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
+}
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:22px 18px 45px;
+}
+.deck{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+.card{
+  min-height:120px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:linear-gradient(145deg,var(--panel2),var(--panel));
+  color:var(--text);
+  text-decoration:none;
+  padding:17px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:.18s ease;
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+}
+.card:hover{
+  transform:translateY(-2px);
+  border-color:#484d5b;
+  background:#1b1e28;
+}
+.card:active{
+  transform:scale(.98);
+}
+.icon{
+  font-size:27px;
+}
+.name{
+  font-weight:850;
+  font-size:16px;
+}
+.desc{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:3px;
+  line-height:1.4;
+}
+.section{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:28px 0 12px;
+  color:#cfd2da;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+.section:after{
+  content:"";
+  height:1px;
+  background:var(--line);
+  flex:1;
+}
+.back{
+  display:none;
+}
+.subdeck{
+  display:none;
+}
+.subdeck.active{
+  display:block;
+}
+.main.hidden{
+  display:none;
+}
+.back.active{
+  display:flex;
+}
+.back{
+  align-items:center;
+  justify-content:center;
+  margin-bottom:14px;
+  padding:11px 14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#0d0f14;
+  color:#ddd;
+  text-decoration:none;
+  font-weight:800;
+}
+@media(max-width:800px){
+  .deck{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+@media(max-width:480px){
+  header{
+    padding:18px 14px 14px;
+  }
+  main{
+    padding:18px 14px 35px;
+  }
+  .deck{
+    gap:9px;
+  }
+  .card{
+    min-height:105px;
+    padding:13px;
+    border-radius:15px;
+  }
+  .name{
+    font-size:14px;
+  }
+  .icon{
+    font-size:23px;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+<div>
+  <div class="title">🔴 STV-ONAIR</div>
+  <div class="subtitle">
+    Saneca TV • Broadcast Control Deck
+  </div>
+</div>
+<div class="live">
+  <span class="dot"></span>
+  CONTROL
+</div>
+  </div>
+</header>
+<main>
+<a href="#" class="back" id="back">
+  ← MAIN DECK
+</a>
+<!-- =====================================================
+     MAIN DECK
+===================================================== -->
+<div id="mainDeck" class="main">
+<!-- BROADCAST -->
+<div class="section">
+  Broadcast
+</div>
+<div class="deck">
+  <a class="card" href="/radio">
+    <span class="icon">📡</span>
+    <div>
+      <div class="name">RADIO</div>
+      <div class="desc">STV Radio control and live audio</div>
+    </div>
+  </a>
+  <a class="card" href="/STUDIO">
+    <span class="icon">📺</span>
+    <div>
+      <div class="name">STUDIO</div>
+      <div class="desc">Live studio and production operations</div>
+    </div>
+  </a>
+  <a class="card" href="/playtv">
+    <span class="icon">▶️</span>
+    <div>
+      <div class="name">PLAY TV</div>
+      <div class="desc">TV playback and programming</div>
+    </div>
+  </a>
+  <a class="card" href="/watch">
+    <span class="icon">👁️</span>
+    <div>
+      <div class="name">WATCH</div>
+      <div class="desc">Public STV viewing experience</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch1">
+    <span class="icon">1️⃣</span>
+    <div>
+      <div class="name">CHANNEL 1</div>
+      <div class="desc">STV channel 1</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch2">
+    <span class="icon">2️⃣</span>
+    <div>
+      <div class="name">CHANNEL 2</div>
+      <div class="desc">STV channel 2</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch3">
+    <span class="icon">3️⃣</span>
+    <div>
+      <div class="name">CHANNEL 3</div>
+      <div class="desc">STV channel 3</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch4">
+    <span class="icon">4️⃣</span>
+    <div>
+      <div class="name">CHANNEL 4</div>
+      <div class="desc">STV channel 4</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch5">
+    <span class="icon">5️⃣</span>
+    <div>
+      <div class="name">CHANNEL 5</div>
+      <div class="desc">STV channel 5</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch6">
+    <span class="icon">6️⃣</span>
+    <div>
+      <div class="name">CHANNEL 6</div>
+      <div class="desc">STV channel 6</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch7">
+    <span class="icon">7️⃣</span>
+    <div>
+      <div class="name">CHANNEL 7</div>
+      <div class="desc">STV channel 7</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch8">
+    <span class="icon">8️⃣</span>
+    <div>
+      <div class="name">CHANNEL 8</div>
+      <div class="desc">STV channel 8</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch9">
+    <span class="icon">9️⃣</span>
+    <div>
+      <div class="name">CHANNEL 9</div>
+      <div class="desc">STV channel 9</div>
+    </div>
+  </a>
+  <a class="card" href="/Ch10">
+    <span class="icon">🔟</span>
+    <div>
+      <div class="name">CHANNEL 10</div>
+      <div class="desc">STV channel 10</div>
+    </div>
+  </a>
+  <a class="card" href="/247">
+    <span class="icon">🎚️</span>
+    <div>
+      <div class="name">STV SWITCHBOARD</div>
+      <div class="desc">24/7 broadcast hub</div>
+    </div>
+  </a>
+</div>
+<!-- DEPARTMENTS -->
+<div class="section">
+  Departments
+</div>
+<div class="deck">
+  <a class="card nav" href="#talent">
+    <span class="icon">🎤</span>
+    <div>
+      <div class="name">TALENT</div>
+      <div class="desc">Artists, guests and bookings</div>
+    </div>
+  </a>
+  <a class="card nav" href="#news">
+    <span class="icon">📰</span>
+    <div>
+      <div class="name">NEWSROOM</div>
+      <div class="desc">News, stories and editorial</div>
+    </div>
+  </a>
+  <a class="card nav" href="#productions">
+    <span class="icon">🎬</span>
+    <div>
+      <div class="name">PRODUCTIONS</div>
+      <div class="desc">Shows, films and features</div>
+    </div>
+  </a>
+  <a class="card nav" href="#social">
+    <span class="icon">📱</span>
+    <div>
+      <div class="name">SOCIAL / PUBLIC</div>
+      <div class="desc">Public-facing STV channels</div>
+    </div>
+  </a>
+  <a class="card nav" href="#education">
+    <span class="icon">🎓</span>
+    <div>
+      <div class="name">EDUCATION</div>
+      <div class="desc">Courses, books and planning</div>
+    </div>
+  </a>
+  <a class="card nav" href="#senstack">
+    <span class="icon">🧠</span>
+    <div>
+      <div class="name">SENSTACK</div>
+      <div class="desc">Business systems and problem solving</div>
+    </div>
+  </a>
+  <a class="card nav" href="#admin">
+    <span class="icon">⚙️</span>
+    <div>
+      <div class="name">ADMIN</div>
+      <div class="desc">Dashboard, apps and back office</div>
+    </div>
+  </a>
+</div>
+</div>
+<!-- =====================================================
+     TALENT
+===================================================== -->
+<section id="talent" class="subdeck">
+  <div class="section">
+    Talent / Artists
+  </div>
+  <div class="deck">
+<a class="card" href="/artists">
+  <span class="icon">⭐</span>
+  <div>
+    <div class="name">ARTISTS</div>
+    <div class="desc">Artist profiles and music</div>
+  </div>
+</a>
+<a class="card" href="/HireMe">
+  <span class="icon">🎙️</span>
+  <div>
+    <div class="name">HIRE ME</div>
+    <div class="desc">Booking and talent services</div>
+  </div>
+</a>
+<a class="card" href="/Guest%20portal">
+  <span class="icon">🚪</span>
+  <div>
+    <div class="name">GUEST PORTAL</div>
+    <div class="desc">Guest access and information</div>
+  </div>
+</a>
+<a class="card" href="/interview-confirmation">
+  <span class="icon">📝</span>
+  <div>
+    <div class="name">INTERVIEW CONFIRMATION</div>
+    <div class="desc">Interview scheduling workflow</div>
+  </div>
+</a>
+<a class="card" href="/nya">
+  <span class="icon">🎤</span>
+  <div>
+    <div class="name">NYA</div>
+    <div class="desc">Artist / talent project</div>
+  </div>
+</a>
+<a class="card" href="/XOCOstudios">
+  <span class="icon">🎥</span>
+  <div>
+    <div class="name">XOCO STUDIOS</div>
+    <div class="desc">Studio and production project</div>
+  </div>
+</a>
+  </div>
+</section>
+<!-- =====================================================
+     NEWS
+===================================================== -->
+<section id="news" class="subdeck">
+  <div class="section">
+    News / Stories
+  </div>
+  <div class="deck">
+<a class="card" href="/News">
+  <span class="icon">📰</span>
+  <div>
+    <div class="name">NEWSROOM</div>
+    <div class="desc">News and editorial hub</div>
+  </div>
+</a>
+<a class="card" href="/NewsStory">
+  <span class="icon">✍🏾</span>
+  <div>
+    <div class="name">NEWS STORY</div>
+    <div class="desc">Story publishing workflow</div>
+  </div>
+</a>
+<a class="card" href="/Questions">
+  <span class="icon">❓</span>
+  <div>
+    <div class="name">QUESTIONS</div>
+    <div class="desc">Questions and submissions</div>
+  </div>
+</a>
+<a class="card" href="/TheSwitchblades-Article">
+  <span class="icon">🎸</span>
+  <div>
+    <div class="name">SWITCHBLADES ARTICLE</div>
+    <div class="desc">Artist history and feature article</div>
+  </div>
+</a>
+<a class="card" href="/RealEstate">
+  <span class="icon">🏢</span>
+  <div>
+    <div class="name">REAL ESTATE</div>
+    <div class="desc">Real estate content and projects</div>
+  </div>
+</a>
+  </div>
+</section>
+<!-- =====================================================
+     PRODUCTIONS
+===================================================== -->
+<section id="productions" class="subdeck">
+  <div class="section">
+    Productions
+  </div>
+  <div class="deck">
+<a class="card" href="/film-packages">
+  <span class="icon">🎞️</span>
+  <div>
+    <div class="name">FILM PACKAGES</div>
+    <div class="desc">Film concepts and packages</div>
+  </div>
+</a>
+<a class="card" href="/wiseman-film">
+  <span class="icon">🎬</span>
+  <div>
+    <div class="name">WISEMAN FILM</div>
+    <div class="desc">Film production project</div>
+  </div>
+</a>
+<a class="card" href="/Stv-switchbladoku">
+  <span class="icon">🎸</span>
+  <div>
+    <div class="name">THE SWITCHBLADES</div>
+    <div class="desc">Band and music project</div>
+  </div>
+</a>
+<a class="card" href="/TheStatic-Griff">
+  <span class="icon">⚡</span>
+  <div>
+    <div class="name">THE STATIC — GRIFF</div>
+    <div class="desc">Artist feature and publication</div>
+  </div>
+</a>
+<a class="card" href="/TheStatic-emilgordonsr">
+  <span class="icon">⚡</span>
+  <div>
+    <div class="name">THE STATIC — EMIL GORDON SR.</div>
+    <div class="desc">Artist feature and publication</div>
+  </div>
+</a>
+<a class="card" href="/the-static-publication">
+  <span class="icon">📰</span>
+  <div>
+    <div class="name">THE STATIC PUBLICATION</div>
+    <div class="desc">Digital publication hub</div>
+  </div>
+</a>
+<a class="card" href="/emilgordonsr">
+  <span class="icon">🎸</span>
+  <div>
+    <div class="name">EMIL GORDON SR.</div>
+    <div class="desc">Artist profile and music</div>
+  </div>
+</a>
+<a class="card" href="/emilgordonsr-static">
+  <span class="icon">⚡</span>
+  <div>
+    <div class="name">EMIL GORDON SR. — STATIC</div>
+    <div class="desc">Static feature for Emil Gordon Sr.</div>
+  </div>
+</a>
+  </div>
+</section>
+<!-- =====================================================
+     SOCIAL / PUBLIC
+===================================================== -->
+<section id="social" class="subdeck">
+  <div class="section">
+    Social / Public
+  </div>
+  <div class="deck">
+<a class="card" href="/social">
+  <span class="icon">📱</span>
+  <div>
+    <div class="name">SOCIAL</div>
+    <div class="desc">Social media and community</div>
+  </div>
+</a>
+<a class="card" href="/public">
+  <span class="icon">🌐</span>
+  <div>
+    <div class="name">PUBLIC</div>
+    <div class="desc">Public-facing STV hub</div>
+  </div>
+</a>
+<a class="card" href="/playtv">
+  <span class="icon">📺</span>
+  <div>
+    <div class="name">PLAY TV</div>
+    <div class="desc">Watch programmed TV content</div>
+  </div>
+</a>
+<a class="card" href="/watch">
+  <span class="icon">👁️</span>
+  <div>
+    <div class="name">WATCH</div>
+    <div class="desc">Public viewing experience</div>
+  </div>
+</a>
+  </div>
+</section>
+<!-- =====================================================
+     EDUCATION
+===================================================== -->
+<section id="education" class="subdeck">
+  <div class="section">
+    Education / Products
+  </div>
+  <div class="deck">
+<a class="card" href="/edu">
+  <span class="icon">🎓</span>
+  <div>
+    <div class="name">EDU</div>
+    <div class="desc">Education and learning hub</div>
+  </div>
+</a>
+<a class="card" href="/course">
+  <span class="icon">📚</span>
+  <div>
+    <div class="name">COURSES</div>
+    <div class="desc">Courses and learning products</div>
+  </div>
+</a>
+<a class="card" href="/book">
+  <span class="icon">📖</span>
+  <div>
+    <div class="name">BOOK</div>
+    <div class="desc">Books and written projects</div>
+  </div>
+</a>
+<a class="card" href="/group-planner">
+  <span class="icon">👥</span>
+  <div>
+    <div class="name">GROUP PLANNER</div>
+    <div class="desc">Planning and collaboration tool</div>
+  </div>
+</a>
+  </div>
+</section>
+<!-- =====================================================
+     SENSTACK
+===================================================== -->
+<section id="senstack" class="subdeck">
+  <div class="section">
+    SENSTACK / Business Systems
+  </div>
+  <div class="deck">
+<a class="card" href="/senstack">
+  <span class="icon">🧠</span>
+  <div>
+    <div class="name">SENSTACK</div>
+    <div class="desc">Business problem solving and systems</div>
+  </div>
+</a>
+<a class="card" href="/senstack/casestudies">
+  <span class="icon">📊</span>
+  <div>
+    <div class="name">CASE STUDIES</div>
+    <div class="desc">Problems, builds and proof</div>
+  </div>
+</a>
+  </div>
+</section>
+<!-- =====================================================
+     ADMIN
+===================================================== -->
+<section id="admin" class="subdeck">
+  <div class="section">
+    Admin / Back Office
+  </div>
+  <div class="deck">
+<a class="card" href="/dashboard">
+  <span class="icon">🖥️</span>
+  <div>
+    <div class="name">DASHBOARD</div>
+    <div class="desc">STV operations dashboard</div>
+  </div>
+</a>
+<a class="card" href="/agent-sanecamack">
+  <span class="icon">👤</span>
+  <div>
+    <div class="name">AGENT — SANECA MACK</div>
+    <div class="desc">Artist management and agent tools</div>
+  </div>
+</a>
+<a class="card" href="/app">
+  <span class="icon">📱</span>
+  <div>
+    <div class="name">APP</div>
+    <div class="desc">Application and broadcast logic layer</div>
+  </div>
+</a>
+<a class="card" href="/SB">
+  <span class="icon">🗂️</span>
+  <div>
+    <div class="name">SB</div>
+    <div class="desc">System / business workspace</div>
+  </div>
+</a>
+  </div>
+</section>
+</main>
+<script>
+const main = document.getElementById('mainDeck');
+const back = document.getElementById('back');
+const sections = [...document.querySelectorAll('.subdeck')];
+function show(id){
+  main.classList.add('hidden');
+  sections.forEach(s =>
+    s.classList.toggle('active', s.id === id)
+  );
+  back.classList.add('active');
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+function home(){
+  sections.forEach(s =>
+    s.classList.remove('active')
+  );
+  main.classList.remove('hidden');
+  back.classList.remove('active');
+  history.replaceState(
+    null,
+    '',
+    location.pathname
+  );
+  window.scrollTo({
+    top:0,
+    behavior:'smooth'
+  });
+}
+document.querySelectorAll('.nav').forEach(a => {
+  a.addEventListener('click',e => {
+    e.preventDefault();
+    show(
+      a.getAttribute('href').slice(1)
+    );
+    history.replaceState(
+      null,
+      '',
+      '#' + a.getAttribute('href').slice(1)
+    );
+  });
+});
+back.addEventListener(
+  'click',
+  e => {
+    e.preventDefault();
+    home();
+  }
+);
+if(location.hash){
+  const target = document.getElementById(
+    location.hash.slice(1)
+  );
+  if(target){
+    show(location.hash.slice(1));
+  }
+}
+</script>
+</body>
+</html>
