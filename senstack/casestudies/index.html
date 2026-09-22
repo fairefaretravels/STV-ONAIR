@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SENSTACK — Case Studies</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #050505;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      padding: 28px 6vw;
+      border-bottom: 1px solid #222;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .back {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: #999;
+    }
+
+    .back:hover {
+      color: #fff;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      padding: 100px 6vw 80px;
+      max-width: 1200px;
+    }
+
+    .kicker {
+      font-size: 10px;
+      letter-spacing: 5px;
+      color: #999;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(55px, 10vw, 115px);
+      line-height: .86;
+      letter-spacing: -6px;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 span {
+      color: #777;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+
+    /* =========================
+       CASE STUDIES
+    ========================= */
+
+    .case-section {
+      padding: 20px 6vw 110px;
+    }
+
+    .section-heading {
+      max-width: 1200px;
+      margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+      font-size: 40px;
+      letter-spacing: -1px;
+    }
+
+    .section-heading p {
+      color: #777;
+      margin-top: 8px;
+    }
+
+
+    .case-grid {
+      max-width: 1250px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+
+    /* =========================
+       CASE CARD
+    ========================= */
+
+    .case-card {
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      overflow: hidden;
+      transition: .2s ease;
+    }
+
+    .case-card:hover {
+      border-color: #777;
+      transform: translateY(-3px);
+    }
+
+
+    /* =========================
+       VIDEO PLACEHOLDER
+    ========================= */
+
+    .video-box {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #181818;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text-align: center;
+      border-bottom: 1px solid #292929;
+    }
+
+    .video-content {
+      padding: 30px;
+    }
+
+    .youtube-icon {
+      width: 58px;
+      height: 42px;
+      background: #fff;
+      color: #000;
+      border-radius: 9px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      margin: 0 auto 18px;
+
+      font-size: 20px;
+    }
+
+    .video-box h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .video-box p {
+      color: #666;
+      font-size: 11px;
+    }
+
+
+    /* =========================
+       CARD CONTENT
+    ========================= */
+
+    .case-content {
+      padding: 32px;
+    }
+
+    .case-number {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .case-content h3 {
+      font-size: 30px;
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+    .case-content p {
+      color: #999;
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .case-button {
+      display: inline-block;
+
+      padding: 15px 22px;
+
+      background: #fff;
+      color: #000;
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+
+      transition: .2s ease;
+    }
+
+    .case-button:hover {
+      background: #ddd;
+    }
+
+
+    /* =========================
+       COMING SOON
+    ========================= */
+
+    .coming-soon {
+      border: 1px solid #333;
+      background: #090909;
+    }
+
+    .coming-soon .video-box {
+      background:
+        repeating-linear-gradient(
+          135deg,
+          #111,
+          #111 10px,
+          #0d0d0d 10px,
+          #0d0d0d 20px
+        );
+    }
+
+    .coming-label {
+      display: inline-block;
+
+      padding: 7px 10px;
+
+      border: 1px solid #555;
+
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 2px;
+
+      color: #aaa;
+
+      margin-bottom: 18px;
+    }
+
+    .coming-soon h3 {
+      color: #aaa;
+    }
+
+    .coming-soon p {
+      color: #666;
+    }
+
+    .coming-button {
+      display: inline-block;
+
+      padding: 15px 22px;
+
+      border: 1px solid #333;
+
+      color: #666;
+
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+
+      cursor: default;
+    }
+
+
+    /* =========================
+       PHOTO CASE CARDS
+       (Case Study 02 / 03)
+       Photo/video sits above the
+       text block. No text overlay.
+    ========================= */
+
+    .case-photo {
+      width: 100%;
+      background: #000;
+      border-bottom: 1px solid #292929;
+      overflow: hidden;
+    }
+
+    .case-photo img,
+    .case-photo video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .case-category {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      color: #ff2b2b;
+      margin-bottom: 12px;
+    }
+
+    .case-number-accent {
+      color: #ff2b2b;
+    }
+
+    .case-callout {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #ff2b2b;
+      text-transform: uppercase;
+
+      border-top: 1px solid #292929;
+      padding-top: 16px;
+      margin-top: -5px;
+      margin-bottom: 25px;
+    }
+
+    .case-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .case-button-secondary {
+      display: inline-block;
+
+      padding: 15px 22px;
+
+      background: transparent;
+      color: #fff;
+      border: 1px solid #555;
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+
+      transition: .2s ease;
+    }
+
+    .case-button-secondary:hover {
+      border-color: #fff;
+    }
+
+
+    /* =========================
+       PROCESS
+    ========================= */
+
+    .process {
+      margin-top: 80px;
+      max-width: 1250px;
+
+      border-top: 1px solid #222;
+
+      padding-top: 50px;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .process-item {
+      border-left: 1px solid #333;
+      padding-left: 20px;
+    }
+
+    .process-item strong {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+
+    .process-item p {
+      color: #777;
+      font-size: 13px;
+    }
+
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      margin: 0 6vw 100px;
+
+      background: #fff;
+      color: #000;
+
+      padding: 70px 40px;
+
+      text-align: center;
+    }
+
+    .cta .kicker {
+      color: #666;
+    }
+
+    .cta h2 {
+      font-size: clamp(38px, 6vw, 70px);
+      letter-spacing: -3px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      max-width: 650px;
+      margin: 0 auto 30px;
+      color: #555;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #000;
+      color: #fff;
+
+      padding: 16px 28px;
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid #222;
+      padding: 35px 6vw;
+
+      color: #666;
+
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 850px) {
+
+      .hero {
+        padding-top: 70px;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .case-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding: 55px 25px;
+      }
+
+      .case-buttons {
+        flex-direction: column;
+      }
+
+      .case-button-secondary,
+      .case-button {
+        text-align: center;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="logo">
+    SENSTACK
+  </div>
+
+  <a href="/senstack" class="back">
+    ← BACK TO SENSTACK
+  </a>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="kicker">
+    SENSTACK / CASE STUDIES
+  </div>
+
+  <h1>
+    Real Problems.<br>
+    <span>Built Systems.</span>
+  </h1>
+
+  <p>
+    Case studies showing how SENSTACK approaches real business
+    problems, identifies the opportunity inside the problem,
+    and builds a system around it.
+  </p>
+
+</section>
+
+
+
+<!-- CASE STUDIES -->
+
+<section class="case-section">
+
+  <div class="section-heading">
+
+    <div class="kicker">
+      THE WORK
+    </div>
+
+    <h2>
+      Enter the Case Studies.
+    </h2>
+
+    <p>
+      Explore the problem, the strategic shift, and the system
+      built to create a better business outcome.
+    </p>
+
+  </div>
+
+
+
+  <div class="case-grid">
+
+
+    <!-- =========================
+         CASE STUDY 01
+    ========================= -->
+
+    <article class="case-card">
+
+      <!-- YOUTUBE PLACEHOLDER -->
+
+      <div class="video-box">
+
+        <div class="video-content">
+
+          <div class="youtube-icon">
+            ▶
+          </div>
+
+          <h3>
+            Case Study Video
+          </h3>
+
+          <p>
+            YouTube video will appear here.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="case-content">
+
+        <div class="case-number">
+          CASE STUDY 01
+        </div>
+
+        <h3>
+          The Stylist Problem
+        </h3>
+
+        <p>
+          A salon owner keeps losing stylists after they build
+          their clientele inside the shop. Instead of treating
+          turnover as the problem, SENSTACK redesigns the model
+          so stylist growth becomes part of the business system.
+        </p>
+
+        <a
+          href="/senstack/casestudies/stylists"
+          class="case-button"
+        >
+          ENTER CASE STUDY →
+        </a>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- =========================
+         CASE STUDY 02
+         HIT FOR HIT BATTLES
+    ========================= -->
+
+    <article class="case-card">
+
+      <!-- PHOTO / VIDEO — replace src with the final Mitdvid.mov
+           export (or a suitable existing Hit For Hit asset).
+           Photo/video always sits above the text, never cropped
+           with object-fit: cover, and nothing is overlaid on it. -->
+
+      <div class="case-photo">
+        <video
+          src="./H4Hpromo1.PNG"
+          poster="assets/hit-for-hit-poster.jpg"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+        >
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+
+      <div class="case-content">
+
+        <div class="case-number case-number-accent">
+          CASE STUDY 02
+        </div>
+
+        <div class="case-category">
+          EVENT OPERATIONS / SYSTEM
+        </div>
+
+        <h3>
+          Hit For Hit Battles
+        </h3>
+
+        <p>
+          Hit For Hit Battles needed a more organized way to
+          plan and run their events. The team needed to track
+          talent and staff without relying on constant phone
+          calls and messages, and fans needed a simple way to
+          vote, see battle information, and access the event —
+          all while keeping the system simple for a team that
+          isn't highly tech savvy. SENSTACK built a connected
+          event ecosystem that separates the public-facing
+          experience from internal event operations, cutting
+          down on repeated calls, scattered information, and
+          "who's doing what?" confusion.
+        </p>
+
+        <div class="case-callout">
+          Built for events. Adaptable to other industries.
+        </div>
+
+        <div class="case-buttons">
+
+          <a
+            href="https://h4h-command-center.vercel.app/Team%20Check%20In/V6"
+            class="case-button"
+          >
+            EXPLORE SYSTEM →
+          </a>
+
+          <a
+            href="https://radiomeltdown.online/"
+            class="case-button-secondary"
+          >
+            VIEW PUBLIC EXPERIENCE →
+          </a>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- =========================
+         CASE STUDY 03
+         MACKINTHEDARK — MUSIC PREVIEW SYSTEM
+    ========================= -->
+
+    <article class="case-card">
+
+      <!-- PHOTO — use a poster/thumbnail for Mitdvid.mov if one
+           exists, otherwise swap in the MACKINTHEDARK visual
+           asset from the SENSTACK project. Image sits above the
+           text, is never cropped with object-fit: cover, and has
+           no text overlaid on it. -->
+
+      <div class="case-photo">
+        <img
+          src="./Mitd.gif"
+          alt="MACKINTHEDARK music preview system"
+        >
+      </div>
+
+
+      <div class="case-content">
+
+        <div class="case-number case-number-accent">
+          CASE STUDY 03
+        </div>
+
+        <div class="case-category">
+          MUSIC / DIGITAL PRODUCT
+        </div>
+
+        <h3>
+          MACKINTHEDARK — Music Preview System
+        </h3>
+
+        <p>
+          An independent artist wanted to promote music online
+          without giving away entire tracks for unrestricted
+          free listening. The real problem wasn't "how do I play
+          music on a website" — it was how to let people
+          experience enough of the music to want more without
+          handing over the complete product. SENSTACK built a
+          custom listening experience around controlled music
+          discovery, turning the artist's site into part of the
+          promotional strategy instead of a basic player.
+        </p>
+
+        <div class="case-callout">
+          Controlled music discovery without giving away the complete product.
+        </div>
+
+        <div class="case-buttons">
+
+          <a
+            href="https://radiomeltdown.com/artists/seneca-mack/"
+            class="case-button"
+          >
+            EXPERIENCE THE BUILD →
+          </a>
+
+        </div>
+
+      </div>
+
+    </article>
+
+
+  </div>
+
+
+
+  <!-- =========================
+       SENSTACK METHOD
+  ========================= -->
+
+  <div class="process">
+
+    <div class="kicker">
+      THE SENSTACK METHOD
+    </div>
+
+    <div class="process-grid">
+
+      <div class="process-item">
+
+        <strong>
+          01 / APPLY
+        </strong>
+
+        <p>
+          Identify the real problem instead of immediately
+          jumping to a solution.
+        </p>
+
+      </div>
+
+
+      <div class="process-item">
+
+        <strong>
+          02 / AUDIT
+        </strong>
+
+        <p>
+          Examine the existing business, workflow, audience,
+          resources, and missed opportunities.
+        </p>
+
+      </div>
+
+
+      <div class="process-item">
+
+        <strong>
+          03 / EXECUTE
+        </strong>
+
+        <p>
+          Build the system, tools, processes, and assets
+          needed to move the business forward.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- CTA -->
+
+<section class="cta">
+
+  <div class="kicker">
+    HAVE A PROBLEM?
+  </div>
+
+  <h2>
+    Let's build the system.
+  </h2>
+
+  <p>
+    SENSTACK works through the problem first, then builds
+    around what the business actually needs.
+  </p>
+
+  <a
+    href="mailto:press@radiomeltdown.com?subject=SENSTACK%20Case%20Study"
+    class="cta-button"
+  >
+    START A CONVERSATION →
+  </a>
+
+</section>
+
+
+
+<footer>
+
+  SENSTACK — STRATEGY. EXECUTION. NETWORK.
+
+</footer>
+
+
+</body>
+</html>
