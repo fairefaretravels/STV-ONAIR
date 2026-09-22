@@ -349,6 +349,13 @@
     #static-video { padding: 3rem 1.5rem; }
     .static-newsletter-wrap { margin: 2rem 0; }
   }
+  .static-newsletter-wrap {
+  width: 100%;
+}
+
+.static-newsletter-wrap p {
+  max-width: 100%;
+}
 </style>
 </head>
 <body>
@@ -667,48 +674,53 @@
       </article>
 
 
-      <!-- CARD: AI MUSIC -->
-      <article class="issue-card featured visible" data-month="jun-2026">
-        <div style="position:relative;width:100%;height:100%;overflow:hidden;
-          background:
-          radial-gradient(circle at 75% 25%, rgba(200,168,75,0.22), transparent 30%),
-          radial-gradient(circle at 25% 70%, rgba(232,0,28,0.18), transparent 35%),
-          linear-gradient(135deg,#050505,#111,#050505);">
+      <!-- CARD: AI MUSIC — ISSUE 01 COVER STORY -->
+<article class="issue-card featured visible" data-month="ai-music">
+  <div style="position:relative;width:100%;height:100%;overflow:hidden;
+    background:
+    radial-gradient(circle at 75% 25%, rgba(200,168,75,0.22), transparent 30%),
+    radial-gradient(circle at 25% 70%, rgba(232,0,28,0.18), transparent 35%),
+    linear-gradient(135deg,#050505,#111,#050505);">
 
-          <div style="position:absolute;inset:0;
-            background:
-            linear-gradient(90deg,
-              transparent 0%,
-              rgba(255,255,255,0.025) 50%,
-              transparent 100%),
-            repeating-linear-gradient(
-              to bottom,
-              transparent 0,
-              transparent 5px,
-              rgba(255,255,255,0.025) 6px
-            );">
-          </div>
+    <div style="position:absolute;inset:0;
+      background:
+      linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,255,255,0.025) 50%,
+        transparent 100%),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 5px,
+        rgba(255,255,255,0.025) 6px
+      );">
+    </div>
 
-          <div class="card-overlay">
-            <span class="card-tag" style="color:var(--gold);">
-              Editorial · AI Music
-            </span>
+    <div class="card-overlay">
+      <span class="card-tag" style="color:var(--gold);">
+        Issue 01 · Cover Story · Music & Technology
+      </span>
 
-            <h3 class="card-title" style="font-size:2rem;">
-              The AI Music Question
-            </h3>
+      <h3 class="card-title" style="font-size:2rem;">
+        Same Song, Different Verse
+      </h3>
 
-            <p class="card-highlight">
-              AI is changing how music can be created, developed and released.
-              But where does the technology end — and the artist begin?
-              The Static examines the new creative territory through the rise
-              of AI-assisted music.
-            </p>
+      <p class="card-highlight">
+        AI music has musicians asking whether technology is changing
+        the definition of creativity — but history says this argument
+        may be older than the algorithm.
+      </p>
 
-            <p class="card-meta">
-              The Static · Music · Technology · Culture
-            </p>
-          </div>
+      <p class="card-meta">
+        The Static · Music · Technology · 8 min read
+      </p>
+    </div>
+
+    <a href="#ai-music-story" class="card-read">
+      Read Cover Story →
+    </a>
+  </div>
+</article>
 
           <!-- Temporary route until the original article is recovered/rebuilt -->
           <a href="/artists/senecamack"
@@ -777,7 +789,23 @@
               <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#f9f6f0;">Browse All Issues of The Static</div>
               <div style="font-size:11px;color:#555;margin-top:0.2rem;">Every story, every interview, every issue.</div>
             </div>
-            <a href="/STV-ONAIR/NewsStory.html" ...>
+            <a href="/STV-ONAIR/NewsStory.html"
+   style="
+     display:inline-flex;
+     align-items:center;
+     gap:0.5rem;
+     background:#2e8b57;
+     color:#fff;
+     font-family:'Barlow Condensed',sans-serif;
+     font-weight:700;
+     font-size:0.75rem;
+     letter-spacing:0.15em;
+     text-transform:uppercase;
+     text-decoration:none;
+     padding:0.65rem 1rem;
+   ">
+  Browse The Static →
+</a>
           </div>
 
           <div style="border-top:0.5px solid #ccc;margin-bottom:1.5rem;"></div>
@@ -819,7 +847,434 @@
 
       </div>
     </div>
-    <!-- /THE STATIC NEWSLETTER -->
+    <!-- ═══════════════════════════════════════════════════════
+     THE STATIC — ISSUE 01 · AI MUSIC COVER STORY
+     ═══════════════════════════════════════════════════════ -->
+
+<div class="static-newsletter-wrap" id="ai-music-story">
+
+  <div style="background:#f9f6f0;border-radius:0;overflow:hidden;
+    font-family:'DM Sans',sans-serif;color:#111;">
+
+    <!-- MASTHEAD -->
+    <div style="background:#000;padding:1.25rem 1.75rem 1rem;">
+
+      <div style="
+        font-size:9px;
+        letter-spacing:0.3em;
+        text-transform:uppercase;
+        color:#666;
+        border-bottom:0.5px solid #e8002d;
+        padding-bottom:0.6rem;
+        margin-bottom:0.6rem;
+      ">
+        Vol. 1 · Issue 01 · The Static · STV Radiomeltdown · Lithonia, GA
+      </div>
+
+      <div class="mag-nameplate">
+        The Static
+      </div>
+
+      <div style="
+        font-size:9px;
+        letter-spacing:0.35em;
+        text-transform:uppercase;
+        color:#e8002d;
+        margin:0.4rem 0 0.8rem;
+      ">
+        Where music meets the moment
+      </div>
+
+      <div style="
+        display:flex;
+        gap:1.25rem;
+        font-size:9px;
+        letter-spacing:0.2em;
+        text-transform:uppercase;
+        border-top:0.5px solid #e8002d;
+        padding-top:0.6rem;
+        flex-wrap:wrap;
+      ">
+        <span style="color:#e8002d;font-weight:500;">Music</span>
+        <span style="color:#e8002d;font-weight:500;">Technology</span>
+        <span style="color:#e8002d;font-weight:500;">Culture</span>
+        <span style="color:#e8002d;font-weight:500;">Industry</span>
+      </div>
+
+    </div>
+
+    <!-- ARTICLE BODY -->
+    <div style="padding:1.75rem 1.75rem 0;">
+
+      <!-- CATEGORY -->
+      <div style="
+        display:flex;
+        align-items:center;
+        gap:8px;
+        margin-bottom:0.9rem;
+        flex-wrap:wrap;
+      ">
+        <span style="
+          background:#e8002d;
+          color:#fff;
+          font-size:9px;
+          font-weight:500;
+          letter-spacing:0.25em;
+          text-transform:uppercase;
+          padding:3px 10px;
+        ">
+          Cover Story
+        </span>
+
+        <span style="
+          font-size:9px;
+          letter-spacing:0.2em;
+          text-transform:uppercase;
+          color:#555;
+        ">
+          Music &amp; Technology
+        </span>
+      </div>
+
+      <div style="
+        border-top:2px solid #111;
+        padding-top:1rem;
+        margin-bottom:0.75rem;
+      "></div>
+
+      <!-- TITLE -->
+      <div class="mag-cover-title">
+        Same Song, Different Verse:
+        AI Music and the Ghost of the Synthesizer Wars
+      </div>
+
+      <!-- BYLINE -->
+      <div style="
+        font-size:9px;
+        letter-spacing:0.2em;
+        text-transform:uppercase;
+        color:#555;
+        margin:0.6rem 0 1.25rem;
+        display:flex;
+        align-items:center;
+        gap:8px;
+        flex-wrap:wrap;
+      ">
+        <span style="
+          display:inline-block;
+          width:20px;
+          height:1px;
+          background:#e8002d;
+        "></span>
+
+        By The Static &nbsp;&nbsp; 8 min read
+      </div>
+
+      <!-- COVER ART -->
+      <div style="
+        background:#111;
+        width:100%;
+        padding:2.5rem 1rem;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        margin-bottom:1.25rem;
+        text-align:center;
+      ">
+
+        <div>
+
+          <div style="
+            width:50px;
+            height:1px;
+            background:#e8002d;
+            margin:0 auto 0.75rem;
+          "></div>
+
+          <div style="
+            font-family:'Playfair Display',serif;
+            font-style:italic;
+            font-size:clamp(1.1rem,2.5vw,1.6rem);
+            color:#f9f6f0;
+            letter-spacing:0.04em;
+          ">
+            Issue 01 — The Static
+          </div>
+
+          <div style="
+            font-size:8px;
+            letter-spacing:0.3em;
+            text-transform:uppercase;
+            color:#555;
+            margin-top:0.4rem;
+          ">
+            Cover Story · AI Music
+          </div>
+
+          <div style="
+            width:50px;
+            height:1px;
+            background:#e8002d;
+            margin:0.75rem auto 0;
+          "></div>
+
+        </div>
+
+      </div>
+
+      <!-- OPENING -->
+      <p style="
+        font-size:14px;
+        line-height:1.8;
+        color:#222;
+        margin-bottom:1rem;
+        font-weight:300;
+      ">
+        Musicians are fighting back against artificial intelligence —
+        but history says they've been here before. More than 1,000
+        musicians, including Paul McCartney, signed a protest aimed
+        squarely at AI-generated music. Billie Eilish, Nicki Minaj,
+        and Pearl Jam have all added their names to open letters
+        denouncing what they call an attack on human creativity.
+      </p>
+
+      <!-- PULL QUOTE -->
+      <div style="
+        border-left:3px solid #e8002d;
+        padding:0.75rem 1.25rem;
+        margin:1.25rem 0;
+        background:#111;
+      ">
+        <div class="mag-pull">
+          "People didn't think it was real music —
+          they thought machines did it."
+        </div>
+      </div>
+
+      <!-- SECTION -->
+      <p style="
+        font-size:14px;
+        line-height:1.8;
+        color:#222;
+        margin-bottom:1rem;
+        font-weight:300;
+      ">
+        But this isn't the first time the industry has waged war on a
+        machine. Scroll back to 1982, and the music world was having
+        nearly the exact same fight — just with synthesizers instead
+        of algorithms. The British Musicians' Union attempted to ban
+        synths outright. Queen printed "No Synthesizers!" on four
+        album sleeves.
+      </p>
+
+      <p style="
+        font-size:14px;
+        line-height:1.8;
+        color:#222;
+        margin-bottom:1.5rem;
+        font-weight:300;
+      ">
+        Sound familiar? The question now is whether AI is simply the
+        next synth — or something categorically different.
+      </p>
+
+      <div style="
+        border-top:0.5px solid #ccc;
+        margin-bottom:1.5rem;
+      "></div>
+
+      <!-- ALSO IN THIS ISSUE -->
+      <div style="
+        font-size:9px;
+        letter-spacing:0.35em;
+        text-transform:uppercase;
+        color:#e8002d;
+        font-weight:500;
+        margin-bottom:1rem;
+      ">
+        Also in this issue
+      </div>
+
+      <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+        gap:1rem;
+        margin-bottom:1.5rem;
+      ">
+
+        <!-- STORY 1 -->
+        <div style="
+          border-top:2px solid #111;
+          padding-top:0.75rem;
+        ">
+          <div style="
+            font-size:9px;
+            letter-spacing:0.2em;
+            text-transform:uppercase;
+            color:#555;
+            margin-bottom:0.3rem;
+          ">
+            Industry
+          </div>
+
+          <div class="mag-also-title">
+            The AI Acts Gaming the Billboard Charts
+          </div>
+
+          <div style="
+            font-size:11px;
+            line-height:1.6;
+            color:#555;
+            margin-top:0.3rem;
+            font-weight:300;
+          ">
+            Six AI-assisted acts have appeared on major charts —
+            and that number is likely higher.
+          </div>
+        </div>
+
+        <!-- STORY 2 -->
+        <div style="
+          border-top:2px solid #111;
+          padding-top:0.75rem;
+        ">
+          <div style="
+            font-size:9px;
+            letter-spacing:0.2em;
+            text-transform:uppercase;
+            color:#555;
+            margin-bottom:0.3rem;
+          ">
+            Deep Dive
+          </div>
+
+          <div class="mag-also-title">
+            The Velvet Sundown: Music's Greatest Troll Job
+          </div>
+
+          <div style="
+            font-size:11px;
+            line-height:1.6;
+            color:#555;
+            margin-top:0.3rem;
+            font-weight:300;
+          ">
+            An AI "band" racked up a million Spotify plays
+            before anyone noticed.
+          </div>
+        </div>
+
+        <!-- STORY 3 -->
+        <div style="
+          border-top:2px solid #111;
+          padding-top:0.75rem;
+        ">
+          <div style="
+            font-size:9px;
+            letter-spacing:0.2em;
+            text-transform:uppercase;
+            color:#555;
+            margin-bottom:0.3rem;
+          ">
+            Picks
+          </div>
+
+          <div class="mag-also-title">
+            New Human-Made Releases Worth Your Stream
+          </div>
+
+          <div style="
+            font-size:11px;
+            line-height:1.6;
+            color:#555;
+            margin-top:0.3rem;
+            font-weight:300;
+          ">
+            The best new music this week — guaranteed no robots involved.
+          </div>
+        </div>
+
+        <!-- STORY 4 -->
+        <div style="
+          border-top:2px solid #111;
+          padding-top:0.75rem;
+        ">
+          <div style="
+            font-size:9px;
+            letter-spacing:0.2em;
+            text-transform:uppercase;
+            color:#555;
+            margin-bottom:0.3rem;
+          ">
+            Then &amp; Now
+          </div>
+
+          <div class="mag-also-title">
+            Synth-Pop vs. AI Pop: A Listening Guide
+          </div>
+
+          <div style="
+            font-size:11px;
+            line-height:1.6;
+            color:#555;
+            margin-top:0.3rem;
+            font-weight:300;
+          ">
+            Can you hear the difference? Classic electronic music
+            beside today's AI tracks.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ARTICLE FOOTER -->
+    <div style="
+      padding:1rem 1.75rem;
+      background:#0a0a0a;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:0.5rem;
+    ">
+
+      <div>
+        <div style="
+          font-family:'Playfair Display',serif;
+          font-size:1.1rem;
+          font-weight:700;
+          color:#f9f6f0;
+        ">
+          The Static
+        </div>
+
+        <div style="
+          font-size:9px;
+          letter-spacing:0.2em;
+          text-transform:uppercase;
+          color:#444;
+        ">
+          Issue 01 · Music &amp; Technology
+        </div>
+      </div>
+
+      <div style="
+        font-size:9px;
+        letter-spacing:0.2em;
+        text-transform:uppercase;
+        color:#444;
+      ">
+        An STV Radiomeltdown Publication · Lithonia, GA
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- /THE STATIC — ISSUE 01 AI MUSIC COVER STORY -->
 
 
 
