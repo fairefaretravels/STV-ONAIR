@@ -356,6 +356,19 @@
 .static-newsletter-wrap p {
   max-width: 100%;
 }
+  .youtube-box {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+
+.youtube-box iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
 </style>
 </head>
 <body>
@@ -374,8 +387,9 @@
 <!-- HERO -->
 <section class="hero">
   <video class="hero-video" autoplay muted loop playsinline>
-    <source src="stvlogo.mpeg" type="video/mpeg">
     <source src="mov-1.mp4" type="video/mp4">
+  </video>
+</section>
   </video>
   <div class="hero-noise"></div>
   <div class="hero-scan"></div>
@@ -411,50 +425,95 @@
     <div class="cards-grid" id="cardsGrid">
 
       <!-- CARD: Tony Green at Vinyl Fest — FEATURED -->
-      <article class="issue-card featured visible" data-month="may-2026">
-        <video autoplay muted loop playsinline>
-          <source src="mov-3.mp4" type="video/mp4">
-        </video>
-        <div class="card-overlay">
-          <span class="card-tag">Issue 02 · Cover Story · May 2026</span>
-          <h3 class="card-title">Tony Green at Vinyl Fest 2026</h3>
-          <p class="card-highlight">The Detroit bass legend who helped build G-Funk steps back into the light. Tony T Money Green — Death Row. The Dramatics. The man Dr. Dre couldn't do without.</p>
-          <p class="card-meta">Detroit, MI · May 3, 2026 · Exclusive Interview</p>
-        </div>
-        <a href="https://radiomeltdown.com" target="_blank" class="card-read">Read Issue →</a>
-      </article>
+<article class="issue-card featured visible" data-month="may-2026">
+
+  <div class="youtube-box">
+    <iframe
+      src="https://www.youtube.com/embed/En3IgstEmcU"
+      title="Tony Green at Vinyl Fest 2026"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="card-overlay">
+    <span class="card-tag">Issue 02 · Cover Story · May 2026</span>
+
+    <h3 class="card-title">
+      Tony Green at Vinyl Fest 2026
+    </h3>
+
+    <p class="card-highlight">
+      The Detroit bass legend who helped build G-Funk steps back into the light.
+      Tony T Money Green — Death Row. The Dramatics. The man Dr. Dre couldn't do without.
+    </p>
+
+    <p class="card-meta">
+      Detroit, MI · May 3, 2026 · Exclusive Interview
+    </p>
+  </div>
+
+  <a href="https://radiomeltdown.com"
+     target="_blank"
+     rel="noopener"
+     class="card-read">
+    Read Issue →
+  </a>
+
+</article>
 
       <!-- CARD: Rick James Deep Cuts + YouTube playlist -->
-      <article class="issue-card visible" data-month="may-2026" style="aspect-ratio: unset; display: flex; flex-direction: column;">
-        <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
-          <video autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;">
-            <source src="stv-dancer1.mp4" type="video/mp4">
-          </video>
-          <div class="card-overlay">
-            <span class="card-tag">Deep Cuts · May 2026</span>
-            <h3 class="card-title">Lost in the Sauce: Rick James</h3>
-            <p class="card-highlight">Three tracks that got buried. Glow. Dance Wit' Me. Hard to Get. The side of Rick James the mainstream never touched.</p>
-            <p class="card-meta">The Static Vol.1 Issue 02</p>
-          </div>
-          <a href="https://radiomeltdown.com" target="_blank" class="card-read">Read →</a>
-        </div>
-        <div class="yt-block" style="border-top: 2px solid var(--red); border-left: none; border-right: none; border-bottom: none;">
-          <div class="yt-header">
-            <div class="yt-dot"></div>
-            <span class="yt-label">Rick James · Deep Cuts Playlist</span>
-          </div>
-          <div class="yt-embed">
-            <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fD6uTCIuUC17ZQA7KN_wkm4&rel=0&modestbranding=1" title="Rick James Deep Cuts Playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-        </div>
-      </article>
+<article class="issue-card visible"
+  data-month="may-2026"
+  style="aspect-ratio: unset; display: flex; flex-direction: column;">
+
+  <div class="yt-block"
+    style="border-top: 2px solid var(--red); border-left: none; border-right: none; border-bottom: none;">
+
+    <div class="yt-header">
+      <div class="yt-dot"></div>
+      <span class="yt-label">Rick James · Deep Cuts Playlist</span>
+    </div>
+
+    <div class="yt-embed">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fD6uTCIuUC17ZQA7KN_wkm4&rel=0&modestbranding=1"
+        title="Rick James Deep Cuts Playlist"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
+
+  <div class="card-overlay" style="position:relative;">
+    <span class="card-tag">Deep Cuts · May 2026</span>
+
+    <h3 class="card-title">Lost in the Sauce: Rick James</h3>
+
+    <p class="card-highlight">
+      Three tracks that got buried. Glow. Dance Wit' Me. Hard to Get.
+      The side of Rick James the mainstream never touched.
+    </p>
+
+    <p class="card-meta">
+      The Static Vol.1 Issue 02
+    </p>
+  </div>
+
+  <a href="https://radiomeltdown.com"
+     target="_blank"
+     rel="noopener"
+     class="card-read">
+    Read →
+  </a>
+
+</article>
 
       <!-- CARD: DJ Mackinthedark + YouTube playlist -->
       <article class="issue-card visible" data-month="may-2026" style="aspect-ratio: unset; display: flex; flex-direction: column;">
         <div style="position: relative; flex: 1; min-height: 0; overflow: hidden;">
-          <video autoplay muted loop playsinline controls style="width:100%;height:100%;object-fit:cover;">
-            <source src="mov-2.mp4" type="video/mp4">
-          </video>
           <div class="card-overlay">
             <span class="card-tag">Artist Spotlight · LOVE&CO</span>
             <h3 class="card-title">DJ Mackinthedark</h3>
@@ -484,8 +543,8 @@
             <p class="card-highlight">Public Enemy's Minister of Information. Rock & Roll Hall of Famer. Author. Educator. The man who's been speaking truth to power for four decades — and isn't stopping.</p>
             <p class="card-meta">Lithonia, GA · The Static · STV Radiomeltdown</p>
           </div>
-          <a href="https://fairefaretravels.github.io/Griff/" target="_blank" class="card-read">Read Teaser →</a>
-          <a href="https://fairefaretravels.github.io/Griff/" target="_blank" style="position:absolute;bottom:1.25rem;left:1.75rem;display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold);color:var(--black);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;padding:0.4rem 0.9rem;">▶ What's Next</a>
+          <a href="https:TheStatic-Griff/" target="_blank" class="card-read">Read Teaser →</a>
+          <a href="https:TheStatic-Griff/" target="_blank" style="position:absolute;bottom:1.25rem;left:1.75rem;display:inline-flex;align-items:center;gap:0.5rem;background:var(--gold);color:var(--black);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;padding:0.4rem 0.9rem;">▶ What's Next</a>
         </div>
         <div class="yt-block" style="border-top: 2px solid var(--gold); border-left: none; border-right: none; border-bottom: none;">
           <div class="yt-header">
@@ -500,34 +559,58 @@
 
     </div>
           <!-- CARD: BRASS EARTHLING -->
-      <article class="issue-card visible" data-month="jun-2026">
-        <div style="position:relative;width:100%;height:100%;overflow:hidden;background:
-          radial-gradient(circle at 70% 25%, rgba(200,168,75,0.22), transparent 35%),
-          linear-gradient(135deg,#050505 0%,#161616 55%,#0a0a0a 100%);">
+<article class="issue-card visible" data-month="jun-2026"
+  style="aspect-ratio: unset; display:flex; flex-direction:column;">
 
-          <div style="position:absolute;inset:0;
-            background:
-            repeating-linear-gradient(135deg,
-              transparent 0,
-              transparent 12px,
-              rgba(255,255,255,0.025) 13px,
-              transparent 14px);">
-          </div>
+  <!-- YouTube Playlist -->
+  <div class="yt-block"
+    style="border-top:2px solid var(--gold); border-left:none; border-right:none; border-bottom:none;">
 
-          <div class="card-overlay">
-            <span class="card-tag" style="color:var(--gold);">
-              Artist Feature · AI Music
-            </span>
+    <div class="yt-header">
+      <div class="yt-dot"></div>
+      <span class="yt-label">BRASS EARTHLING · PLAYLIST</span>
+    </div>
 
-            <h3 class="card-title">
-              Brass Earthling
-            </h3>
+    <div class="yt-embed">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLTL3YTNQ5WUA&rel=0&modestbranding=1"
+        title="Brass Earthling Playlist"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
 
-            <p class="card-highlight">
-              AI-assisted music, human direction, and a new way to build an artist project.
-              Inside the sound, the process, and the question of what an AI music artist
-              actually means.
-            </p>
+  </div>
+
+  <!-- Story Information -->
+  <div class="card-content">
+
+    <span class="card-tag" style="color:var(--gold);">
+      Artist Feature · AI Music
+    </span>
+
+    <h3 class="card-title">
+      Brass Earthling
+    </h3>
+
+    <p class="card-highlight">
+      AI-assisted music, human direction, and a new way to build an artist project.
+      Inside the sound, the process, and the question of what an AI music artist
+      actually means.
+    </p>
+
+    <p class="card-meta">
+      The Static · Music & Technology
+    </p>
+
+  </div>
+
+  <a href="/artists/senecamack/"
+     class="card-read">
+    Explore Brass Earthling →
+  </a>
+
+</article>
 
             <p class="card-meta">
               The Static · Artist Profile · 2026
@@ -543,135 +626,217 @@
 
 
       <!-- CARD: PROFESSOR GRIFF -->
-      <article class="issue-card visible" data-month="jun-2026">
-        <div style="position:relative;width:100%;height:100%;overflow:hidden;
-          background:
-          radial-gradient(circle at 75% 20%, rgba(232,0,28,0.28), transparent 35%),
-          linear-gradient(145deg,#050505,#180707,#080808);">
+<article class="issue-card visible" data-month="jun-2026">
 
-          <div style="position:absolute;inset:0;
-            background:repeating-linear-gradient(
-              to bottom,
-              transparent 0,
-              transparent 3px,
-              rgba(255,255,255,0.025) 4px
-            );">
-          </div>
+  <div style="
+    position:relative;
+    width:100%;
+    height:100%;
+    min-height:420px;
+    overflow:hidden;
+    background:#050505;
+  ">
 
-          <div class="card-overlay">
-            <span class="card-tag">
-              Exclusive Interview · Jun 2026
-            </span>
+    <!-- PROFESSOR GRIFF IMAGE -->
+    <img
+      src="Griff.PNG"
+      alt="Professor Griff"
+      style="
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+      "
+    >
 
-            <h3 class="card-title">
-              Professor Griff
-            </h3>
+    <!-- DARK RED OVERLAY -->
+    <div style="
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(
+          to top,
+          rgba(0,0,0,0.96) 0%,
+          rgba(0,0,0,0.72) 38%,
+          rgba(0,0,0,0.20) 75%,
+          rgba(0,0,0,0.05) 100%
+        );
+    "></div>
 
-            <p class="card-highlight">
-              Public Enemy's Minister of Information returns to The Static for a
-              conversation about music, culture, education and the ideas that have
-              shaped his work across decades.
-            </p>
+    <div class="card-overlay">
 
-            <p class="card-meta">
-              The Static · STV Radiomeltdown
-            </p>
-          </div>
+      <span class="card-tag">
+        Exclusive Interview · Jun 2026
+      </span>
 
-          <a href="/TheStatic-Griff/"
-             class="card-read">
-             Read Feature →
-          </a>
-        </div>
-      </article>
+      <h3 class="card-title">
+        Professor Griff
+      </h3>
+
+      <p class="card-highlight">
+        Public Enemy's Minister of Information returns to The Static for a
+        conversation about music, culture, education and the ideas that have
+        shaped his work across decades.
+      </p>
+
+      <p class="card-meta">
+        The Static · STV Radiomeltdown
+      </p>
+
+    </div>
+
+    <a href="/TheStatic-Griff/"
+       class="card-read">
+      Read Feature →
+    </a>
+
+  </div>
+
+</article>
 
 
       <!-- CARD: EMIL GORDON SR. -->
-      <article class="issue-card visible" data-month="jun-2026">
-        <div style="position:relative;width:100%;height:100%;overflow:hidden;
-          background:
-          radial-gradient(circle at 20% 20%, rgba(200,168,75,0.2), transparent 35%),
-          linear-gradient(135deg,#090909,#17130b,#050505);">
+<article class="issue-card visible" data-month="jun-2026">
 
-          <div style="position:absolute;inset:0;
-            background:
-            linear-gradient(
-              115deg,
-              transparent 0 45%,
-              rgba(200,168,75,0.06) 46%,
-              transparent 47%
-            );">
-          </div>
+  <div style="
+    position:relative;
+    width:100%;
+    height:100%;
+    min-height:420px;
+    overflow:hidden;
+    background:#090909;
+  ">
 
-          <div class="card-overlay">
-            <span class="card-tag" style="color:var(--gold);">
-              The Static · Feature
-            </span>
+    <!-- EMIL GORDON SR. IMAGE -->
+    <img
+      src="Cruizinpromo.PNG"
+      alt="Emil Gordon Sr."
+      style="
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+      "
+    >
 
-            <h3 class="card-title">
-              Emil Gordon Sr.
-            </h3>
+    <!-- DARK / GOLD OVERLAY -->
+    <div style="
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(
+          to top,
+          rgba(0,0,0,0.96) 0%,
+          rgba(0,0,0,0.72) 38%,
+          rgba(0,0,0,0.20) 75%,
+          rgba(0,0,0,0.05) 100%
+        );
+    "></div>
 
-            <p class="card-highlight">
-              A closer look at the man, the story and the work behind one of the
-              names connected to the STV creative archive.
-            </p>
+    <div class="card-overlay">
 
-            <p class="card-meta">
-              The Static · STV Radiomeltdown
-            </p>
-          </div>
+      <span class="card-tag" style="color:var(--gold);">
+        The Static · Feature
+      </span>
 
-          <a href="/TheStatic-emilgordonsr/"
-             class="card-read">
-             Read Feature →
-          </a>
-        </div>
-      </article>
+      <h3 class="card-title">
+        Emil Gordon Sr.
+      </h3>
+
+      <p class="card-highlight">
+        A closer look at the man, the story and the work behind one of the
+        names connected to the STV creative archive.
+      </p>
+
+      <p class="card-meta">
+        The Static · STV Radiomeltdown
+      </p>
+
+    </div>
+
+    <a href="/TheStatic-emilgordonsr/"
+       class="card-read">
+      Read Feature →
+    </a>
+
+  </div>
+
+</article>
 
 
       <!-- CARD: THE SWITCHBLADES -->
-      <article class="issue-card featured visible" data-month="jun-2026">
-        <div style="position:relative;width:100%;height:100%;overflow:hidden;
-          background:
-          linear-gradient(135deg,#050505 0%,#180808 48%,#050505 100%);">
+<article class="issue-card featured visible" data-month="jun-2026">
 
-          <div style="position:absolute;inset:0;
-            background:
-            repeating-linear-gradient(
-              -45deg,
-              transparent 0,
-              transparent 18px,
-              rgba(232,0,28,0.045) 19px,
-              transparent 20px
-            );">
-          </div>
+  <div style="
+    position:relative;
+    width:100%;
+    height:100%;
+    min-height:420px;
+    overflow:hidden;
+    background:#050505;
+  ">
 
-          <div class="card-overlay">
-            <span class="card-tag">
-              Archive Feature · Detroit
-            </span>
+    <!-- SWITCHBLADES IMAGE -->
+    <img
+      src="Swb4.JPEG"
+      alt="The Switchblades"
+      style="
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+      "
+    >
 
-            <h3 class="card-title" style="font-size:2rem;">
-              The Switchblades
-            </h3>
+    <!-- DARK IMAGE OVERLAY -->
+    <div style="
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(
+          to top,
+          rgba(0,0,0,0.96) 0%,
+          rgba(0,0,0,0.72) 38%,
+          rgba(0,0,0,0.18) 75%,
+          rgba(0,0,0,0.05) 100%
+        );
+    "></div>
 
-            <p class="card-highlight">
-              Detroit. Mid-2000s. Noise, glamour, electronic edges and a band that
-              became part of the story before the story had a name.
-            </p>
+    <div class="card-overlay">
 
-            <p class="card-meta">
-              The Static · Archive · The Switchblades
-            </p>
-          </div>
+      <span class="card-tag">
+        Archive Feature · Detroit
+      </span>
 
-          <a href="/Theswitchblades-Article/"
-             class="card-read">
-             Read The Story →
-          </a>
-        </div>
-      </article>
+      <h3 class="card-title" style="font-size:2rem;">
+        The Switchblades
+      </h3>
+
+      <p class="card-highlight">
+        Detroit. Mid-2000s. Noise, glamour, electronic edges and a band that
+        became part of the story before the story had a name.
+      </p>
+
+      <p class="card-meta">
+        The Static · Archive · The Switchblades
+      </p>
+
+    </div>
+
+    <a href="/Theswitchblades-Article/"
+       class="card-read">
+      Read The Story →
+    </a>
+
+  </div>
+
+</article>
 
 
       <!-- CARD: AI MUSIC — ISSUE 01 COVER STORY -->
@@ -789,7 +954,7 @@
               <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#f9f6f0;">Browse All Issues of The Static</div>
               <div style="font-size:11px;color:#555;margin-top:0.2rem;">Every story, every interview, every issue.</div>
             </div>
-            <a href="/STV-ONAIR/NewsStory.html"
+            <a href="/NewsStory"
    style="
      display:inline-flex;
      align-items:center;
@@ -1275,7 +1440,46 @@
 </div>
 
 <!-- /THE STATIC — ISSUE 01 AI MUSIC COVER STORY -->
+<!-- CARD: BASE / G-SIDE — AI MUSIC -->
+<article class="issue-card visible" data-month="ai-music">
 
+  <div class="yt-embed" style="width:100%; aspect-ratio:16/9;">
+    <iframe
+      src="https://www.youtube.com/embed/DfmDOVNPk7M"
+      title="G-Side — Detroit"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="card-content">
+
+    <span class="card-tag">
+      AI MUSIC · DETROIT
+    </span>
+
+    <h3 class="card-title">
+      From G-Side to Suno
+    </h3>
+
+    <p class="card-highlight">
+      Base had years of songs he wanted to make but no clear way to bring
+      them to life. Then we opened Suno. One night later, an album existed.
+    </p>
+
+    <p class="card-meta">
+      Detroit, MI · G-Side · AI-Assisted Music
+    </p>
+
+  </div>
+
+  <a href="#base-gside-story"
+     class="card-read">
+    Read Story →
+  </a>
+
+</article>
 
 
     <!-- FAIRE FARE CARD -->
