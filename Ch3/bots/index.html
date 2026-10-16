@@ -1,1 +1,246 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111014">
+<meta name="description" content="Bottle of The Sexes — late-night debate show host guide and scenario generator.">
+<title>Bottle of The Sexes | Show Board</title>
+<style>
+:root{--bg:#111014;--panel:#1c1a20;--panel2:#242129;--text:#f7f3f0;--muted:#bdb4bd;--red:#d34b60;--gold:#e9c78a;--line:#403943;--green:#9ec6ad}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at top right,#321922 0%,var(--bg) 48%);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+button,textarea,input,select{font:inherit}
+button{cursor:pointer}
+header{padding:clamp(22px,5vw,56px) clamp(18px,5vw,64px) 28px;border-bottom:1px solid var(--line)}
+.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.22em;font-size:.76rem;font-weight:700}
+h1{font-size:clamp(2.5rem,7vw,5.7rem);line-height:.92;letter-spacing:-.055em;margin:14px 0 18px;max-width:1000px}
+h1 span{color:var(--red)}
+.subhead{font-size:clamp(1rem,2vw,1.25rem);color:var(--muted);max-width:700px;margin:0}
+.topbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{border:1px solid var(--line);border-radius:10px;padding:11px 15px;background:var(--panel2);color:var(--text);font-weight:700}
+.btn.primary{background:var(--red);border-color:var(--red);color:white}
+.btn:hover{filter:brightness(1.12)}
+main{max-width:1400px;margin:auto;padding:28px clamp(14px,4vw,48px) 60px}
+.notice{border:1px solid #60404a;background:#21171d;padding:14px 16px;border-radius:12px;color:#eadde0;margin-bottom:24px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:36px 0 16px}
+.section-head h2{margin:0;font-size:clamp(1.5rem,3vw,2.25rem);letter-spacing:-.03em}
+.section-head p{margin:0;color:var(--muted);font-size:.9rem}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,28px);min-width:0}
+.card.featured{border-color:#85404c;box-shadow:0 12px 45px #0002}
+.kicker{color:var(--gold);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem}
+h3{font-size:clamp(1.35rem,2.6vw,2rem);margin:8px 0 10px;line-height:1.12}
+.card p{color:var(--muted);margin:8px 0}
+.card ul{padding-left:20px}
+.card li{margin:7px 0}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 9px;font-size:.78rem;color:var(--muted);margin:3px 4px 3px 0}
+.question{font-size:clamp(1.25rem,2.7vw,2rem);line-height:1.25;color:var(--text);font-weight:800;margin:16px 0}
+.positions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.position{background:#17151a;border:1px solid var(--line);border-radius:12px;padding:14px}
+.position strong{display:block;color:var(--gold);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.position p{color:var(--text);margin:0}
+.followup{border-left:3px solid var(--red);padding:8px 0 8px 13px;margin:15px 0;color:#f2dce0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:step}
+.step{border:1px solid var(--line);border-radius:12px;padding:15px;background:#17151a}
+.step:before{counter-increment:step;content:"0" counter(step);display:block;color:var(--red);font-weight:800;font-size:1.15rem;margin-bottom:8px}
+.step strong{display:block}
+.step span{display:block;color:var(--muted);font-size:.9rem;margin-top:5px}
+.prompt-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.prompt{padding:14px 16px;border-radius:12px;background:#17151a;border:1px solid var(--line)}
+.prompt strong{display:block;margin-bottom:5px}
+.prompt p{margin:0;color:var(--muted)}
+.inputrow{display:flex;gap:10px;flex-wrap:wrap}
+.inputrow input,.inputrow select{flex:1;min-width:180px;background:#141217;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:13px}
+.result-list{display:grid;gap:12px;margin-top:18px}
+.scenario{background:#17151a;border:1px solid var(--line);border-radius:14px;padding:18px}
+.scenario h4{font-size:1.15rem;margin:0 0 8px}
+.scenario p{color:var(--muted);margin:7px 0}
+.scenario .debate{color:var(--text);border-left:3px solid var(--red);padding-left:12px;margin-top:12px}
+.notes{width:100%;min-height:130px;background:#141217;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:14px;resize:vertical}
+.small{font-size:.85rem;color:var(--muted)}
+.footer{border-top:1px solid var(--line);padding:24px clamp(18px,5vw,64px);color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+.hidden{display:none!important}
+@media(max-width:760px){.cards,.positions,.prompt-list{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}}
+@media print{
+ :root{--bg:#fff;--panel:#fff;--panel2:#f5f2f2;--text:#161216;--muted:#514950;--red:#a5223b;--gold:#68451d;--line:#c8c1c6}
+ body{background:#fff;color:#161216;font-size:11pt}
+ .topbar,.no-print,.generator-controls{display:none!important}
+ header{padding:20px 0}main{padding:16px 0}.card,.step,.prompt,.position,.notice,.scenario{break-inside:avoid;box-shadow:none;background:#fff}
+ .cards{grid-template-columns:1fr 1fr}.footer{padding:16px 0}h1{font-size:42pt}
+ textarea{border:1px solid #aaa!important;color:#111!important;background:#fff!important}
+}
+body.presentation header{padding-top:22px;padding-bottom:20px}
+body.presentation main{max-width:1600px}
+body.presentation .card{padding:32px}
+body.presentation .question{font-size:clamp(2rem,4vw,3.3rem)}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Late-night conversation show · Host guide</div>
+  <h1>BOTTLE OF <span>THE SEXES</span></h1>
+  <p class="subhead">Two perspectives. Real debate. No audience participation required.</p>
+  <div class="topbar no-print">
+    <button class="btn primary" onclick="window.print()">Print / Save as PDF</button>
+    <button class="btn" onclick="document.getElementById('notes').focus()">Open show notes</button>
+    <button class="btn" id="screenBtn" onclick="toggleScreen()">TV presentation mode</button>
+  </div>
+</header>
+<main>
+  <div class="notice"><strong>Tonight's format:</strong> Two hosts only. Use the prompts as a guide, not a script. No audience votes or audience participation. The first suggested Battle of the Sexes question has intentionally been left out.</div>
 
+  <div class="section-head"><h2>Tonight's rundown</h2><p>Approx. 25–30 minutes</p></div>
+  <div class="steps">
+    <div class="step"><strong>Welcome to the Bottle</strong><span>3–5 min · Introduce the show and set the tone.</span></div>
+    <div class="step"><strong>Battle of the Sexes</strong><span>10–12 min · Pick a debate from the scenario generator below.</span></div>
+    <div class="step"><strong>Red Flag or Green Light?</strong><span>5–8 min · Both hosts judge the same situation.</span></div>
+    <div class="step"><strong>The Final Word</strong><span>5 min · Each host gets 30 seconds for a closing take.</span></div>
+  </div>
+
+  <div class="section-head"><h2>Battle of the Sexes</h2><p>Choose a prompt when you're ready</p></div>
+  <div class="cards">
+    <section class="card featured">
+      <div class="kicker">How to play</div><h3>Make your case</h3>
+      <ul>
+        <li>One host gets 30 seconds to defend the first position.</li>
+        <li>The other host gets 30 seconds to defend the opposing position.</li>
+        <li>Each host gets one challenge question.</li>
+        <li>Finish with a follow-up that makes both hosts think deeper.</li>
+      </ul>
+      <p class="small">No automatic winner. Let the hosts disagree naturally.</p>
+    </section>
+    <section class="card">
+      <div class="kicker">Producer's note</div><h3>Keep it interesting</h3>
+      <p>Ask for real reasons, examples, and nuance. Challenge sweeping claims without turning the conversation into a personal attack.</p>
+      <p><span class="pill">Honest</span><span class="pill">Funny</span><span class="pill">Unfiltered</span><span class="pill">Respectful</span></p>
+    </section>
+  </div>
+
+  <div class="section-head"><h2>AI Scenario Studio</h2><p>Type a topic to build debate scenarios</p></div>
+  <section class="card featured">
+    <div class="kicker">Topic → scenarios</div>
+    <h3>What are we debating tonight?</h3>
+    <p>Type a phrase such as <strong>birthdays</strong>, money, exes, marriage, dating apps, friendships, jealousy, or splitting bills. The generator will create scenarios and opposing viewpoints around that topic.</p>
+    <div class="inputrow generator-controls">
+      <input id="topicInput" type="text" placeholder="Enter a topic, e.g. birthdays" aria-label="Scenario topic">
+      <select id="scenarioCount" aria-label="Number of scenarios">
+        <option value="3">3 scenarios</option><option value="5" selected>5 scenarios</option><option value="8">8 scenarios</option>
+      </select>
+      <button class="btn primary" onclick="generateScenarios()">Generate scenarios</button>
+    </div>
+    <div class="topbar generator-controls" style="margin-top:12px">
+      <button class="btn" onclick="quickTopic('Birthdays')">Birthdays</button>
+      <button class="btn" onclick="quickTopic('Money and bills')">Money & bills</button>
+      <button class="btn" onclick="quickTopic('Exes')">Exes</button>
+      <button class="btn" onclick="quickTopic('Marriage')">Marriage</button>
+      <button class="btn" onclick="quickTopic('Dating apps')">Dating apps</button>
+    </div>
+    <p class="small" style="margin-top:14px">Tonight-ready mode: works without an internet connection or API key. This standalone version uses topic-aware scenario templates; it is not connected to a live generative AI service. A real AI connection can be added later through a secure backend without exposing an API key on the TV or phone.</p>
+    <div id="scenarioResults" class="result-list" aria-live="polite">
+      <div class="scenario"><h4>Ready when you are</h4><p>Enter a topic and select Generate scenarios. We'll create situations, both sides of the argument, and a follow-up question for the hosts.</p></div>
+    </div>
+  </section>
+
+  <div class="section-head"><h2>Red Flag or Green Light?</h2><p>Fast scenarios · Both hosts answer</p></div>
+  <div class="prompt-list">
+    <div class="prompt"><strong>01 · The ex's birthday</strong><p>Your partner still sends their ex a birthday message every year. Harmless courtesy or a boundary issue?</p></div>
+    <div class="prompt"><strong>02 · The bill</strong><p>Your date earns twice what you do but expects every bill to be split exactly 50/50. Fair or out of touch?</p></div>
+    <div class="prompt"><strong>03 · The social post</strong><p>Your partner posts everybody else on their birthday but never posts you. Does that mean anything?</p></div>
+    <div class="prompt"><strong>04 · The best friend</strong><p>Your partner's closest friend is someone they once wanted to date. Trust it or question it?</p></div>
+  </div>
+
+  <div class="section-head"><h2>Show notes</h2><p>Use on your phone or studio device</p></div>
+  <textarea id="notes" class="notes" placeholder="Write host notes, ad-libs, reminders, or ideas for the next episode..."></textarea>
+  <p class="small">Notes stay in this page while it remains open. Copy anything important before closing or refreshing.</p>
+</main>
+<footer class="footer"><span>BOTTLE OF THE SEXES</span><span>Two perspectives. One conversation.</span></footer>
+<script>
+function toggleScreen(){
+  document.body.classList.toggle('presentation');
+  document.getElementById('screenBtn').textContent=document.body.classList.contains('presentation')?'Exit presentation mode':'TV presentation mode';
+}
+function quickTopic(topic){document.getElementById('topicInput').value=topic;generateScenarios();}
+function cleanTopic(s){return (s||'').trim().replace(/\s+/g,' ').slice(0,80);}
+function scenarioSet(topic){
+ const t=topic.toLowerCase();
+ if(/birthdays?|birthday parties|birth ?days/.test(t)) return [
+  ["The birthday effort","One partner plans a thoughtful birthday for the other, but gets only a quick text and no plans in return. Is matching effort important, or should people show love differently?","Effort matters: birthdays are a chance to show your partner they matter.","People have different budgets, traditions, and comfort levels; love shouldn't be measured by one day.","If your partner told you birthdays mattered to them, does that change your expectations?"],
+  ["The ex's birthday","Your partner remembers an ex's birthday and sends a warm message every year. They say it's only being polite. Is that harmless?","A short message can be respectful and doesn't automatically mean unresolved feelings.","Keeping a yearly ritual with an ex can blur boundaries, especially if it is hidden.","Would your answer change if your partner told you about the message before sending it?"],
+  ["Birthday budget","Your partner wants an expensive birthday trip, but you are saving money and cannot comfortably afford it. What should happen?","Special occasions take planning; if you agree to the trip, you should contribute fairly.","A loving partner won't pressure you to spend beyond your means to prove affection.","Is it the request itself that's a problem, or how your partner reacts when you say no?"],
+  ["The forgotten birthday","Your partner forgets your birthday, then apologizes sincerely and tries to make it up to you. Is that forgivable?","Forgetting a meaningful date can signal a lack of attention, especially if it happens repeatedly.","One mistake doesn't define a relationship; accountability and changed behavior matter more.","What matters more: remembering the date, the apology, or what they do afterward?"],
+  ["The birthday post","Your partner posts friends and family on social media for their birthdays but doesn't post you. Should you be bothered?","Public acknowledgment can feel important, particularly if they regularly celebrate others publicly.","Some people keep romance private; social media isn't a reliable measure of commitment.","Would you feel differently if they celebrated you thoughtfully in private?"],
+  ["Separate celebrations","One partner wants to spend their birthday with friends instead of their significant other. Is that selfish?","A partner should make space for each other on important days, even if only for part of the day.","Having separate plans and friendships is healthy; a birthday doesn't have to belong to one person.","What would a fair compromise look like if both people had expectations?"],
+  ["The birthday test","Someone says, 'If you really knew me, you'd know what I want for my birthday without me telling you.' Romantic standard or unfair test?","Paying attention to hints and preferences is part of knowing your partner.","Mind-reading isn't fair; clearly communicating wants sets both people up to succeed.","Is a surprise meaningful if the person had to explain exactly what they wanted?"],
+  ["Different birthday energy","One partner loves a big party; the other wants a quiet day. Who should compromise?","The person celebrating should get to enjoy the day in their own way.","A relationship means finding a plan that respects both personalities and budgets.","Should the birthday person decide everything, or should the couple agree together?"]
+ ];
+ if(/money|bill|bills|salary|income|finances|rent|paying/.test(t)) return [
+  ["The 50/50 rule","One partner earns much more but insists every shared expense is split equally.","Equal shares are simple and protect both people's independence.","A proportional split can be fairer when incomes are significantly different.","Is fairness about equal dollars or equal financial impact?"],
+  ["The expensive date","One person chooses a pricey restaurant, then expects the other to split the bill.","Both people ordered and should pay their share unless they agreed otherwise.","The person who chose an expensive plan should check that the other is comfortable with the cost.","Should the person inviting decide who pays?"],
+  ["Financial privacy","A couple has been together for a year, but one partner won't discuss debt or savings.","Money affects shared decisions, so honest conversations are necessary.","People are entitled to financial privacy until they are making shared commitments.","At what stage does financial privacy become withholding important information?"],
+  ["Helping family","One partner regularly gives money to relatives without discussing it first.","Helping family is personal, but shared financial goals need communication.","Adults should be able to support loved ones with their own money.","When does generosity start affecting the relationship?"],
+  ["The gift gap","One partner buys expensive gifts while the other gives thoughtful, inexpensive ones.","The effort and meaning matter more than the price tag.","If expectations differ, partners should discuss them rather than assume.","Would you feel differently if the expensive gifts created an unspoken debt?"]
+ ];
+ if(/ex(es)?|ex-partner|former partner/.test(t)) return [
+  ["Still in contact","Your partner regularly talks to an ex and says they are genuinely friends.","Trust means allowing friendships unless there's evidence of disrespect.","History and unresolved feelings can make boundaries especially important.","What specific behavior would make this friendship uncomfortable?"],
+  ["The late-night call","An ex calls after midnight because they are upset, and your partner answers.","Showing compassion isn't automatically betrayal.","Late-night emotional intimacy can cross boundaries in a current relationship.","Would you react differently if the roles were reversed?"],
+  ["The old photos","Your partner keeps pictures of an ex on their phone.","Past relationships are part of someone's life and don't need to be erased.","Keeping romantic photos can feel different from keeping ordinary memories.","Does the content of the photos matter more than the fact they exist?"],
+  ["The comparison","During an argument, your partner says their ex never behaved this way.","Comparisons are hurtful and derail the issue at hand.","They may be trying to explain a past experience, but should choose better words.","Can a comparison ever be useful, or is it always unfair?"],
+  ["The shared pet","Your partner shares custody of a pet with an ex and must see them regularly.","Responsible co-care can be mature and practical.","Regular contact requires clear boundaries and transparency.","What boundaries would make the arrangement feel respectful?"]
+ ];
+ if(/marriage|married|wedding|engagement/.test(t)) return [
+  ["Marriage timeline","A couple has been together for years, but one person is not ready to get married.","After years together, it's fair to want clarity about the future.","Marriage should be a genuine choice, not a deadline imposed by pressure.","How long is reasonable to wait before asking for a decision?"],
+  ["The proposal","One partner wants a public proposal; the other wants it private.","A public moment can be exciting if it matches the couple's shared dream.","A proposal should prioritize the person being asked, not the audience.","Is a public proposal romantic if the answer might be no?"],
+  ["Separate money","One spouse wants to keep separate bank accounts after marriage.","Financial independence can protect autonomy and simplify personal spending.","Marriage involves shared goals, and complete separation may make teamwork harder.","Can couples be financially united while keeping some independence?"],
+  ["Wedding costs","Parents offer to pay for the wedding but want control over the guest list.","Paying shouldn't buy control over the couple's choices.","Accepting financial help may mean negotiating expectations and compromises.","Should the couple decline the money if the conditions feel unfair?"],
+  ["The name change","One partner expects the other to take their last name after marriage.","A shared name can symbolize building a family together.","A name is personal identity, and tradition shouldn't be compulsory.","How should couples handle traditions when their meanings differ?"]
+ ];
+ if(/dating app|dating apps|online dating|swipe/.test(t)) return [
+  ["Still swiping","You agree to be exclusive, but your partner still has dating apps installed.","Keeping the app can signal that they're leaving options open.","An installed app isn't proof of use; discuss expectations before assuming.","Is deleting the app a meaningful gesture or just symbolic?"],
+  ["The profile photo","Your date's profile photos are several years old and look noticeably different.","Accurate photos are a basic form of honesty.","People choose flattering photos, and the important thing is whether they misrepresented themselves.","Where is the line between flattering and misleading?"],
+  ["The double text","You send two messages before getting a reply. Is that desperate?","Repeated messages can create pressure when someone hasn't responded.","Clear communication is fine; arbitrary texting rules can make dating unnecessarily stressful.","Should people match response pace or communicate when they can?"],
+  ["Talking to multiple people","Before agreeing to exclusivity, someone is dating three people at once.","Dating around can help people learn what they want when everyone is honest.","It can feel impersonal and waste time if one person assumes a stronger connection.","When should someone disclose that they're dating other people?"],
+  ["The first-date split","One person expects the person who invited them to pay; the other expects to split.","The inviter chose the plan, so offering to pay is courteous.","Splitting can reduce pressure and make intentions feel more equal.","Does who pays affect whether a second date happens?"]
+ ];
+ const generic=[
+  ["The unspoken expectation","Two people have different assumptions about "+topic+". One believes it should be obvious; the other says nobody explained the expectation.","People should pay attention and notice what matters to their partner.","Healthy relationships require direct communication instead of tests.","Should a partner be expected to know this without being told?"],
+  ["The boundary question","One partner is comfortable with "+topic+", while the other considers it crossing a line.","Different preferences are normal; neither person should automatically be labeled wrong.","A relationship needs mutually agreed boundaries, not one-sided rules.","Who gets to decide what is acceptable when partners disagree?"],
+  ["The double standard","A person expects one rule about "+topic+" for their partner but a different rule for themselves.","Different circumstances can justify different expectations.","Rules should be reciprocal unless there is a clear, agreed reason otherwise.","Would you accept the same rule if your partner applied it to you?"],
+  ["The honest conversation","One person avoids discussing "+topic+" to keep the peace, but resentment builds over time.","Honesty early can prevent bigger problems later.","Timing and delivery matter; not every difficult topic needs to be raised in the heat of the moment.","Is keeping the peace worth it if the issue never gets resolved?"],
+  ["The deal-breaker","A disagreement about "+topic+" makes one partner question the whole relationship.","Some differences reveal incompatible values and shouldn't be ignored.","A disagreement can be worked through if both people are willing to listen and adjust.","How do you tell a true deal-breaker from a problem that can be solved?"],
+  ["The public versus private choice","One partner wants to handle "+topic+" privately; the other thinks it should be openly acknowledged.","Privacy protects the relationship from outside opinions and pressure.","Silence can sometimes make a person feel hidden or unsupported.","How do you distinguish privacy from secrecy?"],
+  ["The apology","After a conflict involving "+topic+", one partner apologizes but doesn't change their behavior.","An apology matters when it includes accountability and follow-through.","Change takes practice; one imperfect follow-up doesn't always mean the apology was false.","How many repeated apologies become a pattern rather than progress?"],
+  ["The compromise","Both people have valid but conflicting preferences about "+topic+". Neither wants to give in.","A compromise shows willingness to meet in the middle.","Some issues can't be solved by splitting the difference; the real need must be understood.","What would a fair solution look like if neither gets exactly what they want?"]
+ ];
+ return generic;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function generateScenarios(){
+ const topic=cleanTopic(document.getElementById('topicInput').value);
+ const box=document.getElementById('scenarioResults');
+ if(!topic){box.innerHTML='<div class="scenario"><h4>Enter a topic first</h4><p>Try “birthdays,” “money,” “exes,” “marriage,” or any subject you want to debate.</p></div>';return;}
+ const all=scenarioSet(topic);
+ const count=Number(document.getElementById('scenarioCount').value)||5;
+ const list=[];
+ // Rotate the order for a bit of variety without requiring a server.
+ let start=0;
+ for(let i=0;i<topic.length;i++) start=(start+topic.charCodeAt(i))%all.length;
+ for(let i=0;i<Math.min(count,all.length);i++) list.push(all[(start+i)%all.length]);
+ box.innerHTML='<div class="small">Topic: <strong>'+escapeHtml(topic)+'</strong> · '+list.length+' scenarios · Hosts: take opposite sides, then switch if you want.</div>'+list.map((s,i)=>'<article class="scenario"><div class="kicker">Scenario '+(i+1)+'</div><h4>'+escapeHtml(s[0])+'</h4><p>'+escapeHtml(s[1])+'</p><div class="positions"><div class="position"><strong>Position A</strong><p>'+escapeHtml(s[2])+'</p></div><div class="position"><strong>Position B</strong><p>'+escapeHtml(s[3])+'</p></div></div><div class="debate"><strong>Producer follow-up:</strong> '+escapeHtml(s[4])+'</div><button class="btn no-print" onclick="copyScenario(this)">Copy this scenario</button></article>').join('');
+}
+function copyScenario(btn){
+ const card=btn.closest('.scenario');
+ const text=card.innerText.replace('Copy this scenario','').trim();
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(()=>{btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy this scenario',1300)}).catch(()=>fallbackCopy(text,btn));}
+ else fallbackCopy(text,btn);
+}
+function fallbackCopy(text,btn){
+ const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();
+ try{document.execCommand('copy');btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy this scenario',1300)}catch(e){alert(text)}area.remove();
+}
+document.getElementById('topicInput').addEventListener('keydown',e=>{if(e.key==='Enter')generateScenarios();});
+</script>
+</body>
+</html>
