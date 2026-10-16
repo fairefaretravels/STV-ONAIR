@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bottle of the Sexes — STV Ch3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#d8b25a;--gold2:#f3d889;--bg:#07040a;--panel:#12080e;--wine:#6b1426;--wine2:#9c2036;--text:#f5f0f0;--muted:#a99aa0;--line:rgba(243,216,137,.16)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;background:url("../stv-gif.gif") center/cover no-repeat;filter:blur(30px) brightness(.18) saturate(1.1);transform:scale(1.15);z-index:-2}
+body::after{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at top,rgba(156,32,54,.25),transparent 55%),linear-gradient(180deg,rgba(7,4,10,.6),rgba(7,4,10,.95));z-index:-1}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:18px;padding:10px 24px;background:rgba(7,4,10,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;letter-spacing:.12em;font-size:14px}
+.brand img{width:38px;height:38px;border-radius:50%}
+.show{font-family:'Bebas Neue';font-size:30px;letter-spacing:.06em;color:var(--gold2);line-height:1}
+nav{display:flex;gap:4px;flex:1;flex-wrap:wrap}
+nav button{background:none;border:0;padding:9px 14px;border-radius:6px;cursor:pointer;color:var(--muted);font-weight:500}
+nav button[aria-selected=true]{color:var(--text);background:var(--wine)}
+.btn{background:var(--panel);border:1px solid var(--line);padding:9px 16px;border-radius:6px;cursor:pointer;font-weight:500;text-decoration:none;color:var(--text);display:inline-block}
+.btn:hover{border-color:var(--gold)}
+.btn.gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a0a0f;border:0;font-weight:700}
+.btn.wine{background:var(--wine2);border-color:var(--wine2)}
+main{max-width:1500px;margin:0 auto;padding:24px}
+section.tab{display:none}section.tab.on{display:block}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.panel{background:rgba(18,8,14,.9);border:1px solid var(--line);border-radius:10px;padding:20px}
+.panel h2{font-family:'Bebas Neue';font-size:28px;letter-spacing:.05em;font-weight:400;margin-bottom:4px;color:var(--gold2)}
+.sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.frame{position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.frame .msg{position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;text-align:center;padding:20px;color:var(--muted)}
+.results .frame{aspect-ratio:auto;height:420px}
+input[type=text],textarea{background:#0a0509;border:1px solid var(--line);border-radius:6px;padding:11px 14px;width:100%}
+textarea{min-height:200px;resize:vertical}
+.badge{display:inline-block;font-size:12px;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.badge.ai{color:#8fe3a8;border-color:#8fe3a8}.badge.fb{color:var(--gold2);border-color:var(--gold)}
+.sc{border-left:3px solid var(--wine2);padding:16px 18px;margin:14px 0;background:rgba(255,255,255,.03);border-radius:0 8px 8px 0}
+.sc.sel{border-left-color:var(--gold2);background:rgba(216,178,90,.08)}
+.sc h3{font-size:20px;margin-bottom:6px}
+.sc p{margin:6px 0}
+.sc .lab{color:var(--gold2);font-weight:700}
+.big{font-family:'Bebas Neue';font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.05;letter-spacing:.03em}
+.timer{font-family:'Bebas Neue';font-size:64px;color:var(--gold2);line-height:1}
+.two{display:grid;gap:20px;grid-template-columns:1fr 1fr}
+@media(max-width:800px){.two{grid-template-columns:1fr}main{padding:14px}.show{font-size:24px}}
+#tv{position:fixed;inset:0;z-index:100;background:#050205;display:none;flex-direction:column;padding:4vh 5vw}
+#tv.on{display:flex}
+#tvbody{flex:1;display:flex;flex-direction:column;justify-content:center;gap:3vh;overflow:auto}
+#tvbody .lab{color:var(--gold2);font-size:clamp(1rem,2vw,1.6rem);font-weight:700}
+#tvbody p{font-size:clamp(1.4rem,3.2vw,2.8rem);line-height:1.3}
+#tvbody .big{font-size:clamp(3rem,8vw,7rem);color:var(--gold2)}
+#tvbar{display:flex;gap:10px;justify-content:space-between;align-items:center}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--gold2);color:#1a0a0f;padding:10px 20px;border-radius:6px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;z-index:200}
+.toast.on{opacity:1}
+#rundown{display:none}
+@media print{body::before,body::after,.top,main,#tv,.toast{display:none!important}body{background:#fff;color:#000}#rundown{display:block;padding:20px}#rundown h1{font-size:28px}#rundown li{margin:8px 0}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><img src="../stvlogo1.jpg" alt="Saneca TV"><span>STV-ONAIR · CH3</span></div>
+  <div class="show">BOTTLE OF THE SEXES</div>
+  <nav role="tablist" id="nav">
+    <button role="tab" data-t="dash" aria-selected="true">Dashboard</button>
+    <button role="tab" data-t="studio" aria-selected="false">Scenario Studio</button>
+    <button role="tab" data-t="battle" aria-selected="false">Battle of the Sexes</button>
+    <button role="tab" data-t="seg" aria-selected="false">Segments</button>
+    <button role="tab" data-t="notes" aria-selected="false">Notes</button>
+  </nav>
+  <a class="btn" href="/watch/">Channels</a>
+  <button class="btn gold" id="presBtn">Presentation mode</button>
+</header>
+
+<main>
+<!-- DASHBOARD -->
+<section class="tab on" id="dash">
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(440px,1fr))">
+    <div class="panel">
+      <h2>YouTube</h2>
+      <p class="sub">STV Radio Meltdown. The player only shows a video once you set a video ID.</p>
+      <div class="frame" id="ytFrame"></div>
+      <div class="row">
+        <input type="text" id="ytInput" placeholder="Paste a YouTube video or live URL / ID" aria-label="YouTube video URL or ID" style="flex:1;min-width:200px">
+        <button class="btn" id="ytSet">Load video</button>
+        <a class="btn" id="ytOpen" target="_blank" rel="noopener">Open on YouTube</a>
+      </div>
+      <p class="sub" id="ytNote"></p>
+    </div>
+    <div class="panel results">
+      <h2>Live Results</h2>
+      <p class="sub">Source: <code id="resSrc"></code> <span class="badge fb">Source not verified</span></p>
+      <div class="frame" id="resFrame"></div>
+      <div class="row">
+        <button class="btn" id="resLoad">Load results</button>
+        <button class="btn" id="resRefresh">Refresh</button>
+        <a class="btn" id="resOpen" target="_blank" rel="noopener">Open separately</a>
+      </div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:20px">
+    <h2>Rundown</h2>
+    <ol style="margin-left:22px;color:var(--text)">
+      <li>Cold open and introductions</li><li>Spill the Bottle</li><li>Battle of the Sexes</li><li>Red Flag or Green Light?</li><li>The Final Word</li>
+    </ol>
+    <div class="row"><button class="btn" onclick="window.print()">Print rundown</button></div>
+  </div>
+</section>
+
+<!-- STUDIO -->
+<section class="tab" id="studio">
+  <div class="panel">
+    <h2>AI Scenario Studio</h2>
+    <p class="sub">Enter a word or short phrase. Try Birthdays, Money, Exes, Splitting bills.</p>
+    <div class="row">
+      <input type="text" id="topic" maxlength="60" placeholder="Birthdays" aria-label="Topic" style="flex:1;min-width:220px">
+      <label>How many <select id="count" style="background:#0a0509;color:var(--text);border:1px solid var(--line);padding:10px;border-radius:6px"><option>3</option><option selected>5</option><option>8</option></select></label>
+      <button class="btn gold" id="gen">Generate</button>
+      <button class="btn" id="more">Generate another set</button>
+      <span class="badge" id="src">No scenarios yet</span>
+    </div>
+    <div id="list"></div>
+  </div>
+</section>
+
+<!-- BATTLE -->
+<section class="tab" id="battle">
+  <div class="panel">
+    <h2>Battle of the Sexes</h2>
+    <p class="sub">Two hosts, no audience vote, no winner declared. Pick a scenario in the Studio, then run the debate here.</p>
+    <div id="battleBody"></div>
+  </div>
+</section>
+
+<!-- SEGMENTS -->
+<section class="tab" id="seg">
+  <div class="grid">
+    <div class="panel"><h2>Red Flag or Green Light?</h2><p class="sub">Each host calls red, yellow or green and explains.</p>
+      <div class="sc" id="rfText"></div><div class="row"><button class="btn wine" id="rfNext">Next situation</button><button class="btn" id="rfTv">Show on TV</button></div></div>
+    <div class="panel"><h2>Spill the Bottle</h2><p class="sub">Either host can pass.</p>
+      <div class="sc" id="spText"></div><div class="row"><button class="btn wine" id="spNext">Next question</button><button class="btn" id="spPass">Pass</button><button class="btn" id="spTv">Show on TV</button></div></div>
+    <div class="panel"><h2>The Final Word</h2><p class="sub">30 seconds each on the night's most interesting discussion.</p>
+      <div class="timer" id="fwTimer">30</div><div class="row"><button class="btn gold" data-timer="fwTimer">Start 30s</button><button class="btn" id="fwTv">Show on TV</button></div></div>
+  </div>
+</section>
+
+<!-- NOTES -->
+<section class="tab" id="notes">
+  <div class="panel">
+    <h2>Production notes</h2>
+    <p class="sub"><span class="badge fb">Saved locally in this browser only. Nothing is sent to a server.</span></p>
+    <textarea id="notesArea" placeholder="Host reminders, ad-libs, ideas for future episodes" aria-label="Production notes"></textarea>
+  </div>
+</section>
+</main>
+
+<div id="tv" role="dialog" aria-label="Presentation mode" aria-modal="true">
+  <div id="tvbody"></div>
+  <div id="tvbar">
+    <button class="btn" id="tvPrev">Previous</button>
+    <button class="btn" id="tvExit">Exit (Esc)</button>
+    <button class="btn" id="tvNext">Next</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<div id="rundown"><h1>Bottle of the Sexes — STV Ch3 Rundown</h1><ol><li>Cold open and introductions</li><li>Spill the Bottle</li><li>Battle of the Sexes</li><li>Red Flag or Green Light?</li><li>The Final Word</li></ol><h2>Selected scenario</h2><div id="rdSel">None selected</div><h2>Notes</h2><pre id="rdNotes" style="white-space:pre-wrap"></pre></div>
+
+<script>
+/* ===== CONFIG: edit here =====
+   Verify RESULTS_URL against your real results page before the show.
+   AI_ENDPOINT: leave empty to use the offline fallback. Set to a server-side
+   route (same origin) that accepts POST {topic,count} and returns {scenarios:[...]}.
+   The AI API key must live on the server, never in this file. */
+const CONFIG={
+  YT_CHANNEL_URL:"https://www.youtube.com/@stvradiomeltdown",
+  YT_VIDEO_ID:"",
+  RESULTS_URL:"/bots/",
+  AI_ENDPOINT:""
+};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),1800)};
+const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e};
+
+/* tabs */
+function showTab(id){$$("section.tab").forEach(s=>s.classList.toggle("on",s.id===id));$$("#nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===id));if(id==="battle")renderBattle()}
+$$("#nav button").forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+
+/* YouTube */
+function ytId(v){v=v.trim();const m=v.match(/(?:v=|youtu\.be\/|\/live\/|\/embed\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(v)?v:"")}
+function renderYT(){
+  const id=store.get("stv3_yt")||CONFIG.YT_VIDEO_ID,f=$("#ytFrame");f.textContent="";
+  $("#ytOpen").href=id?"https://www.youtube.com/watch?v="+id:CONFIG.YT_CHANNEL_URL;
+  if(id){const i=document.createElement("iframe");i.src="https://www.youtube-nocookie.com/embed/"+id;i.title="YouTube player";i.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";i.allowFullscreen=true;f.appendChild(i);
+    $("#ytNote").textContent="If the player shows an error, the video may be unavailable or have embedding disabled. Use Open on YouTube."}
+  else{const m=el("div","msg");m.append(el("p",null,"No video selected. Paste a video or live URL below, or open the channel."));f.appendChild(m);$("#ytNote").textContent="This page does not assume a live stream exists."}
+}
+$("#ytSet").onclick=()=>{const id=ytId($("#ytInput").value);if(!id){toast("Not a valid YouTube video link or ID");return}store.set("stv3_yt",id);renderYT()};
+
+/* Results */
+let resTimer;
+function loadResults(){
+  const f=$("#resFrame");f.textContent="";const m=el("div","msg");m.append(el("p",null,"Loading results…"));f.appendChild(m);
+  const i=document.createElement("iframe");i.src=CONFIG.RESULTS_URL;i.title="Live results";i.style.visibility="hidden";
+  clearTimeout(resTimer);
+  i.onload=()=>{clearTimeout(resTimer);m.remove();i.style.visibility="visible"};
+  i.onerror=()=>{m.textContent="Results unavailable."};
+  resTimer=setTimeout(()=>{m.textContent="";m.append(el("p",null,"Results did not load. The page may be missing, or it blocks embedding."),el("p",null,"Use Open separately."))},8000);
+  f.appendChild(i);
+}
+$("#resSrc").textContent=CONFIG.RESULTS_URL;$("#resOpen").href=CONFIG.RESULTS_URL;
+$("#resLoad").onclick=loadResults;$("#resRefresh").onclick=loadResults;
+(()=>{const m=el("div","msg");m.append(el("p",null,"Results are not loaded. No data is shown until you load the real results page."));$("#resFrame").appendChild(m)})();
+
+/* Scenario generation */
+let scenarios=[],sel=-1,lastSet=0;
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+function fallback(topic,n){
+  const t=topic.toLowerCase(),T=cap(t);
+  const tpl=[
+   {title:`The ${T} Expectation Gap`,situation:`One partner treats ${t} as a serious test of effort. The other thinks it's overblown and planned nothing. Now they're both frustrated.`,a:`Big moments like ${t} matter because effort shows care, and low effort sends a message.`,b:`Expecting a perfect ${t} moment is pressure, and love shouldn't be graded on one event.`,challenge:`If ${t} was your partner's biggest priority, would you still say it's overblown?`,reconsider:`Think of a time ${t} went badly for you. Does that change your side?`},
+   {title:`${T} and the Ex`,situation:`A partner's ex shows up in the middle of a ${t} situation, offering "just friendly" help. The current partner isn't comfortable.`,a:`Boundaries around exes are reasonable, especially when ${t} is already sensitive.`,b:`Policing contact with an ex over ${t} signals insecurity and control.`,challenge:`At what point does a boundary become a restriction?`,reconsider:`Would your answer change if the roles were reversed?`},
+   {title:`Who Pays for ${T}?`,situation:`A couple argues over who should cover the costs tied to ${t}. One earns considerably more. The other insists on splitting evenly.`,a:`The higher earner should cover more, because fairness means proportion, not equal dollars.`,b:`Equal split keeps things balanced. Otherwise someone ends up feeling like a guest in their own relationship.`,challenge:`Does your answer hold if the lower earner is the man? The woman?`,reconsider:`Would you pick differently if you were the one earning less?`},
+   {title:`The ${T} Double Standard`,situation:`Friends say a guy and a girl would be judged differently for the exact same choice about ${t}. Both are annoyed by the claim.`,a:`Double standards around ${t} are real, and society holds women and men to different rules.`,b:`People use "double standard" to dodge accountability. The same behavior should get the same judgment.`,challenge:`Name one ${t} situation where the double standard clearly favors your own gender.`,reconsider:`Can you name one where it works against you?`},
+   {title:`Social Media Caught the ${T}`,situation:`Someone posts about ${t} online without telling their partner, and the partner finds out from a friend's screenshot.`,a:`Anything about the relationship should be agreed on before it goes public.`,b:`It's their account and their life. A partner doesn't get veto power over a post.`,challenge:`Where's the line between sharing your life and exposing someone else's?`,reconsider:`How would you feel if your partner posted about you without asking?`},
+   {title:`The Friend Group Verdict on ${T}`,situation:`A couple disagrees about ${t}, and each tells their own friends. Now both friend groups have picked sides.`,a:`Venting to friends is healthy. Everyone needs outside perspective on ${t}.`,b:`Taking private ${t} disputes to the group turns a two-person problem into a trial.`,challenge:`Would you want your partner's friends to know your side first?`,reconsider:`Has a friend's opinion ever made one of your arguments worse?`},
+   {title:`${T}: Honesty or Kindness?`,situation:`A partner is asked a direct question about ${t} and gives a comfortable answer instead of the truth. It comes out later.`,a:`A small kind lie about ${t} protects the relationship and costs nothing.`,b:`Once you tell comfortable lies about ${t}, nothing you say can be fully trusted.`,challenge:`Would you rather hear a painful truth now or find out later you were protected?`,reconsider:`Has a white lie ever hurt someone you love?`},
+   {title:`The ${T} Dealbreaker`,situation:`Early in dating, one person says their view on ${t} is non-negotiable. The other believes everything can be worked out.`,a:`Core values around ${t} should be known up front. Hoping to change someone is a trap.`,b:`Rigid rules about ${t} before you know someone are just fear dressed up as standards.`,challenge:`Name a dealbreaker you've dropped. Why did it go?`,reconsider:`Is your own non-negotiable really about the other person, or about you?`}
+  ];
+  return tpl.slice(0,n).map(s=>({...s}));
+}
+async function generate(rerun){
+  const topic=$("#topic").value.trim().replace(/\s+/g," ").slice(0,60),n=+$("#count").value;
+  if(!topic){toast("Enter a topic first");return}
+  if(rerun)lastSet++;
+  let out=null,badge="Offline templates (not live AI)",cls="fb";
+  if(CONFIG.AI_ENDPOINT){
+    try{
+      const r=await fetch(CONFIG.AI_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({topic,count:n,variation:lastSet})});
+      if(!r.ok)throw 0;const j=await r.json();
+      const ok=s=>s&&["title","situation","a","b","challenge"].every(k=>typeof s[k]==="string");
+      if(Array.isArray(j.scenarios)&&j.scenarios.length&&j.scenarios.every(ok)){out=j.scenarios.slice(0,n);badge="Live AI";cls="ai"}
+    }catch(e){badge="AI unavailable, offline templates (not live AI)"}
+  }
+  if(!out){out=fallback(topic,n);if(lastSet%2===1)out.reverse()}
+  scenarios=out;sel=-1;const b=$("#src");b.textContent=badge;b.className="badge "+cls;renderList();
+}
+function text(s){return `${s.title}\n\n${s.situation}\n\nPosition A: ${s.a}\nPosition B: ${s.b}\n\nChallenge: ${s.challenge}\nReconsider: ${s.reconsider||""}`}
+function renderList(){
+  const L=$("#list");L.textContent="";
+  scenarios.forEach((s,i)=>{
+    const d=el("div","sc"+(i===sel?" sel":""));
+    d.append(el("h3",null,s.title),el("p",null,s.situation));
+    [["Position A: ",s.a],["Position B: ",s.b],["Challenge: ",s.challenge],["Reconsider: ",s.reconsider]].forEach(([l,v])=>{if(!v)return;const p=el("p");p.append(el("span","lab",l),document.createTextNode(v));d.appendChild(p)});
+    const r=el("div","row");
+    const use=el("button","btn wine","Use for debate");use.onclick=()=>{sel=i;renderList();store.set("stv3_sel",JSON.stringify(s));$("#rdSel").textContent=text(s);toast("Selected for Battle")};
+    const tv=el("button","btn","Show on TV");tv.onclick=()=>{sel=i;renderList();openTV(i)};
+    const cp=el("button","btn","Copy");cp.onclick=()=>{navigator.clipboard.writeText(text(s)).then(()=>toast("Copied"),()=>toast("Copy blocked by browser"))};
+    r.append(use,tv,cp);d.appendChild(r);L.appendChild(d);
+  });
+}
+$("#gen").onclick=()=>generate(false);$("#more").onclick=()=>generate(true);
+$("#topic").addEventListener("keydown",e=>{if(e.key==="Enter")generate(false)});
+
+/* Battle */
+function startTimer(id){const t=$("#"+id);let n=30;t.textContent=n;clearInterval(t._i);t._i=setInterval(()=>{n--;t.textContent=n;if(n<=0){clearInterval(t._i);t.textContent="Time"}},1000)}
+function renderBattle(){
+  const B=$("#battleBody");B.textContent="";
+  const s=sel>=0?scenarios[sel]:JSON.parse(store.get("stv3_sel")||"null");
+  if(!s){B.append(el("p",null,"No scenario selected. Generate scenarios in the Scenario Studio and press Use for debate."));return}
+  const d=el("div","sc sel");d.append(el("h3",null,s.title),el("p",null,s.situation));B.appendChild(d);
+  const two=el("div","two");
+  [["Host 1","a",s.a,"t1"],["Host 2","b",s.b,"t2"]].forEach(([h,k,pos,tid])=>{
+    const c=el("div","sc");c.append(el("h3",null,h+" opening (30s)"),el("p",null,pos));
+    c.append(el("div","timer","30")).lastChild.id=tid;
+    const b=el("button","btn gold","Start 30s");b.onclick=()=>startTimer(tid);const r=el("div","row");r.appendChild(b);c.appendChild(r);
+    c.append(el("p",null,"Challenge for "+h+": "+s.challenge));
+    c.append(el("p",null,"Optional closing statement for "+h));
+    two.appendChild(c);
+  });
+  B.appendChild(two);
+  const p=el("div","sc");p.append(el("h3",null,"Producer follow-up"),el("p",null,s.reconsider||"What would make you switch sides?"));B.appendChild(p);
+  const r=el("div","row"),tv=el("button","btn","Show on TV");tv.onclick=()=>openTV(sel>=0?sel:0,s);r.appendChild(tv);B.appendChild(r);
+}
+
+/* Segments */
+const RF=["Your partner mutes your texts for a week to \"focus on work\" but still posts daily.","They split every restaurant check to the exact cent on the third date.","Your date says their ex is crazy, then admits they still follow every account.","They remember your coffee order, your mother's name and your deadline after two weeks.","Your partner wants your phone passcode \"just in case.\"","They always apologize first, even when it's not their fault."];
+const SP=["What's the pettiest reason you've ended a date early?","What did you pretend to like to impress someone?","What's one rule you'd never admit to having in dating?","Which ex story would you never tell your mom?","What does the opposite gender get away with that annoys you most?","What's your most embarrassing text sent to the wrong person?","What would you never share the password to?","What's one thing you pretend not to care about in a relationship?"];
+let rf=0,sp=0;
+const showRF=()=>$("#rfText").textContent=RF[rf%RF.length],showSP=()=>$("#spText").textContent=SP[sp%SP.length];
+$("#rfNext").onclick=()=>{rf++;showRF()};$("#spNext").onclick=$("#spPass").onclick=()=>{sp++;showSP()};
+showRF();showSP();
+$$("[data-timer]").forEach(b=>b.onclick=()=>startTimer(b.dataset.timer));
+
+/* Presentation mode */
+let tvItems=[],tvI=0;
+function drawTV(){
+  const b=$("#tvbody");b.textContent="";const it=tvItems[tvI];
+  b.append(el("div","lab","BOTTLE OF THE SEXES · CH3"));
+  b.append(el("div","big",it.title));
+  it.parts.forEach(([l,v])=>{const p=el("p");if(l)p.append(el("span","lab",l+" "));p.append(document.createTextNode(v));b.appendChild(p)});
+  $("#tvPrev").style.visibility=$("#tvNext").style.visibility=tvItems.length>1?"visible":"hidden";
+}
+function sc2item(s){return{title:s.title,parts:[["",s.situation],["Position A:",s.a],["Position B:",s.b],["Challenge:",s.challenge]]}}
+function openTV(i,single){
+  tvItems=single?[sc2item(single)]:scenarios.map(sc2item);
+  if(!tvItems.length){toast("Nothing to show. Select or generate a scenario first");return}
+  tvI=i||0;$("#tv").classList.add("on");drawTV();$("#tvExit").focus();
+}
+function tvText(title,v){tvItems=[{title,parts:[["",v]]}];tvI=0;$("#tv").classList.add("on");drawTV()}
+const closeTV=()=>$("#tv").classList.remove("on");
+$("#tvExit").onclick=closeTV;
+$("#tvPrev").onclick=()=>{tvI=(tvI-1+tvItems.length)%tvItems.length;drawTV()};
+$("#tvNext").onclick=()=>{tvI=(tvI+1)%tvItems.length;drawTV()};
+document.addEventListener("keydown",e=>{if(!$("#tv").classList.contains("on"))return;if(e.key==="Escape")closeTV();if(e.key==="ArrowRight")$("#tvNext").click();if(e.key==="ArrowLeft")$("#tvPrev").click()});
+$("#presBtn").onclick=()=>{
+  if(sel>=0)openTV(sel);else if(scenarios.length)openTV(0);
+  else{const t=document.documentElement;if(t.requestFullscreen)t.requestFullscreen().catch(()=>{});toast("Fullscreen. Generate scenarios to show them on TV.")}
+};
+$("#rfTv").onclick=()=>tvText("Red flag or green light?",RF[rf%RF.length]);
+$("#spTv").onclick=()=>tvText("Spill the bottle",SP[sp%SP.length]);
+$("#fwTv").onclick=()=>tvText("The Final Word","Thirty seconds each on tonight's most interesting discussion.");
+
+/* Notes */
+const na=$("#notesArea");na.value=store.get("stv3_notes")||"";$("#rdNotes").textContent=na.value;
+na.oninput=()=>{store.set("stv3_notes",na.value);$("#rdNotes").textContent=na.value};
+window.addEventListener("beforeprint",()=>$("#rdNotes").textContent=na.value);
+
+renderYT();
+</script>
+</body>
+</html>
