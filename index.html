@@ -1251,6 +1251,75 @@
     .btn-tv-now img { position: relative; z-index: 1; }
 
     /* ══════════════════════════════════════
+   NETWORK PROMO (Channel 6 feature)
+══════════════════════════════════════ */
+.network-promo {
+  background: var(--dark-2);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 1.5rem 2.25rem;
+}
+.network-promo-inner { max-width: 1200px; margin: 0 auto; }
+.network-promo-head { margin-bottom: 1.5rem; }
+.network-promo-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+}
+.network-promo-title span { color: var(--gold); }
+.network-promo-copy {
+  margin-top: 0.75rem;
+  max-width: 640px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.network-channel-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 1.25rem;
+}
+.network-channel-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.network-channel-card--featured {
+  border-color: rgba(193, 39, 45, 0.6);
+  background: linear-gradient(160deg, #1a0a0c 0%, var(--dark) 70%);
+}
+.network-channel-eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--signal);
+}
+.network-channel-card--featured .network-channel-eyebrow { color: var(--red); }
+.network-channel-name {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.network-channel-card--featured .network-channel-name { font-size: 2.6rem; }
+.network-channel-desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--muted);
+  flex: 1;
+}
+.network-channel-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem; }
+.network-btn-red { background: var(--red); color: var(--white); }
+.network-btn-red:hover { background: var(--white); color: var(--black); }
+@media (max-width: 900px) {
+  .network-channel-grid { grid-template-columns: 1fr; }
+}
+    /* ══════════════════════════════════════
        PAGE TRANSITION SPLASH
     ══════════════════════════════════════ */
     #pageTransition {
@@ -1575,6 +1644,47 @@
 
 })();
 </script>
+
+    <!-- NETWORK PROMO — CHANNEL 6 -->
+<section class="network-promo" aria-labelledby="networkPromoTitle">
+  <div class="network-promo-inner">
+    <div class="network-promo-head">
+      <h2 class="network-promo-title" id="networkPromoTitle">More than radio. <span>A whole network.</span></h2>
+      <p class="network-promo-copy">There’s more to discover beyond the broadcast. Step into Channel 6: Sen Stack Gamers, catch STV programming, and explore the other destinations across the network.</p>
+    </div>
+
+    <div class="network-channel-grid">
+      <article class="network-channel-card network-channel-card--featured">
+        <div class="network-channel-eyebrow">Featured Channel · 06</div>
+        <h3 class="network-channel-name">Sen Stack Gamers</h3>
+        <p class="network-channel-desc">Explore playable worlds, digital challenges, and games from the Sen Stack universe.</p>
+        <div class="network-channel-actions">
+          <a href="https://key-to-the-city.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn network-btn-red">Enter Channel 6</a>
+          <a href="https://fairefaretravels.github.io/Alexa/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Explore Alexa</a>
+        </div>
+      </article>
+
+      <article class="network-channel-card">
+        <div class="network-channel-eyebrow">STV Network</div>
+        <h3 class="network-channel-name">STV On Air</h3>
+        <p class="network-channel-desc">Explore the station’s live broadcast, shows, featured segments, and programming.</p>
+        <div class="network-channel-actions">
+          <button type="button" class="btn btn-signal"
+                  onclick="navigate('shows', document.querySelector('.nav-tab[data-view=&quot;shows&quot;]'))">Explore Shows</button>
+        </div>
+      </article>
+
+      <article class="network-channel-card">
+        <div class="network-channel-eyebrow">Beyond Channel 6</div>
+        <h3 class="network-channel-name">More Channels</h3>
+        <p class="network-channel-desc">Browse the wider STV experience, including digital projects and additional channel destinations. Channel 6 is featured here, but it’s not the only stop on the network.</p>
+        <div class="network-channel-actions">
+          <a href="https://fairefaretravels.github.io/Alexa/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Browse the Network</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
  
     <!-- UTILITY ROW -->
 <div style="background:#0b0f14;border-bottom:1px solid #222;padding:10px 20px;
