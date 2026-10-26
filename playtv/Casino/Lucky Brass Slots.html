@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lucky Brass Slots</title>
+<style>
+:root{
+  --page:#e9e4d8; --ink:#1d1a14; --muted:#6b6455;
+  --cab:#10231f; --cab2:#1a352f; --brass:#d9a441; --brass2:#f3d58a;
+  --cherry:#c8344a; --glass:#f7f3e8; --glass-ink:#1d1a14;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--page:#0b1512;--ink:#f1ead8;--muted:#9aa89f;}
+}
+:root[data-theme="dark"]{--page:#0b1512;--ink:#f1ead8;--muted:#9aa89f;}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--page);color:var(--ink);font-family:"Trebuchet MS","Gill Sans",Verdana,sans-serif;display:flex;justify-content:center;padding:20px 14px 28px}
+main{width:100%;max-width:460px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:1.7rem;margin:0 0 4px;letter-spacing:.01em}
+.sub{margin:0 0 16px;color:var(--muted);font-size:.9rem}
+.cabinet{background:linear-gradient(160deg,var(--cab2),var(--cab));border:3px solid var(--brass);border-radius:22px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.35),inset 0 0 0 2px rgba(0,0,0,.4);color:#f1ead8}
+.bank{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px}
+.bank .lbl{font-size:.8rem;color:#9fb5ab}
+.coins{font-family:Georgia,serif;font-size:2.1rem;color:var(--brass2);font-variant-numeric:tabular-nums;line-height:1}
+.coins.pop{animation:pop .5s}
+@keyframes pop{40%{transform:scale(1.12)}}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#000;padding:10px;border-radius:14px;border:2px solid var(--brass)}
+.reel{background:var(--glass);border-radius:8px;height:104px;display:flex;align-items:center;justify-content:center;font-size:3.4rem;overflow:hidden;position:relative;color:var(--glass-ink)}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.25),transparent 25%,transparent 75%,rgba(0,0,0,.25));pointer-events:none}
+.reel.spin span{animation:blur .08s linear infinite;filter:blur(1.5px)}
+@keyframes blur{from{transform:translateY(-10px)}to{transform:translateY(10px)}}
+.reel.win{outline:3px solid var(--brass);outline-offset:-3px;animation:glow .6s 3}
+@keyframes glow{50%{background:#fff3c4}}
+.msg{min-height:2.6em;margin:14px 0 8px;text-align:center;font-size:1.05rem;display:flex;align-items:center;justify-content:center}
+.msg.win{color:var(--brass2);font-weight:bold}
+.bets{display:flex;gap:6px;margin-bottom:12px}
+.bets button{flex:1;padding:10px 0;border-radius:10px;border:2px solid #3a5a52;background:transparent;color:#f1ead8;font:inherit;cursor:pointer;font-variant-numeric:tabular-nums}
+.bets button[aria-pressed="true"]{border-color:var(--brass);background:rgba(217,164,65,.18);color:var(--brass2)}
+button:focus-visible{outline:3px solid var(--brass2);outline-offset:2px}
+.spin-btn{width:100%;padding:16px;border-radius:14px;border:0;background:var(--cherry);color:#fff;font:bold 1.25rem Georgia,serif;cursor:pointer;box-shadow:0 5px 0 #861f31}
+.spin-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #861f31}
+.spin-btn:disabled{opacity:.55;cursor:not-allowed}
+.stats{display:flex;justify-content:space-between;margin-top:10px;font-size:.8rem;color:#9fb5ab}
+.pay{margin-top:18px;border:1px solid var(--muted);border-radius:14px;padding:12px 14px}
+.pay h2{font-size:1rem;margin:0 0 8px;font-family:Georgia,serif}
+.pay ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:.9rem}
+.pay li{display:flex;justify-content:space-between}
+.pay p{margin:8px 0 0;font-size:.8rem;color:var(--muted)}
+.reset{margin-top:10px;width:100%;padding:12px;border-radius:12px;border:2px solid var(--brass);background:var(--brass);color:#2a1d00;font:bold 1rem inherit;cursor:pointer;display:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Lucky Brass Slots</h1>
+  <p class="sub">Match three to win. Press Space to spin.</p>
+  <section class="cabinet" aria-label="Slot machine">
+    <div class="bank">
+      <div><div class="lbl">Coins</div><div class="coins" id="coins" aria-live="polite">5,000</div></div>
+      <div style="text-align:right"><div class="lbl">Last win</div><div id="last" style="font-size:1.2rem;color:var(--brass2)">0</div></div>
+    </div>
+    <div class="reels" id="reels">
+      <div class="reel"><span>🍒</span></div>
+      <div class="reel"><span>🍒</span></div>
+      <div class="reel"><span>🍒</span></div>
+    </div>
+    <div class="msg" id="msg" aria-live="polite">Place your bet and spin.</div>
+    <div class="bets" id="bets" role="group" aria-label="Bet amount"></div>
+    <button class="spin-btn" id="spin">Spin</button>
+    <button class="reset" id="reset">Out of coins — start over with 5,000</button>
+    <div class="stats"><span id="spins">Spins: 0</span><span id="best">Biggest win: 0</span></div>
+  </section>
+  <section class="pay">
+    <h2>Payouts (times your bet)</h2>
+    <ul>
+      <li><span>7️⃣ 7️⃣ 7️⃣</span><b>100×</b></li>
+      <li><span>💎 💎 💎</span><b>50×</b></li>
+      <li><span>⭐ ⭐ ⭐</span><b>25×</b></li>
+      <li><span>🔔 🔔 🔔</span><b>15×</b></li>
+      <li><span>🍋 🍋 🍋</span><b>10×</b></li>
+      <li><span>🍒 🍒 🍒</span><b>5×</b></li>
+      <li><span>Any two 🍒</span><b>2×</b></li>
+      <li><span>Any one 🍒</span><b>1×</b></li>
+    </ul>
+    <p>Any two matching symbols also pay 1× your bet back.</p>
+  </section>
+</main>
+<script>
+(function(){
+  var START=5000;
+  var SYMS=[["7️⃣",100,1],["💎",50,2],["⭐",25,3],["🔔",15,5],["🍋",10,7],["🍒",5,9]];
+  var pool=[];SYMS.forEach(function(s){for(var i=0;i<s[2];i++)pool.push(s[0]);});
+  var pay={};SYMS.forEach(function(s){pay[s[0]]=s[1];});
+  var BETS=[10,50,100,500];
+  var coins=START,bet=10,spins=0,best=0,busy=false;
+  try{var saved=parseInt(localStorage.getItem("brass-coins"),10);if(saved>=0&&!isNaN(saved))coins=saved;}catch(e){}
+  var $=function(id){return document.getElementById(id);};
+  var reels=[].slice.call(document.querySelectorAll(".reel"));
+  var fmt=function(n){return n.toLocaleString("en-US");};
+  var pick=function(){return pool[Math.floor(Math.random()*pool.length)];};
+  var any=function(){return SYMS[Math.floor(Math.random()*SYMS.length)][0];};
+
+  function save(){try{localStorage.setItem("brass-coins",String(coins));}catch(e){}}
+  function render(){
+    $("coins").textContent=fmt(coins);
+    $("spins").textContent="Spins: "+spins;
+    $("best").textContent="Biggest win: "+fmt(best);
+    var bb=$("bets").children;
+    for(var i=0;i<bb.length;i++){
+      var v=BETS[i];bb[i].setAttribute("aria-pressed",v===bet);
+      bb[i].disabled=busy||v>coins;
+    }
+    var broke=coins<BETS[0];
+    $("spin").disabled=busy||coins<bet;
+    $("reset").style.display=broke&&!busy?"block":"none";
+  }
+  BETS.forEach(function(v){
+    var b=document.createElement("button");b.textContent=fmt(v);
+    b.addEventListener("click",function(){bet=v;render();});
+    $("bets").appendChild(b);
+  });
+  if(coins<bet){for(var k=BETS.length-1;k>=0;k--){if(BETS[k]<=coins){bet=BETS[k];break;}}}
+
+  function score(r){
+    var a=r[0],b=r[1],c=r[2];
+    if(a===b&&b===c)return pay[a]*bet;
+    var ch=r.filter(function(s){return s==="🍒";}).length;
+    if(ch===2)return 2*bet;
+    if(a===b||b===c||a===c)return bet;
+    if(ch===1)return bet;
+    return 0;
+  }
+
+  function spin(){
+    if(busy||coins<bet)return;
+    busy=true;coins-=bet;spins++;
+    $("msg").textContent="Spinning…";$("msg").className="msg";
+    reels.forEach(function(r){r.classList.remove("win");r.classList.add("spin");});
+    render();
+    var result=[pick(),pick(),pick()];
+    var timers=reels.map(function(r,i){
+      return setInterval(function(){r.firstChild.textContent=any();},70);
+    });
+    reels.forEach(function(r,i){
+      setTimeout(function(){
+        clearInterval(timers[i]);
+        r.classList.remove("spin");
+        r.firstChild.textContent=result[i];
+        if(i===2)finish(result);
+      },800+i*500);
+    });
+  }
+
+  function finish(r){
+    var win=score(r);
+    coins+=win;busy=false;
+    $("last").textContent=fmt(win);
+    var m=$("msg");
+    if(win>0){
+      if(win>best)best=win;
+      var jackpot=r[0]===r[1]&&r[1]===r[2];
+      m.textContent=(jackpot?"Three of a kind! ":"")+(win>bet?"You won ":"Bet returned: ")+fmt(win)+" coins";
+      m.className="msg win";
+      if(jackpot)reels.forEach(function(x){x.classList.add("win");});
+      var c=$("coins");c.classList.remove("pop");void c.offsetWidth;c.classList.add("pop");
+    }else{
+      m.textContent="No match. Try again.";
+    }
+    if(coins<bet){for(var k=BETS.length-1;k>=0;k--){if(BETS[k]<=coins){bet=BETS[k];break;}}}
+    if(coins<BETS[0])m.textContent="You’re out of coins.";
+    save();render();
+  }
+
+  $("spin").addEventListener("click",spin);
+  $("reset").addEventListener("click",function(){coins=START;bet=10;spins=0;best=0;$("last").textContent="0";$("msg").textContent="Fresh stack. Place your bet.";save();render();});
+  document.addEventListener("keydown",function(e){
+    if(e.code==="Space"&&e.target.tagName!=="BUTTON"){e.preventDefault();spin();}
+  });
+  render();
+})();
+</script>
+</body>
+</html>
