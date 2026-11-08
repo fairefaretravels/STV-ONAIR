@@ -1158,7 +1158,7 @@ footer a {
 <main>
   <div class="section-heading">
     <h2>The Music Collection</h2>
-    <p>Three releases. Your next favorite track.</p>
+    <p>Music you can ride to.</p>
   </div>
 
   <div class="shelf" id="shelf"></div>
@@ -1180,7 +1180,7 @@ footer a {
 <footer>
   <div>
     <div class="footer-brand">Radio Meltdown</div>
-    <p>Independent sound. Original music.</p>
+    <p>Independent sound. Original and AI.</p>
     <p>Questions or press:
       <a href="mailto:press@radiomeltdown.com">press@radiomeltdown.com</a>
     </p>
@@ -1276,7 +1276,7 @@ const RELEASES = [
     type:"Single",
     price:null,
     cover:"images/lonely.PNG",
-    previewUrl:"tracks/Mackinthedark%20-Rather%20Be%20Lonely.mp3",
+    previewUrl:"Ch6/music%20store/tracks/Mackinthedark%20-Rather%20Be%20Lonely.mp3",
     externalUrl:"https://payhip.com/b/UrKIR",
     description:
       "Sometimes the hardest part of love isn't falling out of it—it's discovering that the person you chose wasn't being honest with you. Rather Be Lonely is an emotional reflection on betrayal, broken trust, and the realization that being exclusive doesn't always mean being respected. When loyalty is one-sided and honesty is missing, solitude starts to feel like freedom. Because if being in love means constantly questioning where you stand, I'd rather be lonely. A song for anyone who has ever chosen their peace over a love that couldn't give them the truth.",
@@ -1302,282 +1302,99 @@ const escapeHTML = value =>
 
 $("year").textContent = new Date().getFullYear();
 
-/* =========================================
-   RELEASE DISPLAY
-========================================= */
-
-$("shelf").innerHTML = RELEASES.map((r,index) => `
-  <article class="release"
-           style="animation-delay:${index*120}ms">
-
-    <div class="cover-wrap">
-      <div class="cover ${r.cover ? "" : "noimg"}"
-           id="cv-${r.id}">
-
-        ${r.cover ? `
-          <img
-            src="${escapeHTML(r.cover)}"
-            alt="${escapeHTML(r.title)} cover art"
-            loading="lazy"
-          >
-        ` : ""}
-
-        <div class="fallback">
-          <small>RADIO MELTDOWN</small>
-          <strong>${escapeHTML(r.title)}</strong>
-          <span>${escapeHTML(r.artist)}</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="release-tag">
-      ${r.comingSoon
-        ? "Coming Soon"
-        : r.externalUrl
-        ? "New Single"
-        : "Official Release"}
-    </div>
-
-    <h3>${escapeHTML(r.title)}</h3>
-
-    <p class="meta">
-      ${escapeHTML(r.artist)} ·
-      ${escapeHTML(r.type)} ·
-      ${r.songs} ${r.songs===1?"track":"songs"}
-    </p>
-
-    <p class="release-description">
-      ${escapeHTML(r.description)}
-    </p>
-
-    ${r.tracks.length ? `
-      <ol class="tracks">
-        ${r.tracks.map(t=>`<li>${escapeHTML(t)}</li>`).join("")}
-      </ol>
-    ` : ""}
-
-    ${r.previewUrl ? `
-      <div class="preview">
-        <button class="play"
-                data-preview="${r.id}"
-                aria-label="Play ${CONFIG.previewSeconds}-second preview of ${escapeHTML(r.title)}">
-          ▶
-        </button>
-
-        <div class="preview-meta">
-          <span>${CONFIG.previewSeconds}-sec preview</span>
-          <div class="preview-bar">
-            <i id="pb-${r.id}"></i>
-          </div>
-        </div>
-      </div>
-    ` : ""}
-
-    <div class="buy">
-      ${
-        r.comingSoon
-        ? `
-          <span class="digital-label">Digital Release</span>
-          <span class="add soon" aria-disabled="true">Coming Soon</span>
-        `
-        : r.externalUrl
-        ? `
-          <span class="digital-label">Digital Download</span>
-          <a
-            class="add"
-            href="${escapeHTML(r.externalUrl)}"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Buy ${escapeHTML(r.title)} digital download"
-            style="text-decoration:none"
-          >
-            Buy Now
-            <span class="button-arrow">→</span>
-          </a>
-        `
-        : `
-          <span class="price">${money(r.price)}</span>
-          <button class="add" data-add="${r.id}">
-            Add to cart
-            <span class="button-arrow">→</span>
-          </button>
-        `
-      }
-    </div>
-
-  </article>
-`).join("");
-
-/* =========================================
-   COVER IMAGE FALLBACK
-========================================= */
-
-document.querySelectorAll(".cover img").forEach(img => {
-  img.addEventListener("error",() => {
-    img.parentElement.classList.add("noimg");
-    img.style.display="none";
-  });
-});
 
 /* =========================================
    MUSIC PREVIEW - FIRST 15 SECONDS
 ========================================= */
 
-let previewAudio=null;
-let previewBtn=null;
+let previewAudio = null;
+let previewBtn = null;
+let previewTimer = null;
 
 function stopPreview() {
-  if(previewAudio) {
+  clearTimeout(previewTimer);
+
+  if (previewAudio) {
     previewAudio.pause();
-    try {
-      previewAudio.currentTime=0;
-    } catch(e) {}
+    previewAudio.currentTime = 0;
+    previewAudio = null;
   }
 
-  if(previewBtn) {
-    previewBtn.textContent="▶";
-    const bar=$("pb-"+previewBtn.dataset.preview);
-    if(bar) bar.style.width="0%";
-  }
+  if (previewBtn) {
+    previewBtn.textContent = "▶";
 
-  previewAudio=null;
-  previewBtn=null;
+    const bar = $("pb-" + previewBtn.dataset.preview);
+    if (bar) bar.style.width = "0%";
+
+    previewBtn = null;
+  }
 }
 
-document.addEventListener("click",e => {
-  const btn=e.target.closest("[data-preview]");
-  if(!btn) return;
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".play");
+  if (!btn) return;
 
-  if(btn===previewBtn) {
+  // Clicking the currently playing track stops it
+  if (btn === previewBtn) {
     stopPreview();
     return;
   }
 
   stopPreview();
 
-  const rel=RELEASES.find(
-    r=>r.id===btn.dataset.preview
+  const rel = RELEASES.find(
+    r => r.id === btn.dataset.preview
   );
 
-  if(!rel || !rel.previewUrl) return;
+  if (!rel || !rel.previewUrl) return;
 
-  const audio=new Audio(rel.previewUrl);
+  const audio = new Audio(rel.previewUrl);
 
-  previewAudio=audio;
-  previewBtn=btn;
-  btn.textContent="❚❚";
+  previewAudio = audio;
+  previewBtn = btn;
 
-  audio.addEventListener("timeupdate",() => {
-    if(previewAudio!==audio) return;
+  btn.textContent = "Ⅱ";
 
-    const bar=$("pb-"+rel.id);
-    const t=Math.min(audio.currentTime,CONFIG.previewSeconds);
+  audio.addEventListener("timeupdate", () => {
+    if (previewAudio !== audio) return;
 
-    if(bar) {
-      bar.style.width=
-        (t/CONFIG.previewSeconds*100)+"%";
+    const bar = $("pb-" + rel.id);
+
+    if (bar) {
+      const progress = Math.min(
+        audio.currentTime / CONFIG.previewSeconds * 100,
+        100
+      );
+
+      bar.style.width = progress + "%";
     }
+  });
 
-    if(audio.currentTime>=CONFIG.previewSeconds) {
+  audio.addEventListener("ended", () => {
+    if (previewAudio === audio) stopPreview();
+  });
+
+  audio.addEventListener("error", () => {
+    if (previewAudio === audio) {
       stopPreview();
+      console.error("Audio file could not load:", rel.previewUrl);
     }
   });
 
-  audio.addEventListener("ended",() => {
-    if(previewAudio===audio) stopPreview();
-  });
+  try {
+    await audio.play();
 
-  audio.addEventListener("error",() => {
-    if(previewAudio===audio) stopPreview();
-  });
+    previewTimer = setTimeout(() => {
+      if (previewAudio === audio) stopPreview();
+    }, CONFIG.previewSeconds * 1000);
 
-  audio.play().catch(() => {
-    if(previewAudio===audio) stopPreview();
-  });
+  } catch (error) {
+    console.error("Preview playback error:", error);
+    stopPreview();
+    alert("The music preview could not be played. Check the MP3 file path.");
+  }
 });
 
-/* =========================================
-   SHOPPING CART
-========================================= */
-
-const CART_RELEASES=RELEASES.filter(
-  r=>!r.externalUrl && !r.comingSoon
-);
-
-let cart=[];
-
-try {
-  const stored=JSON.parse(
-    localStorage.getItem("rmCart")||"[]"
-  );
-
-  if(Array.isArray(stored)) {
-    cart=stored.filter((id,index) =>
-      CART_RELEASES.some(r=>r.id===id) &&
-      stored.indexOf(id)===index
-    );
-  }
-} catch(e) {
-  cart=[];
-}
-
-function saveCart() {
-  try {
-    localStorage.setItem("rmCart",JSON.stringify(cart));
-  } catch(e) {}
-}
-
-function renderCart() {
-  const items=cart
-    .map(id=>CART_RELEASES.find(r=>r.id===id))
-    .filter(Boolean);
-
-  const total=items.reduce(
-    (sum,r)=>sum+r.price,0
-  );
-
-  $("cartCount").textContent=items.length;
-  $("cartTotal").textContent=money(total);
-
-  $("checkout").disabled=items.length===0;
-  $("checkout").style.opacity=
-    items.length===0?".55":"1";
-
-  if(!items.length) {
-    $("cartList").innerHTML=`
-      <li class="empty">
-        <strong>Your next favorite awaits.</strong>
-        <span>
-          Your cart is empty.
-          Explore the collection to get started.
-        </span>
-      </li>
-    `;
-  } else {
-    $("cartList").innerHTML=items.map(r=>`
-      <li>
-        <span class="cart-item-name">
-          ${escapeHTML(r.title)}
-        </span>
-
-        <span class="cart-item-price">
-          ${money(r.price)}
-
-          <button class="remove" data-remove="${r.id}">
-            Remove
-          </button>
-        </span>
-      </li>
-    `).join("");
-  }
-}
-
-function bumpCart() {
-  const badge=$("cartCount");
-  badge.classList.remove("bump");
-  void badge.offsetWidth;
-  badge.classList.add("bump");
-}
 
 /* =========================================
    CART DRAWER
