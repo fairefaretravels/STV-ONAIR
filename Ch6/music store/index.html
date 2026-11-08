@@ -304,7 +304,8 @@ const CONFIG = {
   alertEndpoint: "",
   alertEmail: "press@radiomeltdown.com",
   checkoutUrl: "",
-  previewSeconds: 15
+  previewSeconds: 15,
+  previewStart: 128
 };
 
 /* ===== MUSIC COLLECTION =====
@@ -374,7 +375,7 @@ function releaseHTML(r, i) {
     <div class="lcd" id="lcd-${r.id}">
       <button class="play" data-preview="${r.id}" aria-label="Play ${CONFIG.previewSeconds}-second preview of ${escapeHTML(r.title)}">▶</button>
       <div class="lcd-body">
-        <div class="lcd-top"><span>${CONFIG.previewSeconds}-sec preview</span><span id="tm-${r.id}">0:00 / ${clock(CONFIG.previewSeconds)}</span></div>
+        <div class="lcd-top"><span>${CONFIG.previewSeconds}-sec preview</span><span id="tm-${r.id}">0:128@@9 / ${clock(CONFIG.previewSeconds)}</span></div>
         <div class="bar-track"><i id="pb-${r.id}"></i></div>
       </div>
       <div class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></div>
@@ -446,26 +447,23 @@ document.addEventListener("click", async e => {
   $("lcd-" + id).classList.add("playing");
 
   audio.addEventListener("timeupdate", () => {
-    if (previewAudio !== audio) return;
-    const t = Math.min(audio.currentTime, CONFIG.previewSeconds);
-    $("pb-" + id).style.width = (t / CONFIG.previewSeconds * 100) + "%";
-    $("tm-" + id).textContent = clock(t) + " / " + clock(CONFIG.previewSeconds);
-    if (audio.currentTime >= CONFIG.previewSeconds) stopPreview();
-  });
-  audio.addEventListener("ended", () => { if (previewAudio === audio) stopPreview(); });
-  audio.addEventListener("error", () => {
-    if (previewAudio === audio) {
-      stopPreview();
-      console.error("Preview file could not load:", rel.previewUrl);
-      $("tm-" + id).textContent = "Preview unavailable";
-    }
-  });
-  try {
-    await audio.play();
-  } catch (err) {
-    console.error("Preview playback error:", err);
-    if (previewAudio === audio) stopPreview();
-  }
+  if (previewAudio !== audio) return;
+
+  const elapsed = audio.currentTime - CONFIG.previewStart;
+
+  const t = Math.max(0, Math.min(elapsed, CONFIG.previewSeconds));
+
+  $("pb-" + id).style.width =
+    (t / CONFIG.previewSeconds * 100) + "%";
+
+  $("tm-" + id).textContent =
+    clock(t) + " / " + clock(CONFIG.previewSeconds);
+
+  if (elapsed >= CONFIG.previewSeconds) stopPreview();
+});
+
+audio.addEventListener("ended", () => {
+  if (previewAudio === audio) stopPreview();
 });
 
 /* ===== CART ===== */
@@ -606,22 +604,4 @@ async function countVisit() {
 
 async function alertPress(total) {
   if (!CONFIG.alertEndpoint || session.get("rmAlerted")) return;
-  try {
-    const res = await fetch(CONFIG.alertEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify({
-        email: CONFIG.alertEmail,
-        subject: "Radio Meltdown music store visit",
-        message: `A visitor opened ${location.href}\nTime: ${new Date().toString()}\n` +
-                 `Referrer: ${document.referrer || "Direct"}\nVisitor #${total ?? "unknown"}`
-      })
-    });
-    if (res.ok) session.set("rmAlerted", "1");
-  } catch (e) { console.warn("Visitor alert failed:", e); }
-}
-
-countVisit().then(r => { if (r.firstVisit) alertPress(r.total); });
-</script>
-</body>
-</html>
+  o
