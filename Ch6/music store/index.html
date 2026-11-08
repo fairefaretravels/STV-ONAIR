@@ -1,0 +1,604 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17191d">
+
+  <meta name="description" content="Discover original music from Radio Meltdown. Listen to Rather Be Lonely, with The Mixtape EP and Love and Company by Brass Earthling coming soon.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Radio Meltdown">
+  <meta property="og:title" content="Radio Meltdown | The Music Store">
+  <meta property="og:description" content="Original music. Real stories. No apologies. Discover the latest releases from Radio Meltdown.">
+
+  <title>Radio Meltdown | The Music Store</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --background: #101114;
+      --surface: #1b1d21;
+      --surface-light: #25282d;
+      --red: #d92732;
+      --red-light: #ff414b;
+      --white: #f5f5f5;
+      --muted: #a4a7ad;
+      --chrome: #c6c9ce;
+      --border: rgba(255,255,255,.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--background);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .topbar {
+      padding: 16px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: #151619;
+    }
+
+    .brand {
+      font-family: 'Oswald', sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .brand span {
+      color: var(--red);
+    }
+
+    .nav {
+      display: flex;
+      gap: 24px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav a:hover {
+      color: var(--red-light);
+    }
+
+    .hero {
+      min-height: 390px;
+      padding: 80px 7%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background:
+        linear-gradient(90deg, rgba(10,11,13,.98), rgba(10,11,13,.65)),
+        radial-gradient(circle at 85% 40%, #642127, transparent 48%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      color: var(--red-light);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(48px, 9vw, 88px);
+      line-height: 1;
+      text-transform: uppercase;
+      max-width: 800px;
+    }
+
+    .hero h1 span {
+      color: var(--red);
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin-top: 22px;
+      max-width: 560px;
+      font-size: 15px;
+    }
+
+    .hero-button {
+      display: inline-block;
+      width: fit-content;
+      margin-top: 28px;
+      padding: 13px 25px;
+      background: var(--red);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: .2s;
+    }
+
+    .hero-button:hover,
+    .buy-button:hover {
+      background: var(--red-light);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      padding: 65px 7%;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 36px;
+      text-transform: uppercase;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .release-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .release-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: .25s;
+    }
+
+    .release-card:hover {
+      border-color: rgba(217,39,50,.7);
+      transform: translateY(-4px);
+    }
+
+    .cover {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(145deg, #303238, #111216);
+      overflow: hidden;
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cover-placeholder {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100%;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .cover-placeholder strong {
+      font-size: 35px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .cover-placeholder span {
+      margin-top: 12px;
+      color: var(--red-light);
+      font-size: 11px;
+      letter-spacing: 3px;
+    }
+
+    .release-info {
+      padding: 22px;
+    }
+
+    .release-type {
+      color: var(--red-light);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .release-info h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 25px;
+      margin: 8px 0 3px;
+    }
+
+    .artist {
+      color: var(--chrome);
+      font-size: 12px;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 15px;
+      min-height: 90px;
+    }
+
+    .track-count {
+      color: var(--muted);
+      font-size: 11px;
+      margin: 15px 0;
+    }
+
+    .buy-button {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      background: var(--red);
+      color: white;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .coming-soon {
+      background: #34363b;
+      color: #c4c6ca;
+      cursor: default;
+    }
+
+    .coming-soon:hover {
+      background: #34363b;
+      transform: none;
+    }
+
+    .featured {
+      border-color: rgba(217,39,50,.65);
+    }
+
+    .featured-label {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 1;
+      background: var(--red);
+      padding: 6px 10px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .statement {
+      padding: 55px 7%;
+      text-align: center;
+      background: #191b1f;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .statement h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(27px, 5vw, 43px);
+      text-transform: uppercase;
+    }
+
+    .statement h2 span {
+      color: var(--red);
+    }
+
+    .statement p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    footer {
+      padding: 35px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    footer strong {
+      font-family: 'Oswald', sans-serif;
+      color: white;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+
+    footer strong span {
+      color: var(--red);
+    }
+
+    @media(max-width: 800px) {
+      .release-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media(max-width: 560px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .nav {
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .hero {
+        min-height: 340px;
+        padding: 65px 7%;
+      }
+
+      .section {
+        padding: 45px 5%;
+      }
+
+      .release-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .description {
+        min-height: auto;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <a href="#" class="brand">RADIO <span>MELTDOWN</span></a>
+
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#releases">MUSIC</a>
+      <a href="https://radiomeltdown.com/">RADIO</a>
+      <a href="https://radiomeltdown.online/">NETWORK</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="eyebrow">THE OFFICIAL MUSIC STORE</div>
+
+      <h1>TURN IT UP.<br><span>FEEL SOMETHING.</span></h1>
+
+      <p>
+        Welcome to Radio Meltdown. Discover original music,
+        independent artists, and stories that deserve to be heard.
+        This is more than a sound. It's a movement.
+      </p>
+
+      <a href="#releases" class="hero-button">Explore Releases</a>
+    </section>
+
+    <section class="section" id="releases">
+
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">THE COLLECTION</div>
+          <h2>Latest Releases</h2>
+        </div>
+
+        <p>Original music from Radio Meltdown and its artists.</p>
+      </div>
+
+      <div class="release-grid" id="releaseGrid">
+
+        <!-- RATHER BE LONELY -->
+        <article class="release-card featured">
+
+          <div class="cover">
+            <div class="featured-label">NOW AVAILABLE</div>
+
+            <!-- Replace with the final cover image filename -->
+            <img
+              src="rather-be-lonely.jpg"
+              alt="Rather Be Lonely single cover"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            >
+
+            <div class="cover-placeholder" style="display:none">
+              <strong>Rather Be Lonely</strong>
+              <span>RADIO MELTDOWN</span>
+            </div>
+          </div>
+
+          <div class="release-info">
+            <div class="release-type">Single · 1 Track</div>
+
+            <h3>Rather Be Lonely</h3>
+
+            <div class="artist">Radio Meltdown</div>
+
+            <p class="description">
+              Sometimes the hardest part of love isn't falling out of
+              it—it's discovering that the person you chose wasn't
+              being honest with you. Rather Be Lonely is an emotional
+              reflection on betrayal, broken trust, and choosing your
+              peace over a love that cannot give you the truth.
+              Because if being in love means constantly questioning
+              where you stand, I'd rather be lonely.
+            </p>
+
+            <div class="track-count">Digital Single · 1 Track</div>
+
+            <a
+              class="buy-button"
+              href="https://payhip.com/b/UrKIR"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Buy Digital Download
+            </a>
+          </div>
+        </article>
+
+        <!-- THE MIXTAPE EP -->
+        <article class="release-card">
+
+          <div class="cover">
+            <div class="cover-placeholder">
+              <strong>The Mixtape EP</strong>
+              <span>RADIO MELTDOWN</span>
+            </div>
+          </div>
+
+          <div class="release-info">
+            <div class="release-type">EP</div>
+
+            <h3>The Mixtape EP</h3>
+
+            <div class="artist">Radio Meltdown</div>
+
+            <p class="description">
+              A collection of sounds and stories from Radio Meltdown.
+              More details and release information coming soon.
+            </p>
+
+            <div class="track-count">Release information coming soon</div>
+
+            <button class="buy-button coming-soon" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </article>
+
+        <!-- LOVE AND COMPANY -->
+        <article class="release-card">
+
+          <div class="cover">
+            <div class="cover-placeholder">
+              <strong>Love &amp; Company</strong>
+              <span>BRASS EARTHLING</span>
+            </div>
+          </div>
+
+          <div class="release-info">
+            <div class="release-type">Upcoming Release</div>
+
+            <h3>Love and Company</h3>
+
+            <div class="artist">Brass Earthling</div>
+
+            <p class="description">
+              An upcoming release from Brass Earthling.
+              Stay connected for music, updates, and release details.
+            </p>
+
+            <div class="track-count">Release information coming soon</div>
+
+            <button class="buy-button coming-soon" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="statement">
+      <h2>INDEPENDENT MUSIC. <span>UNFILTERED SOUND.</span></h2>
+
+      <p>
+        Radio Meltdown is where music, creativity, and independent
+        voices come together.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <strong>RADIO <span>MELTDOWN</span></strong>
+
+    <p>© <span id="year"></span> Radio Meltdown. All rights reserved.</p>
+
+    <a href="https://radiomeltdown.com/">Visit RadioMeltdown.com</a>
+  </footer>
+
+  <script>
+    // Automatically update copyright year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Release information
+    const releases = [
+      {
+        title: "Rather Be Lonely",
+        artist: "Radio Meltdown",
+        type: "Single",
+        tracks: 1,
+        status: "Available",
+        purchase: "https://payhip.com/b/UrKIR"
+      },
+      {
+        title: "The Mixtape EP",
+        artist: "Radio Meltdown",
+        type: "EP",
+        status: "Coming Soon"
+      },
+      {
+        title: "Love and Company",
+        artist: "Brass Earthling",
+        type: "Upcoming Release",
+        status: "Coming Soon"
+      }
+    ];
+
+    console.log("Radio Meltdown Music Store loaded.");
+    console.table(releases);
+  </script>
+
+</body>
+</html>
