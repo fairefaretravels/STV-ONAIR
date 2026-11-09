@@ -297,7 +297,12 @@ footer a{text-decoration-color:var(--red);text-underline-offset:4px}
   <p class="drawer-note">Your music. Your collection.</p>
 </aside>
 
+
 <script>
+/* =========================================
+   RADIO MELTDOWN MUSIC STORE
+========================================= */
+
 /* ===== CONFIG ===== */
 const CONFIG = {
   firebaseDbUrl: "",
@@ -308,9 +313,7 @@ const CONFIG = {
   previewStart: 128
 };
 
-/* ===== MUSIC COLLECTION =====
-   Paths are relative to this HTML file.
-   Expected folder layout:  images/  and  tracks/  next to index.html */
+/* ===== MUSIC COLLECTION ===== */
 const RELEASES = [
   {
     id: "rather-be-lonely",
@@ -352,256 +355,610 @@ const RELEASES = [
 
 /* ===== HELPERS ===== */
 const $ = id => document.getElementById(id);
+
 const money = n => "$" + Number(n).toFixed(2);
+
 const escapeHTML = v => String(v).replace(/[&<>"']/g, c => ({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;"
 })[c]);
-const clock = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
-$("year").textContent = new Date().getFullYear();
 
-/* ===== RENDER RELEASES ===== */
-function releaseHTML(r, i) {
-  const buy = r.comingSoon
-    ? `<span class="digital-label">Digital Release</span>
-       <span class="add soon" aria-disabled="true">Coming Soon</span>`
-    : r.externalUrl
-    ? `<span class="digital-label">Digital Download</span>
-       <a class="add" href="${escapeHTML(r.externalUrl)}" target="_blank" rel="noopener noreferrer"
-          aria-label="Buy ${escapeHTML(r.title)} digital download">Buy Now <span class="arrow">→</span></a>`
-    : `<span class="price">${money(r.price)}</span>
-       <button class="add" data-add="${r.id}">Add to cart <span class="arrow">→</span></button>`;
+const clock = s =>
+  Math.floor(s / 60) + ":" +
+  String(Math.floor(s % 60)).padStart(2, "0");
 
-  const preview = r.previewUrl ? `
-    <div class="lcd" id="lcd-${r.id}">
-      <button class="play" data-preview="${r.id}" aria-label="Play ${CONFIG.previewSeconds}-second preview of ${escapeHTML(r.title)}">▶</button>
-      <div class="lcd-body">
-        <div class="lcd-top"><span>${CONFIG.previewSeconds}-sec preview</span><span id="tm-${r.id}">0:128@@9 / ${clock(CONFIG.previewSeconds)}</span></div>
-        <div class="bar-track"><i id="pb-${r.id}"></i></div>
+/* ===== REQUIRED HTML ELEMENTS ===== */
+const requiredElements = [
+  "year", "shelf", "cartCount", "cartTotal",
+  "checkout", "cartList", "drawer", "backdrop",
+  "openCart", "closeCart", "cartStatus", "visitCount"
+];
+
+const missingElements = requiredElements.filter(id => !$(id));
+
+if (missingElements.length) {
+  console.error("Missing HTML elements:", missingElements);
+} else {
+
+  $("year").textContent = new Date().getFullYear();
+
+  /* =========================================
+     RENDER RELEASES
+  ========================================= */
+
+  function releaseHTML(r, i) {
+    const buy = r.comingSoon
+      ? `
+        <span class="digital-label">Digital Release</span>
+        <span class="add soon" aria-disabled="true">Coming Soon</span>
+      `
+      : r.externalUrl
+      ? `
+        <span class="digital-label">Digital Download</span>
+        <a class="add"
+           href="${escapeHTML(r.externalUrl)}"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Buy ${escapeHTML(r.title)} digital download">
+          Buy Now <span class="arrow">→</span>
+        </a>
+      `
+      : `
+        <span class="price">${money(r.price)}</span>
+        <button class="add" data-add="${r.id}">
+          Add to cart <span class="arrow">→</span>
+        </button>
+      `;
+
+    const preview = r.previewUrl ? `
+      <div class="lcd" id="lcd-${r.id}">
+        <button class="play"
+                data-preview="${r.id}"
+                aria-label="Play ${CONFIG.previewSeconds}-second preview">
+          ▶
+        </button>
+
+        <div class="lcd-body">
+          <div class="lcd-top">
+            <span>${CONFIG.previewSeconds}-sec preview</span>
+            <span id="tm-${r.id}">
+              0:00 / ${clock(CONFIG.previewSeconds)}
+            </span>
+          </div>
+
+          <div class="bar-track">
+            <i id="pb-${r.id}"></i>
+          </div>
+        </div>
+
+        <div class="eq" aria-hidden="true">
+          <b></b><b></b><b></b><b></b><b></b>
+        </div>
       </div>
-      <div class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></div>
-    </div>` : "";
+    ` : "";
 
-  return `
-  <article class="release ${r.comingSoon ? "" : "live"}" style="animation-delay:${i * 120}ms">
-    <div class="no">NO. 0${i + 1}</div>
-    <div class="cover-wrap">
-      <div class="cover ${r.cover ? "" : "noimg"} ${r.comingSoon ? "soon-cover" : ""}">
-        ${r.cover ? `<img src="${escapeHTML(r.cover)}" alt="${escapeHTML(r.title)} cover art" loading="lazy">` : ""}
-        <div class="fallback"><small>RADIO MELTDOWN</small><strong>${escapeHTML(r.title)}</strong><small>${escapeHTML(r.artist)}</small></div>
-        ${r.comingSoon ? `<div class="stamp">Coming Soon</div>` : ""}
-      </div>
-    </div>
-    <div class="info">
-      <div class="tag ${r.comingSoon ? "amber" : ""}">${r.comingSoon ? "Coming Soon" : "New Single · Out Now"}</div>
-      <h3>${escapeHTML(r.title)}</h3>
-      <p class="meta">${escapeHTML(r.artist)} · ${escapeHTML(r.type)} · ${r.songs} ${r.songs === 1 ? "track" : "songs"}</p>
-      <p class="desc">${escapeHTML(r.description)}</p>
-      ${r.tracks.length ? `<ol class="tracks">${r.tracks.map(t => `<li>${escapeHTML(t)}</li>`).join("")}</ol>` : ""}
-      ${preview}
-      <div class="buy">${buy}</div>
-    </div>
-  </article>`;
-}
-$("shelf").innerHTML = RELEASES.map(releaseHTML).join("");
+    return `
+      <article class="release ${r.comingSoon ? "" : "live"}"
+               style="animation-delay:${i * 120}ms">
 
-/* cover image fallback */
-document.querySelectorAll(".cover img").forEach(img => {
-  img.addEventListener("error", () => {
-    img.parentElement.classList.add("noimg");
-    img.style.display = "none";
+        <div class="no">NO. 0${i + 1}</div>
+
+        <div class="cover-wrap">
+          <div class="cover ${r.cover ? "" : "noimg"} ${r.comingSoon ? "soon-cover" : ""}">
+
+            ${r.cover ? `
+              <img src="${escapeHTML(r.cover)}"
+                   alt="${escapeHTML(r.title)} cover art"
+                   loading="lazy">
+            ` : ""}
+
+            <div class="fallback">
+              <small>RADIO MELTDOWN</small>
+              <strong>${escapeHTML(r.title)}</strong>
+              <small>${escapeHTML(r.artist)}</small>
+            </div>
+
+            ${r.comingSoon ? `
+              <div class="stamp">Coming Soon</div>
+            ` : ""}
+          </div>
+        </div>
+
+        <div class="info">
+
+          <div class="tag ${r.comingSoon ? "amber" : ""}">
+            ${r.comingSoon ? "Coming Soon" : "New Single · Out Now"}
+          </div>
+
+          <h3>${escapeHTML(r.title)}</h3>
+
+          <p class="meta">
+            ${escapeHTML(r.artist)} ·
+            ${escapeHTML(r.type)} ·
+            ${r.songs} ${r.songs === 1 ? "track" : "songs"}
+          </p>
+
+          <p class="desc">${escapeHTML(r.description)}</p>
+
+          ${r.tracks.length ? `
+            <ol class="tracks">
+              ${r.tracks.map(t => `<li>${escapeHTML(t)}</li>`).join("")}
+            </ol>
+          ` : ""}
+
+          ${preview}
+
+          <div class="buy">${buy}</div>
+
+        </div>
+      </article>
+    `;
+  }
+
+  $("shelf").innerHTML = RELEASES.map(releaseHTML).join("");
+
+  /* ===== COVER IMAGE FALLBACK ===== */
+
+  document.querySelectorAll(".cover img").forEach(img => {
+    img.addEventListener("error", () => {
+      img.parentElement.classList.add("noimg");
+      img.style.display = "none";
+    });
   });
-});
 
-/* ===== 15-SECOND PREVIEW ===== */
-let previewAudio = null, previewId = null;
+  /* =========================================
+     15-SECOND AUDIO PREVIEW
+     STARTS AT 2:08
+  ========================================= */
 
-function stopPreview() {
-  if (previewAudio) {
-    previewAudio.pause();
-    previewAudio = null;
-  }
-  if (previewId) {
-    const btn = document.querySelector(`[data-preview="${previewId}"]`);
-    const lcd = $("lcd-" + previewId);
-    if (btn) btn.textContent = "▶";
-    if (lcd) lcd.classList.remove("playing");
-    if ($("pb-" + previewId)) $("pb-" + previewId).style.width = "0%";
-    if ($("tm-" + previewId)) $("tm-" + previewId).textContent = "0:00 / " + clock(CONFIG.previewSeconds);
-    previewId = null;
-  }
-}
+  let previewAudio = null;
+  let previewId = null;
 
-document.addEventListener("click", async e => {
-  const btn = e.target.closest("[data-preview]");
-  if (!btn) return;
-  const id = btn.dataset.preview;
-  if (id === previewId) { stopPreview(); return; }
-  stopPreview();
-  const rel = RELEASES.find(r => r.id === id);
-  if (!rel || !rel.previewUrl) return;
-
-  const audio = new Audio(rel.previewUrl);
-  previewAudio = audio;
-  previewId = id;
-  btn.textContent = "❚❚";
-  $("lcd-" + id).classList.add("playing");
-
-  audio.addEventListener("timeupdate", () => {
-  if (previewAudio !== audio) return;
-
-  const elapsed = audio.currentTime - CONFIG.previewStart;
-
-  const t = Math.max(0, Math.min(elapsed, CONFIG.previewSeconds));
-
-  $("pb-" + id).style.width =
-    (t / CONFIG.previewSeconds * 100) + "%";
-
-  $("tm-" + id).textContent =
-    clock(t) + " / " + clock(CONFIG.previewSeconds);
-
-  if (elapsed >= CONFIG.previewSeconds) stopPreview();
-});
-
-audio.addEventListener("ended", () => {
-  if (previewAudio === audio) stopPreview();
-});
-
-/* ===== CART ===== */
-const CART_RELEASES = RELEASES.filter(r => !r.externalUrl && !r.comingSoon);
-let cart = [];
-try {
-  const stored = JSON.parse(localStorage.getItem("rmCart") || "[]");
-  if (Array.isArray(stored)) {
-    cart = stored.filter((id, i) => CART_RELEASES.some(r => r.id === id) && stored.indexOf(id) === i);
-  }
-} catch (e) { cart = []; }
-
-function saveCart() {
-  try { localStorage.setItem("rmCart", JSON.stringify(cart)); } catch (e) {}
-}
-function cartItems() {
-  return cart.map(id => CART_RELEASES.find(r => r.id === id)).filter(Boolean);
-}
-function renderCart() {
-  const items = cartItems();
-  const total = items.reduce((s, r) => s + r.price, 0);
-  $("cartCount").textContent = items.length;
-  $("cartTotal").textContent = money(total);
-  $("checkout").disabled = items.length === 0;
-  $("cartList").innerHTML = items.length
-    ? items.map(r => `
-      <li>
-        <span class="cart-item-name">${escapeHTML(r.title)}</span>
-        <span class="cart-item-price">${money(r.price)}
-          <button class="remove" data-remove="${r.id}">Remove</button>
-        </span>
-      </li>`).join("")
-    : `<li class="empty"><strong>Your next favorite awaits.</strong>
-         <span>Your cart is empty. Explore the collection to get started.</span></li>`;
-}
-function bumpCart() {
-  const b = $("cartCount");
-  b.classList.remove("bump");
-  void b.offsetWidth;
-  b.classList.add("bump");
-}
-
-function openCart() {
-  $("drawer").classList.add("open");
-  $("backdrop").classList.add("open");
-  $("drawer").setAttribute("aria-hidden", "false");
-  $("drawer").removeAttribute("inert");
-  $("openCart").setAttribute("aria-expanded", "true");
-  document.body.style.overflow = "hidden";
-  $("closeCart").focus();
-}
-function closeCart() {
-  $("drawer").classList.remove("open");
-  $("backdrop").classList.remove("open");
-  $("drawer").setAttribute("aria-hidden", "true");
-  $("drawer").setAttribute("inert", "");
-  $("openCart").setAttribute("aria-expanded", "false");
-  document.body.style.overflow = "";
-  $("openCart").focus();
-}
-$("openCart").addEventListener("click", openCart);
-$("closeCart").addEventListener("click", closeCart);
-$("backdrop").addEventListener("click", closeCart);
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && $("drawer").classList.contains("open")) closeCart();
-});
-
-document.addEventListener("click", e => {
-  const add = e.target.closest("[data-add]");
-  const rem = e.target.closest("[data-remove]");
-  if (add) {
-    const id = add.dataset.add;
-    if (!CART_RELEASES.some(r => r.id === id)) return;
-    if (!cart.includes(id)) {
-      cart.push(id);
-      saveCart(); renderCart(); bumpCart();
-      $("cartStatus").textContent = "Added to your collection.";
-    } else {
-      $("cartStatus").textContent = "This release is already in your cart.";
+  function stopPreview() {
+    if (previewAudio) {
+      const oldAudio = previewAudio;
+      previewAudio = null;
+      oldAudio.pause();
     }
-    openCart();
-  }
-  if (rem) {
-    cart = cart.filter(id => id !== rem.dataset.remove);
-    saveCart(); renderCart();
-    $("cartStatus").textContent = "Item removed.";
-  }
-});
 
-$("checkout").addEventListener("click", () => {
-  const items = cartItems();
-  if (!items.length) return;
-  if (CONFIG.checkoutUrl) { window.location.href = CONFIG.checkoutUrl; return; }
-  const total = items.reduce((s, r) => s + r.price, 0);
-  const body = items.map(r => `${r.title} - ${money(r.price)}`).join("\n") +
-    `\n\nTotal: ${money(total)}\n\nPlease send payment instructions.`;
-  window.location.href = `mailto:${CONFIG.alertEmail}` +
-    `?subject=${encodeURIComponent("Radio Meltdown Music Order")}` +
-    `&body=${encodeURIComponent(body)}`;
-});
-renderCart();
+    if (previewId) {
+      const id = previewId;
 
-/* ===== VISITOR COUNTER ===== */
-const session = {
-  get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
-  set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
-};
+      const btn = document.querySelector(
+        `[data-preview="${id}"]`
+      );
 
-async function countVisit() {
-  const firstVisit = !session.get("rmCounted");
-  let total = null;
-  if (CONFIG.firebaseDbUrl) {
-    const url = CONFIG.firebaseDbUrl.replace(/\/$/, "") + "/musicStoreVisits.json";
-    try {
-      const read = await fetch(url);
-      if (!read.ok) throw new Error("Counter read failed");
-      total = Number(await read.json() || 0);
-      if (firstVisit) {
-        total++;
-        const write = await fetch(url, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(total)
-        });
-        if (!write.ok) throw new Error("Counter update failed");
+      const lcd = $("lcd-" + id);
+
+      if (btn) btn.textContent = "▶";
+      if (lcd) lcd.classList.remove("playing");
+
+      if ($("pb-" + id)) {
+        $("pb-" + id).style.width = "0%";
       }
-    } catch (e) { console.warn("Visitor counter unavailable:", e); total = null; }
-  } else {
+
+      if ($("tm-" + id)) {
+        $("tm-" + id).textContent =
+          "0:00 / " + clock(CONFIG.previewSeconds);
+      }
+
+      previewId = null;
+    }
+  }
+
+  document.addEventListener("click", async e => {
+    const btn = e.target.closest("[data-preview]");
+    if (!btn) return;
+
+    const id = btn.dataset.preview;
+
+    if (id === previewId) {
+      stopPreview();
+      return;
+    }
+
+    stopPreview();
+
+    const rel = RELEASES.find(r => r.id === id);
+    if (!rel || !rel.previewUrl) return;
+
+    const audio = new Audio(rel.previewUrl);
+    audio.preload = "auto";
+
+    previewAudio = audio;
+    previewId = id;
+
+    btn.textContent = "❚❚";
+    $("lcd-" + id).classList.add("playing");
+
+    let started = false;
+
+    audio.addEventListener("loadedmetadata", () => {
+      if (previewAudio !== audio) return;
+
+      if (audio.duration <= CONFIG.previewStart) {
+        console.error("Preview start exceeds track duration.");
+        stopPreview();
+        return;
+      }
+
+      audio.currentTime = CONFIG.previewStart;
+    });
+
+    audio.addEventListener("seeked", async () => {
+      if (previewAudio !== audio || started) return;
+
+      started = true;
+
+      try {
+        await audio.play();
+      } catch (error) {
+        console.error("Audio playback failed:", error);
+        stopPreview();
+      }
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      if (previewAudio !== audio) return;
+
+      const elapsed =
+        audio.currentTime - CONFIG.previewStart;
+
+      const progress = Math.max(
+        0,
+        Math.min(elapsed, CONFIG.previewSeconds)
+      );
+
+      $("pb-" + id).style.width =
+        (progress / CONFIG.previewSeconds * 100) + "%";
+
+      $("tm-" + id).textContent =
+        clock(progress) + " / " + clock(CONFIG.previewSeconds);
+
+      if (elapsed >= CONFIG.previewSeconds) {
+        stopPreview();
+      }
+    });
+
+    audio.addEventListener("ended", () => {
+      if (previewAudio === audio) stopPreview();
+    });
+
+    audio.addEventListener("error", () => {
+      if (previewAudio === audio) {
+        console.error("Unable to load audio:", rel.previewUrl);
+        stopPreview();
+      }
+    });
+
+    /* Begin loading audio */
+    audio.load();
+
+  });
+
+  /* =========================================
+     SHOPPING CART
+  ========================================= */
+
+  const CART_RELEASES = RELEASES.filter(
+    r => !r.externalUrl && !r.comingSoon
+  );
+
+  let cart = [];
+
+  try {
+    const stored = JSON.parse(
+      localStorage.getItem("rmCart") || "[]"
+    );
+
+    if (Array.isArray(stored)) {
+      cart = stored.filter((id, i) =>
+        CART_RELEASES.some(r => r.id === id) &&
+        stored.indexOf(id) === i
+      );
+    }
+  } catch (e) {
+    cart = [];
+  }
+
+  function saveCart() {
     try {
-      total = Number(localStorage.getItem("rmLocalVisits") || 0);
-      if (firstVisit) { total++; localStorage.setItem("rmLocalVisits", String(total)); }
+      localStorage.setItem("rmCart", JSON.stringify(cart));
     } catch (e) {}
   }
-  if (firstVisit) session.set("rmCounted", "1");
-  if (total !== null && Number.isFinite(total)) $("visitCount").textContent = total.toLocaleString();
-  return { total, firstVisit };
-}
 
-async function alertPress(total) {
-  if (!CONFIG.alertEndpoint || session.get("rmAlerted")) return;
-  o
+  function cartItems() {
+    return cart
+      .map(id => CART_RELEASES.find(r => r.id === id))
+      .filter(Boolean);
+  }
+
+  function renderCart() {
+    const items = cartItems();
+
+    const total = items.reduce(
+      (sum, r) => sum + r.price,
+      0
+    );
+
+    $("cartCount").textContent = items.length;
+    $("cartTotal").textContent = money(total);
+    $("checkout").disabled = items.length === 0;
+
+    $("cartList").innerHTML = items.length
+      ? items.map(r => `
+          <li>
+            <span class="cart-item-name">
+              ${escapeHTML(r.title)}
+            </span>
+
+            <span class="cart-item-price">
+              ${money(r.price)}
+
+              <button class="remove"
+                      data-remove="${r.id}">
+                Remove
+              </button>
+            </span>
+          </li>
+        `).join("")
+      : `
+          <li class="empty">
+            <strong>Your next favorite awaits.</strong>
+            <span>Your cart is empty. Explore the collection to get started.</span>
+          </li>
+        `;
+  }
+
+  function bumpCart() {
+    const b = $("cartCount");
+
+    b.classList.remove("bump");
+    void b.offsetWidth;
+    b.classList.add("bump");
+  }
+
+  function openCart() {
+    $("drawer").classList.add("open");
+    $("backdrop").classList.add("open");
+
+    $("drawer").setAttribute("aria-hidden", "false");
+    $("drawer").removeAttribute("inert");
+
+    $("openCart").setAttribute("aria-expanded", "true");
+
+    document.body.style.overflow = "hidden";
+    $("closeCart").focus();
+  }
+
+  function closeCart() {
+    $("drawer").classList.remove("open");
+    $("backdrop").classList.remove("open");
+
+    $("drawer").setAttribute("aria-hidden", "true");
+    $("drawer").setAttribute("inert", "");
+
+    $("openCart").setAttribute("aria-expanded", "false");
+
+    document.body.style.overflow = "";
+
+    $("openCart").focus();
+  }
+
+  $("openCart").addEventListener("click", openCart);
+  $("closeCart").addEventListener("click", closeCart);
+  $("backdrop").addEventListener("click", closeCart);
+
+  document.addEventListener("keydown", e => {
+    if (
+      e.key === "Escape" &&
+      $("drawer").classList.contains("open")
+    ) {
+      closeCart();
+    }
+  });
+
+  document.addEventListener("click", e => {
+    const add = e.target.closest("[data-add]");
+    const rem = e.target.closest("[data-remove]");
+
+    if (add) {
+      const id = add.dataset.add;
+
+      if (!CART_RELEASES.some(r => r.id === id)) return;
+
+      if (!cart.includes(id)) {
+        cart.push(id);
+
+        saveCart();
+        renderCart();
+        bumpCart();
+
+        $("cartStatus").textContent =
+          "Added to your collection.";
+      } else {
+        $("cartStatus").textContent =
+          "This release is already in your cart.";
+      }
+
+      openCart();
+    }
+
+    if (rem) {
+      cart = cart.filter(
+        id => id !== rem.dataset.remove
+      );
+
+      saveCart();
+      renderCart();
+
+      $("cartStatus").textContent = "Item removed.";
+    }
+  });
+
+  /* ===== CHECKOUT ===== */
+
+  $("checkout").addEventListener("click", () => {
+    const items = cartItems();
+
+    if (!items.length) return;
+
+    if (CONFIG.checkoutUrl) {
+      window.location.href = CONFIG.checkoutUrl;
+      return;
+    }
+
+    const total = items.reduce(
+      (sum, r) => sum + r.price,
+      0
+    );
+
+    const body =
+      items.map(r => `${r.title} - ${money(r.price)}`).join("\n") +
+      `\n\nTotal: ${money(total)}\n\nPlease send payment instructions.`;
+
+    window.location.href =
+      `mailto:${CONFIG.alertEmail}` +
+      `?subject=${encodeURIComponent("Radio Meltdown Music Order")}` +
+      `&body=${encodeURIComponent(body)}`;
+  });
+
+  renderCart();
+
+  /* =========================================
+     VISITOR COUNTER
+  ========================================= */
+
+  const session = {
+    get(k) {
+      try {
+        return sessionStorage.getItem(k);
+      } catch (e) {
+        return null;
+      }
+    },
+
+    set(k, v) {
+      try {
+        sessionStorage.setItem(k, v);
+      } catch (e) {}
+    }
+  };
+
+  async function countVisit() {
+    const firstVisit = !session.get("rmCounted");
+    let total = null;
+
+    if (CONFIG.firebaseDbUrl) {
+      const url =
+        CONFIG.firebaseDbUrl.replace(/\/$/, "") +
+        "/musicStoreVisits.json";
+
+      try {
+        const read = await fetch(url);
+
+        if (!read.ok) {
+          throw new Error("Counter read failed");
+        }
+
+        total = Number(await read.json() || 0);
+
+        if (firstVisit) {
+          total++;
+
+          const write = await fetch(url, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(total)
+          });
+
+          if (!write.ok) {
+            throw new Error("Counter update failed");
+          }
+        }
+
+      } catch (e) {
+        console.warn("Visitor counter unavailable:", e);
+        total = null;
+      }
+
+    } else {
+      try {
+        total = Number(
+          localStorage.getItem("rmLocalVisits") || 0
+        );
+
+        if (firstVisit) {
+          total++;
+          localStorage.setItem(
+            "rmLocalVisits",
+            String(total)
+          );
+        }
+      } catch (e) {}
+    }
+
+    if (firstVisit) {
+      session.set("rmCounted", "1");
+    }
+
+    if (total !== null && Number.isFinite(total)) {
+      $("visitCount").textContent =
+        total.toLocaleString();
+    }
+
+    return { total, firstVisit };
+  }
+
+  /* =========================================
+     VISITOR ALERT
+  ========================================= */
+
+  async function sendVisitorAlert() {
+    if (!CONFIG.alertEndpoint) return;
+
+    try {
+      const response = await fetch(CONFIG.alertEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          email: CONFIG.alertEmail,
+          subject: "Radio Meltdown music store visit",
+          message:
+            `A visitor opened ${location.href}\n` +
+            `Time: ${new Date().toString()}\n` +
+            `Referrer: ${document.referrer || "Direct visit"}`
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Visitor alert failed");
+      }
+
+    } catch (error) {
+      console.warn("Visitor alert unavailable:", error);
+    }
+  }
+
+  /* =========================================
+     STARTUP
+  ========================================= */
+
+  countVisit();
+
+  sendVisitorAlert();
+
+  console.log("Radio Meltdown Music Store initialized.");
+
+} // End required HTML elements check
+
+</script>
+
