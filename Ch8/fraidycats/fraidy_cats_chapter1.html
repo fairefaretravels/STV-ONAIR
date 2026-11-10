@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#080d18">
+<title>FRAIDY CATS — Chapter 1: The Note</title>
+<style>
+:root{--ink:#edf2f8;--muted:#9eafc3;--gold:#d8bd7a;--panel:rgba(7,13,24,.88)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080d18;color:var(--ink);font-family:Georgia,serif}
+canvas{display:block}
+#game{position:fixed;inset:0}
+#hud{position:fixed;inset:0;pointer-events:none}
+.top{position:absolute;top:16px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.brand{font:700 12px/1.2 system-ui;letter-spacing:.24em;color:#d8c99f;text-shadow:0 2px 12px #000}
+.chapter{font:12px system-ui;color:#d5ddea;margin-top:5px;letter-spacing:.08em}
+.objective{max-width:270px;padding:10px 13px;border:1px solid #8191a455;border-radius:10px;background:var(--panel);font:12px/1.45 system-ui;box-shadow:0 8px 30px #0005}
+.objective b{display:block;color:var(--gold);font-size:10px;letter-spacing:.16em;margin-bottom:3px}
+#hint{position:absolute;left:50%;bottom:22%;transform:translateX(-50%);background:var(--panel);border:1px solid #d8bd7a77;border-radius:999px;padding:10px 16px;font:12px system-ui;white-space:nowrap;display:none}
+#toast{position:absolute;left:50%;top:23%;transform:translateX(-50%);max-width:min(90vw,520px);padding:14px 18px;background:rgba(5,10,19,.92);border:1px solid #d8bd7a88;border-radius:12px;text-align:center;font:15px/1.5 Georgia;opacity:0;transition:opacity .35s;box-shadow:0 12px 40px #0008}
+#toast.show{opacity:1}
+#interact{position:absolute;left:50%;bottom:9%;transform:translateX(-50%);pointer-events:auto;border:1px solid #d8bd7a;background:#172235;color:#f7edcf;border-radius:999px;padding:12px 22px;font:600 12px system-ui;letter-spacing:.08em;display:none}
+#journalBtn{position:absolute;right:16px;bottom:16px;pointer-events:auto;background:var(--panel);color:var(--ink);border:1px solid #8191a477;border-radius:10px;padding:10px 13px;font:12px system-ui}
+#journal{position:absolute;right:16px;bottom:62px;width:min(310px,calc(100vw - 32px));padding:16px;background:rgba(7,13,24,.96);border:1px solid #d8bd7a77;border-radius:12px;display:none;pointer-events:auto;font:13px/1.5 system-ui}
+#journal h3{font:18px Georgia;margin:0 0 10px;color:#e7d5a5}
+#journal p{margin:7px 0;color:#b9c5d4}
+#journal .found{color:#e9d59d}
+#start,#ending{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(4,9,17,.72),rgba(4,9,17,.94));z-index:5;padding:24px}
+.card{width:min(560px,100%);padding:28px;background:rgba(8,14,25,.92);border:1px solid #a6a17d66;border-radius:18px;box-shadow:0 20px 80px #0009}
+.kicker{font:11px system-ui;letter-spacing:.24em;color:var(--gold)}
+h1{font:clamp(38px,9vw,68px)/.95 Georgia;margin:12px 0 8px;letter-spacing:.04em}
+.subtitle{font:italic 18px Georgia;color:#c8d0dc}
+.copy{font:15px/1.65 Georgia;color:#c2ccda;margin:20px 0}
+.primary{border:0;border-radius:999px;background:#d8bd7a;color:#111827;padding:13px 22px;font:700 12px system-ui;letter-spacing:.12em}
+.small{font:11px/1.5 system-ui;color:#8f9caf;margin-top:14px}
+#ending{display:none}
+#mobile{position:absolute;left:18px;bottom:20px;width:124px;height:124px;pointer-events:auto;display:none}
+.stickBase{position:absolute;inset:0;border:1px solid #d5dfeb55;border-radius:50%;background:#07111e88;backdrop-filter:blur(4px)}
+#stick{position:absolute;width:48px;height:48px;border-radius:50%;background:#d8bd7a99;border:1px solid #f5e8c4;left:38px;top:38px}
+#lookHelp{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font:10px system-ui;color:#d5ddeb99;white-space:nowrap;pointer-events:none}
+@media (pointer:coarse){#mobile{display:block}#lookHelp{bottom:8px}}
+</style>
+</head>
+<body>
+<div id="game"></div>
+<div id="hud">
+ <div class="top">
+  <div><div class="brand">HOUSE OF MEDIA PRESENTS</div><div class="chapter">FRAIDY CATS · CHAPTER 1 — THE NOTE</div></div>
+  <div class="objective"><b>YOUR OBJECTIVE</b><span id="objective">Explore the lane and find the way to the abandoned house.</span></div>
+ </div>
+ <div id="toast"></div><div id="hint"></div>
+ <button id="interact">INSPECT</button>
+ <button id="journalBtn">JOURNAL · <span id="count">0</span>/2</button>
+ <div id="journal"><h3>Jamie's Journal</h3><p id="j1">□ Strange footprint — not yet found</p><p id="j2">□ The warning note — not yet found</p><p style="color:#8291a5;font-size:11px">Clues are saved as you discover them.</p></div>
+ <div id="mobile"><div class="stickBase"></div><div id="stick"></div></div>
+ <div id="lookHelp">WASD / ARROWS TO MOVE · DRAG TO LOOK · E TO INSPECT</div>
+</div>
+<div id="start"><div class="card">
+ <div class="kicker">A MYSTERY ADVENTURE</div>
+ <h1>FRAIDY<br>CATS</h1>
+ <div class="subtitle">Some doors should never be opened.</div>
+ <p class="copy">The lane is quiet. Too quiet. Jamie and Brock have heard the stories about the abandoned house at the end of the road. Tonight, a strange mark has appeared in the garden — and someone has left a note.</p>
+ <button class="primary" id="begin">BEGIN CHAPTER 1</button>
+ <div class="small">Explore at your own pace. Find the clues. The house is waiting.</div>
+ </div></div>
+<div id="ending"><div class="card">
+ <div class="kicker">CHAPTER 1 COMPLETE</div><h1 style="font-size:42px">THE NOTE</h1>
+ <p class="copy">The paper trembles in Jamie's hand.</p>
+ <p class="copy" style="font-style:italic;color:#e8d6a4">DON'T GO NEAR THE HOUSE.</p>
+ <p class="copy">Brock looks toward the dark windows. Somewhere upstairs, a curtain moves.</p>
+ <p class="copy">Someone knew they were coming.</p>
+ <button class="primary" id="replay">PLAY CHAPTER AGAIN</button>
+ <div class="small">Chapter 2 — The Footprint — is the next part of the story.</div>
+ </div></div>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const mount=document.getElementById('game');
+const scene=new THREE.Scene(); scene.background=new THREE.Color(0x101a2b); scene.fog=new THREE.FogExp2(0x101a2b,.027);
+const camera=new THREE.PerspectiveCamera(62,innerWidth/innerHeight,.1,180);
+const renderer=new THREE.WebGLRenderer({antialias:true}); renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(innerWidth,innerHeight); renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap; renderer.outputColorSpace=THREE.SRGBColorSpace; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.15; mount.appendChild(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0x9eb9df,0x182018,1.05));
+const moon=new THREE.DirectionalLight(0x9eb9e8,1.65); moon.position.set(-12,22,8); moon.castShadow=true; moon.shadow.mapSize.set(2048,2048); moon.shadow.camera.left=-35; moon.shadow.camera.right=35; moon.shadow.camera.top=35; moon.shadow.camera.bottom=-35; scene.add(moon);
+const warm=new THREE.PointLight(0xe5a85f,18,18,2); warm.position.set(0,3.2,-17); scene.add(warm);
+const mat=(c,r=.9,m=0)=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m});
+const groundMat=mat(0x202a2a), roadMat=mat(0x252b31), wood=mat(0x493a30), darkWood=mat(0x211f20), roofMat=mat(0x242632), stone=mat(0x51565a), leaf=mat(0x17271f), bark=mat(0x302a27), windowMat=new THREE.MeshStandardMaterial({color:0xffd49a,emissive:0x9a5421,emissiveIntensity:1.2});
+function box(x,y,z,sx,sy,sz,material,shadow=true){const o=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),material);o.position.set(x,y,z);o.castShadow=shadow;o.receiveShadow=true;scene.add(o);return o}
+function sphere(x,y,z,r,material){const o=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),material);o.position.set(x,y,z);o.castShadow=true;scene.add(o);return o}
+function cylinder(x,y,z,rt,rb,h,material){const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,9),material);o.position.set(x,y,z);o.castShadow=true;scene.add(o);return o}
+box(0,-.35,-10,90,.6,90,groundMat); box(0,-.02,2,8,.12,80,roadMat);
+for(let i=0;i<18;i++){const z=19-i*2.5;box(Math.sin(i*2)*.7,.05,z,1.3,.08,.08,stone,false)}
+// House and front garden
+box(0,2.1,-19,13,4.2,8,wood); const roof=new THREE.Mesh(new THREE.ConeGeometry(9,4.3,4),roofMat);roof.position.set(0,6.2,-19);roof.rotation.y=Math.PI/4;roof.scale.set(1.1,1,0.72);roof.castShadow=true;scene.add(roof);
+box(0,1.4,-14.93,1.7,2.8,.16,darkWood);const knob=sphere(.58,1.35,-14.78,.09,mat(0xb68e4c,.35,.6));
+for(const x of [-4.2,4.2]){box(x,2.8,-14.88,1.55,1.7,.18,darkWood);box(x,2.8,-14.76,1.27,1.4,.04,windowMat,false);box(x,2.8,-14.7,.08,1.5,.05,darkWood,false);box(x,2.8,-14.68,1.4,.08,.05,darkWood,false)}
+box(0,4.8,-14.8,1.7,1.4,.15,darkWood);box(0,4.8,-14.69,1.35,1.05,.04,windowMat,false);
+for(let x=-8;x<=8;x+=1){box(x,.35,-10, .16,.7,.16,stone);box(x,.35,-7,.16,.7,.16,stone)}box(0,.55,-8.5,17,.18,.18,wood);
+// trees
+for(let i=0;i<32;i++){let x=(i%2?1:-1)*(10+Math.random()*18),z=16-Math.random()*48; cylinder(x,2,z,.25,.48,4,bark);sphere(x,4.2,z,2.1,leaf);sphere(x+.8,5,z-.3,1.5,leaf)}
+// shrubs
+for(let i=0;i<20;i++){let x=(Math.random()-.5)*18,z=-5-Math.random()*20;if(Math.abs(x)>5.5)sphere(x,.65,z,.8,leaf)}
+// lamppost
+cylinder(-5,2,1,.08,.13,4,darkWood);sphere(-5,4,1,.25,windowMat);const lamp=new THREE.PointLight(0xd9bd86,8,11,2);lamp.position.set(-5,3.7,1);scene.add(lamp);
+// path stones to house
+for(let i=0;i<7;i++){let s=box(.5,.02,-4-i*1.45,1.1,.12,.8,stone);s.rotation.y=.08}
+// character Jamie stylized
+const player=new THREE.Group();scene.add(player);
+const body=new THREE.Mesh(new THREE.CapsuleGeometry(.34,.85,5,10),mat(0x344d67));body.position.y=1.0;body.castShadow=true;player.add(body);
+const head=new THREE.Mesh(new THREE.SphereGeometry(.32,16,12),mat(0xb77f63));head.position.y=1.72;head.castShadow=true;player.add(head);
+const hair=new THREE.Mesh(new THREE.SphereGeometry(.34,16,10,0,Math.PI*2,0,Math.PI*.58),mat(0x241c1b));hair.position.set(0,1.83,0);player.add(hair);
+const faceDot=mat(0x171719);for(let x of [-.11,.11]){let e=new THREE.Mesh(new THREE.SphereGeometry(.035,8,8),faceDot);e.position.set(x,1.75,.285);player.add(e)}
+player.position.set(0,0,12);
+// Brock companion, a little behind/right
+const brock=new THREE.Group();scene.add(brock);const bb=new THREE.Mesh(new THREE.CapsuleGeometry(.3,.8,5,10),mat(0x6b5747));bb.position.y=.95;brock.add(bb);const bh=new THREE.Mesh(new THREE.SphereGeometry(.29,14,10),mat(0xb8876a));bh.position.y=1.65;brock.add(bh);brock.position.set(1.6,0,13.5);
+// clue footprint made from little pressed shapes
+const footprint=new THREE.Group();scene.add(footprint);footprint.position.set(-2,.04,-5.3);
+const printMat=mat(0x111916);const pad=new THREE.Mesh(new THREE.SphereGeometry(.22,12,8),printMat);pad.scale.set(1,.12,1.2);footprint.add(pad);for(let i=0;i<4;i++){let toe=new THREE.Mesh(new THREE.SphereGeometry(.09,8,6),printMat);toe.position.set(-.18+i*.12,0,.28+Math.sin(i)*.04);toe.scale.y=.12;footprint.add(toe)}
+// note by gate post
+const noteGroup=new THREE.Group();scene.add(noteGroup);noteGroup.position.set(3.1,1.1,-8.1);
+const paper=new THREE.Mesh(new THREE.BoxGeometry(.65,.85,.035),mat(0xd9d0b9));paper.rotation.z=-.12;noteGroup.add(paper);
+const lineMat=mat(0x38302a);for(let i=0;i<4;i++){let l=new THREE.Mesh(new THREE.BoxGeometry(.43,.018,.012),lineMat);l.position.set(0,.19-i*.13,.03);noteGroup.add(l)}
+// glowing eyes upstairs
+const eyeMat=new THREE.MeshBasicMaterial({color:0xe4c58a});for(let x of [-.22,.22]){let e=new THREE.Mesh(new THREE.SphereGeometry(.065,10,8),eyeMat);e.position.set(x,4.82,-14.48);scene.add(e)}
+// atmospheric floating motes
+const motes=new THREE.Group();scene.add(motes);for(let i=0;i<100;i++){let p=new THREE.Mesh(new THREE.SphereGeometry(.025,5,5),new THREE.MeshBasicMaterial({color:0xb4c4d8,transparent:true,opacity:.28}));p.position.set((Math.random()-.5)*30,Math.random()*7-0.2,-Math.random()*35);motes.add(p)}
+const interactables=[{obj:footprint,pos:new THREE.Vector3(-2,0,-5.3),name:'footprint',text:'A strange impression in the damp soil. It looks almost like a paw print, but the shape is wrong. Too long. Too many toes.',done:false},{obj:noteGroup,pos:new THREE.Vector3(3.1,1.1,-8.1),name:'note',text:'The paper is cold and brittle. Four words are written in dark, shaky ink: “DON’T GO NEAR THE HOUSE.” Someone knew you would come.',done:false}];
+let found=0,started=false,finished=false,near=null,toastTimer;
+const objective=document.getElementById('objective'),hint=document.getElementById('hint'),interact=document.getElementById('interact'),toast=document.getElementById('toast');
+function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),4300)}
+function inspect(){if(!near||near.done)return;near.done=true;found++;document.getElementById('count').textContent=found;document.getElementById(near.name==='footprint'?'j1':'j2').textContent='✓ '+(near.name==='footprint'?'Strange footprint — collected':'The warning note — collected');document.getElementById(near.name==='footprint'?'j1':'j2').classList.add('found');say(near.text);if(near.name==='footprint'){objective.textContent='Find something unusual near the garden gate.'}else{objective.textContent='Chapter 1 complete. Someone knew you were coming.';setTimeout(()=>{finished=true;document.getElementById('ending').style.display='flex'},4700)}near=null;hint.style.display='none';interact.style.display='none'}
+interact.addEventListener('click',inspect);window.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='e'||e.key==='Enter')inspect()});
+document.getElementById('journalBtn').onclick=()=>{let j=document.getElementById('journal');j.style.display=j.style.display==='block'?'none':'block'};
+document.getElementById('begin').onclick=()=>{document.getElementById('start').style.display='none';started=true;say('Brock: “You really think we should be here?”');};
+document.getElementById('replay').onclick=()=>location.reload();
+// input
+const keys={};window.addEventListener('keydown',e=>keys[e.key.toLowerCase()]=true);window.addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+let yaw=0,pitch=.18,drag=false,lastX=0,lastY=0;
+renderer.domElement.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'){drag=true;lastX=e.clientX;lastY=e.clientY}});
+window.addEventListener('pointerup',()=>drag=false);
+window.addEventListener('pointermove',e=>{if(drag){yaw-=(e.clientX-lastX)*.005;pitch=Math.max(-.1,Math.min(.65,pitch+(e.clientY-lastY)*.003));lastX=e.clientX;lastY=e.clientY}});
+let joy={x:0,y:0},touchLook=null;const mobile=document.getElementById('mobile'),stick=document.getElementById('stick');
+mobile.addEventListener('pointerdown',e=>{mobile.setPointerCapture(e.pointerId);moveStick(e)});
+mobile.addEventListener('pointermove',e=>{if(e.buttons)moveStick(e)});
+mobile.addEventListener('pointerup',()=>{joy={x:0,y:0};stick.style.left='38px';stick.style.top='38px'});
+function moveStick(e){const r=mobile.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;let dx=e.clientX-cx,dy=e.clientY-cy,l=Math.hypot(dx,dy),k=Math.min(42,l)/(l||1);joy.x=dx*k/42;joy.y=dy*k/42;stick.style.left=(38+dx*k)+'px';stick.style.top=(38+dy*k)+'px'}
+renderer.domElement.addEventListener('touchstart',e=>{if(e.touches.length){touchLook={x:e.touches[0].clientX,y:e.touches[0].clientY}}},{passive:true});
+renderer.domElement.addEventListener('touchmove',e=>{if(touchLook&&e.touches.length){let t=e.touches[0];yaw-=(t.clientX-touchLook.x)*.006;pitch=Math.max(-.1,Math.min(.65,pitch+(t.clientY-touchLook.y)*.003));touchLook={x:t.clientX,y:t.clientY}}},{passive:true});
+renderer.domElement.addEventListener('touchend',()=>touchLook=null);
+const clock=new THREE.Clock();const forward=new THREE.Vector3(),right=new THREE.Vector3();
+function animate(){requestAnimationFrame(animate);let dt=Math.min(clock.getDelta(),.04);if(started&&!finished){
+let f=(keys.w||keys.arrowup?1:0)-(keys.s||keys.arrowdown?1:0)-joy.y;
+let side=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0)+joy.x;
+forward.set(-Math.sin(yaw),0,-Math.cos(yaw));right.set(Math.cos(yaw),0,-Math.sin(yaw));
+let move=new THREE.Vector3().addScaledVector(forward,f).addScaledVector(right,side);if(move.length()>1)move.normalize();
+player.position.addScaledVector(move,dt*4.1);player.position.x=THREE.MathUtils.clamp(player.position.x,-8,8);player.position.z=THREE.MathUtils.clamp(player.position.z,-3,16);
+if(move.lengthSq()>.001){player.rotation.y=Math.atan2(move.x,move.z);brock.position.lerp(new THREE.Vector3(player.position.x+Math.sin(clock.elapsedTime)*.45,0,player.position.z+1.4),dt*1.8)}
+let cp=new THREE.Vector3(player.position.x+Math.sin(yaw)*8,4.1+pitch*5,player.position.z+Math.cos(yaw)*8);camera.position.lerp(cp,dt*4);camera.lookAt(player.position.x,1.25,player.position.z-2.1);
+near=null;let best=3.0;for(const item of interactables){if(item.done)continue;let d=player.position.distanceTo(item.pos);if(d<best){best=d;near=item}}
+if(near){hint.textContent='Press E or tap INSPECT to examine';hint.style.display='block';interact.style.display='block'}else{hint.style.display='none';interact.style.display='none'}
+}
+motes.children.forEach((p,i)=>{p.position.y+=Math.sin(clock.elapsedTime*.5+i)*.0008;p.position.x+=Math.sin(clock.elapsedTime*.2+i)*.0005});
+warm.intensity=16+Math.sin(clock.elapsedTime*2)*1.2;renderer.render(scene,camera)}
+camera.position.set(0,5,20);camera.lookAt(0,1,-2);animate();
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+</script>
+</body></html>
