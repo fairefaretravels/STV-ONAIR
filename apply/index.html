@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101510">
+
+<title>Apply for a Radio Show | MACKINTHEDARK</title>
+<meta name="description" content="Want your own radio show? Apply to become a host on MACKINTHEDARK. DJs, artists, podcasters and creative voices are welcome.">
+<meta property="og:title" content="Become a Show Host | MACKINTHEDARK">
+<meta property="og:description" content="Your voice deserves a platform. Apply to host your own show on MACKINTHEDARK.">
+<meta property="og:image" content="https://radiomeltdown.store/MMlogo.jpeg">
+<meta property="og:type" content="website">
+
+<style>
+:root {
+  --bg: #101510;
+  --panel: #19221b;
+  --green: #56e39f;
+  --gold: #ffd166;
+  --cream: #f4f0df;
+  --muted: #b5c0b6;
+  --line: rgba(255,255,255,.13);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 42px 20px 30px;
+  background:
+    radial-gradient(ellipse at top, rgba(86,227,159,.16), transparent 65%),
+    #101510;
+}
+
+.station {
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+header h1 {
+  margin: 12px 0 5px;
+  font-size: clamp(34px, 8vw, 65px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+}
+
+header h1 span { color: var(--gold); }
+
+header p {
+  max-width: 620px;
+  margin: 15px auto 0;
+  color: var(--muted);
+}
+
+.hero-tag {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 9px 16px;
+  border: 1px solid rgba(255,209,102,.5);
+  border-radius: 30px;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+main {
+  width: min(760px, calc(100% - 28px));
+  margin: 0 auto 55px;
+}
+
+.intro {
+  padding: 22px 4px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.intro strong { color: var(--cream); }
+
+form {
+  padding: clamp(20px, 5vw, 38px);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+
+.section-title {
+  margin: 30px 0 17px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+  color: var(--gold);
+  font-size: 17px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.section-title:first-child { margin-top: 0; }
+
+.field { margin-bottom: 18px; }
+
+label, .field-label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--cream);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.required { color: var(--gold); }
+
+input, select, textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 9px;
+  outline: none;
+  background: #101710;
+  color: white;
+  font: inherit;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(86,227,159,.12);
+}
+
+input::placeholder, textarea::placeholder {
+  color: #89958b;
+}
+
+textarea {
+  min-height: 125px;
+  resize: vertical;
+}
+
+select option { background: #101710; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.choice input {
+  width: 17px;
+  min-height: 17px;
+  margin: 2px 0 0;
+  accent-color: var(--green);
+}
+
+.help {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.agreement {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 25px 0;
+  padding: 16px;
+  border: 1px solid rgba(86,227,159,.3);
+  border-radius: 10px;
+  background: rgba(86,227,159,.05);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.agreement input {
+  width: 19px;
+  min-height: 19px;
+  margin-top: 2px;
+  accent-color: var(--green);
+}
+
+.submit-btn {
+  width: 100%;
+  min-height: 58px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--green);
+  color: #101510;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.submit-btn:hover {
+  background: var(--gold);
+  transform: translateY(-2px);
+}
+
+.small-print {
+  margin-top: 15px;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+}
+
+footer {
+  padding: 30px 15px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+}
+
+footer strong {
+  color: var(--green);
+  letter-spacing: 2px;
+}
+
+@media(max-width: 560px) {
+  .grid, .choices { grid-template-columns: 1fr; }
+  header { padding-top: 32px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="station">Radio Meltdown Presents</div>
+  <h1>MACKIN<span>THEDARK</span></h1>
+  <div class="hero-tag">NOW AVAILABLE ON ALEXA</div>
+  <p>Your voice. Your vision. Your own radio show. We're looking for the next wave of DJs, creators, entertainers and personalities.</p>
+</header>
+
+<main>
+
+  <div class="intro">
+    <strong>READY TO TAKE THE MIC?</strong><br>
+    Tell us about yourself and the show you'd like to bring to MACKINTHEDARK.
+    Complete the application below. Our team will review your submission and contact you.
+  </div>
+
+  <form action="https://formsubmit.co/press@radiomeltdown.com" method="POST">
+
+    <input type="hidden" name="_subject" value="New MACKINTHEDARK Radio Show Host Application">
+    <input type="hidden" name="_template" value="table">
+    <input type="text" name="_honey" style="display:none">
+
+    <h2 class="section-title">01 / Your Information</h2>
+
+    <div class="grid">
+      <div class="field">
+        <label for="name">Full Name <span class="required">*</span></label>
+        <input id="name" name="Full Name" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="onair">On-Air Name / DJ Name</label>
+        <input id="onair" name="On-Air Name" placeholder="What should listeners call you?">
+      </div>
+
+      <div class="field">
+        <label for="email">Email Address <span class="required">*</span></label>
+        <input id="email" type="email" name="Email" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone Number <span class="required">*</span></label>
+        <input id="phone" type="tel" name="Phone" autocomplete="tel" required>
+      </div>
+    </div>
+
+    <h2 class="section-title">02 / Your Show</h2>
+
+    <div class="field">
+      <label for="showname">Proposed Show Name <span class="required">*</span></label>
+      <input id="showname" name="Proposed Show Name" placeholder="What will your show be called?" required>
+    </div>
+
+    <div class="field">
+      <label for="format">What kind of show do you want to host? <span class="required">*</span></label>
+      <select id="format" name="Show Format" required>
+        <option value="">Choose a show format</option>
+        <option>Music / DJ Show</option>
+        <option>Talk Show</option>
+        <option>Entertainment / Pop Culture</option>
+        <option>Interview Show</option>
+        <option>Sports / Gaming</option>
+        <option>Comedy / Lifestyle</option>
+        <option>Podcast-Style Radio Show</option>
+        <option>Mixed Format</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="description">Describe Your Show <span class="required">*</span></label>
+      <textarea id="description" name="Show Description" placeholder="What's your concept? What will listeners hear? What makes your show different?" required></textarea>
+    </div>
+
+    <div class="field">
+      <span class="field-label">What music or topics will your show feature?</span>
+      <div class="choices">
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Hip-Hop / R&B"> Hip-Hop / R&amp;B</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Pop / Top 40"> Pop / Top 40</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Gospel / Inspirational"> Gospel / Inspirational</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Country / Rock"> Country / Rock</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Independent Music"> Independent Music</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="News / Current Events"> News / Current Events</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Relationships / Lifestyle"> Relationships / Lifestyle</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Comedy / Entertainment"> Comedy / Entertainment</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Sports / Gaming"> Sports / Gaming</label>
+        <label class="choice"><input type="checkbox" name="Show Topics[]" value="Other"> Other</label>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label for="length">Preferred Show Length</label>
+        <select id="length" name="Preferred Show Length">
+          <option value="">Choose one</option>
+          <option>30 minutes</option>
+          <option>1 hour</option>
+          <option>2 hours</option>
+          <option>Flexible / Open to discussion</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="frequency">How often?</label>
+        <select id="frequency" name="Show Frequency">
+          <option value="">Choose one</option>
+          <option>Weekly</option>
+          <option>Biweekly</option>
+          <option>Monthly</option>
+          <option>Special / Occasional Episodes</option>
+          <option>Flexible</option>
+        </select>
+      </div>
+    </div>
+
+    <h2 class="section-title">03 / Your Experience</h2>
+
+    <div class="field">
+      <label for="experience">Tell us about your experience</label>
+      <textarea id="experience" name="Broadcasting Experience" placeholder="Have you hosted a radio show, podcast, livestream, DJ event, or interview? Beginners are welcome too."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="demo">Demo / Audio Sample Link</label>
+      <input id="demo" type="url" name="Demo Link" placeholder="https://">
+      <div class="help">Share a link to an audio sample, video, or previous show if available.</div>
+    </div>
+
+    <div class="field">
+      <label for="social">Website / Social Media Links</label>
+      <textarea id="social" name="Website and Social Links" placeholder="Instagram, YouTube, TikTok, website, podcast, etc."></textarea>
+    </div>
+
+    <h2 class="section-title">04 / Availability & Equipment</h2>
+
+    <div class="field">
+      <label for="availability">When are you available to host?</label>
+      <textarea id="availability" name="Availability" placeholder="List your preferred days and times. Include your time zone."></textarea>
+    </div>
+
+    <div class="field">
+      <span class="field-label">What equipment or setup do you currently have?</span>
+      <div class="choices">
+        <label class="choice"><input type="checkbox" name="Equipment[]" value="Computer / Laptop"> Computer / Laptop</label>
+        <label class="choice"><input type="checkbox" name="Equipment[]" value="Microphone"> Microphone</label>
+        <label class="choice"><input type="checkbox" name="Equipment[]" value="Headphones"> Headphones</label>
+        <label class="choice"><input type="checkbox" name="Equipment[]" value="DJ Equipment"> DJ Equipment</label>
+        <label class="choice"><input type="checkbox" name="Equipment[]" value="Recording Software"> Recording Software</label>
+        <label class="choice"><input type="checkbox" name="Equipment[]" value="Home Recording Setup"> Home Recording Setup</label>
+        <label class="choice"><input type="checkbox" name="Equipment[]" value="None Yet"> None yet</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="additional">Anything else we should know?</label>
+      <textarea id="additional" name="Additional Information" placeholder="Tell us anything else about your idea, goals, or plans for your show."></textarea>
+    </div>
+
+    <h2 class="section-title">05 / Applicant Confirmation</h2>
+
+    <label class="agreement">
+      <input type="checkbox" name="Applicant Confirmation" value="Confirmed" required>
+      <span>
+        I confirm that the information provided is accurate. I understand that this is an application, not a guarantee of a show or scheduled airtime. I agree to be contacted by MACKINTHEDARK / Radio Meltdown regarding my application.
+        <span class="required">*</span>
+      </span>
+    </label>
+
+    <button class="submit-btn" type="submit">SUBMIT MY APPLICATION</button>
+
+    <div class="small-print">
+      Applications are subject to review. Submission does not guarantee acceptance, airtime, or compensation. Any show terms and station requirements will be discussed separately.
+    </div>
+
+  </form>
+</main>
+
+<footer>
+  <strong>MACKINTHEDARK</strong><br>
+  Your voice. Your sound. Your stage.<br>
+  <a href="mailto:press@radiomeltdown.com" style="color:#ffd166;">press@radiomeltdown.com</a>
+</footer>
+
+</body>
+</html>
