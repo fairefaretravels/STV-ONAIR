@@ -582,6 +582,139 @@ audio {
 
 } 
 
+  
+/* =========================
+   MACKINTHEDARK MUSIC STORE
+========================= */
+
+.music-store {
+  position: relative;
+  padding: 110px 20px 120px;
+  background:
+    linear-gradient(180deg, #080808, #151515, #050505);
+  border-top: 1px solid rgba(255,255,255,.15);
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.store-inner {
+  width: min(1000px, 100%);
+  margin: auto;
+}
+
+.store-label {
+  color: #aaa;
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+.music-store h2 {
+  color: #fff;
+  font-size: clamp(48px, 10vw, 100px);
+  line-height: .85;
+  letter-spacing: -5px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.music-store h2 span {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1px #fff;
+}
+
+.store-intro {
+  max-width: 540px;
+  color: #aaa;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 45px;
+}
+
+.store-feature {
+  background: #0b0b0b;
+  border: 1px solid rgba(255,255,255,.2);
+  padding: 35px;
+  box-shadow: 0 25px 70px rgba(0,0,0,.7);
+}
+
+.store-feature h3 {
+  color: #fff;
+  font-size: clamp(24px, 5vw, 42px);
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+}
+
+.store-feature p {
+  color: #999;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.store-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.store-tags span {
+  border: 1px solid rgba(255,255,255,.2);
+  padding: 9px 12px;
+  color: #bbb;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.store-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 58px;
+  padding: 17px 24px;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: .25s ease;
+}
+
+.store-button:hover {
+  background: #bdbdbd;
+  transform: translateY(-3px);
+}
+
+.store-note {
+  margin-top: 22px;
+  color: #666;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media(max-width:600px) {
+  .music-store {
+    padding: 85px 20px;
+  }
+
+  .music-store h2 {
+    letter-spacing: -3px;
+  }
+
+  .store-feature {
+    padding: 23px;
+  }
+}
+
 /* =========================
    ABOUT
 ========================= */
@@ -872,8 +1005,6 @@ footer {
     <span class="track-type">Solo</span>
   </li>
 
-</ul>
-
       </ul>
 
     </div>
@@ -881,6 +1012,70 @@ footer {
   </div>
 
 </section>
+
+  
+<!-- =========================
+     MACKINTHEDARK MUSIC STORE
+========================= -->
+
+<section class="music-store" id="store">
+
+  <div class="store-inner">
+
+    <div class="store-label">
+      SUPPORT INDEPENDENT MUSIC
+    </div>
+
+    <h2>
+      OWN THE
+      <span>MUSIC.</span>
+    </h2>
+
+    <p class="store-intro">
+      Don't just listen. Take the music with you.
+      Explore official MACKINTHEDARK releases,
+      exclusive music and independent projects.
+    </p>
+
+    <div class="store-feature">
+
+      <div class="store-label">
+        OFFICIAL MUSIC STORE
+      </div>
+
+      <h3>MACKINTHEDARK</h3>
+
+      <p>
+        From late-night records to stories that hit a
+        little closer to home, this is where you can
+        discover and purchase the music.
+      </p>
+
+      <div class="store-tags">
+        <span>Singles</span>
+        <span>Albums</span>
+        <span>EPs</span>
+        <span>Exclusive Releases</span>
+      </div>
+
+      <a
+        href="https://payhip.com/MACKINTHEDARK"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="store-button">
+        ENTER THE MUSIC STORE
+      </a>
+
+      <div class="store-note">
+        Independent music. Direct support. No middleman.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
 <!-- =========================
      BRASS EARTHLING
 ========================= -->
@@ -1042,9 +1237,21 @@ footer {
 </section>
 
 
+
 <footer>
   HOUSE OF MEDIA • SANECA MACK • MACKINTHEDARK
+
+  <p style="margin-top:18px;">
+    <a
+      href="https://payhip.com/MACKINTHEDARK"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="color:#fff;text-decoration:none;">
+      SHOP THE MUSIC
+    </a>
+  </p>
 </footer>
+
 
 
 <script>
