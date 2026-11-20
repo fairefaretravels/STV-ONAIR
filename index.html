@@ -1362,382 +1362,118 @@
       color: var(--signal);
     }
     
-/* CINEMATIC RADIO MELTDOWN LANDING */
-#landing.cinematic-landing {
-  background:#030507;
+<style>
+/* CINEMATIC RADIO MELTDOWN LANDING — INFINITE MAZE */
+#landing.cinematic-landing{
+  background:#020504;
   display:grid;
-  grid-template-rows:48% 52%;
-  align-items:stretch;
-  justify-items:stretch;
+  grid-template-rows:50% 50%;
   isolation:isolate;
 }
+#landing .record-stage,#landing .drive-stage{width:100%;min-width:0;min-height:0}
 
-#landing .record-stage,
-#landing .drive-stage {
-  width:100%;
-  min-width:0;
-  min-height:0;
-}
+#landing.cinematic-landing #staticCanvas{z-index:8;pointer-events:none;opacity:.025}
 
-#landing.cinematic-landing #staticCanvas {
-  z-index:8;
-  pointer-events:none;
-  opacity:.025;
-}
-
-#landing .landing-vignette {
-  position:absolute;
-  inset:0;
-  z-index:7;
-  pointer-events:none;
-  background:linear-gradient(
-    180deg,
-    transparent,
-    rgba(0,0,0,.12) 42%,
-    rgba(0,0,0,.62)
-  );
-}
-
-#landing .record-stage {
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:radial-gradient(ellipse,#202329,#090b0e 65%,#020304);
-  border-bottom:1px solid rgba(244,211,94,.3);
-}
-
-#landing .record-art {
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  filter:drop-shadow(0 0 28px rgba(244,211,94,.18));
-  animation:record-arrive 1.2s ease both;
-}
-
-#landing .record-caption {
-  position:absolute;
-  left:4%;
-  bottom:12px;
-  display:flex;
-  flex-direction:column;
-  gap:3px;
-  text-shadow:0 2px 14px #000;
-}
-
-#landing .record-caption span,
-#landing .record-caption small {
-  font-size:10px;
-  letter-spacing:.28em;
-  color:#d7c58a;
-}
-
-#landing .record-caption strong {
-  font-family:"Bebas Neue",sans-serif;
-  font-size:clamp(25px,5vw,54px);
-  letter-spacing:.12em;
-  color:white;
-}
-
-#landing .record-caption strong span {
-  color:#f4d35e;
-  font:inherit;
-}
-
-#landing .drive-stage {
-  position:relative;
-  overflow:hidden;
-  perspective:500px;
-  background:linear-gradient(#080d18,#151b2a 48%,#08090c);
-}
-
-#landing .city-sky {
-  position:absolute;
-  inset:0;
+#landing .landing-vignette{
+  position:absolute;inset:0;z-index:7;pointer-events:none;
   background:
-    radial-gradient(ellipse at 50% 65%,rgba(58,82,135,.45),transparent 60%),
-    linear-gradient(180deg,#070a12,#1b2232 68%,#08090d);
+    radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(0,0,0,.55) 100%),
+    linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35));
 }
 
-#landing .city-glow {
-  position:absolute;
-  left:0;
-  right:0;
-  top:35%;
-  height:24%;
-  background:linear-gradient(90deg,transparent,rgba(244,211,94,.16),rgba(63,110,255,.16),transparent);
-  filter:blur(18px);
+/* ---- top: record player ---- */
+#landing .record-stage{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 55%,#14201a,#050806 70%,#010202);
+  border-bottom:1px solid rgba(244,211,94,.22);
+}
+#landing .record-art{
+  width:100%;height:100%;object-fit:contain;display:block;
+  filter:drop-shadow(0 0 22px rgba(244,211,94,.14));
+  animation:record-arrive 1.6s ease both;
+}
+#landing .record-stage::after{ /* black fade-in */
+  content:"";position:absolute;inset:0;background:#000;pointer-events:none;
+  animation:black-fade 1.6s ease forwards;
+}
+#landing .record-caption{
+  position:absolute;left:4%;bottom:10px;z-index:2;
+  display:flex;flex-direction:column;gap:2px;text-shadow:0 2px 14px #000;
+}
+#landing .record-caption span,#landing .record-caption small{
+  font-size:10px;letter-spacing:.28em;color:#d7c58a;
+}
+#landing .record-caption strong{
+  font-family:"Bebas Neue",sans-serif;font-size:clamp(22px,4.5vw,46px);
+  letter-spacing:.12em;color:#fff;line-height:1;
+}
+#landing .record-caption strong span{color:#f4d35e;font:inherit;letter-spacing:inherit}
+
+/* ---- bottom: maze ---- */
+#landing .drive-stage{position:relative;overflow:hidden;background:#010403}
+#landing #mazeCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#landing .maze-fog{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 50% 42%,rgba(0,0,0,.0) 0,rgba(0,0,0,.0) 8%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.8) 100%),
+    linear-gradient(180deg,rgba(0,0,0,.85),transparent 22%);
+}
+#landing .drive-copy{
+  position:absolute;z-index:2;bottom:5%;left:0;right:0;text-align:center;
+  display:flex;flex-direction:column;gap:2px;text-shadow:0 2px 12px #000;
+}
+#landing .drive-copy span{font-size:10px;letter-spacing:.35em;color:#9fb7a8}
+#landing .drive-copy strong{
+  font-family:"Bebas Neue",sans-serif;font-size:clamp(20px,4.2vw,38px);
+  letter-spacing:.18em;color:#fff;
 }
 
-#landing .city-buildings {
-  position:absolute;
-  left:-10%;
-  right:-10%;
-  bottom:43%;
-  height:54%;
-  background-repeat:repeat-x;
-  will-change:background-position;
+/* ---- entry box: lower in the composition ---- */
+#landing .cinematic-content{
+  position:absolute;z-index:9;left:50%;top:60%;transform:translate(-50%,-50%);
+  width:min(92%,460px);padding:12px 16px 10px;
+  background:rgba(3,8,6,.62);
+  border:1px solid rgba(244,211,94,.22);
+  border-radius:6px;
+  box-shadow:0 10px 40px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.03);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
 }
+#landing .cinematic-content .landing-eyebrow{font-size:10px;letter-spacing:.3em;color:#f4d35e}
+#landing .cinematic-content .landing-sub{margin-top:2px;font-size:14px;color:#fff}
+#landing .cinematic-content #landingWave{width:min(200px,48vw);height:20px;margin:4px 0 8px}
+#landing .cinematic-content .enter-btn-row{gap:8px;width:100%;justify-content:center}
+#landing .cinematic-content .enter-btn{
+  width:clamp(84px,24vw,116px);height:44px;      /* 44px = comfortable tap target */
+  font-size:1.05rem;letter-spacing:.2em;
+  background:linear-gradient(160deg,rgba(18,30,24,.9),rgba(4,8,6,.9));
+  border-color:rgba(244,211,94,.45);color:#f4d35e;
+  box-shadow:none;animation:fade-up .6s ease 1.5s forwards; /* no pulsing glow */
+}
+#landing .cinematic-content .enter-btn:hover,
+#landing .cinematic-content .enter-btn:focus-visible{
+  border-color:#f4d35e;box-shadow:0 0 18px rgba(244,211,94,.25);outline:none;
+}
+#landing #liveIndicator{margin-top:6px;font-size:9px;letter-spacing:.34em;color:#ff5555}
 
-#landing .buildings-back {
-  opacity:.55;
-  background-size:330px 100%;
-  background-image:linear-gradient(
-    90deg,
-    transparent 5%,#111725 5% 14%,
-    transparent 14% 18%,#20283a 18% 27%,
-    transparent 27% 33%,#101827 33% 44%,
-    transparent 44% 49%,#252a38 49% 58%,
-    transparent 58% 65%,#111827 65% 78%,
-    transparent 78% 84%,#20283a 84% 94%,transparent 94%
-  );
-  animation:city-drift 34s linear infinite;
-}
+@keyframes record-arrive{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
+@keyframes black-fade{from{opacity:1}to{opacity:0;visibility:hidden}}
 
-#landing .buildings-front {
-  height:45%;
-  opacity:.9;
-  background-size:230px 100%;
-  background-image:linear-gradient(
-    90deg,
-    #090d16 0 8%,transparent 8% 13%,
-    #151b29 13% 28%,transparent 28% 34%,
-    #0b111d 34% 48%,transparent 48% 53%,
-    #1b2030 53% 70%,transparent 70% 77%,
-    #0b111b 77% 91%,transparent 91%
-  );
-  animation:city-drift 19s linear infinite;
+@media(max-width:600px){
+  #landing.cinematic-landing{grid-template-rows:48% 52%}
+  #landing .cinematic-content{top:62%;padding:10px 12px 8px}
+  #landing .cinematic-content .landing-sub{font-size:12px}
+  #landing .record-caption{left:12px;bottom:6px}
 }
-
-#landing .road-horizon {
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:42%;
-  height:2px;
-  background:linear-gradient(90deg,transparent,#f4d35e,rgba(63,110,255,.8),transparent);
-  box-shadow:0 0 20px #f4d35e;
+@media(max-height:560px) and (orientation:landscape){
+  #landing .cinematic-content .landing-sub,#landing .cinematic-content #landingWave{display:none}
+  #landing .cinematic-content{top:66%}
 }
-
-#landing .road-surface {
-  position:absolute;
-  left:-35%;
-  right:-35%;
-  height:72%;
-  bottom:-31%;
-  transform:perspective(220px) rotateX(58deg);
-  transform-origin:top center;
-  background:linear-gradient(#171a21,#030405 65%);
+@media(prefers-reduced-motion:reduce){
+  #landing .record-art{animation:none!important}
+  #landing .record-stage::after{animation:none!important;opacity:0}
 }
-
-#landing .road-surface i {
-  position:absolute;
-  left:50%;
-  top:-35%;
-  width:3px;
-  height:150%;
-  background:linear-gradient(180deg,transparent,#f4d35e,transparent);
-  animation:road-lines 1.2s linear infinite;
-}
-
-#landing .road-surface i:nth-child(1) {
-  transform:translateX(-95px) rotate(8deg);
-}
-#landing .road-surface i:nth-child(2) {
-  transform:translateX(-8px);
-}
-#landing .road-surface i:nth-child(3) {
-  transform:translateX(90px) rotate(-8deg);
-}
-
-#landing .road-edge {
-  position:absolute;
-  bottom:0;
-  width:24%;
-  height:50%;
-  border-top:1px solid rgba(244,211,94,.45);
-}
-
-#landing .road-edge-left {
-  left:-12%;
-  transform:skewY(-24deg);
-}
-#landing .road-edge-right {
-  right:-12%;
-  transform:skewY(24deg);
-}
-
-#landing .drive-car {
-  position:absolute;
-  z-index:3;
-  bottom:-3%;
-  left:50%;
-  width:clamp(150px,25vw,280px);
-  height:clamp(72px,12vh,115px);
-  transform:translateX(-50%);
-  filter:drop-shadow(0 0 22px #000);
-}
-
-#landing .car-trunk {
-  position:absolute;
-  left:4%;
-  right:4%;
-  bottom:0;
-  height:68%;
-  background:linear-gradient(180deg,#343a45,#090b10 65%);
-  clip-path:polygon(15% 0,85% 0,100% 100%,0 100%);
-  border-radius:22px 22px 4px 4px;
-}
-
-#landing .car-window {
-  position:absolute;
-  left:23%;
-  right:23%;
-  top:0;
-  height:47%;
-  background:linear-gradient(180deg,#29384c,#080d15);
-  clip-path:polygon(17% 0,83% 0,100% 100%,0 100%);
-  border:2px solid #3d4653;
-}
-
-#landing .car-light {
-  position:absolute;
-  z-index:2;
-  bottom:18%;
-  width:20%;
-  height:10%;
-  background:#e23a37;
-  box-shadow:0 0 15px 5px rgba(226,58,55,.7);
-  border-radius:4px;
-}
-
-#landing .car-light.left { left:8%; }
-#landing .car-light.right { right:8%; }
-
-#landing .drive-copy {
-  position:absolute;
-  z-index:4;
-  top:8%;
-  left:0;
-  right:0;
-  text-align:center;
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-  text-shadow:0 2px 12px #000;
-}
-
-#landing .drive-copy span {
-  font-size:10px;
-  letter-spacing:.35em;
-  color:#d7c58a;
-}
-
-#landing .drive-copy strong {
-  font-family:"Bebas Neue",sans-serif;
-  font-size:clamp(23px,5vw,48px);
-  letter-spacing:.16em;
-  color:white;
-}
-
-#landing .cinematic-content {
-  position:absolute;
-  z-index:9;
-  left:50%;
-  top:48%;
-  transform:translate(-50%,-50%);
-  width:min(94%,560px);
-  padding:12px 14px;
-  background:rgba(2,4,8,.78);
-  border:1px solid rgba(244,211,94,.28);
-  box-shadow:0 12px 50px rgba(0,0,0,.45);
-  backdrop-filter:blur(8px);
-}
-
-#landing .cinematic-content .landing-eyebrow {
-  font-size:10px;
-  letter-spacing:.3em;
-  color:#f4d35e;
-}
-
-#landing .cinematic-content .landing-sub {
-  margin-top:3px;
-  font-size:15px;
-  color:white;
-}
-
-#landing .cinematic-content #landingWave {
-  width:min(210px,48vw);
-  height:22px;
-  margin:4px 0 7px;
-}
-
-#landing .cinematic-content .enter-btn-row {
-  gap:8px;
-  width:100%;
-  justify-content:center;
-}
-
-#landing .cinematic-content .enter-btn {
-  width:clamp(76px,17vw,112px);
-  height:38px;
-  font-size:1rem;
-  letter-spacing:.18em;
-  background:linear-gradient(160deg,#1b1d25,#080a10);
-  border-color:rgba(244,211,94,.55);
-  color:#f4d35e;
-  box-shadow:0 0 16px rgba(244,211,94,.12);
-}
-
-#landing .cinematic-content .enter-btn:hover {
-  border-color:#f4d35e;
-  box-shadow:0 0 22px rgba(244,211,94,.32);
-}
-
-#landing #liveIndicator {
-  margin-top:5px;
-  font-size:8px;
-  letter-spacing:.34em;
-  color:#ff5555;
-}
-
-@keyframes city-drift {
-  from { background-position:0 0; }
-  to { background-position:1000px 0; }
-}
-
-@keyframes road-lines {
-  from { top:-35%; }
-  to { top:35%; }
-}
-
-@keyframes record-arrive {
-  from { opacity:0; transform:scale(.97); }
-  to { opacity:1; transform:scale(1); }
-}
-
-@media(max-width:600px) {
-  #landing.cinematic-landing { grid-template-rows:46% 54%; }
-  #landing .cinematic-content {
-    top:46%;
-    padding:8px 10px;
-  }
-  #landing .cinematic-content .landing-sub { font-size:12px; }
-  #landing .cinematic-content .enter-btn { height:34px; }
-  #landing .record-caption { left:12px; bottom:8px; }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  #landing .buildings-back,
-  #landing .buildings-front,
-  #landing .road-surface i,
-  #landing .record-art {
-    animation:none!important;
-  }
-}
-
-  </style>
+</style>
 </head>
  
 <body>
@@ -1760,22 +1496,8 @@
   </section>
 
   <section class="drive-stage">
-    <div class="city-sky"></div>
-    <div class="city-glow"></div>
-    <div class="city-buildings buildings-back"></div>
-    <div class="city-buildings buildings-front"></div>
-    <div class="road-horizon"></div>
-    <div class="road-surface"><i></i><i></i><i></i></div>
-    <div class="road-edge road-edge-left"></div>
-    <div class="road-edge road-edge-right"></div>
-
-    <div class="drive-car">
-      <div class="car-window"></div>
-      <div class="car-trunk"></div>
-      <div class="car-light left"></div>
-      <div class="car-light right"></div>
-    </div>
-
+    <canvas id="mazeCanvas" aria-hidden="true"></canvas>
+    <div class="maze-fog"></div>
     <div class="drive-copy">
       <span>THE CITY NEVER GOES QUIET</span>
       <strong>RADIO MELTDOWN</strong>
@@ -2989,6 +2711,144 @@ setInterval(() => {
     "icon": "calendar"
   });
 </script>
+
+  <script>
+/* Infinite maze: a corridor of square frames receding to a vanishing point.
+   Each frame index n has a deterministic pseudo-random barrier, so geometry
+   "regenerates" at the far end as the camera advances. ~16 rings per frame,
+   plain 2D canvas, no dependencies. */
+(function () {
+  var c = document.getElementById('mazeCanvas');
+  if (!c) return;
+  var ctx = c.getContext('2d');
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W = 0, H = 0;
+
+  function size() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var r = c.getBoundingClientRect();
+    W = c.width  = Math.max(1, Math.round(r.width  * dpr));
+    H = c.height = Math.max(1, Math.round(r.height * dpr));
+  }
+
+  function hash(n) { var x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+  var DEPTH = 16, HW = 1.0, HH = 0.62;
+  var GREEN = '31,138,77', GOLD = '244,211,94', CYAN = '90,200,210', WHITE = '235,240,235';
+
+  function ringColor(n) {
+    if (n % 7 === 0) return CYAN;
+    if (n % 5 === 0) return GOLD;
+    return GREEN;
+  }
+
+  function draw(pos, t) {
+    ctx.clearRect(0, 0, W, H);
+    var cx = W / 2 + Math.sin(t * 0.0003) * W * 0.015;
+    var cy = H * 0.42 + Math.cos(t * 0.00025) * H * 0.012;
+    var f  = Math.min(W, H * 1.7) * 0.6;
+    var first = Math.floor(pos) + 1;
+    var prev = null;
+
+    for (var n = first + DEPTH; n >= first; n--) {
+      var z = n - pos;
+      if (z < 0.25) continue;
+      var s = f / z;
+      var x0 = cx - HW * s, x1 = cx + HW * s, y0 = cy - HH * s, y1 = cy + HH * s;
+      var a = Math.pow(Math.max(0, 1 - z / DEPTH), 1.3);
+      if (z < 0.6) a *= (z - 0.25) / 0.35;
+      var col = ringColor(n);
+
+      // corridor faces between this ring (near) and the previous one (far)
+      if (prev) {
+        ctx.fillStyle = 'rgba(4,12,8,' + (0.55 * a).toFixed(3) + ')';
+        ctx.beginPath(); // floor
+        ctx.moveTo(x0, y1); ctx.lineTo(x1, y1); ctx.lineTo(prev.x1, prev.y1); ctx.lineTo(prev.x0, prev.y1); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); // ceiling
+        ctx.moveTo(x0, y0); ctx.lineTo(x1, y0); ctx.lineTo(prev.x1, prev.y0); ctx.lineTo(prev.x0, prev.y0); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = 'rgba(8,20,14,' + (0.45 * a).toFixed(3) + ')';
+        ctx.beginPath(); // left wall
+        ctx.moveTo(x0, y0); ctx.lineTo(x0, y1); ctx.lineTo(prev.x0, prev.y1); ctx.lineTo(prev.x0, prev.y0); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); // right wall
+        ctx.moveTo(x1, y0); ctx.lineTo(x1, y1); ctx.lineTo(prev.x1, prev.y1); ctx.lineTo(prev.x1, prev.y0); ctx.closePath(); ctx.fill();
+
+        // corner rails + faint floor guides
+        ctx.strokeStyle = 'rgba(' + GREEN + ',' + (0.28 * a).toFixed(3) + ')';
+        ctx.lineWidth = Math.max(1, s * 0.006);
+        ctx.beginPath();
+        ctx.moveTo(x0, y0); ctx.lineTo(prev.x0, prev.y0);
+        ctx.moveTo(x1, y0); ctx.lineTo(prev.x1, prev.y0);
+        ctx.moveTo(x0, y1); ctx.lineTo(prev.x0, prev.y1);
+        ctx.moveTo(x1, y1); ctx.lineTo(prev.x1, prev.y1);
+        ctx.moveTo(cx - HW * s * 0.34, y1); ctx.lineTo(cx - HW * prev.s * 0.34, prev.y1);
+        ctx.moveTo(cx + HW * s * 0.34, y1); ctx.lineTo(cx + HW * prev.s * 0.34, prev.y1);
+        ctx.stroke();
+      }
+
+      // barrier: partial wall slab with an opening
+      var h = hash(n), type = Math.floor(h * 5), amt = 0.42 + hash(n + 91) * 0.2;
+      var bx = x0, by = y0, bw = 0, bh = 0;
+      if (type === 1) { bw = (x1 - x0) * amt;  bh = y1 - y0; }
+      else if (type === 2) { bw = (x1 - x0) * amt; bh = y1 - y0; bx = x1 - bw; }
+      else if (type === 3) { bw = x1 - x0; bh = (y1 - y0) * (amt * 0.8); }
+      else if (type === 4) { bw = x1 - x0; bh = (y1 - y0) * (amt * 0.8); by = y1 - bh; }
+      if (bw > 0) {
+        ctx.fillStyle = 'rgba(3,8,6,' + (0.9 * a).toFixed(3) + ')';
+        ctx.fillRect(bx, by, bw, bh);
+        ctx.strokeStyle = 'rgba(' + col + ',' + (0.55 * a).toFixed(3) + ')';
+        ctx.lineWidth = Math.max(1, s * 0.012);
+        ctx.strokeRect(bx, by, bw, bh);
+      }
+
+      // ring frame
+      ctx.strokeStyle = 'rgba(' + col + ',' + (0.8 * a).toFixed(3) + ')';
+      ctx.lineWidth = Math.max(1, s * 0.01);
+      ctx.strokeRect(x0, y0, x1 - x0, y1 - y0);
+      if (n % 3 === 0) { // thin white inner frame for layered depth
+        var i = 0.06 * s;
+        ctx.strokeStyle = 'rgba(' + WHITE + ',' + (0.12 * a).toFixed(3) + ')';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x0 + i, y0 + i, x1 - x0 - 2 * i, y1 - y0 - 2 * i);
+      }
+
+      prev = { x0: x0, x1: x1, y0: y0, y1: y1, s: s };
+    }
+
+    // vanishing-point glow
+    var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(W, H) * 0.35);
+    g.addColorStop(0, 'rgba(' + GOLD + ',0.16)');
+    g.addColorStop(0.5, 'rgba(' + GREEN + ',0.06)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  size();
+  window.addEventListener('resize', function () { size(); if (reduce) draw(0.5, 0); });
+
+  if (reduce) { draw(0.5, 0); return; }   // calm static alternative
+
+  var pos = 0, last = 0, running = true;
+  function frame(ts) {
+    if (!running) return;
+    if (!last) last = ts;
+    var dt = Math.min(64, ts - last); last = ts;
+    if (!document.hidden) { pos += dt * 0.0009; draw(pos, ts); }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // stop if the landing is ever dismissed (existing code adds .gone)
+  var landing = document.getElementById('landing');
+  if (landing && window.MutationObserver) {
+    new MutationObserver(function () {
+      var gone = landing.classList.contains('gone');
+      if (gone) running = false;
+      else if (!running) { running = true; last = 0; requestAnimationFrame(frame); }
+    }).observe(landing, { attributes: true, attributeFilter: ['class'] });
+  }
+})();
+  </script>
 <!-- Koalendar Popup Widget End -->
 </body>
 </html>
