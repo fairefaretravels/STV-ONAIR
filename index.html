@@ -1361,6 +1361,373 @@
       font-size: 0.85rem;
       color: var(--signal);
     }
+    
+/* CINEMATIC RADIO MELTDOWN LANDING */
+#landing.cinematic-landing {
+  background:#030507;
+  display:grid;
+  grid-template-rows:48% 52%;
+  isolation:isolate;
+}
+
+#landing.cinematic-landing #staticCanvas {
+  z-index:8;
+  pointer-events:none;
+  opacity:.025;
+}
+
+#landing .landing-vignette {
+  position:absolute;
+  inset:0;
+  z-index:7;
+  pointer-events:none;
+  background:linear-gradient(
+    180deg,
+    transparent,
+    rgba(0,0,0,.12) 42%,
+    rgba(0,0,0,.62)
+  );
+}
+
+#landing .record-stage {
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(ellipse,#202329,#090b0e 65%,#020304);
+  border-bottom:1px solid rgba(244,211,94,.3);
+}
+
+#landing .record-art {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 0 28px rgba(244,211,94,.18));
+  animation:record-arrive 1.2s ease both;
+}
+
+#landing .record-caption {
+  position:absolute;
+  left:4%;
+  bottom:12px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  text-shadow:0 2px 14px #000;
+}
+
+#landing .record-caption span,
+#landing .record-caption small {
+  font-size:10px;
+  letter-spacing:.28em;
+  color:#d7c58a;
+}
+
+#landing .record-caption strong {
+  font-family:"Bebas Neue",sans-serif;
+  font-size:clamp(25px,5vw,54px);
+  letter-spacing:.12em;
+  color:white;
+}
+
+#landing .record-caption strong span {
+  color:#f4d35e;
+  font:inherit;
+}
+
+#landing .drive-stage {
+  position:relative;
+  overflow:hidden;
+  perspective:500px;
+  background:linear-gradient(#080d18,#151b2a 48%,#08090c);
+}
+
+#landing .city-sky {
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse at 50% 65%,rgba(58,82,135,.45),transparent 60%),
+    linear-gradient(180deg,#070a12,#1b2232 68%,#08090d);
+}
+
+#landing .city-glow {
+  position:absolute;
+  left:0;
+  right:0;
+  top:35%;
+  height:24%;
+  background:linear-gradient(90deg,transparent,rgba(244,211,94,.16),rgba(63,110,255,.16),transparent);
+  filter:blur(18px);
+}
+
+#landing .city-buildings {
+  position:absolute;
+  left:-10%;
+  right:-10%;
+  bottom:43%;
+  height:54%;
+  background-repeat:repeat-x;
+  will-change:background-position;
+}
+
+#landing .buildings-back {
+  opacity:.55;
+  background-size:330px 100%;
+  background-image:linear-gradient(
+    90deg,
+    transparent 5%,#111725 5% 14%,
+    transparent 14% 18%,#20283a 18% 27%,
+    transparent 27% 33%,#101827 33% 44%,
+    transparent 44% 49%,#252a38 49% 58%,
+    transparent 58% 65%,#111827 65% 78%,
+    transparent 78% 84%,#20283a 84% 94%,transparent 94%
+  );
+  animation:city-drift 34s linear infinite;
+}
+
+#landing .buildings-front {
+  height:45%;
+  opacity:.9;
+  background-size:230px 100%;
+  background-image:linear-gradient(
+    90deg,
+    #090d16 0 8%,transparent 8% 13%,
+    #151b29 13% 28%,transparent 28% 34%,
+    #0b111d 34% 48%,transparent 48% 53%,
+    #1b2030 53% 70%,transparent 70% 77%,
+    #0b111b 77% 91%,transparent 91%
+  );
+  animation:city-drift 19s linear infinite;
+}
+
+#landing .road-horizon {
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:42%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#f4d35e,rgba(63,110,255,.8),transparent);
+  box-shadow:0 0 20px #f4d35e;
+}
+
+#landing .road-surface {
+  position:absolute;
+  left:-35%;
+  right:-35%;
+  height:72%;
+  bottom:-31%;
+  transform:perspective(220px) rotateX(58deg);
+  transform-origin:top center;
+  background:linear-gradient(#171a21,#030405 65%);
+}
+
+#landing .road-surface i {
+  position:absolute;
+  left:50%;
+  top:-35%;
+  width:3px;
+  height:150%;
+  background:linear-gradient(180deg,transparent,#f4d35e,transparent);
+  animation:road-lines 1.2s linear infinite;
+}
+
+#landing .road-surface i:nth-child(1) {
+  transform:translateX(-95px) rotate(8deg);
+}
+#landing .road-surface i:nth-child(2) {
+  transform:translateX(-8px);
+}
+#landing .road-surface i:nth-child(3) {
+  transform:translateX(90px) rotate(-8deg);
+}
+
+#landing .road-edge {
+  position:absolute;
+  bottom:0;
+  width:24%;
+  height:50%;
+  border-top:1px solid rgba(244,211,94,.45);
+}
+
+#landing .road-edge-left {
+  left:-12%;
+  transform:skewY(-24deg);
+}
+#landing .road-edge-right {
+  right:-12%;
+  transform:skewY(24deg);
+}
+
+#landing .drive-car {
+  position:absolute;
+  z-index:3;
+  bottom:-3%;
+  left:50%;
+  width:clamp(150px,25vw,280px);
+  height:clamp(72px,12vh,115px);
+  transform:translateX(-50%);
+  filter:drop-shadow(0 0 22px #000);
+}
+
+#landing .car-trunk {
+  position:absolute;
+  left:4%;
+  right:4%;
+  bottom:0;
+  height:68%;
+  background:linear-gradient(180deg,#343a45,#090b10 65%);
+  clip-path:polygon(15% 0,85% 0,100% 100%,0 100%);
+  border-radius:22px 22px 4px 4px;
+}
+
+#landing .car-window {
+  position:absolute;
+  left:23%;
+  right:23%;
+  top:0;
+  height:47%;
+  background:linear-gradient(180deg,#29384c,#080d15);
+  clip-path:polygon(17% 0,83% 0,100% 100%,0 100%);
+  border:2px solid #3d4653;
+}
+
+#landing .car-light {
+  position:absolute;
+  z-index:2;
+  bottom:18%;
+  width:20%;
+  height:10%;
+  background:#e23a37;
+  box-shadow:0 0 15px 5px rgba(226,58,55,.7);
+  border-radius:4px;
+}
+
+#landing .car-light.left { left:8%; }
+#landing .car-light.right { right:8%; }
+
+#landing .drive-copy {
+  position:absolute;
+  z-index:4;
+  top:8%;
+  left:0;
+  right:0;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  text-shadow:0 2px 12px #000;
+}
+
+#landing .drive-copy span {
+  font-size:10px;
+  letter-spacing:.35em;
+  color:#d7c58a;
+}
+
+#landing .drive-copy strong {
+  font-family:"Bebas Neue",sans-serif;
+  font-size:clamp(23px,5vw,48px);
+  letter-spacing:.16em;
+  color:white;
+}
+
+#landing .cinematic-content {
+  position:absolute;
+  z-index:9;
+  left:50%;
+  top:48%;
+  transform:translate(-50%,-50%);
+  width:min(94%,560px);
+  padding:12px 14px;
+  background:rgba(2,4,8,.78);
+  border:1px solid rgba(244,211,94,.28);
+  box-shadow:0 12px 50px rgba(0,0,0,.45);
+  backdrop-filter:blur(8px);
+}
+
+#landing .cinematic-content .landing-eyebrow {
+  font-size:10px;
+  letter-spacing:.3em;
+  color:#f4d35e;
+}
+
+#landing .cinematic-content .landing-sub {
+  margin-top:3px;
+  font-size:15px;
+  color:white;
+}
+
+#landing .cinematic-content #landingWave {
+  width:min(210px,48vw);
+  height:22px;
+  margin:4px 0 7px;
+}
+
+#landing .cinematic-content .enter-btn-row {
+  gap:8px;
+  width:100%;
+  justify-content:center;
+}
+
+#landing .cinematic-content .enter-btn {
+  width:clamp(76px,17vw,112px);
+  height:38px;
+  font-size:1rem;
+  letter-spacing:.18em;
+  background:linear-gradient(160deg,#1b1d25,#080a10);
+  border-color:rgba(244,211,94,.55);
+  color:#f4d35e;
+  box-shadow:0 0 16px rgba(244,211,94,.12);
+}
+
+#landing .cinematic-content .enter-btn:hover {
+  border-color:#f4d35e;
+  box-shadow:0 0 22px rgba(244,211,94,.32);
+}
+
+#landing #liveIndicator {
+  margin-top:5px;
+  font-size:8px;
+  letter-spacing:.34em;
+  color:#ff5555;
+}
+
+@keyframes city-drift {
+  from { background-position:0 0; }
+  to { background-position:1000px 0; }
+}
+
+@keyframes road-lines {
+  from { top:-35%; }
+  to { top:35%; }
+}
+
+@keyframes record-arrive {
+  from { opacity:0; transform:scale(.97); }
+  to { opacity:1; transform:scale(1); }
+}
+
+@media(max-width:600px) {
+  #landing.cinematic-landing { grid-template-rows:46% 54%; }
+  #landing .cinematic-content {
+    top:46%;
+    padding:8px 10px;
+  }
+  #landing .cinematic-content .landing-sub { font-size:12px; }
+  #landing .cinematic-content .enter-btn { height:34px; }
+  #landing .record-caption { left:12px; bottom:8px; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  #landing .buildings-back,
+  #landing .buildings-front,
+  #landing .road-surface i,
+  #landing .record-art {
+    animation:none!important;
+  }
+}
+
   </style>
 </head>
  
@@ -1369,44 +1736,58 @@
 <!-- ══════════════════════════════════════
      LANDING SCREEN
 ══════════════════════════════════════ -->
-<div id="landing">
+
+<div id="landing" class="cinematic-landing">
   <canvas id="staticCanvas"></canvas>
-  <div class="landing-orb"></div>
+  <div class="landing-vignette"></div>
 
-  <div class="landing-content">
-    <div class="landing-eyebrow">Lithonia, GA · House of Media · Est. 2021</div>
-    <img src="stvlogo1.jpg" alt="SanecaTV Broadcasting" class="landing-hero-logo"/>
-    <div class="landing-sub">Culture-driven. Community-built. G4E GRND4EVRYTHNG.</div>
+  <section class="record-stage">
+    <img src="bgstv.GIF" alt="SanecaTV record player" class="record-art"/>
+    <div class="record-caption">
+      <span>INDEPENDENT BROADCAST</span>
+      <strong>SANECA<span>TV</span></strong>
+      <small>LITHONIA · ATLANTA · EVERYWHERE</small>
+    </div>
+  </section>
 
+  <section class="drive-stage">
+    <div class="city-sky"></div>
+    <div class="city-glow"></div>
+    <div class="city-buildings buildings-back"></div>
+    <div class="city-buildings buildings-front"></div>
+    <div class="road-horizon"></div>
+    <div class="road-surface"><i></i><i></i><i></i></div>
+    <div class="road-edge road-edge-left"></div>
+    <div class="road-edge road-edge-right"></div>
+
+    <div class="drive-car">
+      <div class="car-window"></div>
+      <div class="car-trunk"></div>
+      <div class="car-light left"></div>
+      <div class="car-light right"></div>
+    </div>
+
+    <div class="drive-copy">
+      <span>THE CITY NEVER GOES QUIET</span>
+      <strong>RADIO MELTDOWN</strong>
+    </div>
+  </section>
+
+  <div class="landing-content cinematic-content">
+    <div class="landing-eyebrow">HOUSE OF MEDIA · EST. 2021</div>
+    <div class="landing-sub">Culture-driven. Community-built.</div>
     <canvas id="landingWave"></canvas>
 
-    <!-- FIX: these are now plain <a> links, not <button> elements.
-         No JS click-handlers are bound to them; navigation is native.
-         .enter-btn styling is unchanged (added text-decoration:none in CSS
-         since anchors underline by default and buttons don't). -->
     <div class="enter-btn-row">
-      <a href="https://radiomeltdown.com/radio/" class="enter-btn active" id="enterBtnRadio">
-        RADIO
-      </a>
-
-      <a href="/watch/" class="enter-btn" id="enterBtnTV">
-        TV
-      </a>
-
-      <a
-        href="https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw=="
-        target="_blank"
-        rel="noopener"
-        class="enter-btn"
-        id="enterBtnTalk"
-      >
-        TALK
-      </a>
+      <a href="https://radiomeltdown.com/radio/" class="enter-btn active" id="enterBtnRadio">RADIO</a>
+      <a href="/watch/" class="enter-btn" id="enterBtnTV">TV</a>
+      <a href="https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==" target="_blank" rel="noopener" class="enter-btn" id="enterBtnTalk">TALK</a>
     </div>
 
     <div id="liveIndicator">ON AIR</div>
   </div>
 </div>
+
 
 <!-- ══════════════════════════════════════
      PAGE TRANSITION SPLASH (shown briefly between views)
