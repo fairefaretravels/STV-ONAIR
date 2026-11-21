@@ -1,0 +1,169 @@
+<!-- Radio Meltdown: HOME view (drop into the root index.html shell, inside the same container as the radio/shows/about views).
+     Needs: #radioAudio in the shell, and network.json at the site root. -->
+<style>
+#view-home{--ink:#1b1013;--bone:#efe6d8;--signal:#ff4b2b;--amber:#f0b24a;--dust:#9a8c80;--line:#3a2a2e;
+  background:var(--ink);color:var(--bone);font:17px/1.5 Georgia,"Times New Roman",serif;padding:max(1.25rem,env(safe-area-inset-top)) 1.25rem 7rem;max-width:68rem;margin:0 auto}
+#view-home *{box-sizing:border-box}
+#view-home h1,#view-home h2,#view-home .rm-big{font-family:Impact,"Haettenschweiler","Arial Narrow Bold",sans-serif;font-weight:400;letter-spacing:.01em;line-height:.95;margin:0}
+#view-home a{color:inherit}
+#view-home a:focus-visible,#view-home button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.rm-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:2px solid var(--line)}
+.rm-top h1{font-size:1.6rem}
+.rm-nav{display:flex;gap:.5rem}
+.rm-nav a{border:2px solid var(--bone);padding:.35rem .9rem;text-decoration:none;font-family:Impact,sans-serif;font-size:1.05rem;border-radius:2px}
+.rm-nav a:hover{background:var(--bone);color:var(--ink)}
+.rm-hero{display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;padding:2.5rem 0;align-items:end}
+.rm-badge{display:inline-flex;align-items:center;gap:.6rem;font-size:.95rem;color:var(--dust)}
+.rm-lamp{width:.9rem;height:.9rem;border-radius:50%;background:var(--line);border:2px solid var(--dust)}
+.rm-lamp.on{background:var(--signal);border-color:var(--signal);box-shadow:0 0 14px var(--signal)}
+.rm-big{font-size:clamp(3rem,10vw,6.5rem);margin:.6rem 0 .4rem}
+.rm-when{color:var(--amber);font-size:1.1rem;margin:0}
+.rm-play{margin-top:1.4rem;background:var(--signal);color:#fff;border:0;border-radius:2px;padding:.9rem 1.6rem;font:1.3rem Impact,sans-serif;cursor:pointer}
+.rm-play[aria-pressed=true]{background:var(--bone);color:var(--ink)}
+.rm-err{color:var(--amber);min-height:1.5em;margin:.6rem 0 0;font-size:.95rem}
+.rm-week{list-style:none;margin:0;padding:0;border-top:2px solid var(--bone)}
+.rm-week li{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line)}
+.rm-week li.now{color:var(--signal)}
+.rm-week b{font-weight:400;font-family:Impact,sans-serif;font-size:1.15rem}
+.rm-week span{color:var(--dust);font-size:.95rem;text-align:right}
+#view-home section{padding:2rem 0;border-top:2px solid var(--line)}
+#view-home h2{font-size:2rem;margin-bottom:1rem}
+.rm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.9rem}
+.rm-card{display:block;border:2px solid var(--line);padding:1rem;text-decoration:none;border-radius:2px}
+.rm-card:hover{border-color:var(--amber)}
+.rm-card strong{display:block;font:1.3rem Impact,sans-serif;margin-bottom:.2rem}
+.rm-card span{color:var(--dust);font-size:.95rem}
+.rm-card.soon{opacity:.55;pointer-events:none}
+.rm-ch{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:.7rem}
+.rm-ch .rm-card strong{font-size:2rem}
+@media(max-width:700px){.rm-hero{grid-template-columns:1fr;gap:1.5rem}.rm-top{flex-wrap:wrap}}
+@media(prefers-reduced-motion:no-preference){.rm-lamp.on{animation:rmPulse 1.6s ease-in-out infinite}}
+@keyframes rmPulse{50%{box-shadow:0 0 4px var(--signal)}}
+</style>
+
+<div id="view-home" role="region" aria-label="Radio Meltdown network home">
+  <div class="rm-top">
+    <h1>Radio Meltdown</h1>
+    <nav class="rm-nav" aria-label="Network">
+      <a href="#radio">Radio</a><a href="/watch/">TV</a><a href="#talk">Talk</a>
+    </nav>
+  </div>
+
+  <div class="rm-hero">
+    <div>
+      <div class="rm-badge"><span class="rm-lamp" id="rmLamp"></span><span id="rmState">Checking the schedule…</span></div>
+      <p class="rm-big" id="rmTitle">Radio Meltdown</p>
+      <p class="rm-when" id="rmWhen"></p>
+      <button class="rm-play" id="rmPlay" type="button" aria-pressed="false">Play the stream</button>
+      <p class="rm-err" id="rmErr" role="status"></p>
+    </div>
+    <ol class="rm-week" id="rmWeek" aria-label="Weekly schedule"></ol>
+  </div>
+
+  <section><h2>Shows</h2><div class="rm-grid" id="rmShows"></div></section>
+  <section><h2>TV channels</h2><div class="rm-ch" id="rmCh"></div></section>
+  <section><h2>Artists</h2><div class="rm-grid" id="rmArtists"></div></section>
+  <section><h2>Talk</h2><div class="rm-grid" id="rmTalk"></div></section>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('view-home'); if (!root) return;
+  var DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var audio = document.getElementById('radioAudio');
+  var cfg = null, playing = false;
+  function $(id){ return document.getElementById(id); }
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  function nowInZone() {
+    var p = new Intl.DateTimeFormat('en-US', {timeZone: cfg.timezone, weekday:'short', hour:'numeric', minute:'numeric', hourCycle:'h23'}).formatToParts(new Date());
+    function g(t){ return p.filter(function(x){ return x.type === t; })[0].value; }
+    return DAYS.indexOf(g('weekday')) * 1440 + (+g('hour')) * 60 + (+g('minute'));
+  }
+  function slots() {
+    var now = nowInZone(), base = Math.floor(Date.now() / 60000);
+    return cfg.schedule.map(function (s) {
+      var hm = s.start.split(':'), d = DAYS.indexOf(s.day) * 1440 + (+hm[0]) * 60 + (+hm[1]) - now;
+      if (d <= -s.minutes) d += 10080;
+      return Object.assign({}, s, {startMs: (base + d) * 60000, scheduledNow: d <= 0});
+    }).sort(function (a, b) { return a.startMs - b.startMs; });
+  }
+  function fmt(ms) {
+    return new Date(ms).toLocaleString([], {weekday:'short', hour:'numeric', minute:'2-digit', timeZoneName:'short'});
+  }
+  function until(ms) {
+    var m = Math.max(0, Math.round((ms - Date.now()) / 60000));
+    if (m < 60) return 'in ' + m + ' min';
+    if (m < 1440) return 'in ' + Math.floor(m / 60) + ' h ' + (m % 60) + ' min';
+    return 'in ' + Math.floor(m / 1440) + ' d ' + Math.floor((m % 1440) / 60) + ' h';
+  }
+
+  // Status never claims "live" from the schedule alone: the lamp is lit only while the stream is actually playing.
+  function render() {
+    var list = slots(), first = list[0];
+    $('rmTitle').textContent = first.title;
+    $('rmLamp').className = 'rm-lamp' + (playing ? ' on' : '');
+    if (playing) {
+      $('rmState').textContent = first.scheduledNow ? 'Stream playing · ' + first.title + ' is scheduled now' : 'Stream playing';
+      $('rmWhen').textContent = first.scheduledNow ? first.blurb : 'Next up: ' + first.title + ', ' + fmt(first.startMs);
+    } else if (first.scheduledNow) {
+      $('rmState').textContent = 'Scheduled now';
+      $('rmWhen').textContent = first.blurb + ' Press play to listen.';
+    } else {
+      $('rmState').textContent = 'Next broadcast';
+      $('rmWhen').textContent = fmt(first.startMs) + ' (' + until(first.startMs) + ')';
+    }
+    var ol = $('rmWeek'); ol.textContent = '';
+    list.forEach(function (s, i) {
+      var li = el('li', i === 0 && s.scheduledNow ? 'now' : '');
+      li.appendChild(el('b', '', s.title)); li.appendChild(el('span', '', fmt(s.startMs)));
+      ol.appendChild(li);
+    });
+  }
+
+  function cards(id, items, titleKey, subKey) {
+    var box = $(id); box.textContent = '';
+    items.forEach(function (it) {
+      var a = el('a', 'rm-card' + (it.soon ? ' soon' : ''));
+      a.href = it.href;
+      a.appendChild(el('strong', '', it[titleKey]));
+      a.appendChild(el('span', '', it.soon ? 'Coming soon' : (subKey && it[subKey]) || ''));
+      box.appendChild(a);
+    });
+  }
+
+  function togglePlay() {
+    if (!audio) { $('rmErr').textContent = 'The player isn’t on this page yet.'; return; }
+    $('rmErr').textContent = '';
+    if (!audio.paused) { audio.pause(); return; }
+    if (audio.getAttribute('src') !== cfg.streamUrl) audio.src = cfg.streamUrl;
+    audio.play().catch(function () { $('rmErr').textContent = 'The stream didn’t start. Check your connection and press play again.'; });
+  }
+  function sync() {
+    playing = !!audio && !audio.paused && !audio.ended;
+    $('rmPlay').setAttribute('aria-pressed', playing);
+    $('rmPlay').textContent = playing ? 'Pause' : 'Play the stream';
+    render();
+  }
+
+  // Radio pauses automatically when a TV video starts (play events don't bubble, so listen in the capture phase).
+  window.RMHome = { pauseRadio: function () { if (audio && !audio.paused) audio.pause(); } };
+  document.addEventListener('play', function (e) {
+    if (e.target && e.target.tagName === 'VIDEO' && e.target !== audio) window.RMHome.pauseRadio();
+  }, true);
+
+  fetch('/network.json', {cache: 'no-cache'}).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (c) {
+    cfg = c;
+    cards('rmShows', cfg.shows, 'title', 'blurb');
+    cards('rmCh', cfg.channels.map(function (c) { return Object.assign({}, c, {name: c.n}); }), 'name', null);
+    cards('rmArtists', cfg.artists, 'name', 'blurb');
+    cards('rmTalk', cfg.talk, 'label', null);
+    $('rmPlay').addEventListener('click', togglePlay);
+    if (audio) ['play', 'pause', 'ended', 'error'].forEach(function (ev) { audio.addEventListener(ev, function () {
+      if (ev === 'error') $('rmErr').textContent = 'The stream isn’t responding right now. Try again in a moment.';
+      sync();
+    }); });
+    sync(); setInterval(render, 30000);
+  }).catch(function () { $('rmState').textContent = 'Schedule unavailable'; $('rmErr').textContent = 'Couldn’t load network.json.'; });
+})();
+</script>

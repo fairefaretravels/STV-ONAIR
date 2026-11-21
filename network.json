@@ -1,0 +1,39 @@
+{
+  "_note": "Edit this file to change the homepage. Times are in the timezone below. The schedule is a PROPOSED placeholder created for launch; replace it with the real lineup whenever you like.",
+  "streamUrl": "https://listen.streamaudio.co/proxy/mackinthedark/stream",
+  "timezone": "America/New_York",
+  "schedule": [
+    { "day": "Mon", "start": "20:00", "minutes": 120, "title": "Slept On", "blurb": "The records that deserved more." },
+    { "day": "Wed", "start": "20:00", "minutes": 120, "title": "The Live Show", "blurb": "Open phones, open mics, no script." },
+    { "day": "Fri", "start": "21:00", "minutes": 120, "title": "G4E Live", "blurb": "Friday night, live from the studio." },
+    { "day": "Sun", "start": "18:00", "minutes": 60,  "title": "Professor Griff", "blurb": "Sunday episode replay from the archive." }
+  ],
+  "shows": [
+    { "title": "Slept On", "blurb": "The records that deserved more.", "href": "#shows" },
+    { "title": "G4E Live", "blurb": "Friday night, live from the studio.", "href": "#shows" },
+    { "title": "The Live Show", "blurb": "Open phones, open mics, no script.", "href": "#shows" },
+    { "title": "Professor Griff", "blurb": "Eight episodes on demand.", "href": "#shows" }
+  ],
+  "artists": [
+    { "name": "Seneca Mack", "blurb": "12 tracks", "href": "/artists/" },
+    { "name": "The Switchblades", "blurb": "Band page", "href": "/artists/" },
+    { "name": "Emil Gordon Sr.", "blurb": "The Static", "href": "/artists/" }
+  ],
+  "channels": [
+    { "n": 1, "name": "Channel 1", "href": "/Ch1/" },
+    { "n": 2, "name": "Channel 2", "href": "/Ch2/" },
+    { "n": 3, "name": "Channel 3", "href": "/Ch3/" },
+    { "n": 4, "name": "Channel 4", "href": "/Ch4/" },
+    { "n": 5, "name": "Channel 5", "href": "/Ch5/" },
+    { "n": 6, "name": "Channel 6", "href": "/Ch6/" },
+    { "n": 7, "name": "Channel 7", "href": "/Ch7/" },
+    { "n": 8, "name": "Channel 8", "href": "/Ch8/", "soon": true },
+    { "n": 9, "name": "Channel 9", "href": "/Ch9/" },
+    { "n": 10, "name": "Channel 10", "href": "/Ch10/", "soon": true }
+  ],
+  "talk": [
+    { "label": "Apply to host", "href": "/apply/" },
+    { "label": "Guest portal", "href": "/Guest%20portal/" },
+    { "label": "Podcast", "href": "#talk" }
+  ]
+}
