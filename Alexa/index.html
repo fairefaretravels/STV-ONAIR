@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexa — Lyric Video</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap');
+
+  :root{
+    --bg-deep:   #0d0f1a;
+    --bg-deep-2: #12142a;
+    --ring-cyan: #35d7ff;
+    --ring-violet: #7b6bff;
+    --ink: #eef0ff;
+    --ink-dim: #9aa0c4;
+    --turnup-a: #ff3d7f;
+    --turnup-b: #ffb703;
+    --turnup-c: #35d7ff;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; height:100%; }
+  body{
+    background: radial-gradient(120% 140% at 50% 10%, var(--bg-deep-2) 0%, var(--bg-deep) 60%);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    height:100vh;
+    width:100vw;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 6vh 6vw;
+    transition: background 1.2s ease;
+  }
+
+  .stage.turnup{
+    background:
+      radial-gradient(60% 50% at 20% 20%, rgba(255,61,127,0.35), transparent 60%),
+      radial-gradient(55% 45% at 85% 30%, rgba(53,215,255,0.30), transparent 60%),
+      radial-gradient(70% 60% at 50% 90%, rgba(255,183,3,0.25), transparent 65%),
+      var(--bg-deep);
+  }
+
+  .orb-wrap{
+    position: relative;
+    width: 84px;
+    height: 84px;
+    margin-bottom: 5vh;
+    flex-shrink: 0;
+  }
+  .orb{
+    position:absolute; inset:0;
+    border-radius:50%;
+    background: conic-gradient(from 90deg, var(--ring-cyan), var(--ring-violet), var(--ring-cyan));
+    filter: blur(0.3px);
+    box-shadow: 0 0 30px rgba(53,215,255,0.35), 0 0 60px rgba(123,107,255,0.2);
+    animation: breathe 3.2s ease-in-out infinite;
+  }
+  .orb::after{
+    content:"";
+    position:absolute; inset:10px;
+    border-radius:50%;
+    background: var(--bg-deep);
+  }
+  @keyframes breathe{
+    0%,100%{ transform: scale(0.92); opacity:0.85; }
+    50%{ transform: scale(1.04); opacity:1; }
+  }
+  .stage.turnup .orb{
+    background: conic-gradient(from 90deg, var(--turnup-a), var(--turnup-b), var(--turnup-c), var(--turnup-a));
+    animation: spin-fast 1.4s linear infinite, breathe 1s ease-in-out infinite;
+  }
+  @keyframes spin-fast{
+    to{ transform: rotate(360deg); }
+  }
+
+  .lyric-box{
+    max-width: 900px;
+    min-height: 22vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding: 0 2vw;
+    cursor: pointer;
+  }
+  .tap-hint{
+    position:absolute;
+    top: calc(5vh + 26px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.68rem;
+    color: var(--ink-dim);
+    opacity: 0.5;
+  }
+  .line{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.7rem, 5.4vw, 3.6rem);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.4s cubic-bezier(.2,.7,.3,1), transform 0.4s cubic-bezier(.2,.7,.3,1);
+  }
+  .line.show{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .line.hero-word{
+    font-size: clamp(2.6rem, 9vw, 6rem);
+    background: linear-gradient(90deg, var(--ring-cyan), var(--ring-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .stage.turnup .line{
+    background: linear-gradient(90deg, var(--turnup-b), var(--turnup-a), var(--turnup-c));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .line.paren{
+    color: var(--ink-dim);
+    font-weight: 500;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+  }
+
+  .section-tag{
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+  }
+
+  .time-tag{
+    position:absolute;
+    top: 5vh;
+    right: 6vw;
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    opacity: 0.6;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .progress-wrap{
+    position:absolute;
+    bottom: 9vh;
+    left: 8vw;
+    right: 8vw;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow:hidden;
+    cursor:pointer;
+  }
+  .progress-fill{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--ring-cyan), var(--ring-violet));
+  }
+  .stage.turnup .progress-fill{
+    background: linear-gradient(90deg, var(--turnup-b), var(--turnup-a));
+  }
+
+  .controls{
+    position:absolute;
+    bottom: 4vh;
+    left: 0; right: 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 18px;
+  }
+  .ctrl-btn{
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--ink);
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    font-size: 1.1rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .ctrl-btn:hover{ background: rgba(255,255,255,0.14); transform: scale(1.05); }
+  .ctrl-btn:focus-visible{ outline: 2px solid var(--ring-cyan); outline-offset: 2px; }
+
+  .hint{
+    position:absolute;
+    bottom: 1.4vh;
+    left:0; right:0;
+    text-align:center;
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .orb, .line{ animation: none !important; transition: opacity 0.2s ease !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="section-tag" id="sectionTag">Intro</div>
+  <div class="tap-hint">tap the lyrics to advance manually</div>
+  <div class="time-tag" id="timeTag">0:00 / 2:00</div>
+
+  <div class="orb-wrap"><div class="orb"></div></div>
+
+  <div class="lyric-box">
+    <div class="line" id="line1"></div>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="controls">
+    <button class="ctrl-btn" id="prevBtn" aria-label="Previous line">&#8592;</button>
+    <button class="ctrl-btn" id="playBtn" aria-label="Play or pause">&#9654;</button>
+    <button class="ctrl-btn" id="nextBtn" aria-label="Next line">&#8594;</button>
+  </div>
+
+  <div class="hint">space to play/pause · arrow keys to skip lines · click the bar to scrub</div>
+
+  <audio id="audio" preload="auto" src="Alexa.mp3"></audio>
+</div>
+
+<script>
+  // start, dur are seconds into the actual track, computed from its real length
+  const lines = [
+    {section:"Intro", text:"Alexa", hero:true, start:10.43, dur:1.27},
+    {section:"Verse 1", text:"Alexa turn it off", start:12.00, dur:2.57},
+    {section:"Verse 1", text:"My brain don't start 'til noon", start:14.57, dur:3.86},
+    {section:"Verse 1", text:"My GPA is lit", start:18.42, dur:2.57},
+    {section:"Verse 1", text:"I guess I'll go to school", start:20.99, dur:3.86},
+    {section:"Verse 1", text:"I'm tryna go to college", start:24.84, dur:3.22},
+    {section:"Verse 1", text:"I'm tryna make some room", start:28.05, dur:3.22},
+    {section:"Verse 1", text:"Alexa turn it off", start:31.27, dur:2.57},
+    {section:"Verse 1", text:"My brain don't start 'til noon", start:33.83, dur:3.86},
+    {section:"Chorus", text:"Ooh", start:37.69, dur:0.77},
+    {section:"Chorus", text:"You get on my nerves but I need you", start:38.46, dur:5.78},
+    {section:"Chorus", text:"(Ooh)", paren:true, start:44.24, dur:0.77},
+    {section:"Chorus", text:"Ooh", start:45.02, dur:0.77},
+    {section:"Chorus", text:"You get on my nerves but I need you", start:45.78, dur:5.78},
+    {section:"Chorus", text:"(Ooh)", paren:true, start:51.57, dur:0.77},
+    {section:"Chorus", text:"Ooh", start:52.33, dur:0.77},
+    {section:"Chorus", text:"You get on my nerves but I need you", start:53.10, dur:5.78},
+    {section:"Chorus", text:"Alexa", hero:true, start:58.88, dur:1.16},
+    {section:"Verse 2", text:"Alexa turn it off", start:60.04, dur:2.57},
+    {section:"Verse 2", text:"I'm still in bed at noon", start:62.61, dur:3.86},
+    {section:"Verse 2", text:"What do I wear to school?", start:66.47, dur:3.86},
+    {section:"Verse 2", text:"What should I do with my hair?", start:70.32, dur:4.49},
+    {section:"Verse 2", text:"Alexa I need you", start:74.82, dur:2.57},
+    {section:"Verse 2", text:"My GPA is lit", start:77.38, dur:2.57},
+    {section:"Verse 2", text:"I guess I'll go to school", start:79.95, dur:3.86},
+    {section:"Verse 2", text:"I'm tryna go to college", start:83.80, dur:3.22},
+    {section:"Verse 2", text:"I'm tryna make some room", start:87.02, dur:3.22},
+    {section:"Chorus", text:"Ooh", start:90.23, dur:0.77},
+    {section:"Chorus", text:"You get on my nerves but I need you", start:91.00, dur:5.78},
+    {section:"Chorus", text:"(Ooh)", paren:true, start:96.79, dur:0.77},
+    {section:"Chorus", text:"Ooh", start:97.55, dur:0.77},
+    {section:"Chorus", text:"You get on my nerves but I need you", start:98.32, dur:5.78},
+    {section:"Chorus", text:"(Ooh)", paren:true, start:104.10, dur:0.77},
+    {section:"Chorus", text:"Ooh", start:104.88, dur:0.77},
+    {section:"Chorus", text:"You get on my nerves but I need you", start:105.65, dur:5.78},
+    {section:"Chorus", text:"Alexa", hero:true, start:111.43, dur:1.16},
+    {section:"Turn Up", text:"but when it's time to turn up", start:112.58, dur:4.49},
+    {section:"Turn Up", text:"Alexa turn up", hero:true, start:117.08, dur:1.93}
+  ];
+
+  let manualMode = false; // once the user taps to advance, stop auto-following the audio clock
+
+  const stage = document.getElementById('stage');
+  const lineEl = document.getElementById('line1');
+  const tagEl = document.getElementById('sectionTag');
+  const timeEl = document.getElementById('timeTag');
+  const fillEl = document.getElementById('progressFill');
+  const wrapEl = document.getElementById('progressWrap');
+  const playBtn = document.getElementById('playBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const audio = document.getElementById('audio');
+
+  let idx = -1;
+
+  function fmt(s){
+    s = Math.max(0, s);
+    const m = Math.floor(s/60);
+    const sec = Math.floor(s%60).toString().padStart(2,'0');
+    return m+':'+sec;
+  }
+
+  function findIndexForTime(t){
+    let found = 0;
+    for (let i=0;i<lines.length;i++){
+      if (t >= lines[i].start) found = i; else break;
+    }
+    return found;
+  }
+
+  function renderLine(i){
+    if (i === idx) return;
+    idx = i;
+    const l = lines[i];
+    tagEl.textContent = l.section;
+    stage.classList.toggle('turnup', !!l.turnup || l.section === 'Turn Up');
+
+    lineEl.classList.remove('show');
+    lineEl.classList.toggle('hero-word', !!l.hero);
+    lineEl.classList.toggle('paren', !!l.paren);
+    lineEl.textContent = l.text;
+    void lineEl.offsetWidth;
+    lineEl.classList.add('show');
+  }
+
+  function onFrame(){
+    const t = audio.currentTime;
+    const d = audio.duration || 120.5;
+    if (!manualMode){
+      const i = findIndexForTime(t);
+      renderLine(i);
+    }
+    fillEl.style.width = (t/d*100) + '%';
+    timeEl.textContent = fmt(t) + ' / ' + fmt(d);
+    if (!audio.paused) requestAnimationFrame(onFrame);
+  }
+
+  function play(){
+    audio.play();
+    playBtn.innerHTML = '&#10074;&#10074;';
+    requestAnimationFrame(onFrame);
+  }
+  function pause(){
+    audio.pause();
+    playBtn.innerHTML = '&#9654;';
+  }
+  function toggle(){ audio.paused ? play() : pause(); }
+
+  function advance(delta){
+    manualMode = true;
+    const ni = Math.max(0, Math.min(idx + delta, lines.length - 1));
+    audio.currentTime = lines[ni].start;
+    renderLine(ni);
+  }
+
+  playBtn.addEventListener('click', toggle);
+  nextBtn.addEventListener('click', () => advance(1));
+  prevBtn.addEventListener('click', () => advance(-1));
+  document.getElementById('line1').addEventListener('click', () => advance(1));
+
+  // scrubbing the bar resyncs to the audio's real position
+  wrapEl.addEventListener('click', (e) => {
+    manualMode = false;
+    const rect = wrapEl.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    audio.currentTime = pct * (audio.duration || 120.5);
+    renderLine(findIndexForTime(audio.currentTime));
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space'){ e.preventDefault(); toggle(); }
+    if (e.code === 'ArrowRight'){ advance(1); }
+    if (e.code === 'ArrowLeft'){ advance(-1); }
+  });
+
+  audio.addEventListener('ended', pause);
+  audio.addEventListener('loadedmetadata', () => {
+    timeEl.textContent = '0:00 / ' + fmt(audio.duration);
+  });
+
+  renderLine(0);
+</script>
+
+</body>
+</html>
