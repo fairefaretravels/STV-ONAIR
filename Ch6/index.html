@@ -1,46 +1,145 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Explore SENSTACK Gamers: music-powered games, interactive worlds, and the SENSTACK gaming hubs by Saneca Mack.">
-<meta name="theme-color" content="#090b14">
-<title>CH6 · SENSTACK Gamers</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b12">
+<title>CHANNEL 6 | SENSTACK Arcade</title>
 <style>
-:root{--bg:#080a12;--panel:#111523;--panel2:#171d2d;--text:#f6f7fb;--muted:#aeb6c9;--red:#ff3158;--blue:#5b8cff;--violet:#9a69ff;--lime:#c8ff5c;--line:#293147}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 12% 0%,#25234a 0,transparent 34%),radial-gradient(ellipse at 90% 18%,#173354 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
-a{color:inherit;text-decoration:none}.wrap{max-width:1200px;margin:auto;padding:0 22px}header{padding:20px 0;border-bottom:1px solid #ffffff18;position:relative}nav{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.brand{font-weight:950;letter-spacing:.15em;font-size:15px}.brand span{color:var(--red)}.navlinks{display:flex;gap:9px;flex-wrap:wrap}.navlinks a{font-size:12px;color:#dbe2f2;padding:9px 12px;border:1px solid #ffffff20;border-radius:999px}.hero{padding:62px 0 38px;display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center}.eyebrow{font-size:11px;letter-spacing:.22em;font-weight:900;color:var(--lime);text-transform:uppercase}.hero h1{font-size:clamp(48px,8vw,94px);line-height:.88;letter-spacing:-.075em;margin:17px 0 20px}.hero h1 span{color:var(--red);text-shadow:0 0 38px #ff31582e}.hero p{max-width:620px;color:#c0c8d9;font-size:17px;line-height:1.65}.hero-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:25px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 17px;border-radius:12px;font-weight:850;font-size:13px;background:var(--red);color:white;border:1px solid transparent;transition:transform .2s,filter .2s}.btn:hover,.tile:hover{transform:translateY(-4px);filter:brightness(1.08)}.btn.alt{background:#ffffff0b;border-color:#ffffff2b}.hero-art{min-height:275px;border:1px solid #ffffff1c;border-radius:26px;background:linear-gradient(135deg,#ff31582c,#5b8cff28 55%,#9a69ff2c);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.orb{width:190px;height:190px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff, #c8ff5c 8%,#5b8cff 35%,#9a69ff 62%,#ff3158 82%);box-shadow:0 0 90px #8066ff7a;animation:float 5s ease-in-out infinite}.orbit{position:absolute;width:265px;height:85px;border:2px solid #ffffff7a;border-radius:50%;transform:rotate(-26deg)}.orbit.two{transform:rotate(42deg);width:285px;border-color:#c8ff5c77}.art-label{position:absolute;bottom:18px;left:20px;font-weight:900;letter-spacing:.16em;font-size:11px;color:#fff}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:8px 0 50px}.stat{background:#ffffff08;border:1px solid #ffffff15;border-radius:15px;padding:16px}.stat strong{display:block;font-size:22px}.stat span{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}.section{padding:24px 0 36px;scroll-margin-top:20px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}.section-head h2{margin:7px 0 0;font-size:clamp(27px,4vw,40px);letter-spacing:-.045em}.section-head p{margin:0;color:var(--muted);font-size:13px;max-width:440px;line-height:1.55}.section-tag{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:950}.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.tile{position:relative;display:flex;flex-direction:column;min-height:260px;padding:20px;border:1px solid #ffffff1b;border-radius:20px;background:linear-gradient(150deg,#ffffff0c,#ffffff04);overflow:hidden;transition:transform .22s,filter .22s}.tile:before{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--tile-accent,var(--red))}.tile:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-65px;top:-65px;background:var(--tile-accent,var(--red));opacity:.14;filter:blur(2px)}.tile-top{display:flex;justify-content:space-between;gap:12px;align-items:center;position:relative;z-index:1}.iconbox{height:46px;width:46px;display:grid;place-items:center;border-radius:14px;background:color-mix(in srgb,var(--tile-accent,var(--red)) 18%,transparent);border:1px solid color-mix(in srgb,var(--tile-accent,var(--red)) 45%,transparent);font-size:22px;font-weight:900}.pill{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#d9e0f1;background:#ffffff0b;border:1px solid #ffffff17;border-radius:999px;padding:7px 9px}.tile h3{font-size:23px;letter-spacing:-.04em;margin:23px 0 9px;position:relative;z-index:1}.tile p{font-size:14px;line-height:1.65;color:#b9c2d5;margin:0 0 23px;position:relative;z-index:1}.tile-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;z-index:1}.play{font-weight:900;font-size:12px;color:var(--tile-accent,var(--red));letter-spacing:.04em}.arrow{font-size:18px;color:#fff}.tile.feature{background:linear-gradient(140deg,#5b8cff24,#9a69ff16,#ffffff05)}.music{--tile-accent:#ff4f76}.quest{--tile-accent:#c8ff5c}.static{--tile-accent:#9a69ff}.ops{--tile-accent:#5b8cff}.hub{--tile-accent:#ff9d43}.tutor{--tile-accent:#66d9ad}.drive{--tile-accent:#f7d354}.wide{grid-column:span 2;min-height:230px}.wide h3{font-size:28px}.wide .tile-content{max-width:650px}.callout{margin:18px 0 55px;padding:22px;border-radius:18px;border:1px solid #ffffff1b;background:linear-gradient(100deg,#ff315817,#5b8cff14);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.callout h3{margin:0 0 7px}.callout p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}footer{border-top:1px solid #ffffff18;padding:25px 0 32px;color:#8993a9;font-size:12px}footer .foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.smallcaps{letter-spacing:.16em;font-weight:900;color:#dce3f3}
-@keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-10px) rotate(5deg)}}
-@media(max-width:850px){.hero{grid-template-columns:1fr}.hero-art{min-height:220px}.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.wide{grid-column:span 2}}
-@media(max-width:560px){.wrap{padding:0 15px}.hero{padding-top:42px}.tiles{grid-template-columns:1fr}.wide{grid-column:auto}.tile{min-height:235px}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:18px}.stat span{font-size:9px}.navlinks a{padding:8px 10px}.hero-art{min-height:190px}.orb{width:145px;height:145px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
-</style></head>
+:root{--bg:#080a10;--panel:#111622;--panel2:#171f2d;--line:#29364b;--green:#56e39f;--cyan:#42e8f5;--purple:#a878ff;--gold:#ffd166;--pink:#ff4fa3;--muted:#9aa8bd}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#202b45 0%,#0a0d16 50%,#07090e 100%);color:#f4f7ff;font-family:Inter,system-ui,Segoe UI,sans-serif;min-height:100vh}button,input{font:inherit}button{cursor:pointer}a{color:inherit}.shell{max-width:1440px;margin:auto;padding:16px}.ad-slot{height:74px;border:1px dashed #526078;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#8d9bb0;font-size:11px;letter-spacing:.22em;text-transform:uppercase;background:#0d111b;margin-bottom:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px}.brand{display:flex;align-items:center;gap:12px}.mark{width:48px;height:48px;border:2px solid var(--green);display:grid;place-items:center;color:var(--green);font-weight:1000;font-size:20px;transform:skew(-5deg);box-shadow:0 0 22px #56e39f33}.brand h1{font-size:clamp(23px,4vw,38px);line-height:1;margin:0;letter-spacing:.08em}.brand p{margin:6px 0 0;color:var(--muted);font-size:11px;letter-spacing:.2em}.onair{border:1px solid #5a263e;color:#ff80b5;background:#2a1020;border-radius:99px;padding:8px 12px;font-size:11px;letter-spacing:.12em}.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(280px,.8fr);gap:16px}.panel{background:linear-gradient(145deg,#151c2aee,#0e1420f2);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 14px 45px #0005}.panel-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.eyebrow{font-size:10px;letter-spacing:.2em;color:var(--green);font-weight:800}.panel-head h2{font-size:14px;margin:4px 0 0;letter-spacing:.08em}.stage{background:#05070b;aspect-ratio:16/9;position:relative;min-height:220px}.stage iframe{width:100%;height:100%;border:0;background:#05070b}.stage-empty{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:24px;background:radial-gradient(ellipse,#17243a,#070a10 70%)}.stage-empty strong{font-size:clamp(20px,4vw,34px);letter-spacing:.12em;color:var(--cyan)}.stage-empty span{font-size:12px;color:var(--muted);margin-top:10px}.stage-label{position:absolute;left:12px;top:12px;background:#090d16d9;border:1px solid #34435a;border-radius:6px;padding:6px 9px;font-size:10px;letter-spacing:.13em;pointer-events:none}.stage-actions{padding:14px;display:flex;gap:9px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#1b2637;color:#f5f8ff;border-radius:9px;padding:11px 14px;font-weight:800;font-size:11px;letter-spacing:.08em}.btn.primary{background:var(--green);color:#06130d;border-color:var(--green)}.btn.cyan{border-color:#287f8a;color:var(--cyan)}.btn:disabled{opacity:.4;cursor:not-allowed}.side-stack{display:grid;gap:16px;align-content:start}.chat-frame{height:390px;width:100%;border:0;background:#080b12}.chat-fallback{padding:16px;color:var(--muted);font-size:12px}.game-section{margin-top:16px}.game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px;padding:14px}.game-card{min-width:0;text-align:left;border:1px solid var(--line);background:#101827;border-radius:11px;overflow:hidden;color:#fff;padding:0;transition:.18s}.game-card:hover,.game-card.active{border-color:var(--green);box-shadow:0 0 18px #56e39f25;transform:translateY(-2px)}.game-art{height:84px;background:linear-gradient(135deg,#1d2a42,#10131d);display:grid;place-items:center;color:var(--cyan);font-weight:900;font-size:12px;letter-spacing:.08em}.game-info{padding:10px}.game-info b{display:block;font-size:12px}.game-info small{color:var(--muted);font-size:10px}.config{padding:14px;display:grid;gap:10px}.config label{display:grid;gap:6px;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}.config input{width:100%;border:1px solid var(--line);background:#080d16;color:white;border-radius:8px;padding:11px;font-size:12px}.config-note{font-size:11px;line-height:1.5;color:var(--muted);margin:0}.radio{position:sticky;bottom:10px;z-index:5;margin-top:16px;padding:12px 14px;background:#101a25f2;border:1px solid #315b51;border-radius:13px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 35px #0009;backdrop-filter:blur(12px)}.radio-icon{width:36px;height:36px;display:grid;place-items:center;background:#183c30;border-radius:9px;color:var(--green);font-weight:900}.radio-meta{min-width:0;flex:1}.radio-meta b{display:block;font-size:12px}.radio-meta small{color:var(--muted);font-size:10px}.radio button{border:1px solid #39765e;background:#17392c;color:var(--green);padding:9px 12px;border-radius:8px;font-weight:800}.radio input[type=range]{width:86px;accent-color:var(--green)}.foot{padding:18px;text-align:center;color:#66758b;font-size:10px;letter-spacing:.12em}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.chat-frame{height:310px}}@media(max-width:560px){.shell{padding:10px}.side-stack{grid-template-columns:1fr}.chat-frame{height:300px}.top{align-items:flex-start}.onair{font-size:9px}.radio{gap:8px}.radio input[type=range]{width:65px}.stage{min-height:210px}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
 <body>
-<header><div class="wrap"><nav><a class="brand" href="#top">SEN<span>STACK</span> / CH6</a><div class="navlinks"><a href="#music">Music Promo</a><a href="#gaming">Gaming Hub</a><a href="#learning">Learn & Play</a><a href="senstack-music.html">Music Store</a><a href="https://fairefaretravels.github.io/Alexa/" target="_blank" rel="noopener">Alexa</a></div></nav></div></header>
-<main class="wrap" id="top">
-<section class="hero"><div><div class="eyebrow">Channel 6 · Play beyond the ordinary</div><h1>SENSTACK<br><span>GAMERS.</span></h1><p>Step into the playable side of SENSTACK: music-driven worlds, skill-building games, experiments, and game hubs built by Saneca Mack. Pick a tile, jump in, and explore.</p><div class="hero-actions"><a class="btn" href="#gaming">Explore the games <span aria-hidden="true"> ↗</span></a><a class="btn alt" href="#music">Enter Music Promo</a><a class="btn alt" href="music store/">Open Music Store ↗</a></div></div><div class="hero-art" aria-label="Abstract neon gaming artwork"><div class="orbit"></div><div class="orbit two"></div><div class="orb"></div><div class="art-label">STRATEGY · EXECUTION · NETWORK</div></div></section>
-<div class="stats"><div class="stat"><strong>CH 06</strong><span>SENSTACK Gamers</span></div><div class="stat"><strong>Play + Sound</strong><span>Music Promo</span></div><div class="stat"><strong>One Launchpad</strong><span>Explore the collection</span></div></div>
-<section class="section" id="music"><div class="section-head"><div><div class="section-tag">01 / Music Promo</div><h2>Games with a soundtrack.</h2></div><p>Music, movement, and interactive experiences meet here. Start with the projects where sound is part of the atmosphere.</p></div>
-<div class="tiles">
-<a class="tile static feature" href="https://fairefaretravels.github.io/ssrgame/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">S</div><span class="pill">Music-powered game</span></div><h3>The Static</h3><p>A stylized driving-game world where the radio, city atmosphere, and gameplay work together. Tune in and explore the experience.</p><div class="tile-foot"><span class="play">OPEN THE STATIC</span><span class="arrow">↗</span></div></a>
-<a class="tile static" href="https://key-to-the-city.vercel.app/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">K</div><span class="pill">The Static · Version / world</span></div><h3>Key to the City</h3><p>Open the Key to the City version of The Static universe. This is listed separately so visitors can choose this build directly.</p><div class="tile-foot"><span class="play">OPEN KEY TO THE CITY</span><span class="arrow">↗</span></div></a>
-<a class="tile static" href="https://fairefaretravels.github.io/SenStack/ssbgame/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">ST</div><span class="pill">The Static · Story build</span></div><h3>The Static — Story Mode</h3><p>A separate launch tile for the story-focused Static build, so the different versions are easy to find from Channel 6.</p><div class="tile-foot"><span class="play">OPEN STORY MODE</span><span class="arrow">↗</span></div></a>
-<a class="tile static" href="https://fairefaretravels.github.io/SenStack/ssrgame/static-game/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">SG</div><span class="pill">The Static · Game build</span></div><h3>The Static — Game Build</h3><p>A direct entry for the Static game folder in the SENSTACK project. If your deployment uses a different base path, update this URL to the live route.</p><div class="tile-foot"><span class="play">OPEN GAME BUILD</span><span class="arrow">↗</span></div></a>
-<a class="tile music" href="https://fairefaretravels.github.io/Alexa/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">A</div><span class="pill">Music experience</span></div><h3>Alexa</h3><p>Visit the Alexa music project and explore the experience. Also available from the SENSTACK Music page.</p><div class="tile-foot"><span class="play">OPEN ALEXA</span><span class="arrow">↗</span></div></a>
-<a class="tile quest" href="https://fairefaretravels.github.io/codequester/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">CQ</div><span class="pill">Quest · Explore</span></div><h3>CodeQuestER</h3><p>Take on a 3D driving adventure with a track, city exploration, and game-world challenges. Built for curiosity and hands-on discovery.</p><div class="tile-foot"><span class="play">START QUESTING</span><span class="arrow">↗</span></div></a>
-<a class="tile drive" href="https://fairefaretravels.github.io/Game-Ops-Dashboard/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">♫</div><span class="pill">Music + game projects</span></div><h3>DriveWise / Sound Worlds</h3><p>Explore the music-and-driving direction across the game collection. Use the gaming operations dashboard as the launch point.</p><div class="tile-foot"><span class="play">OPEN GAME OPS</span><span class="arrow">↗</span></div></a>
-</div></section>
-<section class="section" id="gaming"><div class="section-head"><div><div class="section-tag">02 / Gaming Hub</div><h2>Choose your next world.</h2></div><p>Big tiles, clear descriptions, and quick access. Browse the main game destinations and jump straight into the experience.</p></div>
-<div class="tiles">
-<a class="tile hub feature wide" href="https://fairefaretravels.github.io/GameHub/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">GH</div><span class="pill">Featured · Main hub</span></div><div class="tile-content"><h3>GameHub</h3><p>Your central destination for exploring the game collection. Start here when you want to browse what’s playable and discover your next favorite.</p></div><div class="tile-foot"><span class="play">ENTER GAMEHUB</span><span class="arrow">↗</span></div></a>
-<a class="tile ops" href="https://fairefaretravels.github.io/Game-Ops-Dashboard/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">OPS</div><span class="pill">Control room</span></div><h3>Game Ops Dashboard</h3><p>The operations-side launchpad for game projects, tools, and connected experiences.</p><div class="tile-foot"><span class="play">OPEN DASHBOARD</span><span class="arrow">↗</span></div></a>
-</div></section>
-<section class="section" id="learning"><div class="section-head"><div><div class="section-tag">03 / Learn & Play</div><h2>Practice without the pressure.</h2></div><p>Accessible, low-pressure games that make it easier to learn, warm up, and build confidence through play.</p></div>
-<div class="tiles">
-<a class="tile tutor" href="https://fairefaretravels.github.io/simpletutor/" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">ST</div><span class="pill">Learning game hub</span></div><h3>Simple Tutor</h3><p>A friendly game hub for people who want to brush up on foundational skills without feeling like they’re back in class. More games can be added over time.</p><div class="tile-foot"><span class="play">PLAY SIMPLE TUTOR</span><span class="arrow">↗</span></div></a>
-<a class="tile tutor" href="https://fairefaretravels.github.io/simpletutor/fallenphrases" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">FP</div><span class="pill">Word game</span></div><h3>Fallen Phrases</h3><p>Play with phrases and language in a relaxed, game-based format. A quick stop for learners who like to solve things as they go.</p><div class="tile-foot"><span class="play">PLAY FALLEN PHRASES</span><span class="arrow">↗</span></div></a>
-<a class="tile tutor" href="https://fairefaretravels.github.io/simpletutor/fallenletters" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">FL</div><span class="pill">Letter game</span></div><h3>Fallen Letters</h3><p>Practice letter recognition and pattern spotting through a simple, approachable game experience.</p><div class="tile-foot"><span class="play">PLAY FALLEN LETTERS</span><span class="arrow">↗</span></div></a>
-<a class="tile tutor" href="https://fairefaretravels.github.io/simpletutor/coincatch" target="_blank" rel="noopener"><div class="tile-top"><div class="iconbox">$</div><span class="pill">Number game</span></div><h3>Coin Catch</h3><p>Build familiarity with coins and money concepts in a quick, playful challenge.</p><div class="tile-foot"><span class="play">PLAY COIN CATCH</span><span class="arrow">↗</span></div></a>
-</div></section>
-<div class="callout"><div><h3>More worlds are on the way.</h3><p>CH6 is the showcase for SENSTACK games, experiments, and music-connected apps. Check back as the collection grows.</p></div><a class="btn" href="https://fairefaretravels.github.io/GameHub/" target="_blank" rel="noopener">Browse GameHub ↗</a></div>
-</main><footer><div class="wrap foot"><span class="smallcaps">SENSTACK GAMERS · CH6</span><span>Built for play, creativity, and discovery.</span><span>Strategy. Execution. Network.</span></div></footer>
-</body></html>
+<div class="shell">
+  <div class="ad-slot">Advertisement · 970 × 90 reserved placement</div>
+  <header class="top">
+    <div class="brand"><div class="mark">6</div><div><h1>CHANNEL 6</h1><p>SENSTACK ARCADE · GAME BROADCAST</p></div></div>
+    <div class="onair">● GAMING NETWORK</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="panel-head"><div><div class="eyebrow">NOW PLAYING</div><h2 id="playingTitle">SELECT A GAME TO START</h2></div><span class="onair">LIVE STAGE</span></div>
+      <div class="stage" id="stage">
+        <div class="stage-empty" id="emptyState"><strong>CHANNEL 6</strong><span>Choose a game below. It loads here without leaving the channel.</span></div>
+        <div class="stage-label" id="stageLabel">GAME WINDOW</div>
+      </div>
+      <div class="stage-actions">
+        <button class="btn primary" id="goLive">OPEN BROADCAST SCENE ↗</button>
+        <button class="btn cyan" id="joinRoom">JOIN AS GUEST ↗</button>
+        <button class="btn" id="openGame">OPEN GAME IN NEW TAB ↗</button>
+      </div>
+    </section>
+
+    <aside class="side-stack">
+      <section class="panel">
+        <div class="panel-head"><div><div class="eyebrow">COMMUNITY</div><h2>LIVE CHAT</h2></div><span class="eyebrow">TALK.IO</span></div>
+        <iframe class="chat-frame" src="https://talk.io/sanecatv" title="Channel 6 live chat" loading="lazy" allow="clipboard-read; clipboard-write"></iframe>
+        <div class="chat-fallback">If chat does not load inside this panel, <a href="https://talk.io/sanecatv" target="_blank" rel="noopener">open Channel 6 chat in a new tab</a>.</div>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><div><div class="eyebrow">BROADCAST SETUP</div><h2>ROOM LINKS</h2></div></div>
+        <div class="config">
+          <label>VDO.Ninja scene / director URL<input id="sceneUrl" type="url" placeholder="Paste your VDO.Ninja scene URL"></label>
+          <label>Host / guest invite URL<input id="inviteUrl" type="url" placeholder="Paste your VDO.Ninja invite URL"></label>
+          <button class="btn" id="saveLinks">SAVE ROOM LINKS ON THIS DEVICE</button>
+          <p class="config-note">These links are intentionally left blank until you provide your actual VDO.Ninja room. Opening a scene is separate from capturing the game: add this game window as a browser source or screen capture in your broadcast scene.</p>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <section class="panel game-section">
+    <div class="panel-head"><div><div class="eyebrow">THE ARCADE</div><h2>CHOOSE YOUR GAME</h2></div><span class="eyebrow">ONE SCREEN · NO DETOURS</span></div>
+    <div class="game-grid" id="gameGrid">
+      <button class="game-card" data-title="Garden of Terror" data-url="https://garden-of-terror.vercel.app/sk1"><div class="game-art">GARDEN OF TERROR</div><div class="game-info"><b>Garden of Terror</b><small>Survival · Action</small></div></button>
+      <button class="game-card" data-title="Street Kings" data-url="https://garden-of-terror.vercel.app/sk2/"><div class="game-art">STREET KINGS</div><div class="game-info"><b>Street Kings</b><small>Driving · Racing</small></div></button>
+      <button class="game-card" data-title="Space Force" data-url="https://garden-of-terror.vercel.app/space-force/"><div class="game-art">SPACE FORCE</div><div class="game-info"><b>Space Force</b><small>Arcade · Shooter</small></div></button>
+      <button class="game-card" data-title="Neon Faces Tic Tac Toe" data-url="https://garden-of-terror.vercel.app/ttt/"><div class="game-art">NEON FACES</div><div class="game-info"><b>Neon Faces Tic Tac Toe</b><small>Strategy · Casual</small></div></button>
+      <button class="game-card" data-title="Connect 4" data-url="https://garden-of-terror.vercel.app/connect4/"><div class="game-art">CONNECT 4</div><div class="game-info"><b>Connect 4</b><small>Strategy · Two Player</small></div></button>
+      <button class="game-card" data-title="Neon Run" data-url="https://garden-of-terror.vercel.app/neon-run/"><div class="game-art">NEON RUN</div><div class="game-info"><b>Neon Run</b><small>Runner · Arcade</small></div></button>
+    </div>
+  </section>
+
+  <div class="radio">
+    <div class="radio-icon">♪</div>
+    <div class="radio-meta"><b>MACK IN THE DARK</b><small>CHANNEL 6 RADIO · ALWAYS WITH YOU</small></div>
+    <button id="radioToggle" type="button">PLAY</button>
+    <label style="font-size:10px;color:var(--muted)">VOL</label>
+    <input id="volume" type="range" min="0" max="1" step=".01" value=".7" aria-label="Radio volume">
+    <audio id="radioAudio" preload="none" src="https://listen.streamaudio.co/proxy/mackinthedark/stream"></audio>
+  </div>
+  <footer class="foot">CHANNEL 6 · POWERED BY SENSTACK ARCADE</footer>
+</div>
+<script>
+(() => {
+  const stage = document.getElementById('stage');
+  const empty = document.getElementById('emptyState');
+  const title = document.getElementById('playingTitle');
+  const label = document.getElementById('stageLabel');
+  const cards = [...document.querySelectorAll('.game-card')];
+  let selected = null;
+
+  function loadGame(card) {
+    if (!card) return;
+    selected = {title: card.dataset.title, url: card.dataset.url};
+    stage.querySelector('iframe')?.remove();
+    empty.style.display = 'none';
+    const frame = document.createElement('iframe');
+    frame.src = selected.url;
+    frame.title = selected.title;
+    frame.allow = 'fullscreen; autoplay; gamepad';
+    frame.allowFullscreen = true;
+    stage.insertBefore(frame, label);
+    title.textContent = selected.title.toUpperCase();
+    label.textContent = 'PLAYING · ' + selected.title.toUpperCase();
+    cards.forEach(c => c.classList.toggle('active', c === card));
+  }
+  cards.forEach(card => card.addEventListener('click', () => loadGame(card)));
+  document.getElementById('openGame').addEventListener('click', () => {
+    if (selected) window.open(selected.url, '_blank', 'noopener');
+  });
+
+  const scene = document.getElementById('sceneUrl');
+  const invite = document.getElementById('inviteUrl');
+  try {
+    scene.value = localStorage.getItem('channel6_scene_url') || '';
+    invite.value = localStorage.getItem('channel6_invite_url') || '';
+  } catch(e) {}
+  document.getElementById('saveLinks').addEventListener('click', () => {
+    try {
+      localStorage.setItem('channel6_scene_url', scene.value.trim());
+      localStorage.setItem('channel6_invite_url', invite.value.trim());
+      alert('Room links saved on this device.');
+    } catch(e) { alert('This browser blocked local saving. The links can still be pasted and opened manually.'); }
+  });
+  document.getElementById('goLive').addEventListener('click', () => {
+    const url = scene.value.trim();
+    if (!url) return alert('Add your VDO.Ninja scene URL in Broadcast Setup first.');
+    window.open(url, '_blank', 'noopener');
+  });
+  document.getElementById('joinRoom').addEventListener('click', () => {
+    const url = invite.value.trim();
+    if (!url) return alert('Add your VDO.Ninja invite URL in Broadcast Setup first.');
+    window.open(url, '_blank', 'noopener');
+  });
+
+  const audio = document.getElementById('radioAudio');
+  const toggle = document.getElementById('radioToggle');
+  const volume = document.getElementById('volume');
+  audio.volume = Number(volume.value);
+  volume.addEventListener('input', () => audio.volume = Number(volume.value));
+  toggle.addEventListener('click', async () => {
+    if (audio.paused) {
+      try { await audio.play(); toggle.textContent = 'PAUSE'; }
+      catch(e) { alert('The radio stream could not start. Check your connection and try again.'); }
+    } else { audio.pause(); toggle.textContent = 'PLAY'; }
+  });
+  audio.addEventListener('pause', () => toggle.textContent = 'PLAY');
+  audio.addEventListener('play', () => toggle.textContent = 'PAUSE');
+})();
+</script>
+</body>
+</html>
