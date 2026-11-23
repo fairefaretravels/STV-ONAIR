@@ -1061,30 +1061,31 @@
   </div>
 </section>
 
+
 <!-- STICKY NAV -->
 <nav class="nav">
   <div class="nav-brand">STV <span>RADIO</span></div>
+
   <ul class="nav-tabs">
-    <li><a href="radio" class="tab-link active" data-tab="radio">Radio</a></li>
-    <li><a href="/watch/" class="tab-link" data-tab="shows">Shows</a></li>
-    <li><a href="#promo" class="tab-link" data-tab="promo">Promo</a></li>
-    <li><a href="#about" class="tab-link" data-tab="about">About</a></li>
+    <li><a href="/radio/" class="tab-link">Radio</a></li>
+    <li><a href="/watch/" class="tab-link">Shows</a></li>
+    <li><a href="#promo" class="tab-link active" data-tab="promo">Promo</a></li>
+    <li><a href="#about" class="tab-link">About</a></li>
   </ul>
 </nav>
 
-  <!-- PROMO SECTION -->
+<!-- PROMO RADIO PLAYER -->
+<section id="promo">
+  <h2>Promo</h2>
 
-  <section id="promo">
+  <audio id="promoPlayer" controls preload="none">
+    <source
+      src="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+      type="audio/mpeg">
+    Your browser does not support audio playback.
+  </audio>
+</section>
 
-    <h2>Promo</h2>
-
-    <audio controls>
-
-      <source src="https://listen.streamaudio.co/proxy/mackinthedark/stream" type="audio/mpeg">
-
-    </audio>
-
-  </section>
 <!-- MODE SWITCH: RADIO / TV / TALK -->
 <div class="mode-switch">
   <span class="mode-btn is-active">RADIO</span>
@@ -1828,6 +1829,26 @@
     document.getElementById('pwa-banner').classList.remove('show');
   });
 
+  document.addEventListener("DOMContentLoaded", () => {
+  const promoPlayer = document.getElementById("promoPlayer");
+
+  document.querySelectorAll('.tab-link[href="#promo"]').forEach(link => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      document.getElementById("promo").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      document.querySelectorAll(".tab-link").forEach(tab => {
+        tab.classList.remove("active");
+      });
+
+      link.classList.add("active");
+    });
+  });
+});
   <!-- Koalendar Popup Widget Start -->
 <script>window.Koalendar = window.Koalendar || function(){(Koalendar.props = Koalendar.props || []).push(arguments)};</script>
 <script async src="https://koalendar.com/assets/widget.js"></script>
@@ -1844,5 +1865,6 @@
 </script>
 <!-- Koalendar Popup Widget End -->
 </script>
+
 </body>
 </html>
