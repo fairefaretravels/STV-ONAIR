@@ -1,3 +1,4 @@
+
 name: Deploy STV-ONAIR (Static)
 
 on:
@@ -17,12 +18,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .   # or ./public if you have structure
+          path: .
+          name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
 
       - name: Deploy to Pages
         uses: actions/deploy-pages@v5
+        with:
+          artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+
