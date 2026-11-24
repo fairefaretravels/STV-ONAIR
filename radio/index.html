@@ -1,648 +1,354 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000">
-
-  <title>Radio Meltdown | Independent Radio, Music & Culture</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#000000">
+<title>Radio Meltdown | Independent Radio, Music &amp; Culture</title>
 <meta name="description" content="Listen to Radio Meltdown, featuring independent music, culture, conversation, creative voices, live broadcasts and original programming.">
-
 <meta property="og:title" content="Radio Meltdown | MACKINTHEDARK">
 <meta property="og:description" content="Independent radio. Music. Culture. Conversation. Tune in to Radio Meltdown.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://radiomeltdown.com/radio">
-  <style>
-    :root {
-      --black: #080808;
-      --white: #f5f5f2;
-      --gray: #999;
-      --line: #333;
-    }
+<style>
+:root{--black:#080808;--panel:#0f0f0f;--white:#f5f5f2;--gray:#9a9a9a;--soft:#c4c4c0;--line:#2e2e2e}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--black);color:var(--white);font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;line-height:1.6;-webkit-tap-highlight-color:transparent}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+iframe{border:0;max-width:100%}
+:focus-visible{outline:2px solid var(--white);outline-offset:3px}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+/* BUTTONS: a.button beats any generic link rule, so text always shows */
+a.button,button.button{display:inline-block;background:var(--white);color:var(--black);padding:15px 26px;font:900 12px/1 inherit;font-family:inherit;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--white);cursor:pointer;transition:background .2s,color .2s}
+a.button:hover,button.button:hover{background:transparent;color:var(--white)}
+a.button.outline{background:transparent;color:var(--white)}
+a.button.outline:hover{background:var(--white);color:var(--black)}
+.static-section a.button{background:var(--black);color:var(--white);border-color:var(--black)}
+.static-section a.button:hover{background:transparent;color:var(--black)}
 
-    html {
-      scroll-behavior: smooth;
-    }
+/* HEADER */
+.site-header{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:16px 6%;background:rgba(8,8,8,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{font-size:14px;font-weight:900;letter-spacing:3px}
+.nav{display:flex;gap:22px;font-size:12px;text-transform:uppercase;letter-spacing:1.5px}
+.nav a{color:var(--white)}.nav a:hover{opacity:.55}
 
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.5;
-    }
+/* TICKER */
+.ticker{background:var(--white);color:var(--black);overflow:hidden;white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 0}
+.ticker-track{display:inline-block;animation:tick 70s linear infinite}
+.ticker-track span{margin:0 34px}
+@keyframes tick{to{transform:translateX(-50%)}}
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+/* HERO */
+.hero{padding:70px 6% 90px;text-align:center}
+.hero-image{width:100%;max-width:1000px;max-height:560px;height:auto;object-fit:contain;margin:0 auto 55px;filter:grayscale(100%)}
+.eyebrow{color:var(--gray);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px}
+h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weight:900;text-transform:uppercase}
+.hero-sub{color:var(--soft);font-size:14px;letter-spacing:2px;margin:26px 0 32px}
+.radio-player{max-width:720px;margin:55px auto 0;padding:34px;border:1px solid #444;background:var(--panel);text-align:left}
+.player-label{font-size:11px;letter-spacing:3px;color:var(--gray);text-transform:uppercase;margin-bottom:14px}
+.player-title{font-size:24px;font-weight:900;letter-spacing:1px;margin-bottom:22px}
+.radio-player audio{display:block;width:100%;height:54px;filter:grayscale(1)}
+.radio-help{margin-top:26px;text-align:center;color:var(--gray);font-size:13px}
+.radio-help a{color:var(--white);text-decoration:underline;text-decoration-color:#777;text-underline-offset:4px}
+.hero-links{margin-top:34px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-    button {
-      font: inherit;
-    }
+/* SECTIONS */
+.section{padding:95px 8%;border-top:1px solid var(--line)}
+.wrap{max-width:1000px;margin:0 auto}
+.label{color:var(--gray);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.section h2{font-size:clamp(32px,6vw,64px);line-height:1;letter-spacing:-2px;text-transform:uppercase;margin-bottom:22px}
+.lede{max-width:640px;color:var(--soft);font-size:16px;line-height:1.8;margin-bottom:28px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:34px}
+.card{background:var(--panel);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s}
+.card:hover{border-color:#777}
+.card .tag{font-size:11px;letter-spacing:2px;color:var(--gray);text-transform:uppercase}
+.card h3{font-size:20px;line-height:1.25}
+.card p{color:var(--soft);font-size:14px;line-height:1.7}
+.card a.more{margin-top:auto;padding-top:10px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:underline;text-underline-offset:5px;text-decoration-color:#666}
 
-    .site-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 22px 6%;
-      border-bottom: 1px solid var(--line);
-    }
+/* SHOWS */
+.shows{margin-top:34px;border-top:1px solid var(--line)}
+.show{display:grid;grid-template-columns:48px 1fr auto;gap:18px;padding:24px 0;border-bottom:1px solid var(--line);align-items:start}
+.show .n{color:var(--gray);font-weight:900;font-size:18px}
+.show h3{font-size:19px}.show .host{color:var(--gray);font-size:13px}
+.show p{color:var(--soft);font-size:14px;margin-top:6px;line-height:1.7}
+.show .when{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-align:right;white-space:nowrap}
+.show .when a{color:var(--white);text-decoration:underline;text-underline-offset:4px}
 
-    .brand {
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 3px;
-    }
+/* VIDEO */
+.videos{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:34px}
+.video{aspect-ratio:16/9;background:#000;border:1px solid var(--line)}
+.video iframe{width:100%;height:100%}
+.cap{font-size:13px;color:var(--gray);margin-top:10px}
 
-    .nav {
-      display: flex;
-      gap: 24px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
+/* ARTIST */
+.artist{display:grid;grid-template-columns:150px 1fr;gap:34px;margin-top:34px;align-items:start}
+.avatar{width:150px;height:150px;border-radius:50%;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;letter-spacing:-2px}
+.artist h3{font-size:26px}.artist .role{color:var(--gray);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;margin:4px 0 16px}
+.artist p{color:var(--soft);line-height:1.8;margin-bottom:14px;max-width:640px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 22px}
+.chips span{border:1px solid #555;padding:5px 12px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
 
-    .nav a:hover,
-    .text-link:hover {
-      opacity: .55;
-    }
+/* STATIC (inverted) */
+.static-section{background:var(--white);color:var(--black);text-align:center;padding:100px 8%;border-top:0}
+.static-section .label,.static-section .lede{color:#555;margin-left:auto;margin-right:auto}
+.static-section h2{font-size:clamp(48px,10vw,110px);letter-spacing:-5px;line-height:.9;margin-bottom:28px}
+.static-section .cover{max-width:640px;margin:0 auto 32px;text-align:left;border-top:1px solid #bbb;padding-top:22px;color:#333;font-size:15px;line-height:1.8}
+.static-section .cover strong{color:var(--black)}
+#soro-blog{max-width:850px;margin:50px auto 0;text-align:left}
+#soro-blog a{color:#111 !important}
 
-    .hero {
-      padding: 65px 6% 80px;
-      text-align: center;
-    }
+/* SUPPORT / TRAVEL */
+.split{display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.travel{display:grid;grid-template-columns:200px 1fr;gap:28px;margin-top:34px;border:1px solid var(--line);padding:26px;background:var(--panel);align-items:center}
+.travel img{width:200px;height:150px;object-fit:cover;filter:grayscale(100%)}
+.travel h3{font-size:22px;margin-bottom:8px}.travel p{color:var(--soft);font-size:14px;margin-bottom:16px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills a{border:1px solid #555;padding:7px 13px;font-size:12px;letter-spacing:1px}
+.pills a:hover{background:var(--white);color:var(--black)}
+.about p{max-width:680px;color:var(--soft);font-size:16px;line-height:1.85;margin-bottom:18px}
+.about strong{color:var(--white)}
+.contact-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
 
-    .hero-image {
-      width: 100%;
-      max-height: 520px;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(100%);
-      margin-bottom: 45px;
-    }
+.booking-floater{position:fixed;right:18px;bottom:18px;z-index:20;background:var(--white);color:var(--black);padding:14px 18px;font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 20px #0008}
+.booking-floater:hover{background:#ccc}
+.site-footer{padding:38px 6% 90px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;color:var(--gray);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.site-footer a{text-decoration:underline;text-underline-offset:4px;color:var(--soft)}
 
-    .eyebrow {
-      color: var(--gray);
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: clamp(42px, 9vw, 112px);
-      line-height: .92;
-      letter-spacing: -5px;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    .hero-subtitle {
-      color: var(--gray);
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin: 24px 0 30px;
-    }
-
-    .button {
-      display: inline-block;
-      background: var(--white);
-      color: var(--black);
-      padding: 15px 25px;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border: 1px solid var(--white);
-      cursor: pointer;
-      transition: .2s ease;
-    }
-
-    .button:hover {
-      background: transparent;
-      color: var(--white);
-    }
-
-    .button-outline {
-      background: transparent;
-      color: var(--white);
-    }
-
-    .button-outline:hover {
-      background: var(--white);
-      color: var(--black);
-    }
-
-    .radio-player {
-      max-width: 540px;
-      margin: 40px auto 0;
-      padding: 25px;
-      border: 1px solid var(--line);
-      text-align: left;
-    }
-
-    .player-label {
-      font-size: 10px;
-      letter-spacing: 3px;
-      color: var(--gray);
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .player-title {
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 18px;
-    }
-
-    audio {
-      width: 100%;
-      height: 38px;
-      filter: grayscale(1);
-    }
-
-    .section {
-      padding: 75px 8%;
-      border-top: 1px solid var(--line);
-    }
-
-    .section-number {
-      color: var(--gray);
-      font-size: 10px;
-      letter-spacing: 3px;
-      margin-bottom: 15px;
-    }
-
-    .section h2 {
-      font-size: clamp(34px, 6vw, 68px);
-      line-height: 1;
-      letter-spacing: -2px;
-      text-transform: uppercase;
-      margin-bottom: 22px;
-    }
-
-    .section p {
-      max-width: 650px;
-      color: #bdbdbd;
-      font-size: 15px;
-      margin-bottom: 25px;
-    }
-
-    .section-content {
-      max-width: 850px;
-    }
-
-    .static-section {
-      background: var(--white);
-      color: var(--black);
-      text-align: center;
-      padding: 90px 8%;
-    }
-
-    .static-section .section-number,
-    .static-section p {
-      color: #555;
-    }
-
-    .static-section h2 {
-      font-size: clamp(45px, 9vw, 100px);
-      font-weight: 900;
-      letter-spacing: -5px;
-      line-height: .9;
-      margin-bottom: 30px;
-    }
-
-    .static-section .button {
-      background: var(--black);
-      color: var(--white);
-      border-color: var(--black);
-    }
-
-    .static-section .button:hover {
-      background: transparent;
-      color: var(--black);
-    }
-
-    .booking-floater {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 20;
-      background: var(--white);
-      color: var(--black);
-      padding: 14px 18px;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      box-shadow: 0 4px 20px #0008;
-    }
-
-    .booking-floater:hover {
-      background: #ccc;
-    }
-
-    .site-footer {
-      padding: 35px 6%;
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 15px;
-      color: var(--gray);
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 600px) {
-      .site-header {
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .nav {
-        gap: 14px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .hero {
-        padding: 40px 5% 60px;
-      }
-
-      h1 {
-        letter-spacing: -2px;
-      }
-
-      .section {
-        padding: 60px 7%;
-      }
-
-      .static-section h2 {
-        letter-spacing: -2px;
-      }
-    }
-
-    
-/* RADIO MELTDOWN PAGE SPACING FIX */
-
-.hero {
-  padding: 75px 6% 100px;
+@media (max-width:700px){
+.site-header{flex-direction:column;gap:12px;padding:14px 5%}
+.nav{gap:14px;flex-wrap:wrap;justify-content:center}
+.hero{padding:40px 5% 70px}h1{letter-spacing:-2px}
+.radio-player{padding:24px 18px;margin-top:45px}
+.section{padding:70px 7%}.static-section{padding:70px 7%}.static-section h2{letter-spacing:-2px}
+.artist,.travel{grid-template-columns:1fr}.avatar{width:110px;height:110px;font-size:34px}
+.travel img{width:100%;height:190px}
+.show{grid-template-columns:36px 1fr}.show .when{grid-column:2;text-align:left}
 }
-
-.hero-image {
-  width: 100%;
-  max-width: 1050px;
-  height: auto;
-  max-height: 600px;
-  object-fit: contain;
-  margin: 0 auto 60px;
-}
-
-.hero-subtitle {
-  margin: 30px 0 38px;
-}
-
-/* LARGER RADIO PLAYER */
-
-.radio-player {
-  width: 100%;
-  max-width: 720px;
-  margin: 65px auto 0;
-  padding: 38px;
-  border: 1px solid #444;
-  background: #0d0d0d;
-  text-align: left;
-}
-
-.player-label {
-  font-size: 11px;
-  letter-spacing: 4px;
-  margin-bottom: 20px;
-}
-
-.player-title {
-  font-size: 25px;
-  margin-bottom: 25px;
-  letter-spacing: 1px;
-}
-
-.radio-player audio {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: 54px;
-  min-height: 54px;
-  filter: grayscale(1);
-}
-
-.radio-player audio::-webkit-media-controls-panel {
-  background-color: #e8e8e8;
-}
-
-.radio-player audio::-webkit-media-controls-enclosure {
-  border-radius: 4px;
-}
-
-.radio-help {
-  margin: 28px auto 0;
-  text-align: center;
-  color: #999;
-  font-size: 13px;
-}
-
-.radio-help a {
-  text-decoration: underline;
-}
-
-.radio-watch {
-  margin-top: 35px;
-}
-
-/* MORE BREATHING ROOM BELOW THE HERO */
-
-.section {
-  padding: 100px 8%;
-}
-
-.section p {
-  line-height: 1.8;
-}
-
-@media (max-width: 600px) {
-  .hero {
-    padding: 38px 5% 75px;
-  }
-
-  .hero-image {
-    margin-bottom: 48px;
-    max-height: 460px;
-  }
-
-  .radio-player {
-    width: 100%;
-    margin-top: 48px;
-    padding: 25px 18px;
-  }
-
-  .player-title {
-    font-size: 22px;
-  }
-
-  .radio-player audio {
-    height: 54px;
-    min-height: 54px;
-  }
-
-  .radio-help {
-    line-height: 1.8;
-    padding: 0 12px;
-  }
-
-  .section {
-    padding: 75px 7%;
-  }
-}
-
-    /* REMOVE DEFAULT BLUE LINK COLORS */
-a,
-a:link,
-a:visited,
-a:active {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* Keep links monochrome when tapped on mobile */
-a,
-button {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Radio player link */
-.radio-help a {
-  color: #f5f5f2 !important;
-  text-decoration: underline;
-  text-decoration-color: #777;
-  text-underline-offset: 4px;
-}
-
-/* Navigation */
-.nav a {
-  color: #f5f5f2;
-}
-
-/* Buttons */
-.button {
-  color: #080808;
-}
-
-.button-outline {
-  color: #f5f5f2;
-}
-
-/* Soro article links */
-#soro-blog a {
-  color: #111111 !important;
-}
-  </style>
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none}html{scroll-behavior:auto}}
+</style>
 </head>
-
 <body>
 
-  <header class="site-header">
-    <a class="brand" href="#home">RADIO MELTDOWN</a>
+<header class="site-header">
+  <a class="brand" href="#home">RADIO MELTDOWN</a>
+  <nav class="nav">
+    <a href="#radio">Radio</a>
+    <a href="#shows">Shows</a>
+    <a href="/watch/">TV</a>
+    <a href="/NewsStory">The Static</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <nav class="nav">
-      <a href="#radio">Radio</a>
-      <a href="/watch/">TV</a>
-      <a href="/NewsStory">The Static</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<div class="ticker" aria-label="Station news"><div class="ticker-track" id="ticker">
+  <span>Joe Bean True Story out now feat. Seneca Mack</span>
+  <span>New music: Emil Gordon Sr. feat. Risk, “Cruizn’”</span>
+  <span>The Static Issue 02: Tony “T Money” Green cover story</span>
+  <span>Exclusive interview with Professor Griff</span>
+  <span>Meet The Switchblades: Detroit ghetto tech</span>
+  <span>Want free radio play? Contact us today</span>
+  <span>Follow @stvradiomeltdown on TikTok and YouTube</span>
+</div></div>
 
-  <main>
+<main>
+<section class="hero" id="home">
+  <img class="hero-image" src="/stvlogo1.jpg" alt="Radio Meltdown">
+  <div class="eyebrow">Independent Radio · Music · Culture</div>
+  <h1>Radio<br>Meltdown.</h1>
+  <div class="hero-sub">Culture-driven. Community-built. MACKINTHEDARK.</div>
+  <a class="button" href="#radio">Listen Live</a>
 
-    <!-- HERO -->
-    <section class="hero" id="home">
+  <div class="radio-player" id="radio">
+    <div class="player-label">Now broadcasting</div>
+    <div class="player-title">RADIO MELTDOWN</div>
+    <audio controls preload="none">
+      <source src="https://listen.streamaudio.co/proxy/mackinthedark/stream" type="audio/mpeg">
+      Your browser does not support the audio player.
+    </audio>
+  </div>
+  <p class="radio-help">Having trouble with the player? <a href="https://listen.streamaudio.co/proxy/mackinthedark/stream" target="_blank" rel="noopener noreferrer">Open the live stream</a></p>
 
-      <img
-        class="hero-image"
-        src="/stvlogo1.jpg"
-        alt="Radio Meltdown"
-      >
-
-      <div class="eyebrow">Independent Radio · Music · Culture</div>
-
-      <h1>Radio<br>Meltdown.</h1>
-
-      <div class="hero-subtitle">
-        MACKINTHEDARK
-      </div>
-
-      <a class="button" href="#radio">Listen Live</a>
-
-      
-<div class="radio-player" id="radio">
-
-  <div class="player-label">NOW BROADCASTING</div>
-
-  <div class="player-title">RADIO MELTDOWN</div>
-
-  <audio controls preload="none">
-    <source
-      src="https://listen.streamaudio.co/proxy/mackinthedark/stream"
-      type="audio/mpeg"
-    >
-    Your browser does not support the audio player.
-  </audio>
-
-</div>
-
-<p class="radio-help">
-  Having trouble with the player?
-  <a
-    href="https://listen.streamaudio.co/proxy/mackinthedark/stream"
-    target="_blank"
-    rel="noopener noreferrer"
-  >Open the live stream</a>
-</p>
-
-<div class="radio-watch">
-  <a class="button button-outline" href="/watch">
-    WATCH STV
-  </a>
-</div>
-</section>
-
-    <!-- SUBMISSIONS -->
-    <section class="section" id="submissions">
-      <div class="section-content">
-        <div class="section-number">01 / SUBMISSIONS</div>
-        <h2>Put It<br>On Our Radar.</h2>
-
-        <p>
-          Music, stories, creative projects, press releases and ideas.
-          Send your submissions to Radio Meltdown.
-        </p>
-
-        <a
-          class="button"
-          href="mailto:press@radiomeltdown.com?subject=Radio%20Meltdown%20Submission"
-        >
-          Submit Your Work
-        </a>
-      </div>
-    </section>
-
-    <!-- SUMO ARTICLE -->
-<section class="section" id="sumo">
-  <div class="section-content">
-    <div class="section-number">02 / FEATURED READING</div>
-    <h2>THE STATIC</h2>
-
-    <p>
-      Stories, perspectives and conversations worth reading.
-      Explore THE STATIC.
-    </p>
-
-    <div id="soro-blog"></div>
-
-    <script
-      src="https://app.trysoro.com/api/embed/e784e64f-d930-4b03-a371-5e21786ec534"
-      defer>
-    </script>
+  <div class="hero-links">
+    <a class="button outline" href="/watch">Watch STV</a>
+    <a class="button outline" href="https://radiomeltdown.online/" target="_blank" rel="noopener">Events</a>
+    <a class="button outline" href="https://radiomeltdown.com/artists/">Featured Artists</a>
   </div>
 </section>
 
-    <!-- THE STATIC -->
-    <section class="static-section" id="static">
-      <div class="section-number">03 / CULTURE · COMMENTARY · PERSPECTIVE</div>
-
-      <h2>THE<br>STATIC.</h2>
-
-      <p style="margin: 0 auto 28px;">
-        Not everything deserves a reaction. Some things deserve a closer look.
-      </p>
-
-      <a
-        class="button"
-        href="https://radiomeltdown.com/NewsStory"
-      >
-        Explore The Static
-      </a>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="section" id="about">
-      <div class="section-content">
-        <div class="section-number">04 / BEHIND THE FREQUENCY</div>
-        <h2>About Me.</h2>
-
-        <p>
-          I'm MACKINTHEDARK. Radio Meltdown is a space for music,
-          independent voices, culture and creative expression.
-        </p>
-
-        <p>
-          This is where the music plays, the conversations happen
-          and the signal stays independent.
-        </p>
+<!-- FEATURED -->
+<section class="section" id="featured">
+  <div class="wrap">
+    <div class="label">STV Network originals</div>
+    <h2>Featured.</h2>
+    <p class="lede">New music, original stories and services from the SanecaTV network.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="tag">Graphic novel</span>
+        <h3>NEVERLAND: The Underground</h3>
+        <p>“Every fairy tale has a Hook.” An original STV graphic novel series.</p>
+        <a class="more" href="https://fairefaretravels.github.io/neverland-the-underground/" target="_blank" rel="noopener">Read chapter one</a>
       </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-      <div class="section-content">
-        <div class="section-number">05 / GET IN TOUCH</div>
-        <h2>Contact.</h2>
-
-        <p>
-          For business inquiries, collaborations, bookings,
-          press and general questions.
-        </p>
-
-        <a
-          class="button"
-          href="mailto:press@radiomeltdown.com"
-        >
-          Email Radio Meltdown
-        </a>
+      <div class="card">
+        <span class="tag">New music</span>
+        <h3>CRUIZN: Emil D. Gordon Sr. feat. Risk</h3>
+        <p>The latest single from STV artist Emil D. Gordon Sr., now streaming.</p>
+        <a class="more" href="https://fairefaretravels.github.io/STV-ONAIR/emilgordonsr-static/" target="_blank" rel="noopener">View artist page</a>
       </div>
-    </section>
+      <div class="card">
+        <span class="tag">Podcast</span>
+        <h3>I’m Off My Meds</h3>
+        <p>The unfiltered SanecaTV podcast, available on Spotify.</p>
+        <a class="more" href="https://open.spotify.com/show/3lxIO679bCt15UJ3jUUYXV" target="_blank" rel="noopener">Listen on Spotify</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-  </main>
+<!-- SHOWS -->
+<section class="section" id="shows">
+  <div class="wrap">
+    <div class="label">Programming</div>
+    <h2>Shows &amp;<br>Segments.</h2>
+    <div class="shows">
+      <div class="show"><div class="n">01</div><div><h3>The Live Show</h3><div class="host">With Seneca Mack and friends</div><p>Interviews, cooking, garden life and more.</p></div><div class="when">Live</div></div>
+      <div class="show"><div class="n">02</div><div><h3>Timeout Sports Talk</h3><div class="host">Saneca and friends</div><p>Live audience sports talk with polls, live chat and audience votes synced in real time.</p></div><div class="when">Live event show</div></div>
+      <div class="show"><div class="n">03</div><div><h3>Moments In Music | Slept On</h3><div class="host">Features</div><p>Underground spotlight on indie and slept-on artists pushing culture forward from the margins.</p></div><div class="when">On demand</div></div>
+      <div class="show"><div class="n">04</div><div><h3>Lost in the Sauce</h3><div class="host">The Static · Deep Cuts</div><p>The tracks the world walked right past. Full-catalog deep dives into Rick James, Parliament and more.</p></div><div class="when"><a href="https://youtube.com/playlist?list=PLQ9p6GARi5fD6uTCIuUC17ZQA7KN_wkm4" target="_blank" rel="noopener">Watch</a></div></div>
+      <div class="show"><div class="n">05</div><div><h3>I’m Off My Meds</h3><div class="host">Podcast</div><p>New episodes on Spotify.</p></div><div class="when"><a href="https://open.spotify.com/show/3lxIO679bCt15UJ3jUUYXV" target="_blank" rel="noopener">Listen</a></div></div>
+    </div>
+  </div>
+</section>
 
-  <a
-    class="booking-floater"
-    href="https://radiomeltdown.online/"
-    target="_blank"
-    rel="noopener"
-  >
-    Booking / Events
-  </a>
+<!-- VIDEO -->
+<section class="section" id="watch-clips">
+  <div class="wrap">
+    <div class="label">Promos &amp; highlights</div>
+    <h2>Watch.</h2>
+    <div class="videos">
+      <div>
+        <div class="video"><iframe src="https://www.youtube.com/embed/UFHOsQ_msNE" title="Slept On: G4E Souljah" allowfullscreen loading="lazy"></iframe></div>
+        <p class="cap">Slept On: G4E Souljah, indie feature</p>
+      </div>
+      <div>
+        <div class="video"><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H" title="The Static on YouTube" allowfullscreen loading="lazy"></iframe></div>
+        <p class="cap">The Static on YouTube, full playlist</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <footer class="site-footer">
-    <span>RADIO MELTDOWN</span>
-    <span>MACKINTHEDARK</span>
-    <span>© <span id="year"></span></span>
-  </footer>
+<!-- ARTIST -->
+<section class="section" id="artist">
+  <div class="wrap">
+    <div class="label">Artist spotlight</div>
+    <h2>Featured on<br>Radio Meltdown.</h2>
+    <div class="artist">
+      <div class="avatar" aria-hidden="true">DM</div>
+      <div>
+        <h3>DJ Mackinthedark</h3>
+        <div class="role">Creator of LOVE&amp;CO · Detroit, MI</div>
+        <p><em>ADHD on Wax. Sound Without Borders.</em></p>
+        <p>DJ Mackinthedark is the creator of LOVE&amp;CO and the kind of artist who doesn’t ask permission from a genre. A proud member of The Switchblades out of Detroit, she built her sound the hard way: by feeling it out, blending the unexpected and refusing to let any single box hold her.</p>
+        <div class="chips"><span>LOVE&amp;CO</span><span>The Switchblades</span><span>Detroit</span><span>Genre-bending</span></div>
+        <a class="button outline" href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw" target="_blank" rel="noopener">Watch LOVE&amp;CO</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-  </script>
+<!-- THE STATIC -->
+<section class="static-section" id="static">
+  <div class="label">Culture · Commentary · Perspective</div>
+  <h2>The<br>Static.</h2>
+  <p class="lede">Not everything deserves a reaction. Some things deserve a closer look.</p>
+  <div class="cover">
+    <p><strong>Issue 02 cover story:</strong> The Bass Line That Built G-Funk. Tony “T Money” Green and the Detroit sound that changed everything.</p>
+  </div>
+  <a class="button" href="https://radiomeltdown.com/NewsStory">Read The Static</a>
+  <div id="soro-blog"></div>
+  <script src="https://app.trysoro.com/api/embed/e784e64f-d930-4b03-a371-5e21786ec534" defer></script>
+</section>
 
+<!-- SUBMISSIONS + SPONSOR -->
+<section class="section" id="submissions">
+  <div class="wrap split">
+    <div>
+      <div class="label">Submissions</div>
+      <h2>Put It<br>On Our Radar.</h2>
+      <p class="lede">Music, stories, creative projects, press releases and ideas. Want free radio play? Send it over.</p>
+      <a class="button" href="mailto:press@radiomeltdown.com?subject=Radio%20Meltdown%20Submission">Submit Your Work</a>
+    </div>
+    <div class="card">
+      <span class="tag">Proud sponsor</span>
+      <h3>Give-a-Gift Non-Profit</h3>
+      <p>Give-a-Gift is a 501(c)(3) non-profit supporting community growth in technology by empowering creatives and supporting artists in tech.</p>
+      <a class="more" href="mailto:press@radiomeltdown.com">Contact us</a>
+    </div>
+  </div>
+</section>
+
+<!-- TRAVEL -->
+<section class="section" id="travel">
+  <div class="wrap">
+    <div class="label">Faire Fare Travels</div>
+    <h2>Travel<br>With Us.</h2>
+    <div class="travel">
+      <img src="https://fairefaretravels.github.io/agent-sanecamack/fairefaretravels1.jpeg" alt="Faire Fare Travels" loading="lazy">
+      <div>
+        <h3>Go further. Spend smarter.</h3>
+        <p>Curated flights, hotels and all-inclusive escapes without the markup, built for people who move with intention.</p>
+        <div class="pills">
+          <a href="https://expedia.com/affiliates/fair_fare_travels" target="_blank" rel="noopener">Flights via Expedia</a>
+          <a href="https://www.hotels.com/affiliates/fair_fare_travels" target="_blank" rel="noopener">Hotels.com</a>
+          <a href="https://vrbo.com/affiliates/fair_fare_travels" target="_blank" rel="noopener">Vrbo</a>
+          <a href="https://radiomeltdown.com/agent-sanecamack" target="_blank" rel="noopener">Start planning</a>
+          <a href="https://radiomeltdown.com/group-planner" target="_blank" rel="noopener">Group planner</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="label">Behind the frequency</div>
+    <h2>About.</h2>
+    <p>I’m MACKINTHEDARK. <strong>Radio Meltdown</strong> is a space for music, independent voices, culture and creative expression. This is where the music plays, the conversations happen and the signal stays independent.</p>
+    <p>SanecaTV Radiomeltdown is an independent broadcast network operating out of the <strong>G4E Movement Studio in Lithonia, Georgia</strong>, under the Saneca TV LLC umbrella. Established in 2021, it has been a platform for indie artists, underground talent and community voices from day one.</p>
+    <p>Our mission is simple: give independent artists a platform, give the community a voice, and keep the frequency live.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="label">Get in touch</div>
+    <h2>Contact.</h2>
+    <p class="lede">For business inquiries, collaborations, bookings, press and general questions.</p>
+    <div class="contact-row">
+      <a class="button" href="mailto:press@radiomeltdown.com">Email Radio Meltdown</a>
+      <a class="button outline" href="tel:4707742370">Call 470-774-2370</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<a class="booking-floater" href="https://radiomeltdown.online/" target="_blank" rel="noopener">Booking / Events</a>
+
+<footer class="site-footer">
+  <span>Radio Meltdown</span>
+  <span>MACKINTHEDARK · Lithonia, GA</span>
+  <span>© <span id="year"></span> · We support the underdogs · <a href="https://radiomeltdown.com">radiomeltdown.com</a></span>
+</footer>
+
+<script>
+var t=document.getElementById("ticker");t.innerHTML+=t.innerHTML;
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
 </body>
 </html>
