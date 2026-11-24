@@ -1,4 +1,4 @@
-const CACHE_NAME = 'stv-radio-v2'; // bump this on every future deploy
+const CACHE_NAME = 'stv-radio-v3'; // bump this on every future deploy
 const OFFLINE_ASSETS = [
   '/',
   '/index.html',
