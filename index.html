@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<meta name="description" content="Radio Meltdown. Radio, television, talk, music and independent voices.">
+<title>Radio Meltdown | The Sound Is Different Here</title>
+
+<style>
+:root {
+  --black: #080808;
+  --white: #ffffff;
+  --gray: #999999;
+  --line: #292929;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--sans);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+/* TOP AD SPACE */
+
+.top-ad {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--line);
+  padding: 16px;
+  letter-spacing: 5px;
+  font-size: 11px;
+  color: #aaa;
+}
+
+.top-ad a {
+  border: 1px solid #555;
+  padding: 10px 22px;
+  transition: .2s;
+}
+
+.top-ad a:hover {
+  background: white;
+  color: black;
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: min(72vw, 620px);
+  min-height: 280px;
+  max-height: 620px;
+  overflow: hidden;
+  background: #000;
+}
+
+.hero video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.65),
+    transparent 55%
+  );
+  pointer-events: none;
+}
+
+/* MAIN NAVIGATION */
+
+.main-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-bottom: 1px solid var(--line);
+}
+
+.main-nav a {
+  padding: 24px 10px;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 3px;
+  border-right: 1px solid var(--line);
+  transition: .2s;
+}
+
+.main-nav a:last-child {
+  border-right: 0;
+}
+
+.main-nav a:hover {
+  background: white;
+  color: black;
+}
+
+/* GENERAL SECTION */
+
+.section {
+  max-width: 1150px;
+  margin: auto;
+  padding: 70px 28px;
+}
+
+.section-kicker {
+  color: var(--gray);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: normal;
+  margin: 0 0 18px;
+}
+
+.section-copy {
+  color: #aaa;
+  line-height: 1.7;
+  max-width: 650px;
+  font-size: 14px;
+}
+
+/* 10 AT 10 PROMO */
+
+.promo-section {
+  padding: 45px 20px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.promo-section img {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  max-height: 440px;
+  object-fit: contain;
+  margin: 20px auto 0;
+}
+
+.promo-label {
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: #aaa;
+}
+
+/* ARTICLE SECTION */
+
+.article-section {
+  background: #fff;
+  color: #111;
+  padding: 65px 0;
+}
+
+.article-inner {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 24px;
+}
+
+.article-section .section-kicker {
+  color: #666;
+}
+
+.article-section .section-title {
+  color: #111;
+}
+
+.article-intro {
+  color: #444;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 700px;
+  margin-bottom: 30px;
+}
+
+/* SORO ARTICLE EMBED */
+
+#soro-blog {
+  background: #fff !important;
+  color: #111 !important;
+  width: 100%;
+  min-height: 250px;
+  padding: 24px 0;
+  overflow: hidden;
+  border: 0;
+}
+
+#soro-blog h1,
+#soro-blog h2,
+#soro-blog h3,
+#soro-blog h4,
+#soro-blog p,
+#soro-blog li,
+#soro-blog span {
+  color: #111;
+}
+
+#soro-blog a {
+  color: #333;
+  text-decoration: underline;
+}
+
+#soro-blog img,
+#soro-blog video,
+#soro-blog iframe {
+  max-width: 100%;
+}
+
+#soro-blog iframe {
+  width: 100%;
+}
+
+.article-note {
+  color: #777;
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+/* RADIO PLAYER */
+
+.radio-section {
+  background: #111;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.radio-player {
+  max-width: 850px;
+  margin: 30px auto 0;
+  border: 1px solid #444;
+  padding: 28px;
+  text-align: center;
+}
+
+.live-indicator {
+  color: #aaa;
+  font-size: 10px;
+  letter-spacing: 4px;
+  margin-bottom: 18px;
+}
+
+.live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: #d22;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.radio-player h3 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: normal;
+  margin: 0 0 10px;
+}
+
+.radio-player p {
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.radio-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.radio-controls button {
+  background: white;
+  color: black;
+  border: 1px solid white;
+  padding: 15px 28px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+
+.radio-controls button.secondary {
+  background: transparent;
+  color: white;
+}
+
+.radio-controls button:hover {
+  opacity: .75;
+}
+
+.volume-control {
+  margin-top: 22px;
+  color: #aaa;
+  font-size: 11px;
+}
+
+.volume-control input {
+  width: 130px;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+#radioStatus {
+  margin-top: 18px;
+  color: #aaa;
+  font-size: 12px;
+}
+
+/* ACTION BUTTONS */
+
+.action-section {
+  border-bottom: 1px solid var(--line);
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid #444;
+  margin-top: 30px;
+}
+
+.action-grid a {
+  min-height: 150px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid #444;
+  transition: .2s;
+}
+
+.action-grid a:last-child {
+  border-right: 0;
+}
+
+.action-grid a:hover {
+  background: white;
+  color: black;
+}
+
+.action-grid strong {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: normal;
+  margin-bottom: 12px;
+}
+
+.action-grid span {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #999;
+}
+
+.action-grid a:hover span {
+  color: #555;
+}
+
+/* SNEAK PEEK */
+
+.network-section {
+  border-bottom: 1px solid var(--line);
+}
+
+.network-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid #444;
+  border-left: 1px solid #444;
+  margin-top: 35px;
+}
+
+.network-card {
+  padding: 30px;
+  min-height: 210px;
+  border-right: 1px solid #444;
+  border-bottom: 1px solid #444;
+  display: flex;
+  flex-direction: column;
+}
+
+.network-card small {
+  color: #999;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.network-card h3 {
+  font-family: var(--serif);
+  font-weight: normal;
+  font-size: 25px;
+  margin: 22px 0 10px;
+}
+
+.network-card p {
+  color: #999;
+  line-height: 1.6;
+  font-size: 13px;
+  flex: 1;
+}
+
+.network-card a {
+  display: inline-block;
+  align-self: flex-start;
+  border-bottom: 1px solid white;
+  padding-bottom: 7px;
+  margin-top: 15px;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+/* FEATURED ARTISTS */
+
+.artists-link {
+  display: inline-block;
+  border: 1px solid #555;
+  padding: 18px 28px;
+  margin-top: 25px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  transition: .2s;
+}
+
+.artists-link:hover {
+  background: white;
+  color: black;
+}
+
+/* LIVE CHANNEL */
+
+.channel-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid #444;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.channel-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 35px 20px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  color: #777;
+  font-size: 10px;
+  letter-spacing: 3px;
+}
+
+footer a {
+  color: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .hero {
+    height: 65vw;
+    min-height: 250px;
+  }
+
+  .main-nav a {
+    padding: 20px 5px;
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .section {
+    padding: 48px 20px;
+  }
+
+  .article-section {
+    padding: 45px 0;
+  }
+
+  .article-inner {
+    padding: 0 18px;
+  }
+
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-grid a {
+    min-height: 110px;
+    border-right: 0;
+    border-bottom: 1px solid #444;
+  }
+
+  .action-grid a:last-child {
+    border-bottom: 0;
+  }
+
+  .network-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .network-card {
+    min-height: 180px;
+  }
+
+  .radio-player {
+    padding: 25px 15px;
+  }
+
+  .radio-controls button {
+    padding: 14px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP ADVERTISEMENT -->
+<div class="top-ad">
+  <a href="mailto:press@radiomeltdown.com?subject=Advertising%20Inquiry">
+    RENT ME
+  </a>
+</div>
+
+<!-- HERO VIDEO -->
+<section class="hero">
+  <video autoplay muted loop playsinline preload="metadata">
+    <source src="/TheStatic1.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+</section>
+
+<!-- MAIN NAVIGATION -->
+<nav class="main-nav">
+  <a href="/radio">RADIO</a>
+  <a href="/tv">TV</a>
+  <a href="/talk">TALK</a>
+</nav>
+
+<!-- 10 AT 10 PROMO -->
+<section class="promo-section">
+  <div class="promo-label">FEATURED PROMOTION</div>
+  <img src="/Vid10.gif" alt="The 10 at 10 promotional feature">
+</section>
+
+<!-- HOW TO GET ON RADIO ARTICLE -->
+<section class="article-section">
+  <div class="article-inner">
+    <div class="section-kicker">GET INVOLVED</div>
+    <h1 class="section-title">How to Get on Radio</h1>
+    <p class="article-intro">
+      Have something to say? Have a show idea, a voice, or a story worth sharing?
+      Find out how to become part of Radio Meltdown.
+    </p>
+
+    <div id="soro-blog"></div>
+
+    <div class="article-note">
+      RADIO MELTDOWN · YOUR VOICE BELONGS HERE
+    </div>
+  </div>
+</section>
+
+<!-- SORO ARTICLE EMBED -->
+<script
+  src="https://app.trysoro.com/api/embed/e784e64f-d930-4b03-a371-5e21786ec534"
+  defer>
+</script>
+
+<!-- RADIO PLAYER -->
+<section class="section radio-section">
+  <div class="section-kicker">LISTEN LIVE</div>
+  <h2 class="section-title">Radio Meltdown</h2>
+  <p class="section-copy">
+    The station is live. Press play and tune in.
+  </p>
+
+  <div class="radio-player">
+    <div class="live-indicator">
+      <span class="live-dot"></span> LIVE RADIO
+    </div>
+
+    <h3>You're Listening to Radio Meltdown</h3>
+    <p>Independent voices. Unfiltered programming. 24/7.</p>
+
+    <audio
+      id="radioAudio"
+      preload="none"
+      src="https://listen.streamaudio.co/proxy/mackinthedark/stream">
+    </audio>
+
+    <div class="radio-controls">
+      <button type="button" id="playRadio">START RADIO</button>
+      <button type="button" class="secondary" id="pauseRadio">PAUSE</button>
+    </div>
+
+    <div class="volume-control">
+      VOLUME
+      <input
+        id="radioVolume"
+        type="range"
+        min="0"
+        max="1"
+        step="0.05"
+        value="0.8"
+        aria-label="Radio volume">
+    </div>
+
+    <div id="radioStatus" aria-live="polite">Radio is paused.</div>
+  </div>
+</section>
+
+<!-- THREE ACTION BUTTONS -->
+<section class="section action-section">
+  <div class="section-kicker">TAKE THE NEXT STEP</div>
+  <h2 class="section-title">Be Part of the Station</h2>
+  <p class="section-copy">
+    Create a show, book a consultation, or send something for consideration.
+  </p>
+
+  <div class="action-grid">
+    <a href="/apply">
+      <strong>Host Your Own Show</strong>
+      <span>APPLY TO JOIN RADIO MELTDOWN →</span>
+    </a>
+
+    <a href="/book">
+      <strong>Book a Consult</strong>
+      <span>LET'S TALK ABOUT YOUR IDEAS →</span>
+    </a>
+
+    <a href="mailto:press@radiomeltdown.com?subject=Radio%20Meltdown%20Submission">
+      <strong>Submission</strong>
+      <span>SEND YOUR MATERIAL →</span>
+    </a>
+  </div>
+</section>
+
+<!-- SNEAK PEEK / NETWORK -->
+<section class="section network-section">
+  <div class="section-kicker">SNEAK PEEK</div>
+  <h2 class="section-title">More Than Radio.</h2>
+  <p class="section-copy">
+    Explore the other destinations across the network.
+    There's more happening beyond the broadcast.
+  </p>
+
+  <div class="network-grid">
+
+    <article class="network-card">
+      <small>CHANNEL 06</small>
+      <h3>Sen Stack Gamers</h3>
+      <p>Playable worlds, digital challenges, and games from the SENSTACK universe.</p>
+      <a href="https://garden-of-terror.vercel.app"
+         target="_blank" rel="noopener noreferrer">
+        ENTER CHANNEL 6 →
+      </a>
+    </article>
+
+    <article class="network-card">
+      <small>STV NETWORK</small>
+      <h3>STV On Air</h3>
+      <p>Explore television programming and the station's live broadcast.</p>
+      <a href="/tv">EXPLORE STV →
+      </a>
+    </article>
+
+    <article class="network-card">
+      <small>MORE TO EXPLORE</small>
+      <h3>Alexa</h3>
+      <p>Discover another destination in the wider digital network.</p>
+      <a href="https://fairefaretravels.github.io/Alexa/"
+         target="_blank" rel="noopener noreferrer">
+        EXPLORE ALEXA →
+      </a>
+    </article>
+
+  </div>
+</section>
+
+<!-- FEATURED ARTISTS -->
+<section class="section">
+  <div class="section-kicker">THE PEOPLE BEHIND THE SOUND</div>
+  <h2 class="section-title">Featured Artists</h2>
+  <p class="section-copy">
+    Discover the artists and independent voices featured on Radio Meltdown.
+  </p>
+
+  <a class="artists-link" href="https://radiomeltdown.com/artists/">
+    EXPLORE FEATURED ARTISTS →
+  </a>
+</section>
+
+<!-- LIVE CHANNEL -->
+<section class="section">
+  <div class="section-kicker">STV BROADCAST</div>
+  <h2 class="section-title">Live Channel</h2>
+  <p class="section-copy">24/7 programming from the STV network.</p>
+
+  <div class="channel-frame">
+    <iframe
+      src="https://radiomeltdown.com/watch"
+      title="STV Broadcast Live Channel"
+      loading="lazy"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>RADIO MELTDOWN</div>
+  <p>INDEPENDENT VOICES. DIFFERENT FREQUENCY.</p>
+  <a href="mailto:press@radiomeltdown.com">CONTACT</a>
+  <p>© <span id="currentYear"></span> RADIO MELTDOWN</p>
+</footer>
+
+<script>
+/* RADIO PLAYER */
+const radioAudio = document.getElementById("radioAudio");
+const playRadio = document.getElementById("playRadio");
+const pauseRadio = document.getElementById("pauseRadio");
+const radioStatus = document.getElementById("radioStatus");
+const radioVolume = document.getElementById("radioVolume");
+
+radioAudio.volume = 0.8;
+
+playRadio.addEventListener("click", async () => {
+  radioStatus.textContent = "Connecting to Radio Meltdown...";
+
+  try {
+    await radioAudio.play();
+    radioStatus.textContent = "You're listening live.";
+  } catch (error) {
+    radioStatus.textContent =
+      "Unable to start the stream. Check your connection and try again.";
+  }
+});
+
+pauseRadio.addEventListener("click", () => {
+  radioAudio.pause();
+  radioStatus.textContent = "Radio is paused.";
+});
+
+radioAudio.addEventListener("playing", () => {
+  radioStatus.textContent = "You're listening live.";
+});
+
+radioAudio.addEventListener("waiting", () => {
+  radioStatus.textContent = "Connecting to the live stream...";
+});
+
+radioAudio.addEventListener("error", () => {
+  radioStatus.textContent = "The stream could not be loaded. Try again.";
+});
+
+radioVolume.addEventListener("input", () => {
+  radioAudio.volume = Number(radioVolume.value);
+});
+
+/* FOOTER YEAR */
+document.getElementById("currentYear").textContent =
+  new Date().getFullYear();
+</script>
+
+</body>
+</html>
