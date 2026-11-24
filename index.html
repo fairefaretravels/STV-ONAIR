@@ -166,209 +166,93 @@
 
 
 /* 2. Tokens: pure black, pure white, greys only */
+/* ── COLOR RESTORE (keeps editorial type + square layout) ── */
 :root {
-  --black: #000;
-  --dark: #000;
-  --dark-2: #090909;
-  --dark-3: #111;
-  --mid: #8a8a8a;
-  --border: rgba(255,255,255,.2);
-  --border-strong: rgba(255,255,255,.7);
-  --white: #fff;
-  --off-white: #f2f2f2;
-  --muted: rgba(255,255,255,.62);
-  --dim: rgba(255,255,255,.38);
-  --signal: #fff;
-  --signal-dark: #cfcfcf;
-  --signal-glow: rgba(255,255,255,.35);
-  --gold: #fff;
-  --gold-dim: rgba(255,255,255,.3);
-  --red: #fff;
-  --purple: #bdbdbd;
+  --black: #050a07;
+  --dark: #07150e;
+  --dark-2: #0b1a12;
+  --dark-3: #12261a;
+  --border: rgba(255,255,255,.14);
+  --border-strong: rgba(244,211,94,.35);
+  --muted: rgba(245,246,241,.65);
+  --dim: rgba(245,246,241,.4);
+  --signal: #3f6eff;
+  --signal-dark: #2f55cc;
+  --signal-glow: rgba(63,110,255,.4);
+  --gold: #f4d35e;
+  --gold-dim: rgba(244,211,94,.3);
+  --red: #c1121f;
+  --purple: #7c3aed;
 }
 
-::selection { background: #fff; color: #000; }
-:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-body { font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--gold); color: #000; }
+:focus-visible { outline-color: var(--gold); }
 
-/* 3. Type: one serif for voice, DM Sans for everything small */
-.sp-logo, .section-head h2, .hero-station-name, .feature-title, .game-card-title,
-.link-card-title, .about-title, .about-stat-num, .footer-brand-name,
-.network-promo-title, .network-channel-name, .hm-title, .hm-card strong,
-.hm-week b, .media-card-head h3, .faire-card-title, .footer-col h4,
-.chat-panel-head h2, #landing .record-caption strong, #landing .drive-copy strong,
-[style*="Bebas Neue"] {
-  font-family: "Playfair Display", Georgia, serif !important;
-  font-weight: 900;
-  letter-spacing: -.01em;
-}
-.ticker-label, .sp-status-label, .enter-btn, .btn, .sponsor-badge,
-#installBanner button, .hm-state {
-  font-family: "DM Sans", system-ui, sans-serif;
-  font-weight: 600;
-}
+/* Section heads: gold rule on top */
+.section-head { border-top-color: var(--gold); }
 
-/* 4. Square everything off — rules, not rounded cards */
-.media-card, .feature-block, .game-card, .faire-card, .chat-panel,
-.network-channel-card, .sponsor-banner, .about-hero, .link-card, .hm-card,
-.btn, .sponsor-badge, #installBanner, #installBanner button, .enter-btn,
-.mag-nameplate, iframe, .about-hero-left span[style], .sudoku-preview {
-  border-radius: 0 !important;
-}
+/* Ticker: gold bar, blue label */
+.ticker-bar { background: var(--gold); }
+.ticker-label { background: var(--signal); color: #fff; }
 
-/* 5. Section heads read like magazine department openers */
-.section-head {
-  border-top: 3px solid #fff;
-  border-bottom: 1px solid var(--border);
-  padding: .75rem 0 .6rem;
-  margin-bottom: 1.5rem;
-}
-.section-head h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); line-height: 1; }
-.section-head p { font-family: "DM Sans", sans-serif; letter-spacing: .1em; }
-.accent-bar { display: none; }
-.page { max-width: 1100px; padding-top: 2.5rem; }
+/* Player bar */
+#stickyPlayer { background: rgba(7,21,14,.97) !important; border-bottom-color: var(--signal); }
+.sp-logo span { color: var(--signal) !important; }
+.nav-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.live-dot { background: #2ecc71; box-shadow: 0 0 8px rgba(46,204,113,.7); }
+.play-btn { background: var(--signal); }
+.play-btn svg { fill: #fff; }
+.vol-slider::-webkit-slider-thumb { background: var(--signal); }
 
-/* 6. Ticker: inverted bar */
-.ticker-bar { background: #fff; border-bottom: 1px solid #000; }
-.ticker-label { background: #000; color: #fff; }
-.ticker-inner, .ticker-sep { color: #000; }
+/* Hero */
+.hero-location { border-color: var(--gold); color: var(--gold); }
+.hero-on-air { color: var(--signal); }
 
-/* 7. Player bar */
-#stickyPlayer {
-  background: rgba(0,0,0,.97) !important;
-  border-bottom: 1px solid #fff;
-}
-.sp-logo { font-size: 1.6rem !important; font-weight: 900 !important; letter-spacing: -.01em; }
-.sp-logo span { color: #fff !important; font-style: italic; }
-.nav-tab {
-  font-size: .8rem; letter-spacing: .14em; text-transform: uppercase;
-  font-weight: 600; color: rgba(255,255,255,.6);
-}
-.nav-tab:hover { color: #fff; }
-.nav-tab.active { color: #fff; border-bottom-color: #fff; }
-.live-dot { background: #fff; box-shadow: none; }
-.sp-status-label { color: #fff; letter-spacing: .14em; }
-.play-btn { background: #fff; }
-.play-btn svg { fill: #000; }
-.vol-slider::-webkit-slider-thumb { background: #fff; }
+/* Buttons */
+.btn { border-color: var(--gold); }
+.btn-primary { background: var(--gold); color: #000; }
+.btn-primary:hover { background: #000; color: var(--gold); }
+.btn-signal { background: var(--signal); border-color: var(--signal); color: #fff; }
+.btn-signal:hover { background: #000; color: var(--signal); }
+.btn-outline { color: var(--gold); border-color: var(--gold); }
+.btn-outline:hover { background: var(--gold); color: #000; }
+.network-btn-red { background: var(--red); border-color: var(--red); color: #fff; }
+.network-btn-red:hover { background: #000; color: var(--red); }
+.sponsor-badge { background: var(--gold); color: #000; }
+#installBtn { background: var(--signal); color: #fff; }
+#installBanner { border-color: var(--signal); }
 
-/* 8. Hero: the one loud moment */
-.radio-hero-overlay {
-  background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 45%, #000 100%);
-}
-.radio-hero video { opacity: .35 !important; }
-.hero-station-name {
-  background: none;
-  -webkit-text-fill-color: #fff;
-  color: #fff;
-  font-size: clamp(3rem, 10vw, 8rem);
-  line-height: .92;
-  letter-spacing: -.035em;
-}
-.hero-location {
-  display: inline-block;
-  margin-top: 1.25rem;
-  padding: .55rem 0;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
-  color: #fff;
-  letter-spacing: .32em;
-}
-.hero-on-air { font-family: "DM Serif Display", serif; font-style: italic; letter-spacing: .02em; font-size: 1.05rem; }
+/* Home view */
+.hm-hero { border-top-color: var(--gold); }
+.hm-lamp { border-color: var(--gold); }
+.hm-lamp.on { background: #2ecc71; box-shadow: 0 0 8px rgba(46,204,113,.7); }
+.hm-week { border-top-color: var(--gold); }
+.hm-week li.now b { color: var(--gold); }
+.hm-card { border-top-color: var(--signal); }
+.hm-card:hover, .hm-card:focus-visible { background: var(--signal); color: #fff; }
+.hm-card:hover span, .hm-card:focus-visible span { color: rgba(255,255,255,.8); }
 
-/* 9. Home view: masthead + schedule as a printed listing */
-.hm-hero { border-top: 3px solid #fff; padding-top: 1.25rem; }
-.hm-title { font-size: clamp(2.8rem, 9vw, 6.5rem); letter-spacing: -.03em; line-height: .95; }
-.hm-when { font-family: "DM Serif Display", serif; font-style: italic; font-size: 1.2rem; color: var(--muted); }
-.hm-lamp { border-color: #fff; }
-.hm-lamp.on { background: #fff; box-shadow: none; }
-.hm-week { border-top: 1px solid #fff; }
-.hm-week li { padding: .9rem 0; }
-.hm-week b { font-size: 1.3rem; letter-spacing: -.005em; }
-.hm-week li.now b { text-decoration: underline; text-underline-offset: 5px; }
-.hm-card { background: transparent; border: 0; border-top: 1px solid #fff; padding: 1rem .25rem 1.25rem; transition: background .15s, color .15s; }
-.hm-card strong { font-size: 1.4rem; letter-spacing: -.005em; }
-.hm-card:hover, .hm-card:focus-visible { background: #fff; color: #000; padding-left: .75rem; }
-.hm-card:hover span, .hm-card:focus-visible span { color: #333; }
-
-/* 10. Buttons: solid white or hairline — nothing in between */
-.btn { border: 1px solid #fff; font-size: .72rem; letter-spacing: .16em; }
-.btn-primary, .btn-signal, .network-btn-red { background: #fff; color: #000; }
-.btn-primary:hover, .btn-signal:hover, .network-btn-red:hover { background: #000; color: #fff; }
-.btn-outline { background: transparent; color: #fff; border-color: #fff; }
-.btn-outline:hover { background: #fff; color: #000; }
-.btn-tv-now { background: #000; border: 1px solid #fff; }
-.btn-tv-now img { border-radius: 0; }
-
-/* 11. Cards, features, panels */
-.media-card { background: transparent; border: 0; border-top: 2px solid #fff; }
-.media-card-head { border-bottom: 1px solid var(--border); padding-left: 0; }
-.media-card-head h3 { font-size: 1.05rem; letter-spacing: 0; }
-.media-card-desc { font-family: "DM Serif Display", serif; font-size: .95rem; padding-left: 0; }
-.sq { display: none; }
-
-.feature-block, .game-card, .faire-card, .about-hero, .chat-panel, .sponsor-banner {
-  background: #000;
-  border: 0;
-  border-top: 3px solid #fff;
-  border-bottom: 1px solid var(--border);
-}
-.feature-copy, .game-card-copy, .about-hero-left { border-right: 1px solid var(--border); }
-.feature-title, .game-card-title, .faire-card-title, .about-title { letter-spacing: -.025em; }
-.feature-title em, .game-card-sub, .faire-card-sub { font-family: "DM Serif Display", serif; }
+/* Cards and panels */
+.media-card { border-top-color: var(--signal); }
+.feature-block, .game-card, .faire-card, .about-hero, .chat-panel,
+.sponsor-banner, .network-promo, footer { border-top-color: var(--gold); }
+.feature-divider, .faire-card-divider, .game-card-divider { background: var(--gold); }
 .feature-label, .game-card-eyebrow, .faire-card-eyebrow, .about-eyebrow,
-.link-card-eyebrow, .network-channel-eyebrow { color: rgba(255,255,255,.7) !important; }
-.feature-divider, .faire-card-divider { background: #fff; }
-.game-card-divider { background: #fff; }
-.game-card-title span { color: #fff; font-style: italic; }
-.about-title::before { background: #fff; }
-.about-title span { color: #fff; }
-.feature-body, .game-card-desc, .faire-card-desc, .about-desc, .network-promo-copy, .sponsor-text {
-  font-size: 1rem; line-height: 1.8;
-}
-.about-hero-right { background: #000; }
-.about-hero-left span[style] { color: #fff !important; border-color: rgba(255,255,255,.4) !important; }
+.link-card-eyebrow, .network-channel-eyebrow { color: var(--gold) !important; }
+.game-card-title span, .network-promo-title span, .about-title span,
+.footer-brand-name span { color: var(--signal); }
+.link-card { border-top-color: var(--gold) !important; }
+.network-channel-card, .network-channel-card--featured { border-top-color: var(--signal); }
+.network-channel-card--featured { border-top-color: var(--red); }
+.network-channel-card--featured .network-channel-eyebrow { color: var(--red) !important; }
 
-.link-card { border: 0 !important; border-top: 1px solid #fff !important; background: transparent !important; margin-bottom: 0; }
-.link-card-inner { border-bottom: 1px solid var(--border); }
-.link-card-body { border-left: 0 !important; }
-.link-card-title { text-shadow: none !important; letter-spacing: -.02em; }
-
-.network-promo { background: #000; border-top: 3px solid #fff; border-bottom: 1px solid var(--border); }
-.network-promo-title span { color: #fff; font-style: italic; }
-.network-channel-card, .network-channel-card--featured {
-  background: transparent; border: 0; border-top: 1px solid #fff; padding-left: 0;
-}
-.network-channel-card--featured { border-top: 3px solid #fff; }
-.network-channel-card--featured .network-channel-eyebrow { color: #fff !important; }
-
-.sponsor-badge { background: #fff; color: #000; }
-
-/* 12. Landing: same cinematic scene, ink-only */
-#landing .record-caption strong span, #landing .landing-eyebrow { color: #fff; }
-#landing .cinematic-content { border-color: rgba(255,255,255,.4); border-radius: 0; }
-#landing .cinematic-content .enter-btn {
-  color: #fff; border-color: rgba(255,255,255,.6);
-  font-size: .8rem; letter-spacing: .24em;
-}
+/* Landing */
+#landing .record-caption strong span,
+#landing .landing-eyebrow,
+#landing #liveIndicator { color: var(--gold); }
 #landing .cinematic-content .enter-btn:hover,
 #landing .cinematic-content .enter-btn:focus-visible {
-  background: #fff; color: #000; border-color: #fff; box-shadow: none;
-}
-#landing #liveIndicator { color: #fff; }
-
-/* 13. Footer */
-footer { border-top: 3px solid #fff; background: #000; }
-.footer-brand-name span { color: #fff; font-style: italic; }
-.footer-col h4 { font-family: "DM Sans", sans-serif !important; font-weight: 600; letter-spacing: .2em; }
-.footer-bottom-links a:hover { color: #fff; }
-
-/* 14. Install banner */
-#installBanner { background: #000; border: 1px solid #fff; }
-#installBtn { background: #fff; color: #000; }
-
-@media (max-width: 900px) {
-  .feature-copy, .game-card-copy, .about-hero-left { border-right: 0; border-bottom: 1px solid var(--border); }
+  background: var(--signal); border-color: var(--signal); color: #fff;
 }
 </style>
 </head>
