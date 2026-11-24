@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STV Radio — SanecaTV | Radio, Music, Events &amp; Culture</title>
+<meta name="description" content="STV Radio by SanecaTV — independent music, artists, events, culture, interviews and community broadcasting from Detroit to Atlanta and beyond.">
+<meta name="keywords" content="STV Radio, SanecaTV, Radio Meltdown, independent music, Detroit music, Atlanta music, independent artists, music events, artist promotion, interviews, culture">
+<meta name="author" content="SanecaTV">
+<meta name="theme-color" content="#060c1e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SANECA TV">
+<link rel="canonical" href="https://radiomeltdown.com/radio/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="STV Radio — SanecaTV">
+<meta property="og:description" content="Independent music, artists, events, interviews and culture. STV Radio by SanecaTV.">
+<meta property="og:url" content="https://radiomeltdown.com/radio/">
+<meta property="og:image" content="https://radiomeltdown.com/radio/stvlogo1.jpeg">
+<meta property="og:image:alt" content="SanecaTV — STV Radio">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="STV Radio — SanecaTV">
+<meta name="twitter:description" content="Independent music, artists, events, interviews and culture.">
+<meta name="twitter:image" content="https://radiomeltdown.com/radio/stvlogo1.jpeg">
+<meta name="twitter:image:alt" content="SanecaTV — STV Radio">
+<link rel="icon" type="image/jpeg" href="stvlogo1.jpeg">
+<link rel="manifest" href="/manifest.json">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#060c1e;--bg2:#0c1830;--bg3:#101d3d;--gold:#c9974d;--gold2:#e8ba76;--green:#12275a;--text:#eef1f8;--muted:#8996b8;--border:#1f3260;--red:#c0392b;
+--ff-display:Georgia,'Times New Roman',serif;--ff-body:system-ui,-apple-system,sans-serif;--ff-mono:'Courier New',monospace}
+html{scroll-behavior:smooth;scroll-padding-top:60px}
+body{background:var(--bg);color:var(--text);font:15px/1.6 var(--ff-body);min-height:100vh;overflow-x:hidden}
+a{color:var(--gold);text-decoration:none}a:hover{color:var(--gold2)}
+img{max-width:100%;display:block}iframe{border:none;max-width:100%}
+h1,h2,h3{font-family:var(--ff-display)}
+
+/* ticker */
+.ticker-wrap{background:var(--gold);color:#000;font-size:12px;font-weight:700;letter-spacing:.08em;overflow:hidden;white-space:nowrap;padding:6px 0}
+.ticker-track{display:inline-block;animation:ticker 60s linear infinite}
+.ticker-track span{margin:0 40px}
+@keyframes ticker{to{transform:translateX(-50%)}}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px}
+.hero-content{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:36px 32px}
+.hero-logo-img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 18px;box-shadow:0 0 0 2px var(--gold),0 0 24px rgba(201,151,77,.5)}
+.hero-eyebrow{font:11px var(--ff-mono);letter-spacing:.2em;color:var(--muted);margin-bottom:16px}
+.hero-logo{font-size:clamp(52px,12vw,120px);line-height:.9;letter-spacing:-.02em}
+.hero-logo span{color:var(--gold)}
+.hero-sub{font:13px var(--ff-mono);letter-spacing:.15em;color:var(--muted);margin-top:12px}
+.hero-cta{margin-top:36px;display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;font-weight:700;font-size:13px;letter-spacing:.1em;padding:14px 32px;border-radius:2px;border:0;cursor:pointer;transition:background .2s}
+.hero-cta:hover{background:var(--gold2)}
+.live-dot{width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{50%{opacity:.4;transform:scale(.8)}}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(6,12,30,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px}
+.nav-brand{font-family:var(--ff-display);font-weight:700;font-size:15px;letter-spacing:.05em}
+.nav-brand span{color:var(--gold)}
+.nav-tabs{display:flex;gap:4px;list-style:none}
+.nav-tabs a{display:block;padding:6px 14px;font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--muted);border-radius:2px;transition:all .15s}
+.nav-tabs a:hover,.nav-tabs a.active{color:var(--gold);background:var(--green)}
+
+/* player */
+#player{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 24px;text-align:center}
+.player-label{font:10px var(--ff-mono);letter-spacing:.2em;color:var(--gold);margin-bottom:8px}
+#promoPlayer{width:100%;max-width:640px}
+#player-msg{font-size:12px;color:var(--muted);margin-top:6px;min-height:18px}
+#player details{max-width:640px;margin:12px auto 0;text-align:left}
+#player summary{cursor:pointer;font-size:12px;color:var(--muted);letter-spacing:.08em}
+#player details iframe{width:100%;height:180px;border-radius:4px;margin-top:8px}
+
+.mode-switch{display:flex;gap:8px;justify-content:center;padding:10px 24px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.mode-btn{font:700 11px var(--ff-mono);letter-spacing:.15em;text-transform:uppercase;padding:8px 20px;border:1px solid var(--border);border-radius:2px;color:var(--muted);background:var(--bg3);transition:all .15s}
+.mode-btn:hover{color:var(--gold);border-color:var(--gold)}
+.mode-btn.is-active{background:var(--gold);color:#000;border-color:var(--gold)}
+.radio-feature-links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:12px 12px 18px}
+.radio-feature-btn{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:9px 18px;font:700 11px var(--ff-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text);background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:2px;transition:all .2s}
+.radio-feature-btn:hover{color:#fff;border-color:#c23a26;background:rgba(194,58,38,.14);transform:translateY(-1px)}
+
+/* tabs */
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* layout */
+.section{padding:60px 24px;max-width:960px;margin:0 auto}
+.section-label{font:10px var(--ff-mono);letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+.section-title{font-family:var(--ff-display);font-size:clamp(24px,5vw,40px);font-weight:700;line-height:1.1;margin-bottom:16px}
+.divider{border:0;border-top:1px solid var(--border);margin:0 24px}
+.box{background:var(--bg2);border:1px solid var(--border);border-radius:4px}
+.card-grid,.embed-grid,.dj-grid,.promo-grid,.stream-grid{display:grid;gap:16px;margin-top:24px}
+.card-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.embed-grid,.promo-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.dj-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.stream-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden;transition:border-color .2s}
+.card:hover,.dj-card:hover,.show-item:hover{border-color:var(--gold)}
+.card-body{padding:16px}
+.card-eyebrow{font:10px var(--ff-mono);letter-spacing:.15em;color:var(--gold);margin-bottom:4px}
+.card-title{font-family:var(--ff-display);font-size:18px;font-weight:700;margin-bottom:8px}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.5}
+.card-link{display:inline-block;margin-top:12px;font-size:12px;font-weight:600;letter-spacing:.08em;border-bottom:1px solid transparent}
+.card-link:hover{border-color:var(--gold)}
+.embed-card,.stream-card,.promo-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.embed-card-header,.stream-card-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.embed-card-title,.stream-card-title{font-size:13px;font-weight:700;letter-spacing:.05em}
+.sub{font-size:11px;color:var(--muted)}
+.embed-card iframe,.stream-card iframe{width:100%;height:220px;display:block}
+
+/* buttons */
+.btn-gold,.btn-outline,.btn-dark{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.1em;padding:12px 24px;border-radius:2px}
+.btn-gold{background:var(--gold);color:#000}.btn-gold:hover{background:var(--gold2);color:#000}
+.btn-outline{border:1px solid var(--gold);color:var(--gold)}.btn-outline:hover{background:var(--gold);color:#000}
+.btn-dark{background:#000;color:var(--gold)}
+.stream-load-btn{background:var(--green);border:1px solid var(--border);color:var(--gold);font-weight:700;font-size:12px;padding:8px 16px;margin:16px;border-radius:2px;cursor:pointer;width:calc(100% - 32px)}
+.stream-load-btn:hover{background:var(--gold);color:#000}
+
+/* sponsor */
+.sponsor-strip{background:var(--bg2);border-bottom:1px solid var(--border);padding:28px 24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.sponsor-label{font:10px var(--ff-mono);letter-spacing:.15em;color:var(--gold)}
+.sponsor-content{flex:1;min-width:220px}
+.sponsor-title{font-family:var(--ff-display);font-size:18px;margin-bottom:6px}
+.sponsor-body{font-size:13px;color:var(--muted)}
+
+/* artist */
+.artist-block{padding:32px;margin-top:32px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start}
+.artist-avatar,.dj-initials{border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-weight:700;color:var(--gold)}
+.artist-avatar{width:80px;height:80px;font-size:28px}
+.artist-name{font-family:var(--ff-display);font-size:22px;font-weight:700}
+.artist-title{font-size:12px;color:var(--gold);letter-spacing:.1em;margin-top:2px}
+.artist-bio{font-size:13px;color:var(--muted);margin-top:12px}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag,.promo-card-tag{font-size:10px;font-weight:700;letter-spacing:.1em;padding:3px 8px;background:var(--green);color:var(--gold);border-radius:2px;display:inline-block}
+
+/* static */
+.static-hero{padding:32px;margin-top:24px}
+.static-vol{font:10px var(--ff-mono);letter-spacing:.2em;color:var(--muted)}
+.static-title{font-family:var(--ff-display);font-size:clamp(28px,6vw,52px);font-weight:700;line-height:1;margin:8px 0 4px}
+.static-sub{color:var(--muted);font-size:13px}
+.static-cover{font-size:13px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.static-cover p{margin-bottom:8px}.static-cover strong{color:var(--gold)}
+.feature-row{padding:28px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+
+/* shows / dj */
+.show-list{margin-top:24px;display:flex;flex-direction:column;gap:6px}
+.show-item{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px 24px;display:flex;align-items:center;gap:20px;transition:border-color .2s}
+.show-num{font:700 20px var(--ff-mono);color:var(--gold);min-width:36px}
+.show-info{flex:1}.show-title{font-weight:700;font-size:16px}
+.show-host{font-size:12px;color:var(--muted)}.show-desc{font-size:13px;color:var(--muted);margin-top:6px}
+.show-time{font:11px var(--ff-mono);color:var(--gold);letter-spacing:.06em;text-align:right;flex-shrink:0}
+.dj-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px;text-align:center;transition:border-color .2s}
+.dj-initials{width:60px;height:60px;border:2px solid var(--gold);font-size:22px;margin:0 auto 12px}
+.dj-name{font-weight:700;font-size:14px}.dj-bio{font-size:12px;color:var(--muted);margin-top:6px}
+
+/* promo */
+.promo-hero{background:linear-gradient(135deg,var(--bg2),var(--green));border-bottom:1px solid var(--border);padding:48px 24px;text-align:center}
+.promo-hero h2{font-size:clamp(28px,6vw,52px);line-height:1.1}
+.promo-hero p{color:var(--muted);margin-top:10px;font-size:14px}
+.promo-card-video{width:100%;aspect-ratio:16/9;background:#000;display:flex;align-items:center;justify-content:center}
+.promo-card-video iframe{width:100%;height:100%}
+.promo-card-body{padding:16px}
+.promo-card-tag{margin-bottom:8px}
+.promo-card-title{font-weight:700;font-size:15px;margin-bottom:4px}
+.promo-card-desc{font-size:12px;color:var(--muted)}
+.promo-cta-strip{background:var(--gold);color:#000;padding:32px 24px;text-align:center;margin-top:48px}
+.promo-cta-strip h3{font-size:22px;margin-bottom:8px}
+.promo-cta-strip p{font-size:13px;margin-bottom:16px}
+.promo-cta-strip .btn-outline{border-color:#000;color:#000}
+.promo-cta-strip .btn-outline:hover{background:#000;color:var(--gold)}
+
+/* about */
+.about-hero{padding:60px 24px;max-width:700px;margin:0 auto}
+.about-stat{background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px;text-align:center;max-width:160px;margin:32px 0}
+.about-stat-num{font-family:var(--ff-display);font-size:36px;font-weight:700;color:var(--gold);line-height:1}
+.about-stat-label{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.08em}
+.about-body{line-height:1.8;color:var(--muted)}.about-body p{margin-bottom:16px}.about-body strong{color:var(--text)}
+
+/* travel */
+.travel-strip{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:32px;margin-top:24px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.travel-img{width:160px;height:120px;object-fit:cover;border-radius:4px;flex-shrink:0}
+.travel-body{flex:1;min-width:220px}
+.travel-body h3{font-size:20px;margin-bottom:6px}
+.travel-body p{font-size:13px;color:var(--muted);margin-bottom:12px}
+.link-row{display:flex;flex-wrap:wrap;gap:8px}
+.link-pill{font-size:11px;font-weight:700;letter-spacing:.08em;padding:6px 12px;background:var(--green);color:var(--gold);border-radius:2px}
+.link-pill:hover{background:var(--gold);color:#000}
+
+/* footer */
+footer{background:#030916;border-top:1px solid var(--border);padding:40px 24px 24px}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:32px;max-width:960px;margin:0 auto 32px}
+.footer-heading{font-size:11px;font-weight:700;letter-spacing:.15em;color:var(--gold);margin-bottom:12px}
+.footer-links{list-style:none}.footer-links li{margin-bottom:8px}
+.footer-links a{font-size:13px;color:var(--muted)}.footer-links a:hover{color:var(--text)}
+.footer-bottom{max-width:960px;margin:0 auto;padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--muted)}
+
+/* pwa */
+#pwa-banner{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--gold);padding:12px 20px;align-items:center;justify-content:space-between;z-index:999;font-size:13px}
+#pwa-banner.show{display:flex}
+#pwa-banner p{color:var(--muted);font-size:12px}
+#pwa-install-btn{background:var(--gold);color:#000;border:0;font-weight:700;font-size:12px;padding:8px 16px;border-radius:2px;cursor:pointer}
+#pwa-dismiss-btn{background:none;border:0;color:var(--muted);font-size:18px;cursor:pointer;padding:0 8px}
+
+@media(max-width:600px){
+.nav{padding:0 14px}.nav-tabs a{padding:6px 10px;font-size:11px}
+.artist-block{grid-template-columns:1fr}
+.travel-strip{flex-direction:column;align-items:stretch}.travel-img{width:100%;height:180px}
+.show-item{flex-wrap:wrap}.show-time{width:100%;text-align:left}
+.radio-feature-btn{flex:1 1 140px}
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER (duplicated by script for a seamless loop) -->
+<div class="ticker-wrap"><div class="ticker-track" id="ticker">
+<span>SANECA TV · LITHONIA GA · HOUSE OF MEDIA</span>
+<span>JOE BEAN TRUE STORY OUT NOW FEAT. SENECA MACK | NEW EPISODE ON THE STATIC</span>
+<span>NEW MUSIC — EMIL GORDON SR FEAT. RISK "CRUIZN'"</span>
+<span>UNCLE BASE · MS. CANDY · ISOLUV · G4E SOULJA · AND MORE</span>
+<span>MEET THE SWITCHBLADES · DETROIT GHETTO TECH</span>
+<span>THE STATIC ISSUE 02 — TONY T MONEY GREEN COVER STORY — OUT NOW</span>
+<span>EXCLUSIVE INTERVIEW WITH PROFESSOR GRIFF</span>
+<span>LOVE &amp; CO — FEATURED ARTIST SPOTLIGHT</span>
+<span>FOLLOW @STVRADIOMELTDOWN ON TIKTOK AND YOUTUBE</span>
+<span>WANT FREE RADIO PLAY? CONTACT US TODAY</span>
+<span>SANECA TV MEDIA GROUP — JOIN THE NETWORK</span>
+<span>BARTENDING AND DJ SERVICES — MACK MAGIC MOBILE BAR</span>
+</div></div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <img src="stvlogo1.jpeg" alt="SanecaTV Broadcasting" class="hero-logo-img" width="96" height="96">
+    <p class="hero-eyebrow">Welcome to the House of Media · Est. 2021</p>
+    <h1 class="hero-logo">SanecaTV<br><span>RADIO</span></h1>
+    <p class="hero-sub">Culture-driven. Community-built. Always live.</p>
+    <button class="hero-cta" id="tune-in" type="button"><span class="live-dot"></span>TUNE IN</button>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">STV <span>RADIO</span></div>
+  <ul class="nav-tabs">
+    <li><a href="#radio" class="tab-link" data-tab="radio">Radio</a></li>
+    <li><a href="#shows" class="tab-link" data-tab="shows">Shows</a></li>
+    <li><a href="#promo" class="tab-link" data-tab="promo">Promo</a></li>
+    <li><a href="#about" class="tab-link" data-tab="about">About</a></li>
+  </ul>
+</nav>
+
+<!-- LIVE PLAYER (always visible) -->
+<section id="player">
+  <div class="player-label">● LIVE · STV RADIOMELTDOWN</div>
+  <audio id="promoPlayer" controls preload="none">
+    <source src="https://listen.streamaudio.co/proxy/mackinthedark/stream" type="audio/mpeg">
+    Your browser does not support audio playback.
+  </audio>
+  <div id="player-msg" role="status"></div>
+  <details>
+    <summary>LOVE&amp;CO player</summary>
+    <iframe src="https://stvradiomeltdown-loveandcompany.vercel.app/" title="STV Radio Player" loading="lazy" allow="autoplay"></iframe>
+  </details>
+</section>
+
+<div class="mode-switch">
+  <span class="mode-btn is-active">RADIO</span>
+  <a href="/watch/" class="mode-btn">TV</a>
+  <a href="https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==" target="_blank" rel="noopener" class="mode-btn">TALK</a>
+</div>
+
+<div class="radio-feature-links">
+  <a href="https://radiomeltdown.online/" target="_blank" rel="noopener" class="radio-feature-btn">EVENTS</a>
+  <a href="https://radiomeltdown.com/artists/" class="radio-feature-btn">FEATURED ARTISTS</a>
+</div>
+
+<!-- ═════════ TAB: RADIO ═════════ -->
+<div id="tab-radio" class="tab-panel">
+
+  <div class="sponsor-strip">
+    <span class="sponsor-label">PROUD SPONSOR</span>
+    <div class="sponsor-content">
+      <h3 class="sponsor-title">Give-a-Gift Non-Profit</h3>
+      <p class="sponsor-body">Want free radio play? Need free promo? Support artists in tech. Give-a-Gift is a 501(c)(3) non-profit supporting community growth in technology by empowering creatives.</p>
+    </div>
+    <a href="mailto:press@radiomeltdown.com" class="btn-outline">Contact Us</a>
+  </div>
+
+  <div class="section">
+    <div class="section-label">STV Podcast</div>
+    <div class="section-title">I'm Off My Meds</div>
+    <iframe src="https://open.spotify.com/embed/show/3lxIO679bCt15UJ3jUUYXV?utm_source=generator&amp;theme=0" width="100%" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="I'm Off My Meds podcast" style="margin-top:16px;border-radius:4px"></iframe>
+  </div>
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">STV Network Originals &amp; Features</div>
+    <div class="section-title">Featured</div>
+    <div class="card-grid">
+      <div class="card"><div class="card-body">
+        <div class="card-eyebrow">Graphic Novel</div>
+        <div class="card-title">NEVERLAND: The Underground</div>
+        <p class="card-desc">"Every fairy tale has a Hook." — An original STV graphic novel series.</p>
+        <a href="https://fairefaretravels.github.io/neverland-the-underground/" target="_blank" rel="noopener" class="card-link">Read Chapter One →</a>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <div class="card-eyebrow">STV Network · New Music</div>
+        <div class="card-title">CRUIZN — Emil D. Gordon Sr. feat. Risk</div>
+        <p class="card-desc">Latest single from STV artist Emil D. Gordon Sr., now streaming.</p>
+        <a href="https://fairefaretravels.github.io/STV-ONAIR/emilgordonsr-static/" target="_blank" rel="noopener" class="card-link">View Artist Page →</a>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <div class="card-eyebrow">Services</div>
+        <div class="card-title">Mack Magic Mobile Bar</div>
+        <p class="card-desc">Bartending, catering &amp; DJ services for your next event. Book us today.</p>
+        <a href="https://radiomeltdown.store" target="_blank" rel="noopener" class="card-link">Book Now →</a>
+      </div></div>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Promos &amp; Highlights</div>
+    <div class="section-title">Featured Segments</div>
+    <div class="embed-grid">
+      <div class="embed-card">
+        <div class="embed-card-header"><div><div class="embed-card-title">Slept On: G4E Souljah</div><div class="sub">Indie Feature</div></div></div>
+        <iframe src="https://www.youtube.com/embed/UFHOsQ_msNE" title="Slept On: G4E Souljah" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="embed-card">
+        <div class="embed-card-header"><div><div class="embed-card-title">The Static — On YouTube</div><div class="sub">Playlist</div></div></div>
+        <iframe src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H" title="The Static playlist" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Artist Spotlight</div>
+    <div class="section-title">Featured on STV Radiomeltdown</div>
+    <div class="box artist-block">
+      <div class="artist-avatar">DM</div>
+      <div>
+        <div class="artist-name">DJ Mackinthedark</div>
+        <div class="artist-title">CREATOR OF LOVE&amp;CO · DETROIT, MI</div>
+        <p class="artist-bio"><em>ADHD on Wax. Sound Without Borders.</em><br><br>
+          DJ Mackinthedark is the creator of LOVE&amp;CO and the kind of artist who doesn't ask permission from a genre.
+          A proud member of <strong>The Switchblades out of Detroit</strong>, she's built her sound the hard way —
+          by feeling it out, blending the unexpected, and refusing to let any single box hold her.</p>
+        <div class="tag-row"><span class="tag">LOVE&amp;CO</span><span class="tag">The Switchblades</span><span class="tag">Detroit</span><span class="tag">Genre-bending</span></div>
+        <iframe src="https://www.youtube.com/embed/ubpj6amPnPI" title="LOVE&amp;CO" width="100%" height="200" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" style="margin-top:16px;border-radius:4px"></iframe>
+        <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw" target="_blank" rel="noopener" class="card-link">🎵 LOVE&amp;CO Full Playlist →</a>
+      </div>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Newsletter</div>
+    <div class="section-title">The Static</div>
+    <div class="box static-hero">
+      <div class="static-vol">Vol. 1 · Issue 02 · May 2026 · STV Radiomeltdown · Lithonia, GA</div>
+      <div class="static-title">The Static</div>
+      <div class="static-sub">Where music meets the moment</div>
+      <div class="static-cover">
+        <p><strong>Cover Story:</strong> The Bass Line That Built G-Funk — Tony "T Money" Green and the Detroit Sound That Changed Everything.</p>
+        <p>Before Snoop. Before Tupac. Before Dre built the sound that defined a decade — there was a bass player from Detroit. Band director at Death Row. Co-writer of Parliament. And he's on our cover.</p>
+        <a href="https://radiomeltdown.com/NewsStory" target="_blank" rel="noopener" class="btn-gold" style="margin-top:12px">Read The Static →</a>
+      </div>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">STV Radiomeltdown</div>
+    <div class="section-title">Live — Watch on Kick or YouTube</div>
+    <div class="stream-grid">
+      <div class="stream-card">
+        <div class="stream-card-header"><div><div class="stream-card-title">Kick — STVNETWORK</div><div class="sub">Live streaming platform</div></div>
+          <a href="https://kick.com/STVNETWORK" target="_blank" rel="noopener" class="sub">Watch →</a></div>
+        <button class="stream-load-btn" data-src="https://player.kick.com/STVNETWORK" type="button">▶ Load Live Stream</button>
+      </div>
+      <div class="stream-card">
+        <div class="stream-card-header"><div><div class="stream-card-title">YouTube — Live</div><div class="sub">Subscribe for live alerts</div></div></div>
+        <button class="stream-load-btn" data-src="https://www.youtube.com/embed/videoseries?list=PLf4ZiKBKNEZE" type="button">▶ Load YouTube Live</button>
+      </div>
+      <div class="stream-card">
+        <div class="stream-card-header"><div><div class="stream-card-title">Live Studio — Guest Feed</div><div class="sub">NEWS · CH3</div></div></div>
+        <button class="stream-load-btn" data-src="https://vdo.ninja/?scene&amp;room=STVRADIOMELTDownAtl&amp;sas&amp;sl" type="button">▶ Load Studio Feed</button>
+      </div>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">The Switchblades · Game Series</div>
+    <div class="section-title">Play While You Listen</div>
+    <div class="box feature-row">
+      <div><div style="font-family:var(--ff-display);font-size:22px;font-weight:700">SWITCHBLADOKU</div>
+        <div class="card-desc" style="margin-top:6px">Sudoku with a soundtrack. Load your own MP3s and solve puzzles with STV in your ears.</div></div>
+      <a href="https://radiomeltdown.com/Stv-switchbladoku" target="_blank" rel="noopener" class="btn-gold">⚡ Play Now</a>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">The Static · Deep Cuts</div>
+    <div class="section-title">Lost in the Sauce</div>
+    <div class="box feature-row">
+      <div><div style="font-weight:600">Three Rick James Tracks the World Walked Right Past</div>
+        <div class="card-desc" style="margin-top:6px">Everybody knows Super Freak. But Rick James was a full catalog artist.</div></div>
+      <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fD6uTCIuUC17ZQA7KN_wkm4" target="_blank" rel="noopener" class="btn-outline">STV Flashback →</a>
+    </div>
+  </div>
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-label">Faire Fare Travels · Curated Escapes</div>
+    <div class="section-title">Travel With Us</div>
+    <div class="travel-strip">
+      <img src="https://fairefaretravels.github.io/agent-sanecamack/fairefaretravels1.jpeg" alt="Faire Fare Travels" class="travel-img" loading="lazy">
+      <div class="travel-body">
+        <h3>Go Further. Spend Smarter.</h3>
+        <p>Luxury travel. Honest prices. Curated flights, hotels, and all-inclusive escapes — without the markup. Built for people who move with intention.</p>
+        <div class="link-row">
+          <a href="https://expedia.com/affiliates/fair_fare_travels" target="_blank" rel="noopener" class="link-pill">Flights via Expedia →</a>
+          <a href="https://www.hotels.com/affiliates/fair_fare_travels" target="_blank" rel="noopener" class="link-pill">Hotels.com →</a>
+          <a href="https://vrbo.com/affiliates/fair_fare_travels" target="_blank" rel="noopener" class="link-pill">All-Inclusive via Vrbo →</a>
+          <a href="https://radiomeltdown.com/agent-sanecamack" target="_blank" rel="noopener" class="link-pill">✈ Start Planning</a>
+          <a href="https://radiomeltdown.com/group-planner" target="_blank" rel="noopener" class="link-pill">👥 Group Planner</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Live Chat</div>
+    <div class="section-title">Heartbeat of the Movement</div>
+    <p class="card-desc" style="margin-bottom:16px">Keep it respectful. Your messages may be read on air.</p>
+    <iframe src="https://tlk.io/sanecatv" title="Live chat" width="100%" height="400" style="border:1px solid var(--border);border-radius:4px" loading="lazy"></iframe>
+  </div>
+</div>
+
+<!-- ═════════ TAB: SHOWS ═════════ -->
+<div id="tab-shows" class="tab-panel">
+  <div class="section">
+    <div class="section-label">Programming</div>
+    <div class="section-title">Shows &amp; Segments</div>
+    <div class="show-list">
+      <div class="show-item"><div class="show-num">01</div><div class="show-info"><div class="show-title">The Live Show</div><div class="show-host">With SENECA MACK and Friends</div><div class="show-desc">INTERVIEWS, COOKING, GARDEN LIFE and more.</div></div><div class="show-time">LIVE<br>On Air</div></div>
+      <div class="show-item"><div class="show-num">02</div><div class="show-info"><div class="show-title">Timeout Sports Talk</div><div class="show-host">Saneca and Friends</div><div class="show-desc">Live audience engagement sports talk. Polls, live chat, audience votes — all synced in real time.</div></div><div class="show-time">Live<br>Event Show</div></div>
+      <div class="show-item"><div class="show-num">03</div><div class="show-info"><div class="show-title">Moments In Music | Slept On</div><div class="show-host">Features</div><div class="show-desc">Underground spotlight — indie and slept-on artists pushing culture forward from the margins.</div></div><div class="show-time">On Demand</div></div>
+      <div class="show-item"><div class="show-num">04</div><div class="show-info"><div class="show-title">Lost in the Sauce</div><div class="show-host">The Static · Deep Cuts</div><div class="show-desc">The tracks the world walked right past. Full catalog deep dives — Rick James, Parliament, and more.</div></div><div class="show-time">On Demand</div></div>
+      <div class="show-item"><div class="show-num">05</div><div class="show-info"><div class="show-title">I'm Off My Meds</div><div class="show-host">Podcast · Spotify</div><div class="show-desc">The unfiltered SanecaTV podcast. Available on Spotify.</div></div><div class="show-time"><a href="https://open.spotify.com/show/3lxIO679bCt15UJ3jUUYXV" target="_blank" rel="noopener">Listen →</a></div></div>
+    </div>
+
+    <hr class="divider" style="margin:40px 0">
+    <div class="section-label">On the Ones &amp; Twos</div>
+    <div class="section-title" style="margin-bottom:0">DJ Roster</div>
+    <div class="dj-grid">
+      <div class="dj-card">
+        <div class="dj-initials">DM</div>
+        <div class="dj-name">DJ Mackinthedark</div>
+        <div class="dj-bio">Creator of LOVE&amp;CO · Detroit, MI · Member of The Switchblades</div>
+        <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw" target="_blank" rel="noopener" class="card-link">Watch LOVE&amp;CO →</a>
+      </div>
+      <div class="dj-card" style="border-style:dashed">
+        <div class="dj-initials" style="border-style:dashed;color:var(--muted)">?</div>
+        <div class="dj-name" style="color:var(--muted)">Looking for DJs and Radio Personalities</div>
+        <div class="dj-bio">DJ · Show Host · Live Set</div>
+        <a href="mailto:press@radiomeltdown.com" class="card-link">Join the Network →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ TAB: PROMO ═════════ -->
+<div id="tab-promo" class="tab-panel">
+  <div class="promo-hero">
+    <div class="section-label">Broadcast Promos</div>
+    <h2>On Air Promos</h2>
+    <p>Network features, artist spotlights, and SanecaTV originals. Want yours here? Get in touch.</p>
+  </div>
+  <div class="section">
+    <div class="promo-grid">
+      <div class="promo-card">
+        <div class="promo-card-video"><iframe src="https://www.youtube.com/embed/AWsC2CG064I" title="The Switchblades promo" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+        <div class="promo-card-body"><div class="promo-card-tag">PROMO</div><div class="promo-card-title">The Switchblades — Network Promo</div><p class="promo-card-desc">Al Luv Feat. The Switchblades — on STV Radiomeltdown.</p></div>
+      </div>
+      <div class="promo-card">
+        <div class="promo-card-video"><iframe src="https://www.youtube.com/embed/UFHOsQ_msNE" title="G4E Souljah" allowfullscreen loading="lazy"></iframe></div>
+        <div class="promo-card-body"><div class="promo-card-tag">SLEPT ON</div><div class="promo-card-title">G4E Souljah — Indie Feature</div><p class="promo-card-desc">Underground spotlight segment — highlighting indie artists pushing culture forward.</p></div>
+      </div>
+      <div class="promo-card">
+        <div class="promo-card-video"><iframe src="https://www.youtube.com/embed/ubpj6amPnPI" title="LOVE&amp;CO" allowfullscreen loading="lazy"></iframe></div>
+        <div class="promo-card-body"><div class="promo-card-tag">ARTIST FEATURE</div><div class="promo-card-title">LOVE&amp;CO — DJ Mackinthedark</div><p class="promo-card-desc">Genre-bending. Detroit-rooted. ADHD on Wax. Sound Without Borders.</p></div>
+      </div>
+      <div class="promo-card">
+        <div class="promo-card-video"><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H" title="The Static playlist" allowfullscreen loading="lazy"></iframe></div>
+        <div class="promo-card-body"><div class="promo-card-tag">THE STATIC</div><div class="promo-card-title">The Static — Video Playlist</div><p class="promo-card-desc">Every episode of The Static — our culture and music newsletter brought to life on YouTube.</p></div>
+      </div>
+      <div class="promo-card">
+        <div class="promo-card-video"><div style="text-align:center;padding:20px"><div style="font-family:var(--ff-display);font-size:28px;font-weight:700;color:var(--gold)">MACK MAGIC</div><div class="sub" style="letter-spacing:.1em">MOBILE BAR</div></div></div>
+        <div class="promo-card-body"><div class="promo-card-tag">PARTNER PROMO</div><div class="promo-card-title">ISLAND SPICE</div><p class="promo-card-desc">Bartending, catering &amp; DJ services for your next event. Book via radiomeltdown.store.</p><a href="https://radiomeltdown.store" target="_blank" rel="noopener" class="card-link">Book Now →</a></div>
+      </div>
+      <div class="promo-card">
+        <div class="promo-card-video"><div style="text-align:center;padding:20px"><div style="font-family:var(--ff-display);font-size:24px;font-weight:700;letter-spacing:.05em">THE WISE MAN</div><div class="sub" style="letter-spacing:.2em">2026 · FEATURE FILM</div></div></div>
+        <div class="promo-card-body"><div class="promo-card-tag">FILM</div><div class="promo-card-title">The Wiseman — Feature Film (2025)</div><p class="promo-card-desc">A SanecaTV Broadcast Network / Saneca TV LLC original film production.</p><a href="https://fairefaretravels.github.io/wiseman-film" target="_blank" rel="noopener" class="card-link">View Film Page →</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="promo-cta-strip">
+    <h3>Want Free Radio Play?</h3>
+    <p>STV Radiomeltdown supports independent artists. Submit your music and get on air — free.</p>
+    <a href="mailto:press@radiomeltdown.com" class="btn-outline">Submit Your Music. Send us a drop for your brand.</a>
+  </div>
+</div>
+
+<!-- ═════════ TAB: ABOUT ═════════ -->
+<div id="tab-about" class="tab-panel">
+  <div class="about-hero">
+    <div class="section-label">Who We Are</div>
+    <div class="section-title">Community Radio | TV</div>
+    <div class="about-stat"><div class="about-stat-num">24/7</div><div class="about-stat-label">STREAMING</div></div>
+    <div class="about-body">
+      <p><strong>SanecaTV Radiomeltdown</strong> is an independent broadcast network operating out of the <strong>G4E Movement Studio in Lithonia, Georgia</strong>, under the Saneca TV LLC / XOCO Broadcast Network umbrella. Established in 2021, STV has been a platform for indie artists, underground talent, mainstream acts, and AI music — culture-driven and community-built from day one.</p>
+      <p>We are part of the <strong>SENSTACK media brand</strong> — a creative ecosystem highlighting broadcast production. STV is the broadcast arm, and <strong>radiomeltdown.com</strong> is the home base.</p>
+      <p>Our mission is simple: give independent artists a platform, give the community a voice, and keep the frequency live — always.</p>
+    </div>
+
+    <hr class="divider" style="margin:32px 0">
+    <div class="section-label">The Network</div>
+    <div class="section-title" style="font-size:20px">SENSTACK Brands</div>
+    <div class="card-grid">
+      <div class="card"><div class="card-body"><div class="card-eyebrow">Broadcast</div><div class="card-title">SanecaTV On Air / Radio Meltdown</div><p class="card-desc">The flagship. Independent broadcast from Lithonia, GA.</p></div></div>
+      <div class="card"><div class="card-body"><div class="card-eyebrow">Events</div><div class="card-title">ISLAND SPICE</div><p class="card-desc">Catering, bartending &amp; DJ services.</p><a href="https://radiomeltdown.store" target="_blank" rel="noopener" class="card-link">radiomeltdown.store →</a></div></div>
+      <div class="card"><div class="card-body"><div class="card-eyebrow">Design</div><div class="card-title">XOCO Designs</div><p class="card-desc">Furniture and interior design fit for any film set. Curated room packages and design fee model.</p></div></div>
+      <div class="card"><div class="card-body"><div class="card-eyebrow">Education</div><div class="card-title">Animation Prep</div><p class="card-desc">Arts education platform. School partnerships and grants in progress.</p></div></div>
+    </div>
+
+    <hr class="divider" style="margin:32px 0">
+    <div class="section-label">Contact</div>
+    <div class="section-title" style="font-size:20px">Get In Touch</div>
+    <a href="tel:4707742370" class="btn-gold" style="margin-top:8px">📞 Call: 470-774-2370</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div><div style="font-family:var(--ff-display);font-size:20px;font-weight:700">SanecaTV <span style="color:var(--gold)">RADIOMELTDOWN</span></div></div>
+    <div>
+      <div class="footer-heading">Programming</div>
+      <ul class="footer-links">
+        <li><a href="#promo" class="tab-link" data-tab="promo">Featured Promos</a></li>
+        <li><a href="https://fairefaretravels.github.io/stvradiomeltdown-players/" target="_blank" rel="noopener">Listen Live</a></li>
+        <li><a href="https://radiomeltdown.com/NewsStory" target="_blank" rel="noopener">The Static</a></li>
+        <li><a href="https://kick.com/STVNETWORK" target="_blank" rel="noopener">Live Broadcasts</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Network</div>
+      <ul class="footer-links">
+        <li><a href="https://radiomeltdown.com/wiseman-film" target="_blank" rel="noopener">The Wise Man</a></li>
+        <li><a href="https://radiomeltdown.com/Stv-Switchbladoku" target="_blank" rel="noopener">Switchbladoku</a></li>
+        <li><a href="https://radiomeltdown.store" target="_blank" rel="noopener">ISLAND SPICE</a></li>
+        <li><a href="https://sen-finds.myshopify.com/" target="_blank" rel="noopener">Sen Finds</a></li>
+        <li><a href="https://seneca.work" target="_blank" rel="noopener">Resource Directory</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 SanecaTV Radiomeltdown · Broadcasting from Lithonia, Georgia</span>
+    <span>We support the underdogs · Have The Best Day Ever · <a href="https://radiomeltdown.com">radiomeltdown.com</a></span>
+  </div>
+</footer>
+
+<!-- PWA BANNER -->
+<div id="pwa-banner">
+  <div><strong>SanecaTV Radio</strong><p>Listen live with one tap. Fast, free, and always ready.</p></div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <button id="pwa-install-btn" type="button">Install</button>
+    <button id="pwa-dismiss-btn" type="button" aria-label="Dismiss">✕</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ── Ticker: duplicate content for a seamless loop
+  var ticker = document.getElementById('ticker');
+  ticker.innerHTML += ticker.innerHTML;
+
+  // ── Audio
+  var audio = document.getElementById('promoPlayer');
+  var msg = document.getElementById('player-msg');
+  function say(t) { msg.textContent = t || ''; }
+
+  audio.addEventListener('waiting', function () { say('Connecting to the stream…'); });
+  audio.addEventListener('playing', function () { say(''); });
+  audio.addEventListener('error', function () { say('Stream unavailable right now. Try again in a moment.'); });
+
+  document.getElementById('tune-in').addEventListener('click', function () {
+    document.getElementById('player').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    audio.play().catch(function () {
+      say('Press play on the player above to start listening.');
+    });
+  });
+
+  // ── Tabs (hash routing: #radio #shows #promo #about)
+  var TABS = ['radio', 'shows', 'promo', 'about'];
+
+  function currentTab() {
+    var h = location.hash.slice(1);
+    return TABS.indexOf(h) > -1 ? h : 'radio';
+  }
+
+  function showTab(id) {
+    TABS.forEach(function (t) {
+      document.getElementById('tab-' + t).classList.toggle('active', t === id);
+    });
+    document.querySelectorAll('.nav .tab-link').forEach(function (a) {
+      a.classList.toggle('active', a.dataset.tab === id);
+    });
+  }
+
+  document.querySelectorAll('.tab-link').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var id = a.dataset.tab;
+      history.replaceState(null, '', '#' + id);
+      showTab(id);
+      document.querySelector('.nav').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  window.addEventListener('hashchange', function () { showTab(currentTab()); });
+  showTab(currentTab());
+
+  // ── Lazy stream loaders
+  document.querySelectorAll('.stream-load-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = btn.dataset.src;
+      f.title = btn.textContent.replace('▶', '').trim();
+      f.allow = 'autoplay; fullscreen; camera; microphone';
+      f.allowFullscreen = true;
+      btn.replaceWith(f);
+    });
+  });
+
+  // ── PWA install
+  var deferredPrompt, banner = document.getElementById('pwa-banner');
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    banner.classList.add('show');
+  });
+  document.getElementById('pwa-install-btn').addEventListener('click', function () {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.finally(function () {
+      deferredPrompt = null;
+      banner.classList.remove('show');
+    });
+  });
+  document.getElementById('pwa-dismiss-btn').addEventListener('click', function () {
+    banner.classList.remove('show');
+  });
+})();
+</script>
+
+<!-- Koalendar Popup Widget -->
+<script>window.Koalendar = window.Koalendar || function(){(Koalendar.props = Koalendar.props || []).push(arguments)};</script>
+<script async src="https://koalendar.com/assets/widget.js"></script>
+<script>
+  Koalendar('widget', {
+    "url": "https://koalendar.com/e/Meet-With-Mack",
+    "text": "Schedule a meeting",
+    "shape": "rounded-full",
+    "backgroundColor": "#5145CD",
+    "textColor": "#FFFFFF",
+    "position": "bottom-right",
+    "icon": "calendar"
+  });
+</script>
+
+</body>
+</html>
