@@ -1822,9 +1822,7 @@ html.rm-skip #app{visibility:visible}
   </div>
 </section>
 
-  <div id="soro-blog"></div>
-<script src="https://app.trysoro.com/api/embed/e784e64f-d930-4b03-a371-5e21786ec534" defer></script>
-</script>
+  
     <!-- UTILITY ROW -->
 <div style="background:#0b0f14;border-bottom:1px solid #222;padding:10px 20px;
 display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;
@@ -2014,22 +2012,9 @@ font-size:12px;letter-spacing:0.08em;text-transform:uppercase;">
       title="STV Broadcast Live Channel" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
   </div>
 </div>
-      <!-- NEVERLAND CARD -->
-      <div class="section-head" style="margin-top:1rem;"><span class="accent-bar"></span><h2>Featured</h2><p>STV Network Originals &amp; Features</p></div>
-      <a href="https://fairefaretravels.github.io/neverland-the-underground/" target="_blank" rel="noopener noreferrer" class="link-card" style="border:1px solid rgba(200,169,110,0.35);background:#0a0806;" onmouseover="this.querySelector('.link-card-inner').style.borderColor='rgba(200,169,110,0.9)'" onmouseout="this.querySelector('.link-card-inner').style.borderColor=''">
-        <div class="link-card-inner">
-          <div class="link-card-img">
-            <img src="https://fairefaretravels.github.io/neverland-the-underground/images/IMG_8284.jpeg" alt="Neverland"/>
-          </div>
-          <div class="link-card-body" style="border-left:1px solid rgba(200,169,110,0.2);">
-            <div class="link-card-eyebrow" style="color:#c8a96e;">Detroit · Original Graphic Novel</div>
-            <div class="link-card-title" style="font-size:2.5rem;text-shadow:2px 2px 0 #c8a96e;">NEVERLAND</div>
-            <div class="link-card-sub">The Underground</div>
-            <div style="font-size:0.75rem;font-style:italic;color:#555;font-family:'Playfair Display',serif;margin-top:4px;">"Every fairy tale has a Hook."</div>
-            <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#c8a96e;margin-top:6px;">Read Chapter One →</div>
-          </div>
-        </div>
-      </a>
+      <div id="soro-blog"></div>
+<script src="https://app.trysoro.com/api/embed/e784e64f-d930-4b03-a371-5e21786ec534" defer></script>
+</script>
 
       <!-- CRUIZN CARD -->
       <a href="https://radiomeltdown.com/emilgordonsr-static" target="_blank" rel="noopener noreferrer" class="link-card" style="border:1px solid var(--border-strong);background:var(--dark-2);">
@@ -2336,21 +2321,15 @@ font-size:12px;letter-spacing:0.08em;text-transform:uppercase;">
 
 </div><!-- /app -->
 
-<!-- PWA INSTALL BANNER -->
-<div id="installBanner" style="display:none;">
-  <div class="install-content">
-    <h3>SanecaTV Radio</h3>
-    <p>Listen live with one tap. Fast, free, and always ready.</p>
-
-    <div class="install-actions">
-      <button id="installBtn">Install</button>
-      <button id="dismissInstall" aria-label="Close">✕</button>
-    </div>
-  </div>
-</div>
-<!-- AUDIO (never removed from DOM) -->
-<audio id="radioAudio" preload="none" crossorigin="anonymous">
-  <source src="https://listen.streamaudio.co/proxy/mackinthedark/stream" type="audio/mpeg"/>
+<audio
+  id="radioAudio"
+  preload="none"
+  playsinline
+>
+  <source
+    src="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+    type="audio/mpeg"
+  />
 </audio>
 
 <script>
@@ -2417,106 +2396,159 @@ font-size:12px;letter-spacing:0.08em;text-transform:uppercase;">
   draw();
 })();
 
-/* ═══════════════════════════════════════════════
-   AUDIO ENGINE
-═══════════════════════════════════════════════ */
-const audio   = document.getElementById('radioAudio');
-const playBtn = document.getElementById('playBtn');
-const playIcon= document.getElementById('playIcon');
-const statusDot   = document.getElementById('statusDot');
-const statusLabel = document.getElementById('statusLabel');
-const spTrack     = document.getElementById('spTrack');
-const volSlider   = document.getElementById('volSlider');
 
-let isPlaying  = false;
-let audioCtx   = null;
-let analyser   = null;
+/* ═══════════════════════════════════════════════
+   RADIO MELTDOWN AUDIO ENGINE
+═══════════════════════════════════════════════ */
+
+const audio = document.getElementById('radioAudio');
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const statusDot = document.getElementById('statusDot');
+const statusLabel = document.getElementById('statusLabel');
+const spTrack = document.getElementById('spTrack');
+const volSlider = document.getElementById('volSlider');
+
+let isPlaying = false;
+let wantPlay = false;
+let audioCtx = null;
+let analyser = null;
 let sourceNode = null;
 
-const SVG_PLAY  = '<polygon points="5,3 19,12 5,21"/>';
+const SVG_PLAY = '<polygon points="5,3 19,12 5,21"/>';
 const SVG_PAUSE = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
 
 function setStatus(state) {
   statusDot.className = 'live-dot';
   statusLabel.className = 'sp-status-label';
+
   if (state === 'live') {
     statusLabel.textContent = 'STREAMING';
-    spTrack.textContent     = 'STV Radiomeltdown — Streaming';
+    spTrack.textContent = 'STV Radiomeltdown — Live';
   } else if (state === 'idle') {
     statusLabel.textContent = 'READY';
-    spTrack.textContent     = 'Press play to tune in';
+    spTrack.textContent = 'Press play to tune in';
   } else if (state === 'offline') {
     statusDot.classList.add('offline');
     statusLabel.classList.add('offline');
     statusLabel.textContent = 'UNAVAILABLE';
-    spTrack.textContent     = 'Stream unavailable. Try again shortly';
+    spTrack.textContent = 'Unable to connect. Try again.';
   } else {
     statusDot.classList.add('loading');
     statusLabel.classList.add('loading');
-    statusLabel.textContent = 'LOADING';
-    spTrack.textContent     = 'Connecting…';
+    statusLabel.textContent = 'CONNECTING';
+    spTrack.textContent = 'Connecting to live broadcast…';
   }
 }
 
 function initAudioContext() {
-  if (audioCtx || !audio.hasAttribute('crossorigin')) return;
-  try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); analyser = audioCtx.createAnalyser(); analyser.fftSize = 128; }
-  catch(e) { audioCtx = null; analyser = null; console.warn('Web Audio API unavailable:', e); }
-}
-/* Hooked only after playback starts, and only while the stream loads with CORS; otherwise the waveform just idles. */
-function hookAnalyser() {
-  if (sourceNode || !audioCtx || !audio.hasAttribute('crossorigin')) return;
-  try { sourceNode = audioCtx.createMediaElementSource(audio); sourceNode.connect(analyser); analyser.connect(audioCtx.destination); }
-  catch(e) { console.warn('Analyser hook failed:', e); }
+  if (audioCtx) return;
+
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 128;
+
+    sourceNode = audioCtx.createMediaElementSource(audio);
+    sourceNode.connect(analyser);
+    analyser.connect(audioCtx.destination);
+  } catch (e) {
+    console.warn('Waveform unavailable:', e);
+    audioCtx = null;
+    analyser = null;
+    sourceNode = null;
+  }
 }
 
-let wantPlay = false;
 async function startPlayback() {
+  if (wantPlay && !audio.paused) return;
+
   wantPlay = true;
-  initAudioContext();
-  if (audioCtx && audioCtx.state === 'suspended') await audioCtx.resume();
+  setStatus('loading');
+
   try {
+    if (audioCtx && audioCtx.state === 'suspended') {
+      await audioCtx.resume();
+    }
+
     await audio.play();
-    hookAnalyser();
+
     isPlaying = true;
     playIcon.innerHTML = SVG_PAUSE;
     playBtn.classList.add('playing');
     setStatus('live');
-  } catch(e) {
+
+  } catch (e) {
+    console.error('Radio playback error:', e);
+
+    isPlaying = false;
+    wantPlay = false;
+    playIcon.innerHTML = SVG_PLAY;
+    playBtn.classList.remove('playing');
     setStatus('offline');
   }
 }
 
 function stopPlayback() {
+  wantPlay = false;
   audio.pause();
+
   isPlaying = false;
   playIcon.innerHTML = SVG_PLAY;
   playBtn.classList.remove('playing');
-  wantPlay = false;
+
   setStatus('idle');
 }
 
 playBtn.addEventListener('click', () => {
-  if (!isPlaying) startPlayback();
-  else stopPlayback();
+  if (isPlaying || wantPlay) {
+    stopPlayback();
+  } else {
+    startPlayback();
+  }
 });
 
-volSlider.addEventListener('input', () => { audio.volume = volSlider.value; });
-audio.volume = 0.8;
+volSlider.addEventListener('input', () => {
+  audio.volume = Number(volSlider.value);
+});
 
-let corsFallback = false;
+audio.volume = Number(volSlider.value || 0.8);
+
+audio.addEventListener('playing', () => {
+  if (!wantPlay) return;
+
+  isPlaying = true;
+  playIcon.innerHTML = SVG_PAUSE;
+  playBtn.classList.add('playing');
+  setStatus('live');
+});
+
+audio.addEventListener('pause', () => {
+  if (wantPlay) return;
+
+  isPlaying = false;
+  playIcon.innerHTML = SVG_PLAY;
+  playBtn.classList.remove('playing');
+});
+
+audio.addEventListener('waiting', () => {
+  if (wantPlay) setStatus('loading');
+});
+
 audio.addEventListener('error', () => {
-  if (!corsFallback && audio.hasAttribute('crossorigin')) {
-    corsFallback = true; audio.removeAttribute('crossorigin'); audioCtx = null; analyser = null;
-    audio.load(); if (wantPlay) startPlayback(); return;
-  }
+  if (!wantPlay) return;
+
+  console.error('Radio stream error:', audio.error);
+
+  isPlaying = false;
+  wantPlay = false;
+  playIcon.innerHTML = SVG_PLAY;
+  playBtn.classList.remove('playing');
   setStatus('offline');
 });
-audio.addEventListener('pause', () => { if (isPlaying) stopPlayback(); });
-audio.addEventListener('waiting', () => setStatus('loading'));
-audio.addEventListener('playing', () => setStatus('live'));
 
 setStatus('idle');
+
 
 /* ═══════════════════════════════════════════════
    WAVEFORM VISUALIZERS
