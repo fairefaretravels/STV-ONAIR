@@ -229,24 +229,22 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 
   
 .hero {
-  position: relative;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 16 / 5;
   overflow: hidden;
 }
 
 .hero-slideshow {
   position: absolute;
   inset: 0;
-  z-index: 0;
 }
 
 .hero-slide {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 1.5s ease;
+  object-fit: contain;
+  object-position: center;
 }
 
 .hero-slide.active {
@@ -292,6 +290,7 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 </div></div>
 
 
+
 <main>
 
   <!-- HERO SLIDESHOW -->
@@ -308,25 +307,13 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
    
     <div class="hero-overlay"></div>
 
-    <div class="hero-content">
-      <div class="eyebrow">Independent Radio · Music · Culture</div>
-
-    
-
-      <div class="hero-sub">
-        Culture-driven. Community-built. MACKINTHEDARK.
-      </div>
-
-      <a class="button" href="#radio">Listen Live</a>
-    </div>
-
-
   </section>
+<main>
 
   <!-- RADIO PLAYER -->
   <div class="radio-player" id="radio">
     <div class="player-label">Now broadcasting</div>
-    <div class="player-title">RADIO MELTDOWN</div>
+    <div class="player-title">RADIO TV NETWORK</div>
     <audio controls preload="none">
       <source src="https://listen.streamaudio.co/proxy/mackinthedark/stream" type="audio/mpeg">
       Your browser does not support the audio player.
@@ -341,7 +328,7 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 
   <!-- NAVIGATION LINKS -->
   <div class="hero-links">
-    <a class="button outline" href="/watch">Watch STV</a>
+    <a class="button outline" href="/watch">Whats New</a>
     <a class="button outline" href="https://radiomeltdown.online/" target="_blank" rel="noopener">Events</a>
     <a class="button outline" href="https://radiomeltdown.com/artists/">Featured Artists</a>
   </div>
