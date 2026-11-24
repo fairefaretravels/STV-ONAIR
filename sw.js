@@ -5,47 +5,36 @@ const OFFLINE_ASSETS = [
   '/manifest.json'
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(OFFLINE_ASSETS))
-  );
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
-      )
-    )
-  );
-  self.clients.claim();
-});
-
 self.addEventListener('fetch', (event) => {
   const req = event.request;
+  const url = new URL(req.url);
 
-  // Audio stream — always network, never touch cache
-  if (req.url.includes('streamaudio.co') || req.url.includes('radiomeltdown')) {
-    return;
-  }
+  // Only handle same-origin GETs; never touch the audio stream or other origins
+  if (req.method !== 'GET' || url.origin !== self.location.origin) return;
+  if (req.headers.has('range')) return;
 
-  // Navigation requests (the HTML page itself) — NETWORK FIRST.
-  // This is the key fix: always try to get the latest index.html,
-  // only fall back to cache if the network is unreachable.
+  // Always fetch the latest schedule
+  if (url.pathname.endsWith('/network.json')) return;
+
+  // Pages: network first, cache fallback
   if (req.mode === 'navigate') {
     event.respondWith(
       fetch(req)
         .then((res) => {
-          const resClone = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(req, resClone));
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(req, copy));
           return res;
         })
-        .catch(() => caches.match('/index.html'))
+        .catch(() => caches.match(req).then((r) => r || caches.match('/index.html')))
     );
     return;
   }
+
+  // Static assets: cache first, then network
+  event.respondWith(
+    caches.match(req).then((cached) => cached || fetch(req).catch(() => Response.error()))
+  );
+});
 
   // Everything else (icons, manifest, static assets) — cache first is fine.
   event.respondWith(
