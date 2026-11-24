@@ -192,168 +192,134 @@
     /* ══════════════════════════════════════
        LANDING SCREEN
     ══════════════════════════════════════ */
-    #landing {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: var(--black);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-      overflow: hidden;
-    }
+    
+#landing {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #08090d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3vh 4vw;
+  overflow: hidden;
+  transition: opacity .8s ease, visibility .8s ease;
+}
 
-    #landing.gone {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+#landing.gone {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
 
-    /* static noise canvas */
-    #staticCanvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.06;
-    }
+/* Visible maze pattern around the hero */
+#landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  background-color: #08090d;
+  background-image:
+    linear-gradient(90deg, #3f6eff 1px, transparent 1px),
+    linear-gradient(#3f6eff 1px, transparent 1px),
+    linear-gradient(90deg, transparent 48%, #f4d35e 49%, #f4d35e 50%, transparent 51%);
+  background-size: 48px 48px, 48px 48px, 96px 96px;
+  mask-image: linear-gradient(to bottom, black, transparent 95%);
+  pointer-events: none;
+}
 
-    /* ambient gradient orb */
-    .landing-orb {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(63,110,255,0.18) 0%, transparent 70%);
-      animation: orb-pulse 4s ease-in-out infinite;
-      pointer-events: none;
-    }
+/* Main landing layout */
+.landing-content {
+  position: relative;
+  z-index: 2;
+  width: min(1100px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
 
-    @keyframes orb-pulse {
-      0%, 100% { transform: scale(1); opacity: 0.6; }
-      50%       { transform: scale(1.15); opacity: 1; }
-    }
+/* Large hero photograph */
+.landing-hero-photo {
+  position: relative;
+  width: 100%;
+  height: min(68vh, 650px);
+  min-height: 340px;
+  overflow: hidden;
+  border: 1px solid rgba(244,211,94,.55);
+  box-shadow: 0 20px 70px rgba(0,0,0,.65);
+  background:
+    linear-gradient(to top, rgba(0,0,0,.65), transparent 65%),
+    url('/images/hero.jpg') center 45% / cover no-repeat;
+}
 
-    .landing-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-    }
+/* Subtle maze overlay on photograph */
+.landing-hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(8,9,13,.15), transparent 35%, transparent 65%, rgba(8,9,13,.15));
+  pointer-events: none;
+}
 
-    .landing-eyebrow{
-    font-size:1rem;
-    font-weight:600;
-    color:var(--gold);
-    }
+/* RADIO / TV / TALK navigation */
+.landing-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  width: min(760px, 100%);
+}
 
-    .landing-hero-logo {
-      width: min(260px, 62vw);
-      height: auto;
-      border-radius: 50%;
-      opacity: 0;
-      animation: logo-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
-      filter: drop-shadow(0 0 50px rgba(63,110,255,0.55));
-      margin: 0.5rem 0 0.25rem;
-    }
+.landing-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 76px;
+  color: #f4d35e;
+  background: rgba(12,14,22,.96);
+  border: 1px solid rgba(63,110,255,.65);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  letter-spacing: .12em;
+  text-decoration: none;
+  transition: .25s ease;
+}
 
-    .landing-sub {
-      font-family: "DM Serif Display", serif;
-      font-style: italic;
-      font-size: clamp(0.85rem, 2vw, 1.1rem);
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      opacity: 0;
-      animation: fade-up 0.6s ease 1s forwards;
-      margin-top: 0.75rem;
-    }
+.landing-nav a:hover {
+  color: #08090d;
+  background: #f4d35e;
+  border-color: #f4d35e;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(244,211,94,.2);
+}
 
-    #landingWave {
-      width: 240px;
-      height: 40px;
-      margin: 2rem 0;
-      opacity: 0;
-      animation: fade-up 0.6s ease 1.2s forwards;
-    }
+/* Mobile */
+@media (max-width: 600px) {
+  #landing {
+    padding: 18px;
+  }
 
-    .enter-btn {
-      width: 130px;
-      height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(160deg, #101c40 0%, #0a1230 100%);
-      color: var(--gold);
-      border: 1px solid rgba(63,110,255,0.55);
-      font-family: "Bebas Neue", sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: 0.28em;
-      border-radius: 4px;
-      cursor: pointer;
-      opacity: 0;
-      animation: fade-up 0.6s ease 1.5s forwards, btn-pulse 2.4s ease-in-out infinite;
-      transition: transform 0.15s, border-color 0.15s;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none; /* added — anchors underline by default, buttons don't */
-    }
+  .landing-content {
+    gap: 16px;
+  }
 
-    .enter-btn::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.08);
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-    }
+  .landing-hero-photo {
+    height: 62vh;
+    min-height: 300px;
+  }
 
-    .enter-btn:hover {
-      transform: translateY(-2px);
-      border-color: var(--gold);
-    }
+  .landing-nav {
+    gap: 7px;
+  }
 
-    .enter-btn:hover::after { transform: translateX(0); }
+  .landing-nav a {
+    min-height: 58px;
+    font-size: 1.4rem;
+    letter-spacing: .04em;
+  }
+}
 
-    .enter-hint {
-      font-size: 0.62rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-top: 1rem;
-      opacity: 0;
-      animation: fade-up 0.6s ease 1.8s forwards;
-    }
-    .enter-btn-row {
-      display: flex;
-      gap: 0.85rem;
-      opacity: 0;
-      animation: fade-up 0.6s ease 1.5s forwards;
-    }
-
-    .enter-btn-row .enter-btn {
-      opacity: 1;
-    }
-
-    @keyframes fade-up {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes btn-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(63,110,255,0.45); }
-      50%      { box-shadow: 0 0 22px 6px rgba(63,110,255,0.55); }
-    }
-
-    @keyframes logo-in {
-      from { opacity: 0; transform: translateY(20px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
 
     /* ══════════════════════════════════════
        APP SHELL
@@ -1506,43 +1472,46 @@ html.rm-skip #app{visibility:visible}
      LANDING SCREEN
 ══════════════════════════════════════ -->
 
+
 <div id="landing" class="cinematic-landing">
-  <canvas id="staticCanvas"></canvas>
+
+  <canvas id="mazeCanvas" aria-hidden="true"></canvas>
   <div class="landing-vignette"></div>
 
-  <section class="record-stage">
-    <img src="bgstv.GIF" alt="SanecaTV record player" class="record-art"/>
-    <div class="record-caption">
-      <span>INDEPENDENT BROADCAST</span>
-      <strong>SANECA<span>TV</span></strong>
-      <small>LITHONIA · ATLANTA · EVERYWHERE</small>
-    </div>
-  </section>
-
-  <section class="drive-stage">
-    <canvas id="mazeCanvas" aria-hidden="true"></canvas>
-    <div class="maze-fog"></div>
-    <div class="drive-copy">
-      <span>THE CITY NEVER GOES QUIET</span>
-      <strong>RADIO MELTDOWN</strong>
-    </div>
-  </section>
-
   <div class="landing-content cinematic-content">
-    <div class="landing-eyebrow">HOUSE OF MEDIA · EST. 2021</div>
-    <div class="landing-sub">Culture-driven. Community-built.</div>
-    <canvas id="landingWave"></canvas>
 
-    <div class="enter-btn-row">
-      <a href="/radio/" class="enter-btn active" id="enterBtnRadio">RADIO</a>
-      <a href="/watch/" class="enter-btn" id="enterBtnTV">TV</a>
-      <a href="https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw==" target="_blank" rel="noopener" class="enter-btn" id="enterBtnTalk">TALK</a>
-    </div>
+    <div class="landing-hero-photo" role="img" aria-label="SanecaTV broadcast hero image"></div>
+
+    <nav class="landing-nav" aria-label="Explore SanecaTV">
+
+      <a href="/radio/" class="landing-nav-box" id="enterBtnRadio">
+        RADIO
+      </a>
+
+      <a href="/watch/" class="landing-nav-box" id="enterBtnTV">
+        TV
+      </a>
+
+      <a
+        href="https://invite.cam/U2FsdGVkX1/qKqyWqix+XqAIu/59EQQQxkzanfVoczAyCOzn6fzlFX/mJREOioGcZSRlmsceSTotsPsTLaZ3mw=="
+        target="_blank"
+        rel="noopener"
+        class="landing-nav-box"
+        id="enterBtnTalk">
+        TALK
+      </a>
+
+    </nav>
 
     <div id="liveIndicator">24/7 STREAM</div>
-    <button type="button" id="enterSkip" class="landing-skip">Skip intro</button>
+
+    <button type="button" id="enterSkip" class="landing-skip">
+      Skip intro
+    </button>
+
   </div>
 </div>
+
 
 
 <!-- ══════════════════════════════════════
@@ -1645,7 +1614,7 @@ html.rm-skip #app{visibility:visible}
   <div class="page">
     <section class="hm-hero" aria-label="Now on SanecaTV Radiomeltdown">
       <div class="hm-state"><span class="hm-lamp" id="hmLamp"></span><span id="hmState">Checking the schedule…</span></div>
-      <h2 class="hm-title" id="hmTitle">SanecaTV Radiomeltdown</h2>
+      <h2 class="hm-title" id="hmTitle">STV Radiomeltdown</h2>
       <p class="hm-when" id="hmWhen"></p>
       <div class="cta-row" style="margin-bottom:.5rem;">
         <button type="button" class="btn btn-signal" id="hmPlay" aria-pressed="false">Play the stream</button>
