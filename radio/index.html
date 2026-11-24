@@ -227,12 +227,50 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
   margin: 20px 0;
 }
 
+  
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+
 </style>
 </head>
 <body>
 
 <header class="site-header">
-  <a class="brand" href="#home">RADIO MELTDOWN</a>
+  <a class="brand" href="#home">YOUR RADIO NETWORK</a>
   <nav class="nav">
     <a href="#radio">Radio</a>
     <a href="#shows">Shows</a>
@@ -253,14 +291,34 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
   <span>Follow @stvradiomeltdown on TikTok and YouTube</span>
 </div></div>
 
-<main>
-<section class="hero" id="home">
-  <img class="hero-image" src="/stvlogo1.jpg" alt="Radio Meltdown">
-  <div class="eyebrow">Independent Radio · Music · Culture</div>
-  <h1>Radio<br>Meltdown.</h1>
-  <div class="hero-sub">Culture-driven. Community-built. MACKINTHEDARK.</div>
-  <a class="button" href="#radio">Listen Live</a>
 
+<main>
+
+  <!-- HERO SLIDESHOW -->
+  <section class="hero" id="home">
+
+    <div class="hero-slideshow">
+      <img src="/Vid10.gif" alt="" class="hero-slide active">
+      <img src="/christmas.gif" alt="" class="hero-slide">
+      <video class="hero-slide" muted playsinline loop>
+        <source src="/Vid9.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="eyebrow">Independent Radio · Music · Culture</div>
+      <h1>Radio<br>Meltdown.</h1>
+      <div class="hero-sub">
+        Culture-driven. Community-built. MACKINTHEDARK.
+      </div>
+      <a class="button" href="#radio">Listen Live</a>
+    </div>
+
+  </section>
+
+  <!-- RADIO PLAYER -->
   <div class="radio-player" id="radio">
     <div class="player-label">Now broadcasting</div>
     <div class="player-title">RADIO MELTDOWN</div>
@@ -269,14 +327,121 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
       Your browser does not support the audio player.
     </audio>
   </div>
-  <p class="radio-help">Having trouble with the player? <a href="https://listen.streamaudio.co/proxy/mackinthedark/stream" target="_blank" rel="noopener noreferrer">Open the live stream</a></p>
 
+  <p class="radio-help">
+    Having trouble with the player?
+    <a href="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+       target="_blank" rel="noopener noreferrer">Open the live stream</a>
+  </p>
+
+  <!-- NAVIGATION LINKS -->
   <div class="hero-links">
     <a class="button outline" href="/watch">Watch STV</a>
     <a class="button outline" href="https://radiomeltdown.online/" target="_blank" rel="noopener">Events</a>
     <a class="button outline" href="https://radiomeltdown.com/artists/">Featured Artists</a>
   </div>
-</section>
+
+
+<main>
+
+  <!-- HERO SLIDESHOW -->
+  <section class="hero" id="home">
+
+    <div class="hero-slideshow">
+      <img src="/Vid10.gif" alt="" class="hero-slide active">
+      <img src="/christmas.gif" alt="" class="hero-slide">
+      <video class="hero-slide" muted playsinline loop>
+        <source src="/Vid9.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="eyebrow">Independent Radio · Music · Culture</div>
+      <h1>Radio<br>Meltdown.</h1>
+      <div class="hero-sub">
+        Culture-driven. Community-built. MACKINTHEDARK.
+      </div>
+      <a class="button" href="#radio">Listen Live</a>
+    </div>
+
+  </section>
+
+  <!-- RADIO PLAYER -->
+  <div class="radio-player" id="radio">
+    <div class="player-label">Now broadcasting</div>
+    <div class="player-title">RADIO MELTDOWN</div>
+    <audio controls preload="none">
+      <source src="https://listen.streamaudio.co/proxy/mackinthedark/stream" type="audio/mpeg">
+      Your browser does not support the audio player.
+    </audio>
+  </div>
+
+  <p class="radio-help">
+    Having trouble with the player?
+    <a href="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+       target="_blank" rel="noopener noreferrer">Open the live stream</a>
+  </p>
+
+  <!-- NAVIGATION LINKS -->
+  <div class="hero-links">
+    <a class="button outline" href="/watch">Watch STV</a>
+    <a class="button outline" href="https://radiomeltdown.online/" target="_blank" rel="noopener">Events</a>
+    <a class="button outline" href="https://radiomeltdown.com/artists/">Featured Artists</a>
+  </div>
+
+
+<main>
+
+  <!-- HERO SLIDESHOW -->
+  <section class="hero" id="home">
+
+    <div class="hero-slideshow">
+      <img src="/Vid10.gif" alt="" class="hero-slide active">
+      <img src="/christmas.gif" alt="" class="hero-slide">
+      <video class="hero-slide" muted playsinline loop>
+        <source src="/Vid9.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="eyebrow">Independent Radio · Music · Culture</div>
+      <h1>Radio<br>Meltdown.</h1>
+      <div class="hero-sub">
+        Culture-driven. Community-built. MACKINTHEDARK.
+      </div>
+      <a class="button" href="#radio">Listen Live</a>
+    </div>
+
+  </section>
+
+  <!-- RADIO PLAYER -->
+  <div class="radio-player" id="radio">
+    <div class="player-label">Now broadcasting</div>
+    <div class="player-title">RADIO MELTDOWN</div>
+    <audio controls preload="none">
+      <source src="https://listen.streamaudio.co/proxy/mackinthedark/stream" type="audio/mpeg">
+      Your browser does not support the audio player.
+    </audio>
+  </div>
+
+  <p class="radio-help">
+    Having trouble with the player?
+    <a href="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+       target="_blank" rel="noopener noreferrer">Open the live stream</a>
+  </p>
+
+  <!-- NAVIGATION LINKS -->
+  <div class="hero-links">
+    <a class="button outline" href="/watch">Watch STV</a>
+    <a class="button outline" href="https://radiomeltdown.online/" target="_blank" rel="noopener">Events</a>
+    <a class="button outline" href="https://radiomeltdown.com/artists/">Featured Artists</a>
+  </div>
+
+</main>
 
 <!-- FEATURED -->
 <section class="section" id="featured">
@@ -445,9 +610,46 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
   <span>© <span id="year"></span> · We support the underdogs · <a href="https://radiomeltdown.com">radiomeltdown.com</a></span>
 </footer>
 
-<script>
-var t=document.getElementById("ticker");t.innerHTML+=t.innerHTML;
-document.getElementById("year").textContent=new Date().getFullYear();
-</script>
+
+  <script>
+    // TICKER
+    var t = document.getElementById("ticker");
+    if (t) t.innerHTML += t.innerHTML;
+
+    // FOOTER YEAR
+    var year = document.getElementById("year");
+    if (year) year.textContent = new Date().getFullYear();
+
+    // HERO SLIDESHOW
+    const slides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+      if (!slides.length) return;
+
+      const previous = slides[currentSlide];
+      previous.classList.remove('active');
+
+      if (previous.tagName === 'VIDEO') {
+        previous.pause();
+      }
+
+      currentSlide = (currentSlide + 1) % slides.length;
+
+      const next = slides[currentSlide];
+      next.classList.add('active');
+
+      if (next.tagName === 'VIDEO') {
+        next.currentTime = 0;
+        next.play().catch(() => {});
+      }
+    }
+
+    if (slides.length > 1) {
+      setInterval(showNextSlide, 7000);
+    }
+  </script>
+
+</main>
 </body>
 </html>
