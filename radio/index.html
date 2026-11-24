@@ -210,83 +210,84 @@ footer{background:#030916;border-top:1px solid var(--border);padding:40px 24px 2
 .radio-feature-btn{flex:1 1 140px}
 }
 
- 
-.radio-player {
-  width: min(92%, 680px);
-  margin: 36px auto;
-  padding: 26px 28px;
-  background: linear-gradient(145deg, #171923, #0c0e14);
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 18px;
+  .radio-player {
+  width: min(100% - 28px, 520px);
+  margin: 20px auto;
+  padding: 16px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
   box-sizing: border-box;
-  box-shadow: 0 12px 35px rgba(0,0,0,.35);
 }
 
 .player-heading {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 22px;
-  color: #f5f5f5;
-  font-size: 15px;
+  gap: 9px;
+  margin-bottom: 12px;
+  color: #fff;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 2px;
-  line-height: 1.5;
+  letter-spacing: 1.2px;
 }
 
 .live-indicator {
-  flex: 0 0 10px;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   background: #e83c3c;
   border-radius: 50%;
-  box-shadow: 0 0 12px #e83c3c;
+  box-shadow: 0 0 8px #e83c3c;
 }
 
 .live-tag {
   margin-left: auto;
-  color: #ff5555;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  white-space: nowrap;
+  color: #e83c3c;
+  font-size: 10px;
 }
 
 .radio-player audio {
   display: block;
   width: 100%;
-  height: 48px;
-  margin: 8px 0 12px;
+  height: 38px;
 }
 
 #player-msg {
-  font-size: 13px;
-  line-height: 1.6;
-  color: #b8bbc5;
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 6px;
+}
+
+.love-player {
   margin-top: 12px;
-  min-height: 20px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  padding-top: 10px;
 }
 
-@media (max-width: 600px) {
-  .radio-player {
-    width: calc(100% - 28px);
-    margin: 26px auto;
-    padding: 22px 18px;
-    border-radius: 15px;
-  }
-
-  .player-heading {
-    font-size: 13px;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .radio-player audio {
-    height: 46px;
-  }
+.love-player summary {
+  color: #ccc;
+  font-size: 12px;
+  cursor: pointer;
+  list-style: none;
 }
 
+.love-player summary::after {
+  content: "+";
+  float: right;
+  font-size: 16px;
+}
 
+.love-player[open] summary::after {
+  content: "−";
+}
 
+.love-player iframe {
+  display: block;
+  width: 100%;
+  height: 240px;
+  border: 0;
+  border-radius: 8px;
+  margin-top: 12px;
+}
 </style>
 </head>
 <body>
@@ -310,7 +311,7 @@ footer{background:#030916;border-top:1px solid var(--border);padding:40px 24px 2
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-content">
-    <img src="stvlogo1.jpg" alt="SanecaTV Broadcasting" class="hero-logo-img" width="96" height="96">
+    <img src="stvlogo1.jpeg" alt="SanecaTV Broadcasting" class="hero-logo-img" width="96" height="96">
     <p class="hero-eyebrow">Welcome to the House of Media · Est. 2021</p>
     <h1 class="hero-logo">SanecaTV<br><span>RADIO</span></h1>
     <p class="hero-sub">Culture-driven. Community-built. Always live.</p>
@@ -345,7 +346,16 @@ footer{background:#030916;border-top:1px solid var(--border);padding:40px 24px 2
 
   <div id="player-msg" role="status"></div>
 
-  
+  <details class="love-player">
+    <summary>Listen to Love &amp; Company</summary>
+    <iframe
+      src="https://stvradiomeltdown-loveandcompany.vercel.app/"
+      title="Love and Company Player"
+      loading="lazy"
+      allow="autoplay">
+    </iframe>
+  </details>
+
 </section>
 
 <div class="mode-switch">
