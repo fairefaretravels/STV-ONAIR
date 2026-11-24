@@ -696,6 +696,7 @@ Broadcasting Worldwide
     allow="autoplay; fullscreen"
   ></iframe>
 </section>
+    
 <script>
 const watchLive = document.getElementById("watchLive");
 const playerSection = document.getElementById("playerSection");
@@ -711,52 +712,47 @@ watchLive.addEventListener("click", () => {
     watchLive.style.opacity = "1";
   }, 800);
 });
-</script>
+<script>
+  
+<script>
 const watchLive = document.getElementById("watchLive");
 const playerSection = document.getElementById("playerSection");
 const mainFrame = document.getElementById("mainFrame");
 const channelCards = document.querySelectorAll(".channel-card");
 
-watchLive.addEventListener("click", () => {
-  watchLive.innerHTML = "● CONNECTING...";
-  watchLive.style.opacity = ".7";
+if (watchLive && playerSection) {
+  watchLive.addEventListener("click", () => {
+    watchLive.innerHTML = "● CONNECTING...";
+    watchLive.style.opacity = ".7";
 
-  setTimeout(() => {
     playerSection.scrollIntoView({
       behavior: "smooth",
       block: "center"
     });
 
-    mainFrame.style.animation = "playerEnter 1s ease";
-    watchLive.innerHTML = "▶ WATCH LIVE";
-    watchLive.style.opacity = "1";
-  }, 800);
-});
+    if (mainFrame) {
+      mainFrame.style.animation = "playerEnter 1s ease";
+    }
 
-/* CHANNEL SWITCHING */
+    setTimeout(() => {
+      watchLive.innerHTML = "▶ WATCH LIVE";
+      watchLive.style.opacity = "1";
+    }, 800);
+  });
+}
+
+
+/* CHANNEL NAVIGATION */
 channelCards.forEach(card => {
-
-  card.addEventListener("click", (e) => {
-
-    /* Keep the channel links clickable without leaving the page */
-    e.preventDefault();
-
+  card.addEventListener("click", () => {
     channelCards.forEach(c => {
       c.classList.remove("active");
     });
 
     card.classList.add("active");
-
-    const src = card.getAttribute("data-src");
-
-    mainFrame.src = src;
-
-    playerSection.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-
   });
-
 });
+
 </script>
+
+    </body>
