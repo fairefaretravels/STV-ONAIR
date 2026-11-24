@@ -1,238 +1,177 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#000000">
-<title>Radio TV Network | Independent Radio, Music &amp; Culture</title>
-<meta name="description" content="Listen to Radio Meltdown, featuring independent music, culture, conversation, creative voices, live broadcasts and original programming.">
+<meta name="theme-color" content="#080808">
+
+<title>Radio Meltdown | Independent Radio, Music &amp; Culture</title>
+
+<meta name="description" content="Listen to Radio Meltdown, featuring independent music, culture, conversation, live broadcasts and original programming.">
+
 <meta property="og:title" content="Radio Meltdown | MACKINTHEDARK">
 <meta property="og:description" content="Independent radio. Music. Culture. Conversation. Tune in to Radio Meltdown.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://radiomeltdown.com/radio">
-<style>
-:root{--black:#080808;--panel:#0f0f0f;--white:#f5f5f2;--gray:#9a9a9a;--soft:#c4c4c0;--line:#2e2e2e}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{background:var(--black);color:var(--white);font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;line-height:1.6;-webkit-tap-highlight-color:transparent}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-iframe{border:0;max-width:100%}
-:focus-visible{outline:2px solid var(--white);outline-offset:3px}
 
-/* BUTTONS: a.button beats any generic link rule, so text always shows */
-a.button,button.button{display:inline-block;background:var(--white);color:var(--black);padding:15px 26px;font:900 12px/1 inherit;font-family:inherit;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--white);cursor:pointer;transition:background .2s,color .2s}
-a.button:hover,button.button:hover{background:transparent;color:var(--white)}
-a.button.outline{background:transparent;color:var(--white)}
-a.button.outline:hover{background:var(--white);color:var(--black)}
-.static-section a.button{background:var(--black);color:var(--white);border-color:var(--black)}
-.static-section a.button:hover{background:transparent;color:var(--black)}
+<style>
+:root {
+  --black: #080808;
+  --panel: #111111;
+  --white: #f5f5f2;
+  --gray: #999999;
+  --soft: #c4c4c0;
+  --line: #2c2c2c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+
+/* BUTTONS */
+
+.button {
+  display: inline-block;
+  padding: 14px 22px;
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid var(--white);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.button:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+.button.outline {
+  background: transparent;
+  color: var(--white);
+}
+
+.button.outline:hover {
+  background: var(--white);
+  color: var(--black);
+}
 
 /* HEADER */
-.site-header{position:sticky;top:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:16px 6%;background:rgba(8,8,8,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.brand{font-size:14px;font-weight:900;letter-spacing:3px}
-.nav{display:flex;gap:22px;font-size:12px;text-transform:uppercase;letter-spacing:1.5px}
-.nav a{color:var(--white)}.nav a:hover{opacity:.55}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 6%;
+  background: rgba(8,8,8,.97);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+
+.brand {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.nav a {
+  color: var(--white);
+}
+
+.nav a:hover {
+  opacity: .55;
+}
 
 /* TICKER */
-.ticker{background:var(--white);color:var(--black);overflow:hidden;white-space:nowrap;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:8px 0}
-.ticker-track{display:inline-block;animation:tick 70s linear infinite}
-.ticker-track span{margin:0 34px}
-@keyframes tick{to{transform:translateX(-50%)}}
 
-/* HERO */
-.hero{padding:70px 6% 90px;text-align:center}
-.hero-image{width:100%;max-width:1000px;max-height:560px;height:auto;object-fit:contain;margin:0 auto 55px;filter:grayscale(100%)}
-.eyebrow{color:var(--gray);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px}
-h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weight:900;text-transform:uppercase}
-.hero-sub{color:var(--soft);font-size:14px;letter-spacing:2px;margin:26px 0 32px}
-.radio-player{max-width:720px;margin:55px auto 0;padding:34px;border:1px solid #444;background:var(--panel);text-align:left}
-.player-label{font-size:11px;letter-spacing:3px;color:var(--gray);text-transform:uppercase;margin-bottom:14px}
-.player-title{font-size:24px;font-weight:900;letter-spacing:1px;margin-bottom:22px}
-.radio-player audio{display:block;width:100%;height:54px;filter:grayscale(1)}
-.radio-help{margin-top:26px;text-align:center;color:var(--gray);font-size:13px}
-.radio-help a{color:var(--white);text-decoration:underline;text-decoration-color:#777;text-underline-offset:4px}
-.hero-links{margin-top:34px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-
-.hero-image {
-  position: relative;
-  z-index: 1;
-  filter: grayscale(100%);
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  top: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1000px, 88%);
-  height: 560px;
-  pointer-events: none;
-  z-index: 2;
-  opacity: .25;
-
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    rgba(255,255,255,.12) 1px,
-    transparent 2px,
-    transparent 4px
-  );
-
-  animation: scan 8s linear infinite;
-}
-
-@keyframes scan {
-  from { background-position: 0 0; }
-  to { background-position: 0 100px; }
-}
-
-/* SECTIONS */
-.section{padding:95px 8%;border-top:1px solid var(--line)}
-.wrap{max-width:1000px;margin:0 auto}
-.label{color:var(--gray);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
-.section h2{font-size:clamp(32px,6vw,64px);line-height:1;letter-spacing:-2px;text-transform:uppercase;margin-bottom:22px}
-.lede{max-width:640px;color:var(--soft);font-size:16px;line-height:1.8;margin-bottom:28px}
-.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:34px}
-.card{background:var(--panel);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s}
-.card:hover{border-color:#777}
-.card .tag{font-size:11px;letter-spacing:2px;color:var(--gray);text-transform:uppercase}
-.card h3{font-size:20px;line-height:1.25}
-.card p{color:var(--soft);font-size:14px;line-height:1.7}
-.card a.more{margin-top:auto;padding-top:10px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:underline;text-underline-offset:5px;text-decoration-color:#666}
-
-/* SHOWS */
-.shows{margin-top:34px;border-top:1px solid var(--line)}
-.show{display:grid;grid-template-columns:48px 1fr auto;gap:18px;padding:24px 0;border-bottom:1px solid var(--line);align-items:start}
-.show .n{color:var(--gray);font-weight:900;font-size:18px}
-.show h3{font-size:19px}.show .host{color:var(--gray);font-size:13px}
-.show p{color:var(--soft);font-size:14px;margin-top:6px;line-height:1.7}
-.show .when{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);text-align:right;white-space:nowrap}
-.show .when a{color:var(--white);text-decoration:underline;text-underline-offset:4px}
-
-/* VIDEO */
-.videos{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:34px}
-.video{aspect-ratio:16/9;background:#000;border:1px solid var(--line)}
-.video iframe{width:100%;height:100%}
-.cap{font-size:13px;color:var(--gray);margin-top:10px}
-
-/* ARTIST */
-.artist{display:grid;grid-template-columns:150px 1fr;gap:34px;margin-top:34px;align-items:start}
-.avatar{width:150px;height:150px;border-radius:50%;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;letter-spacing:-2px}
-.artist h3{font-size:26px}.artist .role{color:var(--gray);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;margin:4px 0 16px}
-.artist p{color:var(--soft);line-height:1.8;margin-bottom:14px;max-width:640px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 22px}
-.chips span{border:1px solid #555;padding:5px 12px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
-
-/* STATIC (inverted) */
-.static-section{background:var(--white);color:var(--black);text-align:center;padding:100px 8%;border-top:0}
-.static-section .label,.static-section .lede{color:#555;margin-left:auto;margin-right:auto}
-.static-section h2{font-size:clamp(48px,10vw,110px);letter-spacing:-5px;line-height:.9;margin-bottom:28px}
-.static-section .cover{max-width:640px;margin:0 auto 32px;text-align:left;border-top:1px solid #bbb;padding-top:22px;color:#333;font-size:15px;line-height:1.8}
-.static-section .cover strong{color:var(--black)}
-#soro-blog{max-width:850px;margin:50px auto 0;text-align:left}
-#soro-blog a{color:#111 !important}
-
-/* SUPPORT / TRAVEL */
-.split{display:grid;gap:40px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-.travel{display:grid;grid-template-columns:200px 1fr;gap:28px;margin-top:34px;border:1px solid var(--line);padding:26px;background:var(--panel);align-items:center}
-.travel img{width:200px;height:150px;object-fit:cover;filter:grayscale(100%)}
-.travel h3{font-size:22px;margin-bottom:8px}.travel p{color:var(--soft);font-size:14px;margin-bottom:16px}
-.pills{display:flex;flex-wrap:wrap;gap:8px}
-.pills a{border:1px solid #555;padding:7px 13px;font-size:12px;letter-spacing:1px}
-.pills a:hover{background:var(--white);color:var(--black)}
-.about p{max-width:680px;color:var(--soft);font-size:16px;line-height:1.85;margin-bottom:18px}
-.about strong{color:var(--white)}
-.contact-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
-
-.booking-floater{position:fixed;right:18px;bottom:18px;z-index:20;background:var(--white);color:var(--black);padding:14px 18px;font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;box-shadow:0 4px 20px #0008}
-.booking-floater:hover{background:#ccc}
-.site-footer{padding:38px 6% 90px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;color:var(--gray);font-size:11px;letter-spacing:2px;text-transform:uppercase}
-.site-footer a{text-decoration:underline;text-underline-offset:4px;color:var(--soft)}
-
-@media (max-width:700px){
-.site-header{flex-direction:column;gap:12px;padding:14px 5%}
-.nav{gap:14px;flex-wrap:wrap;justify-content:center}
-.hero{padding:40px 5% 70px}h1{letter-spacing:-2px}
-.radio-player{padding:24px 18px;margin-top:45px}
-.section{padding:70px 7%}.static-section{padding:70px 7%}.static-section h2{letter-spacing:-2px}
-.artist,.travel{grid-template-columns:1fr}.avatar{width:110px;height:110px;font-size:34px}
-.travel img{width:100%;height:190px}
-.show{grid-template-columns:36px 1fr}.show .when{grid-column:2;text-align:left}
-}
-@media (prefers-reduced-motion:reduce){.ticker-track{animation:none}html{scroll-behavior:auto}}
-
-
-/* SORO BLOG - CLEAN TYPOGRAPHY FIX */
-
-#soro-blog {
-  display: block;
+.ticker {
   width: 100%;
-  max-width: 850px;
-  margin: 50px auto;
-  padding: 20px;
-  overflow: visible;
-  color: #111;
-  background: transparent;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-  letter-spacing: normal;
-  text-align: left;
-}
-
-#soro-blog * {
-  box-sizing: border-box;
-  max-width: 100%;
-  letter-spacing: normal !important;
-  word-spacing: normal !important;
-  text-transform: none;
-}
-
-#soro-blog p {
-  display: block;
-  position: static;
-  margin: 0 0 20px !important;
-  padding: 0 !important;
-  font-size: 16px !important;
-  line-height: 1.7 !important;
-  white-space: normal !important;
-  overflow-wrap: break-word;
-  word-break: normal;
-}
-
-#soro-blog h1,
-#soro-blog h2,
-#soro-blog h3 {
-  display: block;
-  position: static;
-  margin: 24px 0 14px !important;
-  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--white);
+  color: var(--black);
+  padding: 8px 0;
+  font-size: 12px;
   font-weight: 800;
-  line-height: 1.25 !important;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
 }
 
-#soro-blog a {
-  color: #111 !important;
-  line-height: 1.7 !important;
-  text-decoration: underline;
+.ticker-track {
+  display: inline-block;
+  width: max-content;
+  animation: tickerMove 70s linear infinite;
 }
 
-#soro-blog img {
-  display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  margin: 20px 0;
+.ticker-track span {
+  margin: 0 34px;
 }
+
+@keyframes tickerMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* HERO SLIDESHOW */
 
 .hero {
   position: relative;
   width: 100%;
-  height: auto;
-  min-height: 0;
-  aspect-ratio: 16 / 5;
+  height: clamp(190px, 38vw, 420px);
   overflow: hidden;
   background: #000;
 }
@@ -240,8 +179,6 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 .hero-slideshow {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
 }
 
 .hero-slide {
@@ -253,7 +190,7 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
   object-fit: contain;
   object-position: center;
   opacity: 0;
-  transition: opacity 1.5s ease;
+  transition: opacity 1.4s ease;
 }
 
 .hero-slide.active {
@@ -263,16 +200,642 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 .hero-overlay {
   position: absolute;
   inset: 0;
-  z-index: 1;
   pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    rgba(255,255,255,.06) 1px,
+    transparent 2px,
+    transparent 4px
+  );
 }
 
+/* RADIO PLAYER */
+
+.radio-player {
+  width: calc(100% - 36px);
+  max-width: 720px;
+  margin: 32px auto 0;
+  padding: 28px;
+  border: 1px solid #444;
+  background: var(--panel);
+}
+
+.player-label {
+  color: var(--gray);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.player-title {
+  font-size: clamp(20px, 4vw, 26px);
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.radio-control {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.radio-play {
+  padding: 15px 24px;
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid var(--white);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.radio-play:hover {
+  background: transparent;
+  color: var(--white);
+}
+
+.radio-status {
+  color: var(--gray);
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.radio-help {
+  margin: 16px auto 0;
+  padding: 0 15px;
+  color: var(--gray);
+  font-size: 13px;
+  text-align: center;
+}
+
+.radio-help a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 15px;
+  margin: 28px auto 45px;
+}
+
+/* GENERAL SECTIONS */
+
+.section {
+  padding: 85px 8%;
+  border-top: 1px solid var(--line);
+}
+
+.wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.label {
+  margin-bottom: 14px;
+  color: var(--gray);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.section h2 {
+  margin-bottom: 22px;
+  font-size: clamp(34px, 6vw, 64px);
+  line-height: 1;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+}
+
+.lede {
+  max-width: 640px;
+  margin-bottom: 28px;
+  color: var(--soft);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* FEATURE CARDS */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 25px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  transition: border-color .2s;
+}
+
+.card:hover {
+  border-color: #777;
+}
+
+.card .tag {
+  color: var(--gray);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.card h3 {
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.card p {
+  color: var(--soft);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.card a.more {
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: #666;
+  text-transform: uppercase;
+}
+
+/* SHOWS */
+
+.shows {
+  margin-top: 34px;
+  border-top: 1px solid var(--line);
+}
+
+.show {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  align-items: start;
+  gap: 18px;
+  padding: 23px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.show .n {
+  color: var(--gray);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.show h3 {
+  font-size: 19px;
+}
+
+.show .host {
+  color: var(--gray);
+  font-size: 13px;
+}
+
+.show p {
+  margin-top: 6px;
+  color: var(--soft);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.show .when {
+  color: var(--gray);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-align: right;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.show .when a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* VIDEO */
+
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.video {
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid var(--line);
+}
+
+.video iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.cap {
+  margin-top: 10px;
+  color: var(--gray);
+  font-size: 13px;
+}
+
+/* ARTIST */
+
+.artist {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: start;
+  gap: 34px;
+  margin-top: 34px;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  font-size: 44px;
+  font-weight: 900;
+}
+
+.artist h3 {
+  font-size: 26px;
+}
+
+.artist .role {
+  margin: 4px 0 16px;
+  color: var(--gray);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.artist p {
+  max-width: 640px;
+  margin-bottom: 14px;
+  color: var(--soft);
+  line-height: 1.8;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 22px;
+}
+
+.chips span {
+  padding: 5px 12px;
+  border: 1px solid #555;
+  font-size: 10px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+/* THE STATIC */
+
+.static-section {
+  padding: 90px 8%;
+  background: var(--white);
+  color: var(--black);
+  text-align: center;
+}
+
+.static-section .label {
+  color: #555;
+}
+
+.static-section h2 {
+  margin-bottom: 28px;
+  font-size: clamp(48px, 10vw, 110px);
+  line-height: .9;
+  letter-spacing: -5px;
+}
+
+.static-section .lede {
+  margin-left: auto;
+  margin-right: auto;
+  color: #555;
+}
+
+.static-section .cover {
+  max-width: 640px;
+  margin: 0 auto 32px;
+  padding-top: 22px;
+  border-top: 1px solid #bbb;
+  color: #333;
+  font-size: 15px;
+  line-height: 1.8;
+  text-align: left;
+}
+
+.static-section .cover strong {
+  color: #000;
+}
+
+.static-section a.button {
+  background: #080808;
+  color: #fff;
+  border-color: #080808;
+}
+
+.static-section a.button:hover {
+  background: transparent;
+  color: #080808;
+}
+
+#soro-blog {
+  display: block;
+  width: 100%;
+  max-width: 850px;
+  margin: 50px auto 0;
+  padding: 20px;
+  color: #111;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  text-align: left;
+  overflow: visible;
+}
+
+#soro-blog * {
+  box-sizing: border-box;
+  max-width: 100%;
+  letter-spacing: normal !important;
+  text-transform: none;
+}
+
+#soro-blog p {
+  margin: 0 0 20px !important;
+  padding: 0 !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  overflow-wrap: break-word;
+}
+
+#soro-blog h1,
+#soro-blog h2,
+#soro-blog h3 {
+  margin: 24px 0 14px !important;
+  font-weight: 800;
+  line-height: 1.25 !important;
+}
+
+#soro-blog a {
+  color: #111 !important;
+  text-decoration: underline;
+}
+
+#soro-blog img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+}
+
+/* SUBMISSIONS AND SPONSOR */
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 40px;
+}
+
+/* TRAVEL */
+
+.travel {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 28px;
+  margin-top: 34px;
+  padding: 26px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.travel img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  filter: grayscale(100%);
+}
+
+.travel h3 {
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+
+.travel p {
+  margin-bottom: 16px;
+  color: var(--soft);
+  font-size: 14px;
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pills a {
+  padding: 7px 13px;
+  border: 1px solid #555;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.pills a:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* ABOUT */
+
+.about p {
+  max-width: 680px;
+  margin-bottom: 18px;
+  color: var(--soft);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.about strong {
+  color: var(--white);
+}
+
+/* CONTACT */
+
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* BOOKING BUTTON */
+
+.booking-floater {
+  position: fixed;
+  right: 16px;
+  bottom: 18px;
+  z-index: 20;
+  padding: 13px 16px;
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0 4px 20px #0008;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+.booking-floater:hover {
+  background: #ccc;
+}
+
+/* FOOTER */
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 38px 6% 90px;
+  border-top: 1px solid var(--line);
+  color: var(--gray);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.site-footer a {
+  color: var(--soft);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .site-header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 13px 5%;
+  }
+
+  .brand {
+    font-size: 12px;
+  }
+
+  .nav {
+    gap: 13px;
+    font-size: 10px;
+  }
+
+  .hero {
+    height: 220px;
+  }
+
+  .radio-player {
+    margin-top: 24px;
+    padding: 22px 18px;
+  }
+
+  .section {
+    padding: 65px 7%;
+  }
+
+  .static-section {
+    padding: 70px 7%;
+  }
+
+  .static-section h2 {
+    letter-spacing: -2px;
+  }
+
+  .artist,
+  .travel {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar {
+    width: 110px;
+    height: 110px;
+    font-size: 34px;
+  }
+
+  .travel img {
+    width: 100%;
+    height: 190px;
+  }
+
+  .show {
+    grid-template-columns: 34px 1fr;
+    gap: 12px;
+  }
+
+  .show .when {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .booking-floater {
+    right: 12px;
+    bottom: 12px;
+    padding: 12px 14px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-slide {
+    transition: none;
+  }
+}
 </style>
 </head>
+
 <body>
 
+<!-- HEADER -->
+
 <header class="site-header">
-  <a class="brand" href="#home">YOUR RADIO NETWORK</a>
+  <a class="brand" href="#home">MITD RADIO NETWORK</a>
+
   <nav class="nav">
     <a href="#radio">Radio</a>
     <a href="#shows">Shows</a>
@@ -283,140 +846,249 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
   </nav>
 </header>
 
-<div class="ticker" aria-label="Station news"><div class="ticker-track" id="ticker">
-  <span>Joe Bean True Story out now feat. Seneca Mack</span>
-  <span>New music: Emil Gordon Sr. feat. Risk, “Cruizn’”</span>
-  <span>The Static Issue 02: Tony “T Money” Green cover story</span>
-  <span>Exclusive interview with Professor Griff</span>
-  <span>Meet The Switchblades: Detroit ghetto tech</span>
-  <span>Want free radio play? Contact us today</span>
-  <span>Follow @stvradiomeltdown on TikTok and YouTube</span>
-</div></div>
+<!-- TICKER -->
 
-
+<div class="ticker" aria-label="Station news">
+  <div class="ticker-track" id="ticker">
+    <span>Joe Bean True Story out now feat. Seneca Mack</span>
+    <span>New music: Emil Gordon Sr. feat. Risk, “Cruizn’”</span>
+    <span>The Static Issue 02: Tony “T Money” Green cover story</span>
+    <span>Exclusive interview with Professor Griff</span>
+    <span>Meet The Switchblades: Detroit ghetto tech</span>
+    <span>Want free radio play? Contact us today</span>
+    <span>Follow @stvradiomeltdown on TikTok and YouTube</span>
+  </div>
+</div>
 
 <main>
 
-  <!-- HERO SLIDESHOW -->
-  <section class="hero" id="home">
+<!-- HERO -->
 
-    <div class="hero-slideshow">
-      <img src="/Vid10.gif" alt="" class="hero-slide active">
-      <img src="/christmas.gif" alt="" class="hero-slide">
-      <video class="hero-slide" muted playsinline loop>
-        <source src="/Vid9.mp4" type="video/mp4">
-      </video>
+<section class="hero" id="home">
+  <div class="hero-slideshow">
+    <img src="/Vid10.gif" alt="" class="hero-slide active">
+    <img src="/christmas.gif" alt="" class="hero-slide">
+
+    <video class="hero-slide" muted playsinline loop preload="metadata">
+      <source src="/Vid9.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="hero-overlay"></div>
+</section>
+
+<!-- RADIO PLAYER -->
+
+<section id="radio">
+
+  <div class="radio-player">
+    <div class="player-label">Now Broadcasting</div>
+    <div class="player-title">RADIO TV NETWORK</div>
+
+    <div class="radio-control">
+      <button
+        class="radio-play"
+        id="radioPlay"
+        type="button"
+        aria-pressed="false">
+        PLAY STATION
+      </button>
+
+      <span class="radio-status" id="radioStatus" aria-live="polite">
+        Station ready
+      </span>
     </div>
 
-   
-    <div class="hero-overlay"></div>
-
-  </section>
-<main>
-
-  <!-- RADIO PLAYER -->
-  <div class="radio-player" id="radio">
-    <div class="player-label">Now broadcasting</div>
-    <div class="player-title">RADIO TV NETWORK</div>
-    <audio controls preload="none">
-      <source src="https://listen.streamaudio.co/proxy/mackinthedark/stream" type="audio/mpeg">
-      Your browser does not support the audio player.
+    <audio id="stationAudio" preload="none" playsinline>
+      <source
+        src="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+        type="audio/mpeg">
+      Your browser does not support audio playback.
     </audio>
   </div>
 
   <p class="radio-help">
     Having trouble with the player?
-    <a href="https://listen.streamaudio.co/proxy/mackinthedark/stream"
-       target="_blank" rel="noopener noreferrer">Open the live stream</a>
+    <a
+      href="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+      target="_blank"
+      rel="noopener noreferrer">
+      Open the live stream
+    </a>
   </p>
 
-  <!-- NAVIGATION LINKS -->
   <div class="hero-links">
     <a class="button outline" href="/watch">Whats New</a>
     <a class="button outline" href="https://radiomeltdown.online/" target="_blank" rel="noopener">Events</a>
     <a class="button outline" href="https://radiomeltdown.com/artists/">Featured Artists</a>
   </div>
 
-
-<main>
-
-  
+</section>
 
 <!-- FEATURED -->
+
 <section class="section" id="featured">
   <div class="wrap">
     <div class="label">STV Network originals</div>
     <h2>Featured.</h2>
     <p class="lede">New music, original stories and services from the SanecaTV network.</p>
+
     <div class="grid">
+
       <div class="card">
-  <span class="tag">Channel 6 · Arcade</span>
-  <h3>GARDEN OF TERROR</h3>
-  <p>Enter the battleground. Choose your fighter, challenge the competition, and survive the garden.</p>
-  <a class="more" href="https://garden-of-terror.vercel.app/" target="_blank" rel="noopener">Enter Garden of Terror</a>
-</div>
+        <span class="tag">Channel 6 · Arcade</span>
+        <h3>GARDEN OF TERROR</h3>
+        <p>Enter the battleground. Choose your fighter, challenge the competition, and survive the garden.</p>
+        <a class="more" href="https://garden-of-terror.vercel.app/" target="_blank" rel="noopener">Enter Garden of Terror</a>
+      </div>
+
       <div class="card">
         <span class="tag">New music</span>
         <h3>CRUIZN: Emil D. Gordon Sr. feat. Risk</h3>
         <p>The latest single from STV artist Emil D. Gordon Sr., now streaming.</p>
         <a class="more" href="https://radiomeltdown.com/emilgordonsr-static/" target="_blank" rel="noopener">View artist page</a>
       </div>
+
       <div class="card">
         <span class="tag">Podcast</span>
         <h3>I’m Off My Meds</h3>
         <p>The unfiltered SanecaTV podcast, available on Spotify.</p>
         <a class="more" href="https://open.spotify.com/show/3lxIO679bCt15UJ3jUUYXV" target="_blank" rel="noopener">Listen on Spotify</a>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- SHOWS -->
+
 <section class="section" id="shows">
   <div class="wrap">
     <div class="label">Programming</div>
     <h2>Shows &amp;<br>Segments.</h2>
+
     <div class="shows">
-      <div class="show"><div class="n">01</div><div><h3>The Live Show</h3><div class="host">With Seneca Mack and friends</div><p>Interviews, cooking, garden life and more.</p></div><div class="when">Live</div></div>
-      <div class="show"><div class="n">02</div><div><h3>Timeout Sports Talk</h3><div class="host">Saneca and friends</div><p>Live audience sports talk with polls, live chat and audience votes synced in real time.</p></div><div class="when">Live event show</div></div>
-      <div class="show"><div class="n">03</div><div><h3>Moments In Music | Slept On</h3><div class="host">Features</div><p>Underground spotlight on indie and slept-on artists pushing culture forward from the margins.</p></div><div class="when">On demand</div></div>
-      <div class="show"><div class="n">04</div><div><h3>Lost in the Sauce</h3><div class="host">The Static · Deep Cuts</div><p>The tracks the world walked right past. Full-catalog deep dives into Rick James, Parliament and more.</p></div><div class="when"><a href="https://youtube.com/playlist?list=PLQ9p6GARi5fD6uTCIuUC17ZQA7KN_wkm4" target="_blank" rel="noopener">Watch</a></div></div>
-      <div class="show"><div class="n">05</div><div><h3>I’m Off My Meds</h3><div class="host">Podcast</div><p>New episodes on Spotify.</p></div><div class="when"><a href="https://open.spotify.com/show/3lxIO679bCt15UJ3jUUYXV" target="_blank" rel="noopener">Listen</a></div></div>
+
+      <div class="show">
+        <div class="n">01</div>
+        <div>
+          <h3>The Live Show</h3>
+          <div class="host">With Seneca Mack and friends</div>
+          <p>Interviews, cooking, garden life and more.</p>
+        </div>
+        <div class="when">Live</div>
+      </div>
+
+      <div class="show">
+        <div class="n">02</div>
+        <div>
+          <h3>Timeout Sports Talk</h3>
+          <div class="host">Saneca and friends</div>
+          <p>Live audience sports talk with polls, live chat and audience votes synced in real time.</p>
+        </div>
+        <div class="when">Live event show</div>
+      </div>
+
+      <div class="show">
+        <div class="n">03</div>
+        <div>
+          <h3>Moments In Music | Slept On</h3>
+          <div class="host">Features</div>
+          <p>Underground spotlight on indie and slept-on artists pushing culture forward from the margins.</p>
+        </div>
+        <div class="when">On demand</div>
+      </div>
+
+      <div class="show">
+        <div class="n">04</div>
+        <div>
+          <h3>Lost in the Sauce</h3>
+          <div class="host">The Static · Deep Cuts</div>
+          <p>The tracks the world walked right past. Full-catalog deep dives into Rick James, Parliament and more.</p>
+        </div>
+        <div class="when">
+          <a href="https://youtube.com/playlist?list=PLQ9p6GARi5fD6uTCIuUC17ZQA7KN_wkm4" target="_blank" rel="noopener">Watch</a>
+        </div>
+      </div>
+
+      <div class="show">
+        <div class="n">05</div>
+        <div>
+          <h3>I’m Off My Meds</h3>
+          <div class="host">Podcast</div>
+          <p>New episodes on Spotify.</p>
+        </div>
+        <div class="when">
+          <a href="https://open.spotify.com/show/3lxIO679bCt15UJ3jUUYXV" target="_blank" rel="noopener">Listen</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
 <!-- VIDEO -->
+
 <section class="section" id="watch-clips">
   <div class="wrap">
     <div class="label">Promos &amp; highlights</div>
     <h2>Watch.</h2>
+
     <div class="videos">
+
       <div>
-        <div class="video"><iframe src="https://www.youtube.com/embed/UFHOsQ_msNE" title="Slept On: G4E Souljah" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video">
+          <iframe
+            src="https://www.youtube.com/embed/UFHOsQ_msNE"
+            title="Slept On: G4E Souljah"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
         <p class="cap">Slept On: G4E Souljah, indie feature</p>
       </div>
+
       <div>
-        <div class="video"><iframe src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H" title="The Static on YouTube" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video">
+          <iframe
+            src="https://www.youtube.com/embed/videoseries?list=PLQ9p6GARi5fDbBC-zfAVIv3-C64qefM_H"
+            title="The Static on YouTube"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
         <p class="cap">The Static on YouTube, full playlist</p>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- ARTIST -->
+
 <section class="section" id="artist">
   <div class="wrap">
     <div class="label">Artist spotlight</div>
     <h2>Featured on<br>Radio Meltdown.</h2>
+
     <div class="artist">
       <div class="avatar" aria-hidden="true">DM</div>
+
       <div>
         <h3>DJ Mackinthedark</h3>
         <div class="role">Creator of LOVE&amp;CO · Detroit, MI</div>
+
         <p><em>ADHD on Wax. Sound Without Borders.</em></p>
+
         <p>DJ Mackinthedark is the creator of LOVE&amp;CO and the kind of artist who doesn’t ask permission from a genre. A proud member of The Switchblades out of Detroit, she built her sound the hard way: by feeling it out, blending the unexpected and refusing to let any single box hold her.</p>
-        <div class="chips"><span>LOVE&amp;CO</span><span>The Switchblades</span><span>Detroit</span><span>Genre-bending</span></div>
+
+        <div class="chips">
+          <span>LOVE&amp;CO</span>
+          <span>The Switchblades</span>
+          <span>Detroit</span>
+          <span>Genre-bending</span>
+        </div>
+
         <a class="button outline" href="https://youtube.com/playlist?list=PLQ9p6GARi5fCwyLtEjrVWXyPXLzExEhTw" target="_blank" rel="noopener">Watch LOVE&amp;CO</a>
       </div>
     </div>
@@ -424,46 +1096,67 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 </section>
 
 <!-- THE STATIC -->
+
 <section class="static-section" id="static">
   <div class="label">Culture · Commentary · Perspective</div>
   <h2>The<br>Static.</h2>
+
   <p class="lede">Not everything deserves a reaction. Some things deserve a closer look.</p>
+
   <div class="cover">
     <p><strong>Issue 02 cover story:</strong> The Bass Line That Built G-Funk. Tony “T Money” Green and the Detroit sound that changed everything.</p>
   </div>
+
   <a class="button" href="https://radiomeltdown.com/NewsStory">Read The Static</a>
+
   <div id="soro-blog"></div>
-  <script src="https://app.trysoro.com/api/embed/e784e64f-d930-4b03-a371-5e21786ec534" defer></script>
+
+  <script
+    src="https://app.trysoro.com/api/embed/e784e64f-d930-4b03-a371-5e21786ec534"
+    defer>
+  </script>
 </section>
 
-<!-- SUBMISSIONS + SPONSOR -->
+<!-- SUBMISSIONS AND SPONSOR -->
+
 <section class="section" id="submissions">
   <div class="wrap split">
+
     <div>
       <div class="label">Submissions</div>
       <h2>Put It<br>On Our Radar.</h2>
       <p class="lede">Music, stories, creative projects, press releases and ideas. Want free radio play? Send it over.</p>
       <a class="button" href="mailto:press@radiomeltdown.com?subject=Radio%20Meltdown%20Submission">Submit Your Work</a>
     </div>
+
     <div class="card">
       <span class="tag">Proud sponsor</span>
       <h3>Give-a-Gift Non-Profit</h3>
       <p>Give-a-Gift is a 501(c)(3) non-profit supporting community growth in technology by empowering creatives and supporting artists in tech.</p>
       <a class="more" href="mailto:press@radiomeltdown.com">Contact us</a>
     </div>
+
   </div>
 </section>
 
 <!-- TRAVEL -->
+
 <section class="section" id="travel">
   <div class="wrap">
     <div class="label">Faire Fare Travels</div>
     <h2>Travel<br>With Us.</h2>
+
     <div class="travel">
-      <img src="https://fairefaretravels.github.io/agent-sanecamack/fairefaretravels1.jpeg" alt="Faire Fare Travels" loading="lazy">
+
+      <img
+        src="https://fairefaretravels.github.io/agent-sanecamack/fairefaretravels1.jpeg"
+        alt="Faire Fare Travels"
+        loading="lazy">
+
       <div>
         <h3>Go further. Spend smarter.</h3>
         <p>Curated flights, hotels and all-inclusive escapes without the markup, built for people who move with intention.</p>
+
         <div class="pills">
           <a href="https://expedia.com/affiliates/fair_fare_travels" target="_blank" rel="noopener">Flights via Expedia</a>
           <a href="https://www.hotels.com/affiliates/fair_fare_travels" target="_blank" rel="noopener">Hotels.com</a>
@@ -472,85 +1165,196 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
           <a href="https://radiomeltdown.com/group-planner" target="_blank" rel="noopener">Group planner</a>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
+
 <section class="section about" id="about">
   <div class="wrap">
     <div class="label">Behind the frequency</div>
     <h2>About.</h2>
+
     <p>I’m MACKINTHEDARK. <strong>Radio Meltdown</strong> is a space for music, independent voices, culture and creative expression. This is where the music plays, the conversations happen and the signal stays independent.</p>
+
     <p>SanecaTV Radiomeltdown is an independent broadcast network operating out of the <strong>G4E Movement Studio in Lithonia, Georgia</strong>, under the Saneca TV LLC umbrella. Established in 2021, it has been a platform for indie artists, underground talent and community voices from day one.</p>
+
     <p>Our mission is simple: give independent artists a platform, give the community a voice, and keep the frequency live.</p>
   </div>
 </section>
 
 <!-- CONTACT -->
+
 <section class="section" id="contact">
   <div class="wrap">
     <div class="label">Get in touch</div>
     <h2>Contact.</h2>
+
     <p class="lede">For business inquiries, collaborations, bookings, press and general questions.</p>
+
     <div class="contact-row">
       <a class="button" href="mailto:press@radiomeltdown.com">Email Radio Meltdown</a>
       <a class="button outline" href="tel:4707742370">Call 470-774-2370</a>
     </div>
   </div>
 </section>
+
 </main>
 
-<a class="booking-floater" href="https://radiomeltdown.online/" target="_blank" rel="noopener">Booking / Events</a>
+<!-- BOOKING FLOATER -->
+
+<a
+  class="booking-floater"
+  href="https://radiomeltdown.online/"
+  target="_blank"
+  rel="noopener">
+  Booking / Events
+</a>
+
+<!-- FOOTER -->
 
 <footer class="site-footer">
   <span>Radio Meltdown</span>
   <span>MACKINTHEDARK · Lithonia, GA</span>
-  <span>© <span id="year"></span> · We support the underdogs · <a href="https://radiomeltdown.com">radiomeltdown.com</a></span>
+  <span>
+    © <span id="year"></span> · We support the underdogs ·
+    <a href="https://radiomeltdown.com">radiomeltdown.com</a>
+  </span>
 </footer>
 
+<script>
 
-  
-  <script>
-    // TICKER
-    var t = document.getElementById("ticker");
-    if (t) t.innerHTML += t.innerHTML;
+/* TICKER */
 
-    // FOOTER YEAR
-    var year = document.getElementById("year");
-    if (year) year.textContent = new Date().getFullYear();
+const ticker = document.getElementById("ticker");
 
-    // HERO SLIDESHOW
-    const slides = document.querySelectorAll('.hero-slide');
-    let currentSlide = 0;
+if (ticker) {
+  ticker.innerHTML += ticker.innerHTML;
+}
 
-    function showNextSlide() {
-      if (!slides.length) return;
+/* FOOTER YEAR */
 
-      const previous = slides[currentSlide];
-      previous.classList.remove('active');
+const year = document.getElementById("year");
 
-      if (previous.tagName === 'VIDEO') {
-        previous.pause();
+if (year) {
+  year.textContent = new Date().getFullYear();
+}
+
+/* HERO SLIDESHOW */
+
+const slides = document.querySelectorAll(".hero-slide");
+let currentSlide = 0;
+
+function showNextSlide() {
+
+  if (!slides.length) return;
+
+  const previous = slides[currentSlide];
+
+  previous.classList.remove("active");
+
+  if (previous.tagName === "VIDEO") {
+    previous.pause();
+  }
+
+  currentSlide = (currentSlide + 1) % slides.length;
+
+  const next = slides[currentSlide];
+
+  next.classList.add("active");
+
+  if (next.tagName === "VIDEO") {
+    next.currentTime = 0;
+
+    next.play().catch(() => {});
+  }
+}
+
+if (slides.length > 1) {
+  setInterval(showNextSlide, 7000);
+}
+
+/* RADIO PLAYER */
+
+const stationAudio = document.getElementById("stationAudio");
+const radioPlay = document.getElementById("radioPlay");
+const radioStatus = document.getElementById("radioStatus");
+
+if (stationAudio && radioPlay && radioStatus) {
+
+  radioPlay.addEventListener("click", async () => {
+
+    if (stationAudio.paused) {
+
+      radioStatus.textContent = "CONNECTING...";
+      radioPlay.disabled = true;
+
+      try {
+
+        await stationAudio.play();
+
+        radioPlay.textContent = "PAUSE STATION";
+        radioPlay.setAttribute("aria-pressed", "true");
+        radioStatus.textContent = "LIVE ON AIR";
+
+      } catch (error) {
+
+        radioStatus.textContent = "CONNECTION FAILED. TRY AGAIN.";
+        radioPlay.textContent = "PLAY STATION";
+        radioPlay.setAttribute("aria-pressed", "false");
+
+      } finally {
+
+        radioPlay.disabled = false;
+
       }
 
-      currentSlide = (currentSlide + 1) % slides.length;
+    } else {
 
-      const next = slides[currentSlide];
-      next.classList.add('active');
+      stationAudio.pause();
 
-      if (next.tagName === 'VIDEO') {
-        next.currentTime = 0;
-        next.play().catch(() => {});
-      }
+      radioPlay.textContent = "PLAY STATION";
+      radioPlay.setAttribute("aria-pressed", "false");
+      radioStatus.textContent = "STATION PAUSED";
+
     }
 
-    if (slides.length > 1) {
-      setInterval(showNextSlide, 7000);
-    }
-  </script>
+  });
 
-</main>
+  stationAudio.addEventListener("waiting", () => {
+    radioStatus.textContent = "BUFFERING...";
+  });
+
+  stationAudio.addEventListener("playing", () => {
+    radioStatus.textContent = "LIVE ON AIR";
+  });
+
+  stationAudio.addEventListener("pause", () => {
+
+    radioPlay.textContent = "PLAY STATION";
+    radioPlay.setAttribute("aria-pressed", "false");
+
+    if (radioStatus.textContent === "LIVE ON AIR") {
+      radioStatus.textContent = "STATION PAUSED";
+    }
+
+  });
+
+  stationAudio.addEventListener("error", () => {
+
+    radioStatus.textContent = "STREAM UNAVAILABLE";
+    radioPlay.textContent = "PLAY STATION";
+    radioPlay.setAttribute("aria-pressed", "false");
+
+  });
+
+}
+
+</script>
+
 </body>
 </html>
+
 
