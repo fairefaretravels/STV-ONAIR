@@ -54,25 +54,31 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 .radio-help a{color:var(--white);text-decoration:underline;text-decoration-color:#777;text-underline-offset:4px}
 .hero-links{margin-top:34px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-.hero {
+.hero-image {
   position: relative;
-  overflow: hidden;
+  z-index: 1;
+  filter: grayscale(100%);
 }
 
 .hero::after {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1000px, 88%);
+  height: 560px;
   pointer-events: none;
   z-index: 2;
+  opacity: .25;
 
-  background:
-    repeating-linear-gradient(
-      transparent 0px,
-      rgba(255,255,255,.08) 1px,
-      transparent 2px,
-      transparent 4px
-    );
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    rgba(255,255,255,.12) 1px,
+    transparent 2px,
+    transparent 4px
+  );
 
   animation: scan 8s linear infinite;
 }
@@ -197,6 +203,27 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+  #soro-blog {
+  font-size: 15px;
+  letter-spacing: normal;
+  word-spacing: normal;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+#soro-blog * {
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  line-height: 1.6;
+}
+
+#soro-blog a {
+  display: inline-block;
+  color: #111 !important;
+  text-decoration: underline;
 }
 </style>
 </head>
