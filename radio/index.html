@@ -54,6 +54,34 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 .radio-help a{color:var(--white);text-decoration:underline;text-decoration-color:#777;text-underline-offset:4px}
 .hero-links{margin-top:34px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+
+  background:
+    repeating-linear-gradient(
+      transparent 0px,
+      rgba(255,255,255,.08) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  from { background-position: 0 0; }
+  to { background-position: 0 100px; }
+}
+
 /* SECTIONS */
 .section{padding:95px 8%;border-top:1px solid var(--line)}
 .wrap{max-width:1000px;margin:0 auto}
@@ -128,6 +156,48 @@ h1{font-size:clamp(46px,9vw,112px);line-height:.92;letter-spacing:-4px;font-weig
 .show{grid-template-columns:36px 1fr}.show .when{grid-column:2;text-align:left}
 }
 @media (prefers-reduced-motion:reduce){.ticker-track{animation:none}html{scroll-behavior:auto}}
+
+/* SORO BLOG RESET */
+#soro-blog {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 35px auto;
+  padding: 20px 0;
+  overflow: hidden;
+  color: #111;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  text-align: left;
+}
+
+#soro-blog * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+#soro-blog p {
+  display: block;
+  line-height: 1.6;
+  margin: 12px 0;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+#soro-blog h1,
+#soro-blog h2,
+#soro-blog h3 {
+  line-height: 1.2;
+  white-space: normal;
+  word-break: normal;
+}
+
+#soro-blog img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 </style>
 </head>
 <body>
