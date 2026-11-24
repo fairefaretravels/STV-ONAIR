@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+
+  <title>Radio Meltdown | MACKINTHEDARK</title>
+  <meta name="description" content="Radio Meltdown. Music, culture, conversation and more. MACKINTHEDARK.">
+
+  <style>
+    :root {
+      --black: #080808;
+      --white: #f5f5f2;
+      --gray: #999;
+      --line: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 6%;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 3px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 24px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .nav a:hover,
+    .text-link:hover {
+      opacity: .55;
+    }
+
+    .hero {
+      padding: 65px 6% 80px;
+      text-align: center;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+      margin-bottom: 45px;
+    }
+
+    .eyebrow {
+      color: var(--gray);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 9vw, 112px);
+      line-height: .92;
+      letter-spacing: -5px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+      color: var(--gray);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin: 24px 0 30px;
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      padding: 15px 25px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: 1px solid var(--white);
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .button:hover {
+      background: transparent;
+      color: var(--white);
+    }
+
+    .button-outline {
+      background: transparent;
+      color: var(--white);
+    }
+
+    .button-outline:hover {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    .radio-player {
+      max-width: 540px;
+      margin: 40px auto 0;
+      padding: 25px;
+      border: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .player-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--gray);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .player-title {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    audio {
+      width: 100%;
+      height: 38px;
+      filter: grayscale(1);
+    }
+
+    .section {
+      padding: 75px 8%;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-number {
+      color: var(--gray);
+      font-size: 10px;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    .section h2 {
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: 1;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .section p {
+      max-width: 650px;
+      color: #bdbdbd;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    .section-content {
+      max-width: 850px;
+    }
+
+    .static-section {
+      background: var(--white);
+      color: var(--black);
+      text-align: center;
+      padding: 90px 8%;
+    }
+
+    .static-section .section-number,
+    .static-section p {
+      color: #555;
+    }
+
+    .static-section h2 {
+      font-size: clamp(45px, 9vw, 100px);
+      font-weight: 900;
+      letter-spacing: -5px;
+      line-height: .9;
+      margin-bottom: 30px;
+    }
+
+    .static-section .button {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+
+    .static-section .button:hover {
+      background: transparent;
+      color: var(--black);
+    }
+
+    .booking-floater {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 20;
+      background: var(--white);
+      color: var(--black);
+      padding: 14px 18px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 20px #0008;
+    }
+
+    .booking-floater:hover {
+      background: #ccc;
+    }
+
+    .site-footer {
+      padding: 35px 6%;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: var(--gray);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      .site-header {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 40px 5% 60px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .section {
+        padding: 60px 7%;
+      }
+
+      .static-section h2 {
+        letter-spacing: -2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <a class="brand" href="#home">RADIO MELTDOWN</a>
+
+    <nav class="nav">
+      <a href="#radio">Radio</a>
+      <a href="/watch/">TV</a>
+      <a href="#static">The Static</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+      <img
+        class="hero-image"
+        src="/stvlogo1.jpeg"
+        alt="Radio Meltdown"
+      >
+
+      <div class="eyebrow">Independent Radio · Music · Culture</div>
+
+      <h1>Radio<br>Meltdown.</h1>
+
+      <div class="hero-subtitle">
+        MACKINTHEDARK
+      </div>
+
+      <a class="button" href="#radio">Listen Live</a>
+
+      <div class="radio-player" id="radio">
+        <div class="player-label">Now Broadcasting</div>
+        <div class="player-title">RADIO MELTDOWN</div>
+
+        <audio controls preload="none">
+          <source
+            src="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+            type="audio/mpeg"
+          >
+          Your browser does not support the audio player.
+        </audio>
+      </div>
+
+      <p style="margin: 22px auto 0; color: #888; font-size: 11px;">
+        Having trouble with the player?
+        <a
+          class="text-link"
+          href="https://listen.streamaudio.co/proxy/mackinthedark/stream"
+          target="_blank"
+          rel="noopener"
+          style="text-decoration: underline;"
+        >Open the live stream</a>
+      </p>
+
+      <div style="margin-top: 25px;">
+        <a class="button button-outline" href="/watch/">Watch STV</a>
+      </div>
+
+    </section>
+
+    <!-- SUBMISSIONS -->
+    <section class="section" id="submissions">
+      <div class="section-content">
+        <div class="section-number">01 / SUBMISSIONS</div>
+        <h2>Put It<br>On Our Radar.</h2>
+
+        <p>
+          Music, stories, creative projects, press releases and ideas.
+          Send your submissions to Radio Meltdown.
+        </p>
+
+        <a
+          class="button"
+          href="mailto:press@radiomeltdown.com?subject=Radio%20Meltdown%20Submission"
+        >
+          Submit Your Work
+        </a>
+      </div>
+    </section>
+
+    <!-- SUMO ARTICLE -->
+    <section class="section" id="sumo">
+      <div class="section-content">
+        <div class="section-number">02 / FEATURED READING</div>
+        <h2>SUMO</h2>
+
+        <p>
+          Stories, perspectives and conversations worth reading.
+          Explore the SUMO article.
+        </p>
+
+        <!-- Replace # with the article URL when ready. -->
+        <a class="button button-outline" href="#" aria-label="Read the SUMO article">
+          Read Article
+        </a>
+      </div>
+    </section>
+
+    <!-- THE STATIC -->
+    <section class="static-section" id="static">
+      <div class="section-number">03 / CULTURE · COMMENTARY · PERSPECTIVE</div>
+
+      <h2>THE<br>STATIC.</h2>
+
+      <p style="margin: 0 auto 28px;">
+        Not everything deserves a reaction. Some things deserve a closer look.
+      </p>
+
+      <a
+        class="button"
+        href="https://radiomeltdown.com/NewsStory"
+      >
+        Explore The Static
+      </a>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="section-content">
+        <div class="section-number">04 / BEHIND THE FREQUENCY</div>
+        <h2>About Me.</h2>
+
+        <p>
+          I'm MACKINTHEDARK. Radio Meltdown is a space for music,
+          independent voices, culture and creative expression.
+        </p>
+
+        <p>
+          This is where the music plays, the conversations happen
+          and the signal stays independent.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="section-content">
+        <div class="section-number">05 / GET IN TOUCH</div>
+        <h2>Contact.</h2>
+
+        <p>
+          For business inquiries, collaborations, bookings,
+          press and general questions.
+        </p>
+
+        <a
+          class="button"
+          href="mailto:press@radiomeltdown.com"
+        >
+          Email Radio Meltdown
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <a
+    class="booking-floater"
+    href="https://radiomeltdown.online/"
+    target="_blank"
+    rel="noopener"
+  >
+    Booking / Events
+  </a>
+
+  <footer class="site-footer">
+    <span>RADIO MELTDOWN</span>
+    <span>MACKINTHEDARK</span>
+    <span>© <span id="year"></span></span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
